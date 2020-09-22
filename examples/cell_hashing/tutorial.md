@@ -9,7 +9,7 @@ Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3
 
 ## Preparation
 
-Download fastq files (https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2895283).
+Download fastq files ([NCBI GEO](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2895283)).
 
 ```shell
 $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
@@ -166,7 +166,7 @@ The generated feature count matrix can be easily imported into well-established 
 ```shell
 $ fba count \
     -i feature_barcoding_output.tsv.gz \
-        -o matrix_featurecount.csv.gz \
+    -o matrix_featurecount.csv.gz \
     -ul 10 \
     -us 16 \
     -um 1 \

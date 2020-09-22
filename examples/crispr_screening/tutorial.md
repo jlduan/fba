@@ -101,7 +101,7 @@ This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit 
     <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='300'/>
 </p>
 
-As for read 2, based on per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually [Template Switch Oligo (TSO) sequence](https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf). Staring from bases 32, it seems there are two genotypes for the reads we have sampled.
+As for read 2, based on per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually [Template Switch Oligo (TSO) sequence](https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf). Staring from base 32, it seems there are two genotypes for the reads we have sampled.
 
 <p align='center'>
     <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='700'/>
