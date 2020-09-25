@@ -176,23 +176,27 @@ $ fba count \
 Result summary.
 
 ```shell
-2020-09-17 12:13:27,692 - fba.count - INFO - UMI-tools version: 1.0.1
-2020-09-17 12:13:27,692 - fba.count - INFO - UMI-tools deduplication method: directional
-2020-09-17 12:13:27,692 - fba.count - INFO - UMI-tools deduplication threshold: 1
-2020-09-17 12:13:27,693 - fba.count - INFO - UMI length: 10
-2020-09-17 12:13:27,736 - fba.count - INFO - UMI starting position on read 1: 16
-2020-09-17 12:17:24,691 - fba.count - INFO - Number of lines processed: 72,281,743
-2020-09-17 12:17:24,850 - fba.count - INFO - Number of cell barcodes detected: 64,815
-2020-09-17 12:17:24,851 - fba.count - INFO - Number of features detected: 8
-2020-09-17 12:31:34,527 - fba.count - INFO - Total UMIs after deduplication: 18,490,434
-2020-09-17 12:31:34,640 - fba.count - INFO - Median number of UMIs per cell: 65.0
+2020-09-24 08:40:59,832 - fba.__main__ - INFO - Initiating logging ...
+2020-09-24 08:40:59,832 - fba.__main__ - INFO - Python version: 3.7
+2020-09-24 08:40:59,832 - fba.__main__ - INFO - Using count subcommand ...
+2020-09-24 08:40:59,832 - fba.count - INFO - UMI-tools version: 1.0.1
+2020-09-24 08:40:59,832 - fba.count - INFO - UMI-tools deduplication method: directional
+2020-09-24 08:40:59,832 - fba.count - INFO - UMI-tools deduplication threshold: 1
+2020-09-24 08:40:59,832 - fba.count - INFO - UMI length: 10
+2020-09-24 08:40:59,835 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+2020-09-24 08:40:59,835 - fba.count - INFO - UMI starting position on read 1: 16
+2020-09-24 08:44:49,684 - fba.count - INFO - Number of lines processed: 67,978,937
+2020-09-24 08:44:49,842 - fba.count - INFO - Number of cell barcodes detected: 64,997
+2020-09-24 08:44:49,842 - fba.count - INFO - Number of features detected: 8
+2020-09-24 08:59:31,320 - fba.count - INFO - Total UMIs after deduplication: 17,029,753
+2020-09-24 08:59:31,432 - fba.count - INFO - Median number of UMIs per cell: 63.0
 ```
 
 <br>
 
 ## Demultiplexing
 
-Cells are classified based on feature count matrix. The method used is described in [Stoeckius et al. 2018](https://doi.org/10.1186/s13059-018-1603-1) with small modifications.
+Cells are classified based on feature count matrix. The method 1 is implemented based on the method described in [Stoeckius et al. (2018)](https://doi.org/10.1186/s13059-018-1603-1) with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive.
 
 ```shell
 $ fba demultiplex \
@@ -202,7 +206,7 @@ $ fba demultiplex \
 ```
 
 
-Heatmap of relative expressions of features across all cells.
+Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 <p align='center'>
     <img src='Pyplot_heatmap_cells_demultiplexed.png' alt='' width='700'/>
 </p>

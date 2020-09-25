@@ -36,7 +36,7 @@ $ tar zxvf SC3_v3_NextGem_DI_CRISPR_10K_raw_feature_bc_matrix.tar.gz
 Inspect cell barcodes.
 
 ```shell
-$ gzip -dc  filtered_feature_bc_matrix/barcodes.tsv.gz | head
+$ gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz | head
 
 AAACCCACACATAGCT-1
 AAACCCACATCATGAC-1
@@ -213,17 +213,18 @@ Result summary.
 
 ## Demultiplexing
 
-Cells are classified based on feature count matrix. The method used is described in [Stoeckius et al. 2018](https://doi.org/10.1186/s13059-018-1603-1) with small modifications.
+Cells are classified based on feature count matrix. The method 1 is implemented based on the method described in [Stoeckius et al. (2018)](https://doi.org/10.1186/s13059-018-1603-1) with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use `-q` to set the threshold.
 
 ```shell
 $ fba demultiplex \
     -i matrix_featurecount.csv.gz \
     --output_directory demultiplexed \
-    -m 1
+    -m 1 \
+    -q 0.95
 ```
 
 
-Heatmap of relative expressions of features across all cells.
+Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 <p align='center'>
     <img src='Pyplot_heatmap_cells_demultiplexed.png' alt='' width='700'/>
 </p>

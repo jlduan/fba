@@ -36,7 +36,7 @@ $ tar zxvf SC3_v3_NextGem_DI_PBMC_CSP_1K_raw_feature_bc_matrix.tar.gz
 Inspect cell barcodes.
 
 ```shell
-$ gzip -dc  filtered_feature_bc_matrix/barcodes.tsv.gz | head
+$ gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz | head
 
 AAACCCAGTACCAGAG-1
 AAACGCTTCGGTCTGG-1
