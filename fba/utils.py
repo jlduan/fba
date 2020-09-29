@@ -25,6 +25,7 @@ def open_by_suffix(file_name, mode='r'):
 
 def open_by_magic(file_name):
     """Opens file based on magic."""
+
     magic_dict = {'\x1f\x8b\x08': (gzip.open, 'rb'),
                   '\x42\x5a\x68': (bz2.BZ2File, 'r')}
 
@@ -51,7 +52,7 @@ def get_binary_path(binary_name):
     Returns
     -------
     str
-        The location of the executable.
+        The path and name of the executable.
 
     Raises
     ------
@@ -112,7 +113,7 @@ def get_logger(logger_name, log_file=False):
 
 
 def parse_bowtie2_version():
-    """Parses bowtie2 version"""
+    """Parses bowtie2 version."""
 
     cmd = [get_binary_path(binary_name='bowtie2'), '--version']
     outs, _ = run_executable(cmd_line=cmd)
@@ -121,7 +122,7 @@ def parse_bowtie2_version():
 
 
 def parse_samtools_version():
-    """Parses samtools version"""
+    """Parses samtools version."""
 
     cmd = [get_binary_path(binary_name='samtools'), '--version']
     outs, _ = run_executable(cmd_line=cmd)
