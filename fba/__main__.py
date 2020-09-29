@@ -2,6 +2,7 @@
 
 import sys
 import numpy as np
+import pandas as pd
 from pathlib import Path
 from fba.utils import open_by_suffix, get_logger
 from fba.parsers import parse_args
@@ -11,7 +12,11 @@ from fba.map import map_feature_barcoding
 from fba.filter import filter_matching
 from fba.count import generate_matrix
 from fba.demultiplex import demultiplex_feature_barcoding
-from fba.qc import summarize_sequence_content, summarize_barcode_positions
+from fba.qc import (
+    summarize_sequence_content,
+    summarize_barcode_positions,
+    analyze_bulk
+)
 from fba.kallisto import run_kallisto
 
 
@@ -34,6 +39,7 @@ def main():
                 ░
     """
     logger.info(banner)
+    # print(banner)
 
     logger.info('Initiating logging ...')
     logger.info(
@@ -180,6 +186,7 @@ def main():
         _ = demultiplex_feature_barcoding(
             matrix_featurecount_file=args.input,
             output_directory=args.output_directory,
+            q=args.quantile,
             seed=42
         )
         logger.info('Done.')
@@ -187,48 +194,95 @@ def main():
     elif (args.command == 'qc'):
         logger.info('Using qc subcommand ...')
 
-        _ = summarize_sequence_content(read1_file=args.read1,
-                                       read2_file=args.read2,
-                                       num_reads=args.num_reads,
-                                       output_directory=args.output_directory)
+        if args.num_reads.isdigit():
+            num_reads = int(args.num_reads)
+        elif args.num_reads.upper() == 'NONE':
+            num_reads = None
+        else:
+            sys.exit(1)
 
-        OUTPUT_FILE = 'feature_barcoding_output.tsv.gz'
-        OUTPUT_FILE = str(Path(args.output_directory) / OUTPUT_FILE)
+        if args.read1:
+            _ = summarize_sequence_content(
+                read1_file=args.read1,
+                read2_file=args.read2,
+                num_reads=num_reads,
+                output_directory=args.output_directory
+            )
 
-        with open_by_suffix(file_name=OUTPUT_FILE, mode='w') as f:
+            OUTPUT_FILE = 'feature_barcoding_output.tsv.gz'
+            OUTPUT_FILE = str(Path(args.output_directory) / OUTPUT_FILE)
+            with open_by_suffix(file_name=OUTPUT_FILE, mode='w') as f:
 
-            f.write('\t'.join(
-                [
-                    'read1_seq',
-                    'cell_barcode',
-                    'cb_matching_pos',
-                    'cb_matching_description',
-                    'read2_seq',
-                    'feature_barcode',
-                    'fb_matching_pos',
-                    'fb_matching_description'
-                ]
-            ) + '\n')
+                f.write('\t'.join(
+                    [
+                        'read1_seq',
+                        'cell_barcode',
+                        'cb_matching_pos',
+                        'cb_matching_description',
+                        'read2_seq',
+                        'feature_barcode',
+                        'fb_matching_pos',
+                        'fb_matching_description'
+                    ]
+                ) + '\n')
 
-            for out in extract_feature_barcoding(
-                    read1_file=args.read1,
-                    read2_file=args.read2,
-                    cb_file=args.whitelist,
-                    fb_file=args.feature_ref,
-                    cb_num_mismatches=3,  # args.cell_barcode_mismatches,
-                    fb_num_mismatches=3,  # args.feature_barcode_mismatches,
-                    cb_num_n_threshold=np.Inf,
-                    fb_num_n_threshold=np.Inf,
-                    read1_coords=args.read1_coords,
-                    read2_coords=args.read2_coords,
-                    num_threads=args.threads,
-                    chunk_size=args.chunk_size,
-                    num_reads=args.num_reads):
+                for out in extract_feature_barcoding(
+                        read1_file=args.read1,
+                        read2_file=args.read2,
+                        cb_file=args.whitelist,
+                        fb_file=args.feature_ref,
+                        cb_num_mismatches=args.cell_barcode_mismatches,
+                        fb_num_mismatches=args.feature_barcode_mismatches,
+                        cb_num_n_threshold=np.Inf,
+                        fb_num_n_threshold=np.Inf,
+                        read1_coords=args.read1_coords,
+                        read2_coords=args.read2_coords,
+                        num_threads=args.threads,
+                        chunk_size=args.chunk_size,
+                        num_reads=num_reads):
 
-                f.write(out + '\n')
+                    f.write(out + '\n')
 
-        _ = summarize_barcode_positions(matching_file=OUTPUT_FILE,
-                                        output_directory=args.output_directory)
+            _ = summarize_barcode_positions(
+                matching_file=OUTPUT_FILE,
+                output_directory=args.output_directory)
+
+        else:
+            logger.info('Bulk mode enabled: '
+                        'only feature barcodes on reads 2 are analyzed')
+            if not args.read2_coords:
+                logger.critical('Please specify "-r2_coords" in bulk mode')
+                sys.exit(1)
+
+            logger.info(
+                'Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"'
+            )
+
+            fb_frequency = analyze_bulk(
+                read2_file=args.read2,
+                read2_coords=args.read2_coords,
+                fb_file=args.feature_ref,
+                num_mismatches=args.feature_barcode_mismatches,
+                num_n_threshold=3,
+                num_threads=args.threads,
+                chunk_size=args.chunk_size,
+                num_reads=num_reads
+            )
+
+            OUTPUT_FILE = 'feature_barcode_frequency.csv'
+            OUTPUT_FILE = str(Path(args.output_directory) / OUTPUT_FILE)
+            logger.info(f'Output file: {OUTPUT_FILE}')
+
+            fb_frequency = pd.DataFrame.from_dict(
+                data=fb_frequency,
+                orient='index',
+                columns=['num_reads']).sort_values(
+                by='num_reads',
+                ascending=False
+            )
+            fb_frequency['percentage'] = fb_frequency['num_reads'] / sum(
+                fb_frequency['num_reads'])
+            fb_frequency.to_csv(path_or_buf=OUTPUT_FILE)
         logger.info('Done.')
 
     elif (args.command == 'kallisto_wrapper'):
