@@ -1,11 +1,14 @@
 # qc.py
 
-from fba.utils import open_by_suffix, get_logger
-from Bio.SeqIO.QualityIO import FastqGeneralIterator
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pathlib import Path
+from Bio.SeqIO.QualityIO import FastqGeneralIterator
+from itertools import islice, repeat
+from multiprocessing import Pool
+from fba.utils import open_by_suffix, get_logger
+from fba.polyleven import match_barcodes_polyleven
 
 
 logger = get_logger(logger_name=__name__)
@@ -13,24 +16,41 @@ logger = get_logger(logger_name=__name__)
 
 params = {'pdf.fonttype': 42,
           'mathtext.default': 'regular',
-          'axes.axisbelow': True
-          }
+          'axes.axisbelow': True}
 plt.rcParams.update(params)
 
 
 def plot_sequence_content(read_composition, title,
                           nucleotide_dict, ax, nucleotides='ACGT'):
-    """Plots per base composition."""
+    """Plots per base composition.
+
+    Parameters
+    ----------
+    read_composition : DataFrame
+        A DataFraem of per base content. Index is read coordinate. Columns are
+        nucleotides in the order of ACGTN.
+    title : str
+        The title for the generated plot.
+    nucleotide_dict : dict
+        Color for each base.
+    ax : Axes
+        Axes for plotting.
+    nucleotides : str, optional
+        Selected nucleotides to visualize.
+
+    Returns
+    -------
+    Axes
+        Distribution of sequence content per base.
+    """
 
     p_handles = list()
     for i in list(nucleotides):
 
-        p = ax.plot(
-            read_composition.index.values,
-            read_composition[i],
-            c=nucleotide_dict[i],
-            linewidth=1
-        )
+        p = ax.plot(read_composition.index.values,
+                    read_composition[i],
+                    c=nucleotide_dict[i],
+                    linewidth=1)
         p_handles.append(p[0])
 
     ax.legend(handles=p_handles,
@@ -56,21 +76,38 @@ def plot_sequence_content(read_composition, title,
 
 
 def plot_barcode_startend(s, e, bases, title, ax):
-    """Plots barcode starting and ending positions."""
+    """Plots barcode starting and ending positions.
+
+    Parameters
+    ----------
+    s : Series
+        The percentage of starting positions on each base. The length equals
+        e and bases.
+    e : Series
+        The percentage of ending positions on each base. The length equals
+        s and bases.
+    bases : Array
+        The bases of reads.
+    title : str
+        The title for the generated plot.
+    ax: Axes
+        Axes for plotting.
+
+    Returns
+    -------
+    Axes
+        Distribution of barcode starting and ending positions on reads.
+    """
 
     assert len(s) == len(bases)
-    ax.bar(
-        x=bases,
-        height=s,
-        bottom=0
-    )
+    ax.bar(x=bases,
+           height=s,
+           bottom=0)
 
     assert len(e) == len(bases)
-    ax.bar(
-        x=bases,
-        height=e,
-        bottom=s
-    )
+    ax.bar(x=bases,
+           height=e,
+           bottom=s)
 
     ax.set_title(label=title, fontsize=7)
     ax.tick_params(labelsize=6, labelcolor='black', direction='out')
@@ -88,13 +125,32 @@ def plot_barcode_startend(s, e, bases, title, ax):
 
 def summarize_sequence_content(read1_file,
                                read2_file,
-                               num_reads=100_000,
+                               num_reads=None,
                                output_directory='qc'):
-    """Summarizes per base content."""
+    """Summarizes per base content for reads 1 and reads 2.
+
+    Parameters
+    ----------
+    read1_file : str
+        The path and name of read 1 file.
+    read2_file : str
+        The path and name of read 2 file.
+    num_reads : int, optional
+        Number of reads to analyze.
+    output_directory : str, optional
+        The path and name for the output directory.
+
+    Returns
+    -------
+    str
+        The path and name for the output directory.
+    """
 
     logger.info('Summarizing per base read content ...')
     if num_reads:
         logger.info(f'Number of reads to analyze: {num_reads:,}')
+    else:
+        logger.info('Number of reads to analyze: all')
     logger.info(f'Output directory: {output_directory}')
 
     # read1
@@ -114,16 +170,27 @@ def summarize_sequence_content(read1_file,
     read1_iter = FastqGeneralIterator(open_by_suffix(file_name=read1_file))
     read2_iter = FastqGeneralIterator(open_by_suffix(file_name=read2_file))
 
+    def _get_sequence(read1_iter, read2_iter):
+        """Gets sequences."""
+
+        for (_, read1_seq, _), (_, read2_seq, _) in zip(read1_iter,
+                                                        read2_iter):
+            yield read1_seq, read2_seq
+
+    _reads = islice(
+        _get_sequence(read1_iter, read2_iter),
+        0,
+        num_reads
+    )
+
     counter = 0
-    for (_, read1_seq, _), (_, read2_seq, _) in zip(read1_iter,
-                                                    read2_iter):
+    for read1_seq, read2_seq in _reads:
         counter += 1
 
-        if counter <= num_reads:
-            read1_matrix.append(read1_seq)
-            read2_matrix.append(read2_seq)
-        else:
-            break
+        read1_matrix.append(read1_seq)
+        read2_matrix.append(read2_seq)
+
+    logger.info(f'Number of reads processed: {counter:,}')
 
     read1_matrix = np.array([list(i) for i in read1_matrix])
     read2_matrix = np.array([list(i) for i in read2_matrix])
@@ -196,7 +263,20 @@ def summarize_sequence_content(read1_file,
 
 
 def summarize_barcode_positions(matching_file, output_directory='qc'):
-    """Summarizes barcode positions."""
+    """Summarizes barcode positions for reads 1 and reads 2.
+
+    Parameters
+    ----------
+    matching_file : str
+        The path and name of matching result.
+    output_directory : str, optional
+        The path and name for the output directory.
+
+    Returns
+    -------
+    str
+        The path and name for the output directory.
+    """
 
     logger.info('Summarizing barcode coordinates ...')
     logger.info(f'Output directory: {output_directory}')
@@ -344,3 +424,121 @@ def summarize_barcode_positions(matching_file, output_directory='qc'):
                 transparent=None, bbox_inches='tight')
 
     return output_directory
+
+
+def analyze_bulk(read2_file,
+                 read2_coords,
+                 fb_file,
+                 num_mismatches=3,
+                 num_n_threshold=3,
+                 num_threads=1,
+                 chunk_size=10000,
+                 num_reads=None):
+    """Searches feature barcodes on reads 2 and generates matrix.
+
+    Parameters
+    ----------
+    read2_file : str
+        The path and name of read 2 file.
+    read2_coords : tuple or list
+        The positions on read 2 to search.
+    fb_file : str
+        The path and name of feature barcoding file.
+    num_mismatches : int, optional
+        Maximum levenshtein distance allowed.
+    num_n_threshoold : int, optional
+        Maximum Ns allowed for reads.
+    num_threads : int, optional
+        Number of threads to use for searching.
+    chunk_size : int, optional
+        Chunk size for multiprocessing.
+    num_reads ; int, optional
+        Number of reads to analyze.
+
+    Returns
+    -------
+    dict
+        Count and frequency of each feature barcode in the provided fastq file.
+    """
+
+    logger.info('Using polyleven method ...')
+    logger.info(f'Read 2 coordinates to search: {read2_coords}')
+
+    with open_by_suffix(file_name=fb_file) as f:
+        feature_barcodes = [i.rstrip().replace('\t', '_') for i in f]
+    feature_barcode_dict = {i: int() for i in feature_barcodes}
+
+    logger.info('Number of feature barcodes expected: '
+                f'{len(feature_barcode_dict):,}')
+    logger.info(
+        f'Feature barcode maximum number of mismatches: {num_mismatches}')
+    logger.info(
+        f'Read 2 maximum number of N allowed: {num_n_threshold}')
+
+    if num_reads:
+        logger.info(f'Number of reads to analyze: {num_reads:,}')
+    else:
+        logger.info('Number of reads to analyze: all')
+
+    logger.info(f'Number of threads: {num_threads}')
+    if num_threads > 1:
+        logger.info(f'Chunk size: {chunk_size:,}')
+
+    read2_iter = FastqGeneralIterator(open_by_suffix(file_name=read2_file))
+
+    def _get_sequence(read_iter):
+        """Gets sequences."""
+        for (_, read_seq, _) in read_iter:
+            yield read_seq
+
+    _reads = islice(
+        _get_sequence(read2_iter),
+        0,
+        num_reads
+    )
+
+    logger.info('Matching ...')
+
+    if num_threads == 1:
+        counter = int()
+
+        for read2_seq in _reads:
+            counter += 1
+            out = match_barcodes_polyleven(read_seq=read2_seq,
+                                           barcodes=feature_barcodes,
+                                           read_coords=read2_coords,
+                                           num_mismatches=num_mismatches,
+                                           num_n_threshold=num_n_threshold)
+            if out:
+                feature_barcode_dict[out[1]] += 1
+
+    else:
+        items = list(islice(_reads, chunk_size))
+
+        counter = len(items)
+        with Pool(processes=num_threads) as p:
+
+            while items:
+                outs = p.starmap(
+                    match_barcodes_polyleven,
+                    zip(items,
+                        repeat(feature_barcodes),
+                        repeat(read2_coords),
+                        repeat(num_mismatches),
+                        repeat(num_n_threshold))
+                )
+
+                for i in outs:
+                    if i:
+                        feature_barcode_dict[i[1]] += 1
+
+                items = list(islice(_reads, chunk_size))
+                counter += len(items)
+
+    logger.info(f'Number of reads processed: {counter:,}')
+    logger.info(
+        'Number of reads with valid feature barcodes: '
+        f'{sum(feature_barcode_dict.values()):,}'
+    )
+
+    return feature_barcode_dict
