@@ -2,6 +2,7 @@
 
 import re
 import sys
+# import hdbscan
 import numpy as np
 import pandas as pd
 import scipy.sparse
@@ -11,8 +12,10 @@ import seaborn as sns
 from pyclustering.cluster.kmedoids import kmedoids
 from sklearn.preprocessing import StandardScaler
 from pathlib import Path
+# from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
-from .utils import get_logger
+from fba.utils import get_logger
+# import umap
 
 
 logger = get_logger(logger_name=__name__)
@@ -20,8 +23,7 @@ logger = get_logger(logger_name=__name__)
 
 params = {'pdf.fonttype': 42,
           'mathtext.default': 'regular',
-          'axes.axisbelow': True
-          }
+          'axes.axisbelow': True}
 plt.rcParams.update(params)
 
 
@@ -31,8 +33,7 @@ def normalize_clr(x):
     return np.log1p(x / (np.exp(sum(np.log1p(x[x > 0])) / len(x))))
 
 
-def get_cell_identity(x,
-                      barcodes):
+def get_cell_identity(x, barcodes):
     """."""
 
     if sum(x) == 1:
@@ -45,7 +46,7 @@ def get_cell_identity(x,
     return cell_identity
 
 
-def cluster(m, seed=42):
+def cluster_kmedoids(m, seed=42):
     """."""
 
     np.random.seed(seed=seed)
@@ -62,24 +63,61 @@ def cluster(m, seed=42):
         ccore=True)
 
     kmedoids_instance.process()
-
     clusters_kmedoids = kmedoids_instance.get_clusters()
 
     return clusters_kmedoids
 
 
-def demultiplex(m, seed=42, q=99.5):
+"""
+def cluster_hdbscan(m, min_cluster_size=30, seed=42):
+
+    np.random.seed(seed=seed)
+
+    m = m.apply(normalize_clr, axis=1)
+    m = StandardScaler(
+        copy=True,
+        with_mean=True,
+        with_std=True).fit_transform(m)
+
+    clusters_assigned = hdbscan.HDBSCAN(
+        min_cluster_size=100,
+        min_samples=None,
+        metric='euclidean',
+        alpha=1.0,
+        p=None,
+        algorithm='best',
+        leaf_size=40,
+        approx_min_span_tree=True,
+        gen_min_span_tree=False,
+        core_dist_n_jobs=4,
+        cluster_selection_method='eom',
+        allow_single_cluster=False,
+        prediction_data=False,
+        match_reference_implementation=False).fit(
+            m.T).labels_
+
+    clusters_hdbscan = list()
+    for i in np.unique(clusters_assigned):
+        idx, = np.where(clusters_assigned == i)
+        clusters_hdbscan.append(idx)
+
+    return clusters_hdbscan
+"""
+
+
+def demultiplex(m, q1=99.5, q2=0.9999, seed=42):
     """."""
 
     m_identity = np.zeros_like(m)
 
-    c = cluster(m, seed=seed)
+    c = cluster_kmedoids(m, seed=seed)
 
     m_feature_avg = pd.DataFrame(
         data=np.zeros(
             shape=[m.shape[0], len(c)],
             dtype=np.float, order='C'),
-        index=m.index)
+        index=m.index
+    )
 
     for index, value in enumerate(c):
         m_feature_avg.iloc[:, index] = m.iloc[:, value].mean(axis=1).values
@@ -93,7 +131,7 @@ def demultiplex(m, seed=42, q=99.5):
         cells_selected_counts = m.iloc[index, cells_selected].values
         cells_selected_counts = cells_selected_counts[
             cells_selected_counts < np.percentile(a=cells_selected_counts,
-                                                  q=q)]
+                                                  q=q1)]
 
         mod_nbin = sm.NegativeBinomial(endog=cells_selected_counts,
                                        exog=np.ones(
@@ -105,7 +143,7 @@ def demultiplex(m, seed=42, q=99.5):
         mu = np.exp(mu)
         size = 1 / alpha * mu ** 0
         prob = size / (size + mu)
-        count_cutoff = scipy.stats.nbinom.ppf(q=0.99, n=size, p=prob)
+        count_cutoff = scipy.stats.nbinom.ppf(q=q2, n=size, p=prob)
         # print(value, ':', count_cutoff)
 
         m_identity[index, m.iloc[index, :] >= count_cutoff] = 1
@@ -161,7 +199,8 @@ def prepare_heatmap_matrix(m_identity,
     heatmap_limits = np.percentile(
         a=heatmap_matrix,
         q=[percentile_low,
-           percentile_high])
+           percentile_high]
+    )
 
     heatmap_matrix[heatmap_matrix < heatmap_limits[0]] = heatmap_limits[0]
     heatmap_matrix[heatmap_matrix > heatmap_limits[1]] = heatmap_limits[1]
@@ -222,29 +261,43 @@ def plot_heatmap_features_selected(heatmat_matrix,
     return ax
 
 
-def prepare_embeddings(cells,
-                       m,
-                       seed):
+def prepare_embedding(cells,
+                      m,
+                      seed=42):
     """Embeds cells."""
 
     # t-SNE
-    embedding_tsne = TSNE(n_components=2,
-                          perplexity=30.0,
-                          early_exaggeration=12.0,
-                          learning_rate=200.0,
-                          n_iter=3000,
-                          n_iter_without_progress=300,
-                          min_grad_norm=1e-07,
-                          metric='euclidean',
-                          init='random',
-                          verbose=0,
-                          random_state=seed,
-                          method='barnes_hut',
-                          angle=0.5).fit_transform(m.loc[:, cells].T)
+    embedding_tsne = TSNE(
+        n_components=2,
+        perplexity=30.0,
+        early_exaggeration=12.0,
+        learning_rate=200.0,
+        n_iter=1000,
+        n_iter_without_progress=300,
+        min_grad_norm=1e-07,
+        metric='euclidean',
+        init='random',
+        verbose=0,
+        random_state=seed,
+        method='barnes_hut',
+        angle=0.5).fit_transform(m.loc[:, cells].T)
 
     embedding = pd.DataFrame(embedding_tsne,
                              columns=['x_tsne', 'y_tsne'],
                              index=cells)
+    """
+    embedding_umap = umap.UMAP(
+        n_neighbors=10,
+        min_dist=0.1,
+        n_components=2,
+        metric='euclidean',
+        random_state=seed,
+        verbose=True).fit_transform(m.loc[:, cells].T)
+
+    embedding = pd.DataFrame(embedding_umap,
+                             columns=['x_umap', 'y_umap'],
+                             index=cells)
+    """
 
     return embedding
 
@@ -327,6 +380,7 @@ def plot_embedding(embedding,
 
 def demultiplex_feature_barcoding(matrix_featurecount_file,
                                   output_directory='demultiplexed',
+                                  q=0.9999,
                                   seed=42):
     """."""
 
@@ -334,6 +388,8 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
     output_directory.mkdir(exist_ok=True)
 
     CELLS_DEMULTIPLEXED_FILE = output_directory / 'cells_demultiplexed.csv'
+    MATRIX_CELL_IDENTITY = output_directory / 'matrix_cell_identity.csv.gz'
+
     CELLS_DEMULTIPLEXED_HEATMAP_PLOT = output_directory / \
         'Pyplot_heatmap_cells_demultiplexed.pdf'
 
@@ -346,12 +402,14 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
     logger.info(f'Loading feature count matrix: {matrix_featurecount_file}')
 
     matrix_featurecount = pd.read_csv(
-        filepath_or_buffer='matrix_featurecount.csv.gz',
+        # filepath_or_buffer='matrix_featurecount.csv.gz',
+        filepath_or_buffer=matrix_featurecount_file,
         index_col=0
     )
-    matrix_featurecount.index = [re.sub(
-        pattern='_[A-Za-z]{1,}$', repl='', string=i)
-        for i in matrix_featurecount.index]
+    matrix_featurecount.index = [
+        re.sub(pattern='_[A-Za-z]{1,}$', repl='', string=i)
+        for i in matrix_featurecount.index
+    ]
 
     # matrix_featurecount = matrix_featurecount.loc[
     #     matrix_featurecount.sum(axis=1) >= 300]
@@ -365,9 +423,10 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
 
     try:
         cells_demultiplexed, m_identity = demultiplex(m=matrix_featurecount,
-                                                      seed=seed,
-                                                      q=99)
-        cells_demultiplexed.to_csv(CELLS_DEMULTIPLEXED_FILE)
+                                                      q1=99,
+                                                      q2=q,
+                                                      seed=seed)
+        cells_demultiplexed.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_FILE)
     except ValueError as err:
         logger.critical(
             'This demultiplexing method '
@@ -375,11 +434,10 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         )
         sys.exit(1)
 
-    m_identity = pd.DataFrame(
-        m_identity,
-        index=matrix_featurecount.index,
-        columns=matrix_featurecount.columns
-    )
+    m_identity = pd.DataFrame(m_identity,
+                              index=matrix_featurecount.index,
+                              columns=matrix_featurecount.columns)
+    m_identity.to_csv(path_or_buf=MATRIX_CELL_IDENTITY, compression='infer')
 
     # heatmap
     logger.info('Generating heatmap ...')
@@ -408,12 +466,13 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
     cells_embedding = cells_demultiplexed.index[
         cells_demultiplexed['category'] != 'negative']
 
-    embedding = prepare_embeddings(
+    embedding = prepare_embedding(
         cells=cells_embedding,
         m=matrix_featurecount.apply(normalize_clr, axis=1),
-        seed=seed)
+        seed=seed
+    )
     embedding['category'] = cells_demultiplexed.loc[embedding.index]
-    embedding.to_csv(CELLS_DEMULTIPLEXED_EMBEDDING_FILE)
+    embedding.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_EMBEDDING_FILE)
 
     fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 3))
     plot_embedding(embedding=embedding,

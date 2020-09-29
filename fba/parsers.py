@@ -3,7 +3,7 @@
 import sys
 import argparse
 from itertools import chain
-from . import __version__
+from fba import __version__
 
 
 def coords(s):
@@ -107,8 +107,8 @@ def add_extract_subparser(subparsers):
         dest='cell_barcode_mismatches',
         required=False,
         type=int,
-        default=2,
-        help='specify cell barcode mismatching threshold. The default is 2'
+        default=1,
+        help='specify cell barcode mismatching threshold. The default is 1'
     )
 
     parser.add_argument(
@@ -117,8 +117,8 @@ def add_extract_subparser(subparsers):
         dest='feature_barcode_mismatches',
         required=False,
         type=int,
-        default=2,
-        help='specify feature barcode mismatching threshold. The default is 2'
+        default=1,
+        help='specify feature barcode mismatching threshold. The default is 1'
     )
 
     parser.add_argument(
@@ -338,8 +338,8 @@ def add_map_subparser(subparsers):
         dest='num_n_ref',
         required=False,
         type=int,
-        default=100,
-        help='specify the number of Ns to separate sequences belonging to the same feature. The default is 100'
+        default=0,
+        help='specify the number of Ns to separate sequences belonging to the same feature. The default is 0'
     )
 
 
@@ -590,6 +590,15 @@ def add_demultiplex_subparser(subparsers):
         help='specify demultiplexing method. \'1\': Stoeckius et al. 2018. The default is 1'
     )
 
+    parser.add_argument(
+        '-q',
+        dest='quantile',
+        required=False,
+        type=float,
+        default=0.9999,
+        help='specify quantile for the probability mass function (0.9 to 1 recommended). The default is 0.9999'
+    )
+
 
 def add_qc_subparser(subparsers):
     parser = subparsers.add_parser(
@@ -601,7 +610,7 @@ def add_qc_subparser(subparsers):
         '-1',
         '--read1',
         dest='read1',
-        required=True,
+        required=False,
         type=str,
         help='specify fastq file for read 1'
     )
@@ -612,13 +621,13 @@ def add_qc_subparser(subparsers):
         dest='read2',
         required=True,
         type=str,
-        help='specify fastq file for read 2'
+        help='specify fastq file for read 2. If only read 2 file is provided, bulk mode is enabled (skipping arguments \'-1\', \' -w\', \'-cb_m\', \'-r1_coords\', must provide \'-r2_coords\' and \'-fb_m\'). In bulk mode, reads 2 will be searched against reference feature barcodes and read count for each feature barcode will be summarized'
     )
 
     parser.add_argument(
         '-w', '--whitelist',
         dest='whitelist',
-        required=True,
+        required=False,
         type=str,
         help='specify a whitelist of accepted cell barcodes'
     )
@@ -649,6 +658,26 @@ def add_qc_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-cb_m',
+        '--cb_mismatches',
+        dest='cell_barcode_mismatches',
+        required=False,
+        type=int,
+        default=3,
+        help='specify cell barcode mismatching threshold. The default is 3'
+    )
+
+    parser.add_argument(
+        '-fb_m',
+        '--fb_mismatches',
+        dest='feature_barcode_mismatches',
+        required=False,
+        type=int,
+        default=3,
+        help='specify feature barcode mismatching threshold. The default is 3'
+    )
+
+    parser.add_argument(
         '-t', '--threads',
         dest='threads',
         required=False,
@@ -661,9 +690,9 @@ def add_qc_subparser(subparsers):
         '-n', '--num_reads',
         dest='num_reads',
         required=False,
-        type=int,
+        # type=int,
         default=100_000,
-        help='specify number of reads for analysis. Set to None will analyze all the reads. The default is 100,000'
+        help='specify number of reads for analysis. Set to \'None\' will analyze all the reads. The default is 100,000'
     )
 
     parser.add_argument(

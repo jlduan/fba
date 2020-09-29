@@ -1,7 +1,7 @@
 # filter.py
 
 import regex
-from .utils import open_by_suffix, get_logger
+from fba.utils import open_by_suffix, get_logger
 
 
 logger = get_logger(logger_name=__name__)
@@ -15,7 +15,7 @@ def compile_regex_ref_barcodes_single(sequence, num_mismatches=1):
     sequence : str
         A DNA string.
     num_mismatches: int, optional
-        The fuzziness level, the maximum number of errors allowed.
+        The fuzziness level, the maximum errors allowed.
 
     Returns
     -------
@@ -54,13 +54,13 @@ def is_matched(x,
         position is determined based on the expected barcode starting postion
         and its length.
     sequence_regex: regex pattern, optional
-        A compiled regex pattern of addtional constant sequecne to search on
+        A compiled regex pattern of additional constant sequecne to search on
         read.
 
     Returns
     -------
     bool
-        Whether this matching passed filter or not.
+        Whether this matching passes filter or not.
 
     Notes
     -----
@@ -134,7 +134,6 @@ def filter_matching(matching_file,
 
     with open_by_suffix(file_name=matching_file) as f:
         header_line = next(f).rstrip().split('\t')
-        # logger.info(f'Header line: {header_line}')
         logger.info('Header line: {}'.format(' '.join(header_line)))
         logger.info(
             f'Cell barcode maximum number of mismatches: {cb_num_mismatches}')
@@ -142,7 +141,7 @@ def filter_matching(matching_file,
                      + f'{fb_num_mismatches}'))
 
         with open_by_suffix(file_name=filtered_matching_file, mode='w') as fo:
-            fo.write('\t'.join(header_line))
+            fo.write('\t'.join(header_line) + '\n')
 
             counter = [int(), int()]
 

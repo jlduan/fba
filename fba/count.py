@@ -5,7 +5,7 @@ import pandas as pd
 from umi_tools import UMIClusterer
 from umi_tools import __version__ as umi_tools_version
 from collections import Counter
-from .utils import open_by_suffix, get_logger
+from fba.utils import open_by_suffix, get_logger
 
 
 logger = get_logger(logger_name=__name__)
@@ -20,15 +20,15 @@ def generate_matrix(matching_file,
 
     Parameters
     ----------
-    matching_file : string
-        The path of the matching result file.
+    matching_file : str
+        The path and name of matching result file.
     umi_length : int, optional
         The length of UMI on read 1 after cell barcode. The default is 12.
     umi_pos_start : int, optional
         The starting coordiate of UMI on read 1. If the input matching result
-        is from the regex method of extract or map subcommand, the staring
+        is from the regex method of extract subcommand, the staring
         coordinate will be auto determined.
-    umi_pos_start : string, optional
+    umi_deduplication_method : str, optional
         The UMI dedupliation method used in UMI-tools
         (Smith, T., et al. (2017). Genome Res. 27, 491–499.).
         See https://cgatoxford.wordpress.com/2015/08/14/unique-molecular-identifiers-the-problem-the-solution-and-the-proof
@@ -38,7 +38,7 @@ def generate_matrix(matching_file,
     Returns
     -------
     DataFrame
-        A pandas DataFrame of feature count table. The columns are cells and
+        A pandas DataFrame of feature count. The columns are cells and
         the rows are features.
     """  # noqa
 

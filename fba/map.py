@@ -22,15 +22,16 @@ from fba.utils import (
     parse_bowtie2_version,
     parse_samtools_version
 )
+from fba import __version__
 
 
 logger = get_logger(logger_name=__name__)
 
 
-def match_cell_barcodes_polyleven(reads,
-                                  barcodes,
-                                  read1_coords,
-                                  num_mismatches=3):
+def match_cell_barcodes_polyleven2(reads,
+                                   barcodes,
+                                   read1_coords,
+                                   num_mismatches=3):
     """Matches cell barcodes.
 
     Parameters
@@ -38,11 +39,27 @@ def match_cell_barcodes_polyleven(reads,
     reads : tuple or list
         Read pair info (read_name, read1_seq, read2_seq, read2_qual).
     barcodes : tuple or list
-        A list of known cell barcodes.
+        A list of barcodes to compare against.
     read1_coords : tuple or list
-        The part of read 1 to compare against cell barcodes.
+        The positions of read 1 to compare against cell barcodes.
     num_mismatches : int, optional
         Maximum levenshtein distance allowd.
+
+    Returns
+    -------
+    read_name : str
+        The input read name.
+    read1_seq : str
+        The input read 1 DNA string.
+    read2_seq : str
+        The input read 2 DNA string.
+    read2_qual : str
+        The input read 2 quality string.
+    bc : str
+        Matched barcode.
+    dist : int, optional
+        The calculated levenshtein distance between input read 1
+        and matched barcode.
     """
 
     read_name, read1_seq, read2_seq, read2_qual = reads
@@ -62,22 +79,28 @@ def match_cell_barcodes_polyleven(reads,
 
 
 def compose_aln(x):
-    """Composes alignment."""
+    """Composes unaligned alignment.
+
+    Parameters
+    ----------
+    x : tuple or list
+        A cell barcode matching result.
+        The output of \'match_cell_barcodes_polyleven2\' function.
+
+    Returns
+    -------
+    AlignedSegment
+        Unaligned read 2 with cell barcode matching result as tags.
+    """
 
     read_name, read1_seq, read2_seq, read2_qual, bc, dist = x
 
     a = pysam.AlignedSegment()
     a.query_name = read_name.split(' ')[0]
-    a.flag = 4
-    a.reference_id = 0
-    a.reference_start = 0
-    a.mapping_quality = 0
-    a.next_reference_id = 0
-    a.next_reference_start = 0
-    a.template_length = 0
+    a.flag = 0x4
+    a.template_length = len(read2_seq)
 
     a.query_sequence = read2_seq
-    a.cigar = ((5, len(read2_seq)),)
     a.query_qualities = pysam.qualitystring_to_array(read2_qual)
 
     tags = [
@@ -96,14 +119,43 @@ def generate_unaligned_bam(read1_file,
                            cb_file,
                            fb_file,
                            unaligned_bam_file,
-                           unaligned_sorted_bam_file,
                            read1_coords,
                            num_mismatches=3,
-                           num_n_threshold=3,
-                           num_n=100,
+                           # num_n_threshold=3,
+                           num_n=0,
                            num_threads=1,
                            chunk_size=1000):
-    """Matches cell barcodes and generates unalignmed bam."""
+    """Matches cell barcodes and generates unaligned bam.
+
+    Parameters
+    ----------
+    read1_file : str
+        The path and name of read 1 file.
+    read2_file : str
+        The path and name of read 2 file.
+    cb_file : str
+        The path and name of cell barcode file.
+    fb_file : str
+        The path and name of feature barcode file.
+    unaligned_bam_file : str
+        The path and name of unaligned file.
+    read1_coords : tuple or list
+        The positions of read 1 to compare against cell barcodes.
+    num_mismatches : int, optional
+        Maximum levenshtein distance allowd.
+    num_n : int, optional
+        Number of Ns to use for separating seqeunces belonging to
+        the same feature. Needed for correctly constructing bam header.
+    num_threads : int, optional
+        Number of threads to use for searching.
+    chunk_size : int, optional
+        Chunk size for multiprocessing.
+
+    Returns
+    -------
+    str
+        The path and name of unaligned file.
+    """
 
     read1_iter = FastqGeneralIterator(open_by_suffix(file_name=read1_file))
     read2_iter = FastqGeneralIterator(open_by_suffix(file_name=read2_file))
@@ -122,13 +174,31 @@ def generate_unaligned_bam(read1_file,
             feature_barcodes[i[0]].append(i[1])
 
     feature_barcodes = [
-        {'LN': len(
-            ('N' * num_n).join(feature_barcodes[i])), 'SN': i}
-        for i in feature_barcodes]
+        {'LN': len(('N' * num_n).join(feature_barcodes[i])), 'SN': i}
+        for i in feature_barcodes
+    ]
+
+    rg = {
+        'ID': 'fba',
+        'LB': 'null',
+        'PL': 'illumina',
+        'PU': 'null',
+        'SM': 'null'
+    }
+
+    pg = {
+        'ID': 'fba',
+        'PN': 'fba',
+        'VN': __version__,
+        'CL': ' '.join(sys.argv)
+    }
 
     fb_bam_header = {
         'HD': {'VN': '1.6'},
-        'SQ': feature_barcodes}
+        'SQ': feature_barcodes,
+        'RG': [rg],
+        'PG': [pg]
+    }
 
     with pysam.AlignmentFile(
             unaligned_bam_file, 'wb', header=fb_bam_header) as outf:
@@ -139,11 +209,12 @@ def generate_unaligned_bam(read1_file,
                 (_, read2_seq, read2_qual) in zip(read1_iter,
                                                   read2_iter):
 
-                out = match_cell_barcodes_polyleven(
+                out = match_cell_barcodes_polyleven2(
                     reads=(read_name, read1_seq, read2_seq, read2_qual),
                     barcodes=cell_barcodes,
                     read1_coords=read1_coords,
-                    num_mismatches=num_mismatches)
+                    num_mismatches=num_mismatches
+                )
 
                 if out:
                     outf.write(compose_aln(out))
@@ -169,7 +240,7 @@ def generate_unaligned_bam(read1_file,
 
                 while items:
                     outs = p.starmap(
-                        match_cell_barcodes_polyleven,
+                        match_cell_barcodes_polyleven2,
                         zip(items,
                             repeat(cell_barcodes),
                             repeat(read1_coords),
@@ -182,12 +253,27 @@ def generate_unaligned_bam(read1_file,
                     items = list(islice(get_sequence(read1_iter, read2_iter),
                                         chunk_size))
 
-    pysam.sort('-n', '-o', unaligned_sorted_bam_file, unaligned_bam_file)
-    return unaligned_sorted_bam_file
+    return unaligned_bam_file
 
 
-def fb2fa_concatenated(x, fasta_file, num_n=100):
-    """Generates feature barcode fasta file."""
+def fb2fa_concatenated(x, fasta_file, num_n=0):
+    """Generates feature barcode fasta file.
+
+    Parameters
+    ----------
+    x : str
+        The path and name of feature barcode file.
+    fasta_file : str
+        The path and name of generated fasta file.
+    num_n : int, optional
+        Number of Ns to use for separating seqeunces belonging to
+        the same feature.
+
+    Returns
+    -------
+    str
+        The path and name of generated fasta file.
+    """
 
     fb = dict()
     with open_by_suffix(file_name=x, mode='r') as f:
@@ -220,9 +306,10 @@ def build_bt2_index(fasta_file,
     return bt2_index_base, errs
 
 
-def align_reads(unaligned_sorted_bam_file,
+def align_reads(unaligned_bam_file,
                 bt2_index_base,
                 alignment_file,
+                temp_prefix,
                 num_threads=1):
     """Aligns unaligned bam file."""
 
@@ -238,12 +325,14 @@ def align_reads(unaligned_sorted_bam_file,
         get_binary_path(binary_name='bowtie2'),
         bowtie2_align_parameter,
         ' '.join(['-x', str(bt2_index_base),
-                  '-b', str(unaligned_sorted_bam_file)]),
+                  '-b', str(unaligned_bam_file)]),
         '|',
         get_binary_path(binary_name='samtools'),
         'view -uS - | ',
         get_binary_path(binary_name='samtools'),
-        'sort -o',
+        'sort -T',
+        temp_prefix,
+        '-o',
         str(alignment_file),
         '-'
     ]
@@ -254,12 +343,39 @@ def align_reads(unaligned_sorted_bam_file,
 
 
 def generate_matrix_from_alignment(alignment_file,
-                                   umi_pos_start,
-                                   umi_length,
-                                   umi_deduplication_method,
+                                   umi_length=12,
+                                   umi_pos_start=16,
+                                   umi_deduplication_method='directional',
                                    umi_deduplication_threshold=1,
                                    mapq=10):
-    """Generates matrix from alignments."""
+    """Generates matrix from alignments.
+
+    Parameters
+    ----------
+    alignment_file : str
+        The path and name of alignment file.
+    umi_length : int, optional
+        The length of UMI on read 1 after cell barcode. The default is 12.
+    umi_pos_start : int, optional
+        The starting coordiate of UMI on read 1. If the input matching result
+        is from the regex method of extract subcommand, the staring
+        coordinate will be auto determined.
+    umi_deduplication_method : str, optional
+        The UMI dedupliation method used in UMI-tools
+        (Smith, T., et al. (2017). Genome Res. 27, 491–499.).
+        See https://cgatoxford.wordpress.com/2015/08/14/unique-molecular-identifiers-the-problem-the-solution-and-the-proof
+    umi_deduplication_threshold : int, optional
+        The mismatch tolerance for UMI deduplication.
+    mapq : int, optional
+        The minimal mapping quality threshod. Alignment with mapq less than
+        this value will be discarded.
+
+    Returns
+    -------
+    DataFrame
+        A pandas DataFrame of feature count. The columns are cells and
+        the rows are features.
+    """  # noqa
 
     matrix_featurecount = {}
     with pysam.AlignmentFile(alignment_file,
@@ -322,14 +438,13 @@ def map_feature_barcoding(read1_file,
     output_directory = Path(output_directory)
     output_directory.mkdir(exist_ok=True)
 
-    FB_FASTA_FILE = str(output_directory / 'feature_barcode_ref.fasta')
-    FEATURE_BARCODE_REF = str(output_directory / 'feature_barcode_ref')
-    FEATURE_BARCODE_INDEX_LOG = str(output_directory / 'bowtie2-build_fb.log')
+    FB_FASTA_FILE = str(output_directory / 'feature_ref.fasta')
+    FEATURE_BARCODE_REF = str(output_directory / 'feature_ref')
+    FEATURE_BARCODE_INDEX_LOG = str(output_directory / 'bowtie2-build.log')
 
-    UNALIGNED_BAM_FILE = str(next(_get_candidate_names()) + '.bam')
-    UNALIGNED_SORTED_BAM_FILE = str(output_directory / 'unaligned_sorted.bam')
+    UNALIGNED_BAM_FILE = str(output_directory / 'unaligned.bam')
     ALIGNMENT_FILE = str(output_directory / 'aligned.bam')
-    ALIGNMENT_LOG = str(output_directory / 'bowtie2_fb.log')
+    ALIGNMENT_LOG = str(output_directory / 'bowtie2.log')
 
     logger.info(f'bowtie2 version: {parse_bowtie2_version()}')
     logger.info(f'samtools version: {parse_samtools_version()}')
@@ -354,7 +469,7 @@ def map_feature_barcoding(read1_file,
     logger.info(f'UMI length: {umi_length}')
     logger.info(f'UMI starting position on read 1: {umi_pos_start}')
 
-    logger.info('Preparing feature barcodes ...')
+    logger.info('Preparing feature references ...')
     fasta_file = fb2fa_concatenated(
         x=fb_file, fasta_file=FB_FASTA_FILE, num_n=num_n_ref)
     feature_barcode_ref, _ = build_bt2_index(
@@ -363,31 +478,31 @@ def map_feature_barcoding(read1_file,
     with open_by_suffix(file_name=FEATURE_BARCODE_INDEX_LOG, mode='w') as f:
         f.write(_)
 
-    logger.info('Matching cell barcodes ...')
-    unaligned_sorted_bam_file = generate_unaligned_bam(
+    logger.info('Matching cell barcodes (read 1) ...')
+    unaligned_bam_file = generate_unaligned_bam(
         read1_file=read1_file,
         read2_file=read2_file,
         cb_file=cb_file,
         fb_file=fb_file,
         unaligned_bam_file=UNALIGNED_BAM_FILE,
-        unaligned_sorted_bam_file=UNALIGNED_SORTED_BAM_FILE,
         read1_coords=read1_coords,
         num_mismatches=num_mismatches,
         num_n=num_n_ref,
         num_threads=num_threads,
         chunk_size=chunk_size
     )
-    pysam.index(unaligned_sorted_bam_file, unaligned_sorted_bam_file + '.bai')
 
-    logger.info('Aligning ...')
+    logger.info('Aligning (read 2) ...')
     alignment_file, _ = align_reads(
-        unaligned_sorted_bam_file=unaligned_sorted_bam_file,
+        unaligned_bam_file=unaligned_bam_file,
         bt2_index_base=feature_barcode_ref,
         alignment_file=ALIGNMENT_FILE,
+        temp_prefix=next(_get_candidate_names()),
         num_threads=num_threads)
     pysam.index(alignment_file, alignment_file + '.bai')
     with open_by_suffix(file_name=ALIGNMENT_LOG, mode='w') as f:
         f.write(_)
+    logger.info(f'\n{_.rstrip()}')
 
     logger.info('Generating matrix (UMI deduplication) ...')
     matrix_featurecount = generate_matrix_from_alignment(
