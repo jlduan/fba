@@ -4,7 +4,7 @@ from Bio.SeqIO.QualityIO import FastqGeneralIterator
 from polyleven import levenshtein
 from itertools import islice, repeat
 from multiprocessing import Pool
-from .utils import open_by_suffix, get_logger
+from fba.utils import open_by_suffix, get_logger
 
 
 logger = get_logger(logger_name=__name__)
@@ -20,34 +20,34 @@ def match_barcodes_polyleven(read_seq,
     Parameters
     ----------
     read_seq : str
-        A string of sequence.
+        A DNA string.
     barcodes : list
         A list of barcodes to compare against.
     read_coords : tuple or list
-        The part of read to compare against barcodes.
+        The positions of read to compare against barcodes.
     num_mismatches : int, optional
         Maximum levenshtein distance allowd.
     num_n_threshold : int, optional
-        Maximum number of N allowd.
+        Maximum Ns allowd.
 
     Returns
     -------
     str
-        A string of sequence.
+        The input DNA string.
     str
         Matched barcode.
     int
-        The calculated levenshtein distance between read and matched barcode.
+        The calculated levenshtein distance between input string
+        and matched barcode.
     """
 
     if read_seq.count('N') <= num_n_threshold:
         x, y = read_coords
 
         for bc in barcodes:
-            dist = levenshtein(
-                read_seq[x:y],
-                bc.split('_')[-1],
-                num_mismatches)
+            dist = levenshtein(read_seq[x:y],
+                               bc.split('_')[-1],
+                               num_mismatches)
 
             if dist <= num_mismatches:
                 break
@@ -69,25 +69,25 @@ def match_barcodes_paired_polyleven(read_seqs,
 
     Parameters
     ----------
-    read_seqs : tuple of two element
-        A pair of reads.
+    read_seqs : tuple or list
+        A pair of DNA strings.
     cell_barcodes : list
-        A list of cell barcodes to compare against.
+        A list of cell barcodes (strings) to compare against.
     feature_barcodes : list
-        A list of feature barcodes to compare against.
+        A list of feature barcodes (strings) to compare against.
     cb_num_mismatches : int, optional
         Maximum levenshtein distance allowd for cell barcode matching.
     fb_num_mismatches : int, optional
         Maximum levenshtein distance allowd for feature barcode matching.
     read1_coords : tuple or list
-        The part of read 1 to compare against cell barcodes.
+        The positions of read 1 to compare against cell barcodes.
     read2_coords : tuple or list
-        The part of read 2 to compare against feature barcodes.
+        The positions of read 2 to compare against feature barcodes.
     cb_num_n_threshold : int, optional
-        Maximum number of N allowd for read 1. Read1 with more Ns than this
+        Maximum Ns allowd for read 1. Read 1 with more Ns than this
         threshold will be skipped.
     fb_num_n_threshold : int, optional
-        Maximum number of N allowd for read 2.
+        Maximum Ns allowd for read 2.
 
     Returns
     -------
@@ -103,7 +103,8 @@ def match_barcodes_paired_polyleven(read_seqs,
         barcodes=cell_barcodes,
         read_coords=read1_coords,
         num_mismatches=cb_num_mismatches,
-        num_n_threshold=cb_num_n_threshold)
+        num_n_threshold=cb_num_n_threshold
+    )
 
     if cb_matched:
         fb_matched = match_barcodes_polyleven(
@@ -111,7 +112,8 @@ def match_barcodes_paired_polyleven(read_seqs,
             barcodes=feature_barcodes,
             read_coords=read2_coords,
             num_mismatches=fb_num_mismatches,
-            num_n_threshold=fb_num_n_threshold)
+            num_n_threshold=fb_num_n_threshold
+        )
 
     if cb_matched and fb_matched:
         x1, y1 = read1_coords
@@ -135,7 +137,6 @@ def match_barcodes_paired_polyleven(read_seqs,
             read2_seq,
             fb,
             fb_dist
-
         ]
 
         return '\t'.join([str(i) for i in out])
@@ -184,9 +185,14 @@ def extract_feature_barcoding_polyleven(read1_file,
 
     logger.info('Matching ...')
 
-    if num_threads == 1:
+    def _get_sequence(read1_iter, read2_iter):
+        """Gets sequences."""
         for (_, read1_seq, _), (_, read2_seq, _) in zip(read1_iter,
                                                         read2_iter):
+            yield read1_seq, read2_seq
+
+    if num_threads == 1:
+        for read1_seq, read2_seq in _get_sequence(read1_iter, read2_iter):
 
             out = match_barcodes_paired_polyleven(
                 read_seqs=(read1_seq, read2_seq),
@@ -203,20 +209,7 @@ def extract_feature_barcoding_polyleven(read1_file,
                 yield out
 
     else:
-        # chunk_size = chunk_size
-
-        def get_sequence(read1_iter, read2_iter):
-            """Gets sequences, a generator."""
-            for (_, read1_seq, _), (_, read2_seq, _) in zip(read1_iter,
-                                                            read2_iter):
-                yield read1_seq, read2_seq
-
-        items = list(
-            islice(
-                get_sequence(read1_iter, read2_iter),
-                chunk_size
-            )
-        )
+        items = list(islice(_get_sequence(read1_iter, read2_iter), chunk_size))
 
         with Pool(processes=num_threads) as p:
 
@@ -237,7 +230,7 @@ def extract_feature_barcoding_polyleven(read1_file,
                 outs = '\n'.join([i for i in outs if i])
                 yield outs
 
-                items = list(islice(get_sequence(read1_iter, read2_iter),
+                items = list(islice(_get_sequence(read1_iter, read2_iter),
                                     chunk_size))
 
 
