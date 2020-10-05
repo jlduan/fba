@@ -24,9 +24,9 @@ setup(
     ],
     python_requires='>=3.6',
     install_requires=[
-        'biopython',
         'regex',
         'polyleven>=0.5',
+        'dnaio',
         'pysam>=0.14.0',
         'pandas',
         'numpy',
@@ -34,7 +34,8 @@ setup(
         'scipy',
         'scikit-learn',
         'statsmodels',
-        'pyclustering'
+        'pyclustering',
+        'matplotlib>=3.3'
     ],
     entry_points={
         'console_scripts': ['fba=fba.__main__:main'],

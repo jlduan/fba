@@ -1,9 +1,9 @@
 # extract.py
 
 import regex
-from Bio.SeqIO.QualityIO import FastqGeneralIterator
+import dnaio
 from itertools import islice, repeat
-from multiprocessing import Pool
+from multiprocessing import Pool, cpu_count
 from fba.utils import open_by_suffix, get_logger
 
 
@@ -221,22 +221,34 @@ def match_barcodes_paired(read_seqs,
     return matching_out
 
 
-def extract_feature_barcoding(read1_file,
-                              read2_file,
-                              cb_file,
-                              fb_file,
-                              cb_num_mismatches,
-                              fb_num_mismatches,
-                              cb_num_n_threshold=2,
-                              fb_num_n_threshold=2,
-                              read1_coords=None,
-                              read2_coords=None,
-                              num_threads=1,
-                              chunk_size=1000,
-                              num_reads=None):
+def extract_feature_barcoding_regex(read1_file,
+                                    read2_file,
+                                    cb_file,
+                                    fb_file,
+                                    cb_num_mismatches,
+                                    fb_num_mismatches,
+                                    cb_num_n_threshold=3,
+                                    fb_num_n_threshold=3,
+                                    read1_coords=None,
+                                    read2_coords=None,
+                                    num_threads=None,
+                                    chunk_size=1000,
+                                    num_reads=None):
     """Extracts feature barcodes."""
 
     logger.info(f'regex version: {regex.__version__}')
+
+    with open_by_suffix(file_name=cb_file) as f:
+        cell_barcodes = [i.split('-')[0].rstrip() for i in f]
+
+    with open_by_suffix(file_name=fb_file) as f:
+        feature_barcodes = {
+            i.rstrip().split('\t')[1]: i.split('\t')[0] for i in f
+        }
+
+    logger.info(f'Number of reference cell barcodes: {len(cell_barcodes):,}')
+    logger.info('Number of refernece feature barcodes: '
+                f'{len(feature_barcodes):,}')
 
     logger.info(
         f'Cell barcode maximum number of mismatches: {cb_num_mismatches}')
@@ -245,31 +257,15 @@ def extract_feature_barcoding(read1_file,
     logger.info(
         f'Read 1 maximum number of N allowed: {cb_num_n_threshold}')
     logger.info(
-        f'Read 2 maximum number of N allowed: {fb_num_n_threshold}')
+        f'Read 2 maximum number of N allowed: {fb_num_n_threshold}'
+    )
 
     if num_reads:
-        logger.info(f'Number of reads to analyze: {num_reads:,}')
+        logger.info(f'Number of read pairs to analyze: {num_reads:,}')
         if chunk_size > num_reads:
             chunk_size = num_reads
     else:
-        logger.info('Number of reads to analyze: all')
-
-    logger.info(f'Number of threads: {num_threads}')
-    if num_threads > 1:
-        logger.info(f'Chunk size: {chunk_size:,}')
-
-    with open_by_suffix(file_name=cb_file) as f:
-        cell_barcodes = [i.split('-')[0].rstrip() for i in f]
-    logger.info('Loading cell barcodes ...')
-    logger.info(f'Number of cell barcodes: {len(cell_barcodes):,}')
-
-    with open_by_suffix(file_name=fb_file) as f:
-        feature_barcodes = {
-            i.rstrip().split('\t')[1]: i.split('\t')[0] for i in f
-        }
-
-    logger.info('Loading feature barcodes ...')
-    logger.info(f'Number of feature barcodes: {len(feature_barcodes):,}')
+        logger.info('Number of read pairs to analyze: all')
 
     cell_barcodes_compiled_exact = compile_regex_ref_barcodes_exact(
         barcodes=cell_barcodes
@@ -294,29 +290,34 @@ def extract_feature_barcoding(read1_file,
     else:
         feature_barcodes_compiled_fuzzy = None
 
-    read1_iter = FastqGeneralIterator(open_by_suffix(file_name=read1_file))
-    read2_iter = FastqGeneralIterator(open_by_suffix(file_name=read2_file))
-
-    def get_sequence(read1_iter, read2_iter,
+    def get_sequence(read1_file, read2_file,
                      read1_coords=read1_coords, read2_coords=read2_coords):
         """Gets sequences."""
 
-        for (_, read1_seq, _), (_, read2_seq, _) in zip(read1_iter,
-                                                        read2_iter):
+        with dnaio.open(file1=read1_file,
+                        file2=read2_file,
+                        fileformat='fastq',
+                        mode='r') as f:
 
-            if read1_coords:
-                r1_start, r1_end = read1_coords
-                r1 = read1_seq[r1_start: min(r1_end, len(read1_seq))]
-            else:
-                r1 = read1_seq
+            for rec in f:
+                read1, read2 = rec
 
-            if read2_coords:
-                r2_start, r2_end = read2_coords
-                r2 = read2_seq[r2_start: min(r2_end, len(read2_seq))]
-            else:
-                r2 = read2_seq
+                read1_seq = read1.sequence
+                read2_seq = read2.sequence
 
-            yield r1, r2, read1_seq, read2_seq
+                if read1_coords:
+                    r1_start, r1_end = read1_coords
+                    r1 = read1_seq[r1_start: min(r1_end, len(read1_seq))]
+                else:
+                    r1 = read1_seq
+
+                if read2_coords:
+                    r2_start, r2_end = read2_coords
+                    r2 = read2_seq[r2_start: min(r2_end, len(read2_seq))]
+                else:
+                    r2 = read2_seq
+
+                yield r1, r2, read1_seq, read2_seq
 
     def _restore_orig_seq(x,
                           read1_coords=read1_coords,
@@ -353,16 +354,29 @@ def extract_feature_barcoding(read1_file,
 
         return '\t'.join(x[:-2])
 
+    if not num_threads:
+        num_threads = cpu_count()
+
+    logger.info(f'Number of threads: {num_threads}')
+    if num_threads > 1:
+        logger.info(f'Chunk size: {chunk_size:,}')
+
     logger.info('Matching ...')
 
     _reads = islice(
-        get_sequence(read1_iter, read2_iter),
+        get_sequence(read1_file, read2_file),
         0,
         num_reads
     )
 
+    read_counter = int()
     if num_threads == 1:
         for r1, r2, read1_seq, read2_seq in _reads:
+
+            read_counter += 1
+            if read_counter % chunk_size == 0:
+                logger.info(f'Read pairs processed: {read_counter:,}')
+
             out = match_barcodes_paired(
                 read_seqs=(r1, r2, read1_seq, read2_seq),
                 cb_compiled_exact=cell_barcodes_compiled_exact,
@@ -383,6 +397,9 @@ def extract_feature_barcoding(read1_file,
 
         with Pool(processes=num_threads) as p:
             while items:
+                read_counter += len(items)
+                logger.info(f'Read pairs processed: {read_counter:,}')
+
                 outs = p.starmap(
                     match_barcodes_paired,
                     zip(items,

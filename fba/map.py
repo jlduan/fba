@@ -2,18 +2,20 @@
 
 import sys
 import pysam
+import dnaio
 import numpy as np
 import pandas as pd
 from pathlib import Path
-from multiprocessing import Pool
-from collections import Counter
+from collections import defaultdict, Counter
 from tempfile import _get_candidate_names
-from polyleven import levenshtein
-from itertools import islice, repeat
-from Bio.SeqIO.QualityIO import FastqGeneralIterator
 from umi_tools import UMIClusterer
 from umi_tools import __version__ as umi_tools_version
 from packaging import version
+from fba.levenshtein import (
+    create_index,
+    query_index,
+    select_query
+)
 from fba.utils import (
     open_by_suffix,
     get_binary_path,
@@ -28,22 +30,27 @@ from fba import __version__
 logger = get_logger(logger_name=__name__)
 
 
-def match_cell_barcodes_polyleven2(reads,
-                                   barcodes,
-                                   read1_coords,
-                                   num_mismatches=3):
+def match_cell_barcodes(reads,
+                        barcode_index,
+                        read_coords,
+                        num_mismatches=1,
+                        num_n_threshold=3):
     """Matches cell barcodes.
 
     Parameters
     ----------
     reads : tuple or list
-        Read pair info (read_name, read1_seq, read2_seq, read2_qual).
-    barcodes : tuple or list
-        A list of barcodes to compare against.
-    read1_coords : tuple or list
-        The positions of read 1 to compare against cell barcodes.
+        Read pair info
+        (read_name, read1_seq, read1_qual, read2_seq, read2_qual).
+    barcode_index : dict
+        A FastSS index of barcodes.
+    read_coords : tuple or list
+        The positions of read to compare against cell barcodes.
     num_mismatches : int, optional
         Maximum levenshtein distance allowd.
+    num_n_threshold : int, optional
+        Maximum Ns allowd for read. Read with more Ns than this
+        threshold will be skipped.
 
     Returns
     -------
@@ -51,31 +58,36 @@ def match_cell_barcodes_polyleven2(reads,
         The input read name.
     read1_seq : str
         The input read 1 DNA string.
+    read1_qual : str
+        The input read 1 quality string.
     read2_seq : str
         The input read 2 DNA string.
     read2_qual : str
         The input read 2 quality string.
     bc : str
         Matched barcode.
-    dist : int, optional
-        The calculated levenshtein distance between input read 1
+    dist : int
+        The calculated levenshtein distance between input read
         and matched barcode.
     """
 
-    read_name, read1_seq, read2_seq, read2_qual = reads
-    x, y = read1_coords
+    read_name, read1_seq, read1_qual, read2_seq, read2_qual = reads
 
-    for bc in barcodes:
-        dist = levenshtein(
-            read1_seq[x:y],
-            bc.split('_')[-1],
-            num_mismatches)
+    if read1_seq.count('N') <= num_n_threshold:
+        x1, y1 = read_coords
 
-        if dist <= num_mismatches:
-            break
+        cb_queries = query_index(read1_seq[x1: y1],
+                                 barcode_index=barcode_index,
+                                 num_mismatches=num_mismatches)
 
-    if dist <= num_mismatches:
-        return read_name, read1_seq, read2_seq, read2_qual, bc, dist
+        cb_matched = select_query(cb_queries,
+                                  read1_seq[x1: y1],
+                                  read1_qual[x1: y1])
+        if cb_matched:
+            bc, dist = cb_matched
+
+            return read_name, read1_seq, read1_qual, \
+                read2_seq, read2_qual, bc, dist
 
 
 def compose_aln(x):
@@ -85,7 +97,7 @@ def compose_aln(x):
     ----------
     x : tuple or list
         A cell barcode matching result.
-        The output of \'match_cell_barcodes_polyleven2\' function.
+        The output of \'match_cell_barcodes\' function.
 
     Returns
     -------
@@ -93,7 +105,7 @@ def compose_aln(x):
         Unaligned read 2 with cell barcode matching result as tags.
     """
 
-    read_name, read1_seq, read2_seq, read2_qual, bc, dist = x
+    read_name, read1_seq, read1_qual, read2_seq, read2_qual, bc, dist = x
 
     a = pysam.AlignedSegment()
     a.query_name = read_name.split(' ')[0]
@@ -120,11 +132,9 @@ def generate_unaligned_bam(read1_file,
                            fb_file,
                            unaligned_bam_file,
                            read1_coords,
-                           num_mismatches=3,
-                           # num_n_threshold=3,
-                           num_n=0,
-                           num_threads=1,
-                           chunk_size=1000):
+                           num_mismatches=1,
+                           num_n_threshold=3,
+                           num_n_ref=0):
     """Matches cell barcodes and generates unaligned bam.
 
     Parameters
@@ -143,13 +153,12 @@ def generate_unaligned_bam(read1_file,
         The positions of read 1 to compare against cell barcodes.
     num_mismatches : int, optional
         Maximum levenshtein distance allowd.
-    num_n : int, optional
+    num_n_threshold : int, optional
+        Maximum Ns allowd for read 1. Read 1 with more Ns than this
+        threshold will be skipped.
+    num_n_ref : int, optional
         Number of Ns to use for separating seqeunces belonging to
         the same feature. Needed for correctly constructing bam header.
-    num_threads : int, optional
-        Number of threads to use for searching.
-    chunk_size : int, optional
-        Chunk size for multiprocessing.
 
     Returns
     -------
@@ -157,11 +166,11 @@ def generate_unaligned_bam(read1_file,
         The path and name of unaligned file.
     """
 
-    read1_iter = FastqGeneralIterator(open_by_suffix(file_name=read1_file))
-    read2_iter = FastqGeneralIterator(open_by_suffix(file_name=read2_file))
-
     cell_barcodes = [i.rstrip().split('-')[0]
                      for i in open_by_suffix(cb_file, mode='r')]
+
+    cb_index = create_index(barcodes=cell_barcodes,
+                            num_mismatches=num_mismatches)
 
     # create bam header
     feature_barcodes = dict()
@@ -174,7 +183,7 @@ def generate_unaligned_bam(read1_file,
             feature_barcodes[i[0]].append(i[1])
 
     feature_barcodes = [
-        {'LN': len(('N' * num_n).join(feature_barcodes[i])), 'SN': i}
+        {'LN': len(('N' * num_n_ref).join(feature_barcodes[i])), 'SN': i}
         for i in feature_barcodes
     ]
 
@@ -200,60 +209,36 @@ def generate_unaligned_bam(read1_file,
         'PG': [pg]
     }
 
+    def _get_sequence(read1_file, read2_file):
+        """Gets sequences and qualities."""
+
+        with dnaio.open(file1=read1_file,
+                        file2=read2_file,
+                        fileformat='fastq',
+                        mode='r') as f:
+            for rec in f:
+                read1, read2 = rec
+
+                yield read1.name, read1.sequence, read1.qualities, \
+                    read2.sequence, read2.qualities
+
+    read_counter = [int(), int()]
     with pysam.AlignmentFile(
             unaligned_bam_file, 'wb', header=fb_bam_header) as outf:
 
-        if num_threads == 1:
+        for i in _get_sequence(read1_file, read2_file):
+            read_counter[1] += 1
 
-            for (read_name, read1_seq, _), \
-                (_, read2_seq, read2_qual) in zip(read1_iter,
-                                                  read2_iter):
+            out = match_cell_barcodes(reads=i,
+                                      barcode_index=cb_index,
+                                      read_coords=read1_coords,
+                                      num_mismatches=num_mismatches,
+                                      num_n_threshold=num_n_threshold)
+            if out:
+                read_counter[0] += 1
+                outf.write(compose_aln(out))
 
-                out = match_cell_barcodes_polyleven2(
-                    reads=(read_name, read1_seq, read2_seq, read2_qual),
-                    barcodes=cell_barcodes,
-                    read1_coords=read1_coords,
-                    num_mismatches=num_mismatches
-                )
-
-                if out:
-                    outf.write(compose_aln(out))
-
-        else:
-
-            def get_sequence(read1_iter, read2_iter):
-                """Gets sequences, a generator."""
-
-                for (read_name, read1_seq, _), \
-                    (_, read2_seq, read2_qual) in zip(read1_iter,
-                                                      read2_iter):
-                    yield read_name, read1_seq, read2_seq, read2_qual
-
-            items = list(
-                islice(
-                    get_sequence(read1_iter, read2_iter),
-                    chunk_size
-                )
-            )
-
-            with Pool(processes=num_threads) as p:
-
-                while items:
-                    outs = p.starmap(
-                        match_cell_barcodes_polyleven2,
-                        zip(items,
-                            repeat(cell_barcodes),
-                            repeat(read1_coords),
-                            repeat(num_mismatches))
-                    )
-                    for i in outs:
-                        if i:
-                            outf.write(compose_aln(i))
-
-                    items = list(islice(get_sequence(read1_iter, read2_iter),
-                                        chunk_size))
-
-    return unaligned_bam_file
+    return unaligned_bam_file, read_counter
 
 
 def fb2fa_concatenated(x, fasta_file, num_n=0):
@@ -332,6 +317,8 @@ def align_reads(unaligned_bam_file,
         get_binary_path(binary_name='samtools'),
         'sort -T',
         temp_prefix,
+        '-@',
+        str(num_threads),
         '-o',
         str(alignment_file),
         '-'
@@ -343,8 +330,8 @@ def align_reads(unaligned_bam_file,
 
 
 def generate_matrix_from_alignment(alignment_file,
-                                   umi_length=12,
                                    umi_pos_start=16,
+                                   umi_length=12,
                                    umi_deduplication_method='directional',
                                    umi_deduplication_threshold=1,
                                    mapq=10):
@@ -354,12 +341,12 @@ def generate_matrix_from_alignment(alignment_file,
     ----------
     alignment_file : str
         The path and name of alignment file.
-    umi_length : int, optional
-        The length of UMI on read 1 after cell barcode. The default is 12.
     umi_pos_start : int, optional
         The starting coordiate of UMI on read 1. If the input matching result
         is from the regex method of extract subcommand, the staring
         coordinate will be auto determined.
+    umi_length : int, optional
+        The length of UMI on read 1 after cell barcode. The default is 12.
     umi_deduplication_method : str, optional
         The UMI dedupliation method used in UMI-tools
         (Smith, T., et al. (2017). Genome Res. 27, 491–499.).
@@ -377,15 +364,14 @@ def generate_matrix_from_alignment(alignment_file,
         the rows are features.
     """  # noqa
 
-    matrix_featurecount = {}
-    with pysam.AlignmentFile(alignment_file,
-                             mode='rb') as f:
+    matrix_featurecount = defaultdict(dict)
+    with pysam.AlignmentFile(alignment_file, mode='rb') as f:
 
         references = f.references
 
         for i in references:
+            matrix_featurecount[i] = defaultdict(dict)
 
-            matrix_featurecount[i] = dict()
             for aln in f.fetch(i):
 
                 if aln.mapping_quality >= mapq:
@@ -423,16 +409,16 @@ def map_feature_barcoding(read1_file,
                           cb_file,
                           fb_file,
                           read1_coords,
-                          num_n_ref=100,
-                          num_mismatches=3,
+                          num_mismatches=1,
+                          num_n_threshold=3,
+                          num_n_ref=0,
                           umi_pos_start=16,
                           umi_length=12,
                           umi_deduplication_method='directional',
                           umi_deduplication_threshold=1,
                           mapq=10,
                           output_directory='barcode_mapping',
-                          num_threads=1,
-                          chunk_size=10000):
+                          num_threads=1):
     """Maps feature barcoding. """
 
     output_directory = Path(output_directory)
@@ -453,23 +439,6 @@ def map_feature_barcoding(read1_file,
         logger.critical('Please use bowtie2 >= 2.4.0')
         sys.exit(1)
 
-    logger.info(f'Read 1 coordinates to search: {read1_coords}')
-    logger.info(
-        f'Cell barcode maximum number of mismatches: {num_mismatches}')
-    logger.info(f'Mapping quality threshold: {mapq}')
-    logger.info(f'Number of threads: {num_threads}')
-    if num_threads > 1:
-        logger.info(f'Chunk size: {chunk_size:,}')
-
-    logger.info(f'UMI-tools version: {umi_tools_version}')
-    logger.info('UMI-tools deduplication method: '
-                + f'{umi_deduplication_method}')
-    logger.info('UMI-tools deduplication threshold: '
-                + f'{umi_deduplication_threshold}')
-    logger.info(f'UMI length: {umi_length}')
-    logger.info(f'UMI starting position on read 1: {umi_pos_start}')
-
-    logger.info('Preparing feature references ...')
     fasta_file = fb2fa_concatenated(
         x=fb_file, fasta_file=FB_FASTA_FILE, num_n=num_n_ref)
     feature_barcode_ref, _ = build_bt2_index(
@@ -478,8 +447,16 @@ def map_feature_barcoding(read1_file,
     with open_by_suffix(file_name=FEATURE_BARCODE_INDEX_LOG, mode='w') as f:
         f.write(_)
 
+    num_cb = len([i for i in open_by_suffix(cb_file)])
+    logger.info(f'Number of reference cell barcodes: {num_cb:,}')
+    logger.info(f'Read 1 coordinates to search: {read1_coords}')
+    logger.info(
+        f'Cell barcode maximum number of mismatches: {num_mismatches}')
+    logger.info(
+        f'Read 1 maximum number of N allowed: {num_n_threshold}')
+
     logger.info('Matching cell barcodes (read 1) ...')
-    unaligned_bam_file = generate_unaligned_bam(
+    unaligned_bam_file, read_counter = generate_unaligned_bam(
         read1_file=read1_file,
         read2_file=read2_file,
         cb_file=cb_file,
@@ -487,12 +464,19 @@ def map_feature_barcoding(read1_file,
         unaligned_bam_file=UNALIGNED_BAM_FILE,
         read1_coords=read1_coords,
         num_mismatches=num_mismatches,
-        num_n=num_n_ref,
-        num_threads=num_threads,
-        chunk_size=chunk_size
+        num_n_threshold=num_n_threshold,
+        num_n_ref=num_n_ref
     )
 
-    logger.info('Aligning (read 2) ...')
+    logger.info(f'Number of read pairs processed: {read_counter[1]:,}')
+    logger.info('Number of read pairs w/ valid cell barcodes: '
+                f'{read_counter[0]:,}')
+
+    num_fb = len(set([i.split('\t')[0] for i in open_by_suffix(fb_file)]))
+    logger.info(f'Number of reference features: {num_fb:,}')
+    logger.info(f'Number of threads: {num_threads}')
+
+    logger.info('Aligning read 2 ...')
     alignment_file, _ = align_reads(
         unaligned_bam_file=unaligned_bam_file,
         bt2_index_base=feature_barcode_ref,
@@ -505,20 +489,32 @@ def map_feature_barcoding(read1_file,
     logger.info(f'\n{_.rstrip()}')
 
     logger.info('Generating matrix (UMI deduplication) ...')
+    logger.info(f'UMI-tools version: {umi_tools_version}')
+    logger.info(f'Mapping quality threshold: {mapq}')
+
+    logger.info(f'UMI starting position on read 1: {umi_pos_start}')
+    logger.info(f'UMI length: {umi_length}')
+    logger.info('UMI-tools deduplication threshold: '
+                f'{umi_deduplication_threshold}')
+    logger.info('UMI-tools deduplication method: '
+                f'{umi_deduplication_method}')
+
     matrix_featurecount = generate_matrix_from_alignment(
         alignment_file=alignment_file,
         umi_pos_start=umi_pos_start,
         umi_length=umi_length,
         umi_deduplication_method='directional',
-        umi_deduplication_threshold=umi_deduplication_threshold)
+        umi_deduplication_threshold=umi_deduplication_threshold
+    )
 
     logger.info(
         f'Number of cell barcodes detected: {matrix_featurecount.shape[1]:,}')
     logger.info(
         f'Number of features detected: {matrix_featurecount.shape[0]:,}')
+
     logger.info('Total UMIs after deduplication: '
-                + f'{matrix_featurecount.values.sum():,}')
+                f'{matrix_featurecount.values.sum():,}')
     logger.info('Median number of UMIs per cell: '
-                + f'{np.median(matrix_featurecount.sum(axis=0)):,}')
+                f'{np.median(matrix_featurecount.sum(axis=0)):,}')
 
     return matrix_featurecount

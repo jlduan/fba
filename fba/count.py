@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 from umi_tools import UMIClusterer
 from umi_tools import __version__ as umi_tools_version
-from collections import Counter
+from collections import defaultdict, Counter
 from fba.utils import open_by_suffix, get_logger
 
 
@@ -12,8 +12,8 @@ logger = get_logger(logger_name=__name__)
 
 
 def generate_matrix(matching_file,
+                    umi_pos_start=16,
                     umi_length=12,
-                    umi_pos_start=None,
                     umi_deduplication_method='directional',
                     umi_deduplication_threshold=1):
     """Generates a matrix based on matching results.
@@ -43,20 +43,12 @@ def generate_matrix(matching_file,
     """  # noqa
 
     logger.info(f'UMI-tools version: {umi_tools_version}')
-    logger.info('UMI-tools deduplication method: '
-                + f'{umi_deduplication_method}')
-    logger.info('UMI-tools deduplication threshold: '
-                + f'{umi_deduplication_threshold}')
-    logger.info(f'UMI length: {umi_length}')
 
-    matrix_featurecount = {}
+    matrix_featurecount = defaultdict(dict)
     line_counter = int()
 
     with open_by_suffix(file_name=matching_file) as f:
         header_line = next(f)
-
-        logger.info('Header line: {}'.format(
-            header_line.rstrip().replace('\t', ' ')))
 
         if len(header_line.split('\t')) == 6:
             if umi_pos_start:
@@ -64,13 +56,27 @@ def generate_matrix(matching_file,
                     f'UMI starting position on read 1: {umi_pos_start}'
                 )
             else:
-                raise ValueError('Need to specify UMI starting position: -us')
+                logger.critical(
+                    'Need to specify UMI starting position on read 1: -us'
+                )
+                raise ValueError('need to specify UMI starting position')
         else:
-            logger.info('UMI start position on read 1 auto-detected')
+            logger.info('UMI start position on read 1 auto-detected, '
+                        'overriding -us')
+        logger.info(f'UMI length: {umi_length}')
+        logger.info('UMI-tools deduplication threshold: '
+                    f'{umi_deduplication_threshold}')
+        logger.info('UMI-tools deduplication method: '
+                    f'{umi_deduplication_method}')
+
+        logger.info('Header line: {}'.format(
+            header_line.rstrip().replace('\t', ' ')))
 
         for line in f:
             i = line.rstrip().split('\t')
             line_counter += 1
+
+            print(i)
 
             read_seq = i[0]
             cell_barcode = i[1]
@@ -87,11 +93,8 @@ def generate_matrix(matching_file,
                 umi_seq = read_seq[
                     umi_pos_start:umi_pos_end].upper().encode()
 
-            if cell_barcode not in matrix_featurecount:
-                matrix_featurecount[cell_barcode] = {}
-
             if feature_barcode not in matrix_featurecount[cell_barcode]:
-                matrix_featurecount[cell_barcode][feature_barcode] = []
+                matrix_featurecount[cell_barcode][feature_barcode] = list()
 
             matrix_featurecount[cell_barcode][
                 feature_barcode].append(umi_seq)
@@ -126,9 +129,9 @@ def generate_matrix(matching_file,
     matrix_featurecount.index = feature_barcodes
 
     logger.info('Total UMIs after deduplication: '
-                + f'{matrix_featurecount.values.sum():,}')
+                f'{matrix_featurecount.values.sum():,}')
     logger.info('Median number of UMIs per cell: '
-                + f'{np.median(matrix_featurecount.sum(axis=0)):,}')
+                f'{np.median(matrix_featurecount.sum(axis=0)):,}')
 
     return matrix_featurecount
 

@@ -63,9 +63,9 @@ def cluster_kmedoids(m, seed=42):
         ccore=True)
 
     kmedoids_instance.process()
-    clusters_kmedoids = kmedoids_instance.get_clusters()
+    clusters = kmedoids_instance.get_clusters()
 
-    return clusters_kmedoids
+    return clusters
 
 
 """
@@ -96,12 +96,12 @@ def cluster_hdbscan(m, min_cluster_size=30, seed=42):
         match_reference_implementation=False).fit(
             m.T).labels_
 
-    clusters_hdbscan = list()
+    clusters = list()
     for i in np.unique(clusters_assigned):
         idx, = np.where(clusters_assigned == i)
         clusters_hdbscan.append(idx)
 
-    return clusters_hdbscan
+    return clusters
 """
 
 
@@ -356,6 +356,8 @@ def plot_embedding(embedding,
 
         for i in group_labels.index:
             ax.annotate(text=str(i),
+                        # The 's' parameter of annotate() has been
+                        # renamed 'text' since Matplotlib 3.3
                         # s=str(i),
                         xy=(group_labels.loc[i]['x'],
                             group_labels.loc[i]['y']),

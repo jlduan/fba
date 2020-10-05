@@ -128,3 +128,21 @@ def parse_samtools_version():
     outs, _ = run_executable(cmd_line=cmd)
 
     return outs.split(' ')[1].split()[0]
+
+
+def parse_kallisto_version():
+    """Parses kallisto version."""
+
+    cmd = [get_binary_path(binary_name='kallisto'), 'version']
+    outs, _ = run_executable(cmd_line=cmd)
+
+    return outs.rstrip().split(' ')[-1]
+
+
+def parse_bustools_version():
+    """Parses bustools version."""
+
+    cmd = [get_binary_path(binary_name='bustools'), 'version']
+    outs, _ = run_executable(cmd_line=cmd)
+
+    return outs.rstrip().split(' ')[-1]

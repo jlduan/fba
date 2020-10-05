@@ -119,13 +119,13 @@ def is_matched(x,
 def filter_matching(matching_file,
                     filtered_matching_file,
                     cb_pos_start=0,
-                    cb_num_mismatches=2,
+                    cb_num_mismatches=1,
                     cb_left_shift=1,
                     cb_right_shift=1,
                     cb_extra_seq=None,
                     cb_extra_seq_num_mismatches=None,
                     fb_pos_start=10,
-                    fb_num_mismatches=2,
+                    fb_num_mismatches=1,
                     fb_left_shift=1,
                     fb_right_shift=1,
                     fb_extra_seq=None,
@@ -143,7 +143,7 @@ def filter_matching(matching_file,
         with open_by_suffix(file_name=filtered_matching_file, mode='w') as fo:
             fo.write('\t'.join(header_line) + '\n')
 
-            counter = [int(), int()]
+            read_counter = [int(), int()]
 
             if len(header_line) == 6:
                 logger.info(
@@ -155,7 +155,7 @@ def filter_matching(matching_file,
                     + '"fb_pos_start", "fb_left_shift", "fb_right_shift"')
 
             for line in f:
-                counter[1] += 1
+                read_counter[1] += 1
 
                 i = line.rstrip().split('\t')
                 if cb_extra_seq and cb_extra_seq_num_mismatches:
@@ -212,10 +212,10 @@ def filter_matching(matching_file,
 
                     if feature_barcode_passed:
                         fo.write(line)
-                        counter[0] += 1
+                        read_counter[0] += 1
 
-    logger.info(f'Number of lines processed: {counter[1]:,}')
-    logger.info(f'Number of lines passed filters: {counter[0]:,}')
+    logger.info(f'Number of lines processed: {read_counter[1]:,}')
+    logger.info(f'Number of lines passed filters: {read_counter[0]:,}')
 
     return filtered_matching_file
 

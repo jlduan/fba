@@ -2,6 +2,7 @@
 
 import sys
 import argparse
+import numpy as np
 from itertools import chain
 from fba import __version__
 
@@ -102,6 +103,22 @@ def add_extract_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-r1_coords', '--read1_coords',
+        dest='read1_coords',
+        required=False,
+        default=(0, 16),
+        type=coords,
+        help='specify expected coordinates \'start,end\' of read 1 to search. For example, \'0,16\': starts at 0, stops at 15. Nucleotide bases outside the range will be masked as lower case in output. The default is \'0,16\''
+    )
+
+    parser.add_argument(
+        '-r2_coords', '--read2_coords',
+        dest='read2_coords',
+        required=True,
+        default=None,
+        type=coords, help='see \'-r1_coords\''
+    )
+    parser.add_argument(
         '-cb_m',
         '--cb_mismatches',
         dest='cell_barcode_mismatches',
@@ -139,51 +156,6 @@ def add_extract_subparser(subparsers):
         type=int,
         default=3,
         help='specify maximum number of ambiguous nucleotides allowed for read 2. The default is 3'
-    )
-
-    parser.add_argument(
-        '-r1_coords', '--read1_coords',
-        dest='read1_coords',
-        required=False,
-        default=None,
-        type=coords,
-        help='specify expected coordinates \'start,end\' of read 1 to search (required for \'polyleven\' method). For example, \'0,16\': starts at 0, stops at 15. The default is to use all the nucleotide bases (recommended for troubleshooting libraries in \'regex\' method). Nucleotide bases outside the range will be masked as lower case in output'
-    )
-
-    parser.add_argument(
-        '-r2_coords', '--read2_coords',
-        dest='read2_coords',
-        required=False,
-        default=None,
-        type=coords, help='see \'-r1_coords\''
-    )
-
-    parser.add_argument(
-        '-t', '--threads',
-        dest='threads',
-        required=False,
-        type=int,
-        default=1,
-        help='specify number of threads to launch. The default is 1'
-    )
-
-    parser.add_argument(
-        '-m', '--method',
-        dest='method',
-        required=False,
-        type=str,
-        default='regex',
-        choices=['regex', 'polyleven'],
-        help='specify barcode matching method (\'regex\' or \'polyleven\'). The default is \'polyleven\''
-    )
-
-    parser.add_argument(
-        '--chunk_size',
-        dest='chunk_size',
-        required=False,
-        type=int,
-        default=10_000,
-        help='specify the chunk size for multiprocessing. The default is 10,000'
     )
 
 
@@ -251,8 +223,18 @@ def add_map_subparser(subparsers):
         dest='cell_barcode_mismatches',
         required=False,
         type=int,
-        default=2,
-        help='specify cell barcode mismatching threshold. The default is 2'
+        default=1,
+        help='specify cell barcode mismatching threshold. The default is 1'
+    )
+
+    parser.add_argument(
+        '-cb_n',
+        '--cb_num_n_threshold',
+        dest='cb_num_n_threshold',
+        required=False,
+        type=int,
+        default=3,
+        help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is 3'
     )
 
     parser.add_argument(
@@ -265,6 +247,16 @@ def add_map_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-us',
+        '--umi_start',
+        dest='umi_pos_start',
+        required=False,
+        type=int,
+        default=16,
+        help='specify expected UMI starting postion on read 1. The default is 16'
+    )
+
+    parser.add_argument(
         '-ul',
         '--umi_length',
         dest='umi_length',
@@ -272,16 +264,6 @@ def add_map_subparser(subparsers):
         type=int,
         default=12,
         help='specify the length of UMIs on read 1. Reads with UMI length less than this value will be discarded. The default is 12'
-    )
-
-    parser.add_argument(
-        '-us',
-        '--umi_start',
-        dest='umi_pos_start',
-        required=False,
-        type=int,
-        default=16,
-        help='specify expected UMI starting postion on read 1 (required for output of polyleven method in extract subcommad). The default is 16'
     )
 
     parser.add_argument(
@@ -307,15 +289,6 @@ def add_map_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-t', '--threads',
-        dest='threads',
-        required=False,
-        type=int,
-        default=1,
-        help='specify number of threads to launch. The default is 1'
-    )
-
-    parser.add_argument(
         '--output_directory',
         dest='output_directory',
         required=False,
@@ -325,12 +298,12 @@ def add_map_subparser(subparsers):
     )
 
     parser.add_argument(
-        '--chunk_size',
-        dest='chunk_size',
+        '-t', '--threads',
+        dest='threads',
         required=False,
         type=int,
-        default=10_000,
-        help='specify the chunk size for multiprocessing. The default is 10,000'
+        default=1,
+        help='specify number of threads to launch. The default is 1'
     )
 
     parser.add_argument(
@@ -355,7 +328,7 @@ def add_filter_subparser(subparsers):
         dest='input',
         required=True,
         type=str,
-        help='specify an input file. The output of extract (\'regex\' method) or map subcommand'
+        help='specify an input file. The output of extract or qc subcommand'
     )
 
     parser.add_argument(
@@ -383,8 +356,8 @@ def add_filter_subparser(subparsers):
         dest='cell_barcode_mismatches',
         required=False,
         type=int,
-        default=2,
-        help='specify cell barcode mismatching threshold. The default is 2'
+        default=1,
+        help='specify cell barcode mismatching threshold. The default is 1'
     )
 
     parser.add_argument(
@@ -443,8 +416,8 @@ def add_filter_subparser(subparsers):
         dest='feature_barcode_mismatches',
         required=False,
         type=int,
-        default=2,
-        help='specify feature barcode mismatching threshold. The default is 2'
+        default=1,
+        help='specify feature barcode mismatching threshold. The default is 1'
     )
 
     parser.add_argument(
@@ -514,6 +487,16 @@ def add_count_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-us',
+        '--umi_start',
+        dest='umi_pos_start',
+        required=False,
+        type=int,
+        default=16,
+        help='specify expected UMI starting postion on read 1. The default is 16'
+    )
+
+    parser.add_argument(
         '-ul',
         '--umi_length',
         dest='umi_length',
@@ -522,17 +505,6 @@ def add_count_subparser(subparsers):
         default=12,
         help='specify the length of UMIs on read 1. Reads with UMI length less than this value will be discarded. The default is 12'
     )
-
-    parser.add_argument(
-        '-us',
-        '--umi_start',
-        dest='umi_pos_start',
-        required=False,
-        type=int,
-        default=None,
-        help='specify expected UMI starting postion on read 1 (required for output of polyleven method in extract subcommad). The default is None'
-    )
-
     parser.add_argument(
         '-um',
         '--umi_mismatches',
@@ -556,6 +528,7 @@ def add_count_subparser(subparsers):
     )
 
 
+# demultiplex
 def add_demultiplex_subparser(subparsers):
     parser = subparsers.add_parser(
         'demultiplex',
@@ -600,6 +573,7 @@ def add_demultiplex_subparser(subparsers):
     )
 
 
+# qc
 def add_qc_subparser(subparsers):
     parser = subparsers.add_parser(
         'qc',
@@ -646,7 +620,7 @@ def add_qc_subparser(subparsers):
         required=False,
         default=None,
         type=coords,
-        help='specify expected coordinates \'start,end\' of read 1 to search. The default is to use all the nucleotide bases. Nucleotide bases outside the range will be masked as lower case in output'
+        help='specify coordinates \'start,end\' of read 1 to search (doesn\'t need to be the exact expected barcode range). The default is to use all the nucleotide bases. Nucleotide bases outside the range will be masked as lower case in output'
     )
 
     parser.add_argument(
@@ -678,12 +652,32 @@ def add_qc_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-cb_n',
+        '--cb_num_n_threshold',
+        dest='cb_num_n_threshold',
+        required=False,
+        type=int,
+        default=np.Inf,
+        help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is no limit'
+    )
+
+    parser.add_argument(
+        '-fb_n',
+        '--fb_num_n_threshold',
+        dest='fb_num_n_threshold',
+        required=False,
+        type=int,
+        default=np.Inf,
+        help='specify maximum number of ambiguous nucleotides allowed for read 2. The default is no limit'
+    )
+
+    parser.add_argument(
         '-t', '--threads',
         dest='threads',
         required=False,
         type=int,
-        default=1,
-        help='specify number of threads for barcode extraction. The default is 1'
+        default=None,
+        help='specify number of threads for barcode extraction. The default is to use all available'
     )
 
     parser.add_argument(
@@ -700,8 +694,8 @@ def add_qc_subparser(subparsers):
         dest='chunk_size',
         required=False,
         type=int,
-        default=10_000,
-        help='specify the chunk size for multiprocessing. The default is 10,000'
+        default=50_000,
+        help='specify the chunk size for multiprocessing. The default is 50,000'
     )
 
     parser.add_argument(
