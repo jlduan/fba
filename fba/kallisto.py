@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import scipy.io
 from pathlib import Path
-from .utils import (
+from fba.utils import (
     open_by_suffix,
     get_binary_path,
     get_logger,
@@ -21,7 +21,7 @@ def fb2fa_kallisto(x, fasta_file, t2g_file):
     Parameters
     ----------
     x : str
-        The location of the feature barcode file.
+        The path and name of feature barcode file.
 
         The example content of the file:
         CD3     CTCATTGTAACTCCT
@@ -36,7 +36,7 @@ def fb2fa_kallisto(x, fasta_file, t2g_file):
         CD25    TTTGTCCTGTACGCC
 
     fasta_file: str
-        The location of the generated fasta file. One mismatch at each
+        The path and name of generated fasta file. One mismatch at each
         coordinate.
 
         The example content of the file:
@@ -62,7 +62,7 @@ def fb2fa_kallisto(x, fasta_file, t2g_file):
         CTCATTGTAACTCCT
 
     t2g_file: str
-        The location of the generated t2g file.
+        The path and name of generated t2g file.
 
         The example content of the file:
         CD3_CTCATTGTAACTCCT_0_A CD3_CTCATTGTAACTCCT     CD3_CTCATTGTAACTCCT
@@ -134,23 +134,23 @@ def fb2fa_kallisto(x, fasta_file, t2g_file):
 def build_kallisto_index(kallisto_index,
                          kmer,
                          fasta_file):
-    """Builds feature barcoding kallisto index.
+    """Builds kallisto index.
 
-    A wrapper of `kallisto index [arguments] FASTA-files`
+    A wrapper of `kallisto index [arguments] FASTA-files`.
 
     Parameters
     ----------
     kallisto_index : str
-        The location of the feature barcoding kallisto index.
+        The path and name of kallisto index.
     kmer : int
         k-mer length, odd number.
     fasta_file : str
-        The location of the feature barcoding fasta file.
+        The path and name of generated fasta file.
 
     Returns
     -------
     str
-        The location of the feature barcoding kallisto index.
+        The path and name of generated kallisto index.
     """
 
     cmd = [
@@ -174,7 +174,7 @@ def align_reads_kallisto(read1_file,
                          output_directory,
                          technology,
                          num_threads=1):
-    """Builds feature barcoding kallisto index."""
+    """Aligns reads."""
 
     cmd = [
         get_binary_path(binary_name='kallisto'),
@@ -291,8 +291,6 @@ def run_kallisto(read1_file,
                  output_directory='kallisto',
                  num_threads=1):
     """Runs kallisto/bustools."""
-
-    logger.info('Initiating logging ...')
 
     output_directory = Path(output_directory)
     output_directory.mkdir(exist_ok=True)

@@ -158,6 +158,15 @@ def add_extract_subparser(subparsers):
         help='specify maximum number of ambiguous nucleotides allowed for read 2. The default is 3'
     )
 
+    parser.add_argument(
+        '-e',
+        '--exhaustive',
+        dest='exhaustive',
+        required=False,
+        action='store_true',
+        help='specify whether to search all the barcodes meeting the mismatching criteria and select the best one. If not specified, the first one will be selected'
+    )
+
 
 # map
 def add_map_subparser(subparsers):
@@ -302,8 +311,8 @@ def add_map_subparser(subparsers):
         dest='threads',
         required=False,
         type=int,
-        default=1,
-        help='specify number of threads to launch. The default is 1'
+        default=None,
+        help='specify number of threads to launch. The default is to use all available'
     )
 
     parser.add_argument(

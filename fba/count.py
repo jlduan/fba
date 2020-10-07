@@ -76,8 +76,6 @@ def generate_matrix(matching_file,
             i = line.rstrip().split('\t')
             line_counter += 1
 
-            print(i)
-
             read_seq = i[0]
             cell_barcode = i[1]
 

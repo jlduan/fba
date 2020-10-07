@@ -1,5 +1,6 @@
 # polyleven.py
 
+import sys
 import dnaio
 from itertools import combinations
 from polyleven import levenshtein
@@ -11,8 +12,6 @@ logger = get_logger(logger_name=__name__)
 
 # Based on TinyFastSS
 # https://github.com/fujimotos/TinyFastSS
-# ENCODING = 'utf-8'
-# DELIMITER = b'\x00'
 
 
 def indexkeys(word, max_dist):
@@ -86,10 +85,54 @@ def create_index(barcodes, num_mismatches=1):
 
             d[bkey] = set2bytes(barcode_set)
 
+    d = {
+        sys.intern(i.decode()): sys.intern(d[i].decode())
+        for i in d
+    }
+
     return d
 
 
 def query_index(seq, barcode_index, num_mismatches=1):
+    """Performs a fuzzy barcode search, exhaustive.
+
+    Parameters
+    ----------
+    seq : str
+        A DNA string.
+    barcode_index : dict
+        A FastSS index of barcodes.
+    num_mismatches : int, optional
+        Maximum levenshtein distance allowd.
+
+    Returns
+    -------
+    dict
+        A dictionary of fuzzy searching result. Keys are levenshtein distance.
+        Values are list of matched barcodes.
+    """
+
+    res = {d: [] for d in range(num_mismatches + 1)}
+    cands = set()
+
+    for key in indexkeys(seq, num_mismatches):
+        if key in barcode_index:
+            cands.add(barcode_index[key])
+
+    if seq in cands:
+        res[0].append(seq)
+
+    else:
+        for cand in cands:
+            dist = levenshtein(seq, cand, num_mismatches)
+
+            if dist <= num_mismatches:
+                res[dist].append(cand)
+
+    return res
+
+
+def query_index_fast(seq, barcode_index, num_mismatches=1):
     """Performs a fuzzy barcode search.
 
     Parameters
@@ -108,21 +151,23 @@ def query_index(seq, barcode_index, num_mismatches=1):
         Values are list of matched barcodes.
     """
 
-    res = {d: [] for d in range(num_mismatches+1)}
+    res = {d: [] for d in range(num_mismatches + 1)}
     cands = set()
 
     for key in indexkeys(seq, num_mismatches):
-        bkey = key.encode()
+        if key in barcode_index:
+            cands.add(barcode_index[key])
 
-        if bkey in barcode_index:
-            cands.update(bytes2set(barcode_index[bkey]))
+    if seq in cands:
+        res[0].append(seq)
 
-    for cand in cands:
-        # dist = editdist(seq, cand)
-        dist = levenshtein(seq, cand, num_mismatches)
+    else:
+        for cand in cands:
+            dist = levenshtein(seq, cand, num_mismatches)
 
-        if dist <= num_mismatches:
-            res[dist].append(cand)
+            if dist <= num_mismatches:
+                res[dist].append(cand)
+                break
 
     return res
 
@@ -153,7 +198,8 @@ def select_query(x, read_seq, read_qual):
         Levenshtein distance.
     """
 
-    for i in sorted(x.keys()):
+    # for i in sorted(x.keys()):
+    for i in x:
         if x[i]:
             if len(x[i]) == 1:
                 return x[i][0], i
@@ -215,7 +261,8 @@ def match_barcodes_paired_fastss(read_seqs,
                                  cb_num_mismatches=1,
                                  fb_num_mismatches=1,
                                  cb_num_n_threshold=3,
-                                 fb_num_n_threshold=3):
+                                 fb_num_n_threshold=3,
+                                 exhaustive=False):
     """Searches one read pair for known cell and feature barcodes.
 
     Parameters
@@ -242,6 +289,9 @@ def match_barcodes_paired_fastss(read_seqs,
         threshold will be skipped.
     fb_num_n_threshold : int, optional
         Maximum Ns allowd for read 2.
+    exhaustive : bool, optional
+        If True, all barcodes meeting the critiera will be evaluated and the
+        best one is choosen.
 
     Returns
     -------
@@ -253,20 +303,31 @@ def match_barcodes_paired_fastss(read_seqs,
 
     if read1_seq.count('N') <= cb_num_n_threshold:
         x1, y1 = read1_coords
-        cb_queries = query_index(read1_seq[x1: y1],
-                                 barcode_index=cb_index,
-                                 num_mismatches=cb_num_mismatches)
+
+        if exhaustive:
+            cb_queries = query_index(read1_seq[x1: y1],
+                                     barcode_index=cb_index,
+                                     num_mismatches=cb_num_mismatches)
+        else:
+            cb_queries = query_index_fast(read1_seq[x1: y1],
+                                          barcode_index=cb_index,
+                                          num_mismatches=cb_num_mismatches)
 
         cb_matched = select_query(cb_queries,
                                   read1_seq[x1: y1],
                                   read1_qual[x1: y1])
 
         if cb_matched and read2_seq.count('N') <= fb_num_n_threshold:
-
             x2, y2 = read2_coords
-            fb_queries = query_index(read2_seq[x2: y2],
-                                     barcode_index=fb_index,
-                                     num_mismatches=fb_num_mismatches)
+
+            if exhaustive:
+                fb_queries = query_index(read2_seq[x2: y2],
+                                         barcode_index=fb_index,
+                                         num_mismatches=fb_num_mismatches)
+            else:
+                fb_queries = query_index_fast(read2_seq[x2: y2],
+                                              barcode_index=fb_index,
+                                              num_mismatches=fb_num_mismatches)
 
             fb_matched = select_query(fb_queries,
                                       read2_seq[x2: y2],
@@ -290,7 +351,7 @@ def extract_feature_barcoding_fastss(read1_file,
                                      output_file,
                                      cb_num_n_threshold=3,
                                      fb_num_n_threshold=3,
-                                     chunk_size=10_000):
+                                     exhaustive=False):
     """Extracts feature barcodes."""
 
     with open_by_suffix(file_name=cb_file) as f:
@@ -350,7 +411,8 @@ def extract_feature_barcoding_fastss(read1_file,
                 cb_num_mismatches=cb_num_mismatches,
                 fb_num_mismatches=fb_num_mismatches,
                 cb_num_n_threshold=cb_num_n_threshold,
-                fb_num_n_threshold=fb_num_n_threshold
+                fb_num_n_threshold=fb_num_n_threshold,
+                exhaustive=exhaustive
             )
             if out:
                 read_counter[0] += 1

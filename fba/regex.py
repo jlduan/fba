@@ -398,7 +398,6 @@ def extract_feature_barcoding_regex(read1_file,
         with Pool(processes=num_threads) as p:
             while items:
                 read_counter += len(items)
-                logger.info(f'Read pairs processed: {read_counter:,}')
 
                 outs = p.starmap(
                     match_barcodes_paired,
@@ -411,12 +410,13 @@ def extract_feature_barcoding_regex(read1_file,
                         repeat(fb_num_n_threshold),
                         )
                 )
-
                 outs = [
                     _restore_orig_seq(x=i,
                                       read1_coords=read1_coords,
                                       read2_coords=read2_coords) for i in outs
                 ]
+
+                logger.info(f'Read pairs processed: {read_counter:,}')
                 yield '\n'.join(outs)
 
                 items = list(islice(_reads, chunk_size))

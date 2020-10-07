@@ -1,23 +1,23 @@
 # __main__.py
 
 import sys
-import numpy as np
 import pandas as pd
 from pathlib import Path
-from fba.utils import open_by_suffix, get_logger
-from fba.parsers import parse_args
-from fba.extract import extract_feature_barcoding
-from fba.polyleven import extract_feature_barcoding_polyleven
+from fba import __version__
+from fba.levenshtein import extract_feature_barcoding_fastss
 from fba.map import map_feature_barcoding
 from fba.filter import filter_matching
 from fba.count import generate_matrix
-from fba.demultiplex import demultiplex_feature_barcoding
 from fba.qc import (
     summarize_sequence_content,
     summarize_barcode_positions,
     analyze_bulk
 )
+from fba.regex import extract_feature_barcoding_regex
+from fba.parsers import parse_args
+from fba.demultiplex import demultiplex_feature_barcoding
 from fba.kallisto import run_kallisto
+from fba.utils import open_by_suffix, get_logger
 
 
 def main():
@@ -41,6 +41,7 @@ def main():
     logger.info(banner)
     # print(banner)
 
+    logger.info(f'fba version: {__version__}')
     logger.info('Initiating logging ...')
     logger.info(
         f'Python version: {sys.version_info.major}.{sys.version_info.minor}')
@@ -52,67 +53,35 @@ def main():
     if (args.command == 'extract'):
         logger.info('Using extract subcommand ...')
 
-        if args.method.lower() == 'regex':
-            with open_by_suffix(file_name=args.output, mode='w') as f:
+        with open_by_suffix(file_name=args.output, mode='w') as f:
 
-                f.write('\t'.join(
-                    [
-                        'read1_seq',
-                        'cell_barcode',
-                        'cb_matching_pos',
-                        'cb_matching_description',
-                        'read2_seq',
-                        'feature_barcode',
-                        'fb_matching_pos',
-                        'fb_matching_description'
-                    ]
-                ) + '\n')
+            f.write('\t'.join(
+                [
+                    'read1_seq',
+                    'cell_barcode',
+                    'cb_num_mismatches',
+                    'read2_seq',
+                    'feature_barcode',
+                    'fb_num_mismatches'
+                ]
+            ) + '\n')
 
-                for out in extract_feature_barcoding(
-                        read1_file=args.read1,
-                        read2_file=args.read2,
-                        cb_file=args.whitelist,
-                        fb_file=args.feature_ref,
-                        cb_num_mismatches=args.cell_barcode_mismatches,
-                        fb_num_mismatches=args.feature_barcode_mismatches,
-                        cb_num_n_threshold=args.cb_num_n_threshold,
-                        fb_num_n_threshold=args.fb_num_n_threshold,
-                        read1_coords=args.read1_coords,
-                        read2_coords=args.read2_coords,
-                        num_threads=args.threads,
-                        chunk_size=args.chunk_size):
+            for out in extract_feature_barcoding_fastss(
+                    read1_file=args.read1,
+                    read2_file=args.read2,
+                    cb_file=args.whitelist,
+                    fb_file=args.feature_ref,
+                    cb_num_mismatches=args.cell_barcode_mismatches,
+                    fb_num_mismatches=args.feature_barcode_mismatches,
+                    read1_coords=args.read1_coords,
+                    read2_coords=args.read2_coords,
+                    output_file=args.output,
+                    cb_num_n_threshold=args.cb_num_n_threshold,
+                    fb_num_n_threshold=args.fb_num_n_threshold,
+                    exhaustive=args.exhaustive
+            ):
+                f.write(out + '\n')
 
-                    f.write(out + '\n')
-
-        elif args.method == 'polyleven':
-            with open_by_suffix(file_name=args.output, mode='w') as f:
-
-                f.write('\t'.join(
-                    [
-                        'read1_seq',
-                        'cell_barcode',
-                        'cb_num_mismatches',
-                        'read2_seq',
-                        'feature_barcode',
-                        'fb_num_mismatches'
-                    ]
-                ) + '\n')
-
-                for out in extract_feature_barcoding_polyleven(
-                        read1_file=args.read1,
-                        read2_file=args.read2,
-                        cb_file=args.whitelist,
-                        fb_file=args.feature_ref,
-                        cb_num_mismatches=args.cell_barcode_mismatches,
-                        fb_num_mismatches=args.feature_barcode_mismatches,
-                        read1_coords=args.read1_coords,
-                        read2_coords=args.read2_coords,
-                        cb_num_n_threshold=args.cb_num_n_threshold,
-                        fb_num_n_threshold=args.fb_num_n_threshold,
-                        num_threads=args.threads,
-                        chunk_size=args.chunk_size):
-
-                    f.write(out + '\n')
         logger.info('Done.')
 
     elif (args.command == 'map'):
@@ -124,22 +93,20 @@ def main():
             cb_file=args.whitelist,
             fb_file=args.feature_ref,
             read1_coords=args.read1_coords,
-            num_n_ref=args.num_n_ref,
             num_mismatches=args.cell_barcode_mismatches,
+            num_n_threshold=args.cb_num_n_threshold,
+            num_n_ref=args.num_n_ref,
             umi_pos_start=args.umi_pos_start,
             umi_length=args.umi_length,
             umi_deduplication_method=args.umi_deduplication_method,
             umi_deduplication_threshold=args.umi_mismatches,
             mapq=args.mapq,
             output_directory=args.output_directory,
-            num_threads=args.threads,
-            chunk_size=args.chunk_size
+            num_threads=args.threads
         )
 
-        matrix_featurecount.to_csv(
-            path_or_buf=args.output,
-            compression='infer'
-        )
+        matrix_featurecount.to_csv(path_or_buf=args.output,
+                                   compression='infer')
         logger.info('Done.')
 
     elif (args.command == 'filter'):
@@ -168,8 +135,8 @@ def main():
 
         matrix_featurecount = generate_matrix(
             matching_file=args.input,
-            umi_length=args.umi_length,
             umi_pos_start=args.umi_pos_start,
+            umi_length=args.umi_length,
             umi_deduplication_method=args.umi_deduplication_method,
             umi_deduplication_threshold=args.umi_mismatches
         )
@@ -194,12 +161,15 @@ def main():
     elif (args.command == 'qc'):
         logger.info('Using qc subcommand ...')
 
-        if args.num_reads.isdigit():
-            num_reads = int(args.num_reads)
-        elif args.num_reads.upper() == 'NONE':
-            num_reads = None
+        if not isinstance(args.num_reads, int):
+            if args.num_reads.isdigit():
+                num_reads = int(args.num_reads)
+            elif args.num_reads.upper() == 'NONE':
+                num_reads = None
+            else:
+                sys.exit(1)
         else:
-            sys.exit(1)
+            num_reads = args.num_reads
 
         if args.read1:
             _ = summarize_sequence_content(
@@ -226,15 +196,15 @@ def main():
                     ]
                 ) + '\n')
 
-                for out in extract_feature_barcoding(
+                for out in extract_feature_barcoding_regex(
                         read1_file=args.read1,
                         read2_file=args.read2,
                         cb_file=args.whitelist,
                         fb_file=args.feature_ref,
                         cb_num_mismatches=args.cell_barcode_mismatches,
                         fb_num_mismatches=args.feature_barcode_mismatches,
-                        cb_num_n_threshold=np.Inf,
-                        fb_num_n_threshold=np.Inf,
+                        cb_num_n_threshold=args.cb_num_n_threshold,
+                        fb_num_n_threshold=args.fb_num_n_threshold,
                         read1_coords=args.read1_coords,
                         read2_coords=args.read2_coords,
                         num_threads=args.threads,
@@ -259,16 +229,15 @@ def main():
             )
 
             fb_frequency = analyze_bulk(
-                read2_file=args.read2,
-                read2_coords=args.read2_coords,
+                read_file=args.read2,
+                read_coords=args.read2_coords,
                 fb_file=args.feature_ref,
                 num_mismatches=args.feature_barcode_mismatches,
-                num_n_threshold=3,
-                num_threads=args.threads,
-                chunk_size=args.chunk_size,
+                num_n_threshold=args.fb_num_n_threshold,
                 num_reads=num_reads
             )
 
+            Path(args.output_directory).mkdir(exist_ok=True)
             OUTPUT_FILE = 'feature_barcode_frequency.csv'
             OUTPUT_FILE = str(Path(args.output_directory) / OUTPUT_FILE)
             logger.info(f'Output file: {OUTPUT_FILE}')

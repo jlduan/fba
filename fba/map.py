@@ -7,6 +7,7 @@ import numpy as np
 import pandas as pd
 from pathlib import Path
 from collections import defaultdict, Counter
+from multiprocessing import cpu_count
 from tempfile import _get_candidate_names
 from umi_tools import UMIClusterer
 from umi_tools import __version__ as umi_tools_version
@@ -418,7 +419,7 @@ def map_feature_barcoding(read1_file,
                           umi_deduplication_threshold=1,
                           mapq=10,
                           output_directory='barcode_mapping',
-                          num_threads=1):
+                          num_threads=None):
     """Maps feature barcoding. """
 
     output_directory = Path(output_directory)
@@ -474,6 +475,9 @@ def map_feature_barcoding(read1_file,
 
     num_fb = len(set([i.split('\t')[0] for i in open_by_suffix(fb_file)]))
     logger.info(f'Number of reference features: {num_fb:,}')
+
+    if not num_threads:
+        num_threads = cpu_count()
     logger.info(f'Number of threads: {num_threads}')
 
     logger.info('Aligning read 2 ...')
