@@ -83,6 +83,7 @@ $ grep -v '#' Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv 
 $ cut -d',' -f1,2 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv | gsed 's/,/\t/g' | grep -v '#' | head -53719 > Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
 
 $ head Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
+
 ENSG00000000003 AGTTGTGGACGCTCGTAAGTTTTCGGCAGTTTCCGGGGAGACTCGGGGACTCCGCGTCTCGCTCTCTGTGTTCCAATCGCCCGGTGCGGTGGTGCAGGGTCTCGGGCTAGTCATGGCGTC
 ENSG00000000003 CCCGTCTCGGAGACTGCAGACTAAACCAGTCATTACTTGTTTCAAGAGCGTTCTGCTAATCTACACTTTTATTTTCTGGATCACTGGCGTTATCCTTCTTGCAGTTGGCATTTGGGGCAA
 ENSG00000000003 GGTGAGCCTGGAGAATTACTTTTCTCTTTTAAATGAGAAGGCCACCAATGTCCCCTTCGTGCTCATTGCTACTGGTACCGTCATTATTCTTTTGGGCACCTTTGGTTGTTTTGCTACCTG
@@ -99,7 +100,7 @@ ENSG00000000003 TTTGCTATGTTCTAAGTCCACCTTCTATCCCATTCATGTTAGATCGTTGAAACCCTGTATCCCT
 
 ## Matrix generation
 
-First, all reads 1 are searched against known cell-associated barcodes. Use `-r1_coords` to set the search range, `-cb_m` to set the mismatching threshold. Reads 2 with correct cell barcodes (on reads 1) are mapped to the provided sequences (bowtie2; [Langmead, B., and Salzberg, S.L. 2012. Nat. Methods 9, 357–359.](http://dx.doi.org/10.1038/nmeth.1923)). Only alignments passed mapping quality threshold (set by `--mapq`) are kept for downstream feature counting. UMI removal is powered by UMI-tools ([Smith, T., et al. 2017. Genome Res. 27, 491–499.](http://www.genome.org/cgi/doi/10.1101/gr.209601.116)). Use `-us` to set the UMI starting position on read 1. Use `-ul` to set the UMI length. Fragments with UMI length less than this value are discarded. UMI deduplication method is set by `-ud`.
+First, all reads 1 are searched against known cell-associated barcodes. Use `-r1_coords` to set the search range, `-cb_m` to set the mismatching threshold. Reads 2 with correct cell barcodes (on reads 1) are mapped to the provided sequences (bowtie2; [Langmead, B., and Salzberg, S.L. 2012. Nat. Methods 9, 357–359.](http://dx.doi.org/10.1038/nmeth.1923)). Only alignments passed mapping quality threshold (set by `--mapq`) are kept for downstream feature counting. UMI removal is powered by UMI-tools ([Smith, T., et al. 2017. Genome Res. 27, 491–499.](http://www.genome.org/cgi/doi/10.1101/gr.209601.116)). Use `-us` to set the UMI starting position on read 1. Use `-ul` to set the UMI length. Fragments with UMI length less than this value are discarded. Use `-um` to set mismatch threshold. UMI deduplication method is set by `-ud`.
 
 The generated feature count matrix can be easily imported into well-established single cell analysis packages: [Seruat](https://satijalab.org/seurat/) and [Scanpy](https://scanpy.readthedocs.io/en/stable/).
 
@@ -114,42 +115,51 @@ $ fba map \
     -r1_coords 0,16 \
     -cb_m 1 \
     --mapq 10 \
-    -ul 12 \
     -us 16 \
+    -ul 12 \
     -um 1 \
     -ud directional \
-    --output_directory barcode_mapping \
-    -t $SLURM_CPUS_ON_NODE
+    --output_directory barcode_mapping
 ```
 
 Result summary.
 
+6.72% of total read pairs (2,106,691 of 31,372,024) contribute to the final expression matrix after UMI removal. Sequenced quite deep.
+
 ```shell
-2020-09-23 21:15:53,528 - fba.map - INFO - bowtie2 version: 2.4.1
-2020-09-23 21:15:53,559 - fba.map - INFO - samtools version: 1.3
-2020-09-23 21:15:53,614 - fba.map - INFO - Read 1 coordinates to search: [0, 16]
-2020-09-23 21:15:53,614 - fba.map - INFO - Cell barcode maximum number of mismatches: 1
-2020-09-23 21:15:53,614 - fba.map - INFO - Mapping quality threshold: 10
-2020-09-23 21:15:53,614 - fba.map - INFO - Number of threads: 48
-2020-09-23 21:15:53,614 - fba.map - INFO - Chunk size: 10,000
-2020-09-23 21:15:53,614 - fba.map - INFO - UMI-tools version: 1.0.1
-2020-09-23 21:15:53,614 - fba.map - INFO - UMI-tools deduplication method: directional
-2020-09-23 21:15:53,614 - fba.map - INFO - UMI-tools deduplication threshold: 1
-2020-09-23 21:15:53,614 - fba.map - INFO - UMI length: 12
-2020-09-23 21:15:53,614 - fba.map - INFO - UMI starting position on read 1: 16
-2020-09-23 21:15:53,614 - fba.map - INFO - Preparing feature references ...
-2020-09-23 21:15:56,154 - fba.map - INFO - Matching cell barcodes (read 1) ...
-2020-09-23 21:52:48,071 - fba.map - INFO - Aligning (read 2) ...
-2020-09-23 22:16:05,486 - fba.map - INFO -
+2020-10-05 19:53:27,234 - fba.__main__ - INFO - fba version: 0.0.5dev
+2020-10-05 19:53:27,234 - fba.__main__ - INFO - Initiating logging ...
+2020-10-05 19:53:27,234 - fba.__main__ - INFO - Python version: 3.7
+2020-10-05 19:53:27,234 - fba.__main__ - INFO - Using map subcommand ...
+2020-10-05 19:53:27,481 - fba.map - INFO - bowtie2 version: 2.4.1
+2020-10-05 19:53:27,500 - fba.map - INFO - samtools version: 1.3
+2020-10-05 19:53:30,147 - fba.map - INFO - Number of reference cell barcodes: 3,394
+2020-10-05 19:53:30,147 - fba.map - INFO - Read 1 coordinates to search: [0, 16]
+2020-10-05 19:53:30,147 - fba.map - INFO - Cell barcode maximum number of mismatches: 1
+2020-10-05 19:53:30,147 - fba.map - INFO - Read 1 maximum number of N allowed: 3
+2020-10-05 19:53:30,147 - fba.map - INFO - Matching cell barcodes (read 1) ...
+2020-10-05 20:25:55,303 - fba.map - INFO - Number of read pairs processed: 31,372,024
+2020-10-05 20:25:55,317 - fba.map - INFO - Number of read pairs w/ valid cell barcodes: 28,336,522
+2020-10-05 20:25:55,343 - fba.map - INFO - Number of reference features: 1,142
+2020-10-05 20:25:55,343 - fba.map - INFO - Number of threads: 56
+2020-10-05 20:25:55,343 - fba.map - INFO - Aligning read 2 ...
+2020-10-05 20:42:09,127 - fba.map - INFO -
 28336522 reads; of these:
   28336522 (100.00%) were unpaired; of these:
     3590828 (12.67%) aligned 0 times
     24425882 (86.20%) aligned exactly 1 time
     319812 (1.13%) aligned >1 times
 87.33% overall alignment rate
-2020-09-23 22:16:05,487 - fba.map - INFO - Generating matrix (UMI deduplication) ...
-2020-09-23 22:17:43,808 - fba.map - INFO - Number of cell barcodes detected: 3,377
-2020-09-23 22:17:43,808 - fba.map - INFO - Number of features detected: 1,127
-2020-09-23 22:17:43,811 - fba.map - INFO - Total UMIs after deduplication: 2,106,755
-2020-09-23 22:17:43,821 - fba.map - INFO - Median number of UMIs per cell: 445.0
+2020-10-05 20:42:09,127 - fba.map - INFO - Generating matrix (UMI deduplication) ...
+2020-10-05 20:42:09,127 - fba.map - INFO - UMI-tools version: 1.0.1
+2020-10-05 20:42:09,127 - fba.map - INFO - Mapping quality threshold: 10
+2020-10-05 20:42:09,127 - fba.map - INFO - UMI starting position on read 1: 16
+2020-10-05 20:42:09,127 - fba.map - INFO - UMI length: 12
+2020-10-05 20:42:09,127 - fba.map - INFO - UMI-tools deduplication threshold: 1
+2020-10-05 20:42:09,127 - fba.map - INFO - UMI-tools deduplication method: directional
+2020-10-05 20:43:46,469 - fba.map - INFO - Number of cell barcodes detected: 3,377
+2020-10-05 20:43:46,470 - fba.map - INFO - Number of features detected: 1,127
+2020-10-05 20:43:46,474 - fba.map - INFO - Total UMIs after deduplication: 2,106,691
+2020-10-05 20:43:46,484 - fba.map - INFO - Median number of UMIs per cell: 445.0
+2020-10-05 20:43:50,288 - fba.__main__ - INFO - Done.
 ```
