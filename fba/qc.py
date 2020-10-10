@@ -250,7 +250,7 @@ def summarize_sequence_content(read1_file,
     # read2
     fig, ax = plt.subplots(nrows=1,
                            ncols=1,
-                           figsize=(read2_length / 15, 2.5))
+                           figsize=(max(2.8, read2_length / 15), 2.5))
     plot_sequence_content(
         read_composition=read2_composition,
         title='Read 2 per base sequence content',
@@ -263,7 +263,7 @@ def summarize_sequence_content(read1_file,
 
     fig, ax = plt.subplots(nrows=1,
                            ncols=1,
-                           figsize=(read2_composition.shape[0] / 15, 2.5))
+                           figsize=(max(2.8, read2_length / 15), 2.5))
     plot_sequence_content(
         read_composition=read2_composition,
         title='Read 2 per base sequence content',
@@ -432,7 +432,7 @@ def summarize_barcode_positions(matching_file, output_directory='qc'):
 
     fig, ax = plt.subplots(nrows=1,
                            ncols=1,
-                           figsize=(read2_length / 15, 2.5))
+                           figsize=(max(2.8, read2_length / 15), 2.5))
     plot_barcode_startend(
         s=fb_start_dist['count'] / sum(fb_start_dist['count']),
         e=fb_end_dist['count'] / sum(fb_end_dist['count']),
