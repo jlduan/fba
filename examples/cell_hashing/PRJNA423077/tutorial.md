@@ -16,7 +16,9 @@ $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
 $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
 ```
 
-Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.
+Download cell barcode info.
+
+These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of UMIs caputured per barcode).
 
 ```shell
 $ curl -O https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2895nnn/GSM2895283/suppl/GSM2895283_Hashtag-HTO-count.csv.gz
@@ -78,27 +80,27 @@ $ fba qc \
     -n 20000
 ```
 
-This library is constructed using Chromium Single Cell 3' v2 reagent kit. The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
+This library is constructed using Chromium Single Cell 3' Reagent Kits (v2 Chemistry). The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
 
 <p align='center'>
-    <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='300'/>
+    <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='350'/>
 </p>
 
 <p align='center'>
-    <img src='Pyplot_read1_barcodes_starting_ending.png' alt='' width='300'/>
+    <img src='Pyplot_read1_barcodes_starting_ending.png' alt='' width='350'/>
 </p>
 
-As for read 2, based on per base content, it suggests that bases 0-11 are relatively GC balanced for the reads we have sampled. Staring from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo barcodes. Most of the reads have the correct structure.
+As for read 2, based on the per base content, it suggests that bases 0-11 are relatively GC balanced for the reads we have sampled. Staring from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo barcodes. Most of the reads have the correct structure.
 
 <p align='center'>
-    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='700'/>
+    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='800'/>
 </p>
 
 <p align='center'>
-    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='700'/>
+    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='800'/>
 </p>
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format. This is actually the output of regex method in `extract` subcommand.
+The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
@@ -133,7 +135,8 @@ $ fba extract \
     -cb_m 1 \
     -fb_m 1 \
     -cb_n 3 \
-    -fb_n 3
+    -fb_n 3 \
+    -e
 ```
 
 Preview of result.
@@ -179,7 +182,6 @@ Result summary.
 2020-10-05 21:44:56,919 - fba.levenshtein - INFO - Number of read pairs processed: 74,219,921
 2020-10-05 21:44:56,919 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 67,978,937
 2020-10-05 21:44:56,954 - fba.__main__ - INFO - Done.
-2020-10-05 21:45:02,272 - fba.__main__ - INFO -
 ```
 
 <br>
@@ -220,7 +222,6 @@ Result summary.
 2020-10-05 22:02:03,506 - fba.count - INFO - Total UMIs after deduplication: 17,028,828
 2020-10-05 22:02:03,617 - fba.count - INFO - Median number of UMIs per cell: 63.0
 2020-10-05 22:02:05,218 - fba.__main__ - INFO - Done.
-2020-10-05 22:02:07,379 - fba.__main__ - INFO -
 ```
 
 <br>

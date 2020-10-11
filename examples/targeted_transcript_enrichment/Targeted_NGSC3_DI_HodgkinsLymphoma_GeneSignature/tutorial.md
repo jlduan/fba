@@ -45,7 +45,7 @@ AAACGCTGTTCTTGTT-1
 AAAGAACAGATTCGAA-1
 ```
 
-Prepare feature barcodes.
+Prepare feature sequences.
 
 `map` subcommand is designed to deal with secondary libraries built on top of whole transcriptome assays. The transcripts of interest in the whole transcriptome libraries are enriched through hybridization or PCR amplification, which enables possibly more sensitive detection. The transcripts can be from endogenous genes or ectopic constructs, for example eGFP, as long as they are captured in the parent libraries.
 

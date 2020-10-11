@@ -97,20 +97,20 @@ fba qc \
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 <p align='center'>
-    <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='300'/>
+    <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='350'/>
 </p>
 
 As for read 2, based on per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually [Template Switch Oligo (TSO) sequence](https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf). Staring from base 32, it seems there are two genotypes for the reads we have sampled.
 
 <p align='center'>
-    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='700'/>
+    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='800'/>
 </p>
 
 <p align='center'>
-    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='700'/>
+    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='800'/>
 </p>
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format. This is actually the output of regex method in `extract` subcommand.
+The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
@@ -227,7 +227,7 @@ $ fba count \
 
 Result summary.
 
-95,618,809 of 145,032,428 read pairs have valid cell and feature barcodes. And in total, 7,290,823 UMIs contribute to  the final expression matrix after UMI removal. 
+95,618,809 of 145,032,428 read pairs have valid cell and feature barcodes. And in total, 7,290,823 UMIs contribute to  the final expression matrix after UMI removal.
 
 ```shell
 2020-10-06 06:36:06,604 - fba.__main__ - INFO - fba version: 0.0.5dev

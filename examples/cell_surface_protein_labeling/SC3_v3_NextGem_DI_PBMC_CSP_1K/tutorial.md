@@ -117,23 +117,23 @@ $ fba qc \
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 <p align='center'>
-  <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='300'/>
+  <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='350'/>
 </p>
 
 As for read 2, based on per base content, it suggests that bases 0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled. Could mean that their sequences are random at library-level. While bases 34-55 and 84-89 are constant sequences and we can almost read the bases. Bases 10-24 are less random but also not constant. They are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
 
 <p align='center'>
-    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='700'/>
+    <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='800'/>
 </p>
 
 <p align='center'>
-    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='700'/>
+    <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='800'/>
 </p>
 
 
 The fragment structure in this feature barocoding library infered from qc results matches the design ([Table 1](https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf). Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called 'Capture Sequence 1' on beads.
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format. This is actually the output of regex method in `extract` subcommand.
+The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
@@ -205,7 +205,6 @@ Result summary.
 2020-10-05 20:13:59,670 - fba.levenshtein - INFO - Number of read pairs processed: 7,704,799
 2020-10-05 20:13:59,671 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,611,813
 2020-10-05 20:13:59,677 - fba.__main__ - INFO - Done.
-2020-10-05 20:14:01,730 - fba.__main__ - INFO -
 ```
 
 <br>
