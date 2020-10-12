@@ -17,7 +17,7 @@ $ pip install fba
 
 ## Usage
 
-```shell
+```
 $ fba
 usage: fba [-h]  ...
 
