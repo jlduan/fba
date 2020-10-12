@@ -210,20 +210,20 @@ $ fba count \
 Result summary.
 
 ```shell
-2020-10-10 02:44:41,574 - fba.__main__ - INFO - fba version: 0.0.5dev
-2020-10-10 02:44:41,574 - fba.__main__ - INFO - Initiating logging ...
-2020-10-10 02:44:41,574 - fba.__main__ - INFO - Python version: 3.7
-2020-10-10 02:44:41,574 - fba.__main__ - INFO - Using count subcommand ...
-2020-10-10 02:44:41,574 - fba.count - INFO - UMI-tools version: 1.0.1
-2020-10-10 02:44:41,596 - fba.count - INFO - UMI starting position on read 1: 16
-2020-10-10 02:44:41,597 - fba.count - INFO - UMI length: 9
-2020-10-10 02:44:41,597 - fba.count - INFO - UMI-tools deduplication threshold: 1
-2020-10-10 02:44:41,597 - fba.count - INFO - UMI-tools deduplication method: directional
-2020-10-10 02:44:41,597 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-2020-10-10 02:48:56,864 - fba.count - INFO - Number of lines processed: 63,646,484
-2020-10-10 02:48:56,893 - fba.count - INFO - Number of cell barcodes detected: 8,617
-2020-10-10 02:48:56,893 - fba.count - INFO - Number of features detected: 13
-2020-10-10 09:35:52,725 - fba.count - INFO - Total UMIs after deduplication: 34,912,393
-2020-10-10 09:35:52,760 - fba.count - INFO - Median number of UMIs per cell: 3,868.0
-2020-10-10 09:35:52,938 - fba.__main__ - INFO - Done.
+2020-10-10 15:12:55,447 - fba.__main__ - INFO - fba version: 0.0.5
+2020-10-10 15:12:55,447 - fba.__main__ - INFO - Initiating logging ...
+2020-10-10 15:12:55,447 - fba.__main__ - INFO - Python version: 3.7
+2020-10-10 15:12:55,447 - fba.__main__ - INFO - Using count subcommand ...
+2020-10-10 15:12:55,448 - fba.count - INFO - UMI-tools version: 1.0.1
+2020-10-10 15:12:55,480 - fba.count - INFO - UMI starting position on read 1: 16
+2020-10-10 15:12:55,481 - fba.count - INFO - UMI length: 9
+2020-10-10 15:12:55,481 - fba.count - INFO - UMI-tools deduplication threshold: 1
+2020-10-10 15:12:55,481 - fba.count - INFO - UMI-tools deduplication method: directional
+2020-10-10 15:12:55,481 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+2020-10-10 15:15:32,276 - fba.count - INFO - Number of lines processed: 63,063,944
+2020-10-10 15:15:32,291 - fba.count - INFO - Number of cell barcodes detected: 8,617
+2020-10-10 15:15:32,291 - fba.count - INFO - Number of features detected: 13
+2020-10-10 22:04:38,613 - fba.count - INFO - Total UMIs after deduplication: 34,574,192
+2020-10-10 22:04:38,648 - fba.count - INFO - Median number of UMIs per cell: 3,816.0
+2020-10-10 22:04:38,813 - fba.__main__ - INFO - Done.
 ```
