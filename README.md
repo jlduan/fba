@@ -1,5 +1,5 @@
 
-[![PyPI](https://img.shields.io/pypi/v/fba?logo=pypi&style=flat-square)](https://pypi.org/project/fba/) [![PyPI - License](https://img.shields.io/pypi/l/fba?style=flat-square)](https://raw.githubusercontent.com/jlduan/fba/master/LICENSE?token=AAFKYYNVCDZZM6Z3VS7HI5K7QDSXG)
+[![PyPI](https://img.shields.io/pypi/v/fba?logo=pypi&style=flat-square)](https://pypi.org/project/fba/) [![PyPI - License](https://img.shields.io/pypi/l/fba?style=flat-square)](https://github.com/jlduan/fba/blob/master/LICENSE)
 
 # fba
 
@@ -64,12 +64,16 @@ functions:
 - Cell surface protein labeling
     - [CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies](https://github.com/jlduan/fba/blob/master/examples/cell_surface_protein_labeling/PRJNA393315/tutorial.md)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://github.com/jlduan/fba/blob/master/examples/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.md)
+
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](https://github.com/jlduan/fba/blob/master/examples/cell_hashing/PRJNA423077/tutorial.md)
+
 - CRISPR screening
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://github.com/jlduan/fba/blob/master/examples/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.md)
+
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://github.com/jlduan/fba/blob/master/examples/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.md)
+
 - Bulk
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://github.com/jlduan/fba/blob/master/examples/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.md)
 
