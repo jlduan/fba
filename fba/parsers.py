@@ -582,7 +582,7 @@ def add_demultiplex_subparser(subparsers):
         required=False,
         type=float,
         default=0.9999,
-        help='specify quantile for the probability mass function (0.9 to 1 recommended). The default is 0.9999'
+        help='specify quantile for the probability mass function (0.8 to 1 recommended). The default is 0.9999'
     )
 
 

@@ -10,7 +10,7 @@ from fba.utils import open_by_suffix, get_logger
 logger = get_logger(logger_name=__name__)
 
 
-# Based on TinyFastSS
+# In-memory implementation of TinyFastSS
 # https://github.com/fujimotos/TinyFastSS
 
 
@@ -42,6 +42,7 @@ def bytes2set(b, delimiter=b'\x00', encoding='utf-8'):
         return set()
 
     lis = b.split(delimiter)
+
     return set(bword.decode(encoding) for bword in lis)
 
 
@@ -54,6 +55,7 @@ def set2bytes(s, delimiter=b'\x00', encoding='utf-8'):
     for uword in sorted(s):
         bword = uword.encode(encoding)
         lis.append(bword)
+
     return delimiter.join(lis)
 
 
@@ -209,6 +211,7 @@ def select_query(x, read_seq, read_qual):
                           if ii[idx] != val]) for ii in x[i]]
 
                 s = [idx for idx, val in enumerate(s) if val == min(s)][0]
+
                 return x[i][s], i
 
 
@@ -249,6 +252,7 @@ def format_one_query(q, read_seq, read_coords, barcode_dict=None):
         barcode = barcode_dict[q[0]]
     else:
         barcode = q[0]
+
     return read_seq, barcode, str(q[1])
 
 
