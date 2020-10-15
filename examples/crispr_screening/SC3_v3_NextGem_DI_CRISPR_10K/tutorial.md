@@ -259,15 +259,10 @@ $ fba demultiplex \
     -i matrix_featurecount.csv.gz \
     --output_directory demultiplexed \
     -m 1 \
-    -q 0.95
+    -q 0.8
 ```
 
 Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 <p align='center'>
     <img src='Pyplot_heatmap_cells_demultiplexed.png' alt='' width='700'/>
-</p>
-
-t-SNE embedding based on the expressions of features.
-<p align='center'>
-    <img src='Pyplot_embedding_cells_demultiplexed.png' alt='' width='500'/>
 </p>
