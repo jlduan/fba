@@ -42,7 +42,7 @@ functions:
 
 <br>
 
-- __extract__: extract cell and feature barcodes from paired fastq files. For single cell RNA-Seq assay, reads 1 contain cell barcodes and UMIs, and reads 2 contain feature barcodes.
+- __extract__: extract cell and feature barcodes from paired fastq files. For single cell RNA-Seq assay, reads 1 usually contain cell barcodes and UMIs, and reads 2 contain feature barcodes.
 
 - __map__: quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Reads 1 contain cell barcodes and UMIs, and reads 2 are transcribed regions of enriched/targeted transcripts of interest. Bowtie2 (Langmead, B., et al. 2012) is used for reads 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).
 
