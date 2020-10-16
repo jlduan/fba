@@ -2,7 +2,7 @@
 
 import re
 import sys
-# import hdbscan
+import hdbscan
 import numpy as np
 import pandas as pd
 import scipy.sparse
@@ -41,7 +41,7 @@ def get_cell_identity(x, barcodes):
     elif sum(x) == 0:
         cell_identity = np.array(object='negative',  dtype=object)
     elif sum(x):
-        cell_identity = np.array(object='multiplet', dtype=object)
+        cell_identity = np.array(object='multiple', dtype=object)
 
     return cell_identity
 
@@ -68,7 +68,6 @@ def cluster_kmedoids(m, seed=42):
     return clusters
 
 
-"""
 def cluster_hdbscan(m, min_cluster_size=30, seed=42):
 
     np.random.seed(seed=seed)
@@ -80,7 +79,7 @@ def cluster_hdbscan(m, min_cluster_size=30, seed=42):
         with_std=True).fit_transform(m)
 
     clusters_assigned = hdbscan.HDBSCAN(
-        min_cluster_size=100,
+        min_cluster_size=min_cluster_size,
         min_samples=None,
         metric='euclidean',
         alpha=1.0,
@@ -99,18 +98,20 @@ def cluster_hdbscan(m, min_cluster_size=30, seed=42):
     clusters = list()
     for i in np.unique(clusters_assigned):
         idx, = np.where(clusters_assigned == i)
-        clusters_hdbscan.append(idx)
+        clusters.append(idx)
 
     return clusters
-"""
 
 
-def demultiplex(m, q1=99.5, q2=0.9999, seed=42):
+def demultiplex(m, q1=99.5, q2=0.9999, method='kmedoids', seed=42):
     """."""
 
     m_identity = np.zeros_like(m)
 
-    c = cluster_kmedoids(m, seed=seed)
+    if method == 'kmedoids':
+        c = cluster_kmedoids(m, seed=seed)
+    elif method == 'hdbscan':
+        c = cluster_hdbscan(m, seed=seed)
 
     m_feature_avg = pd.DataFrame(
         data=np.zeros(
@@ -166,16 +167,16 @@ def prepare_heatmap_matrix(m_identity,
     """Prepares heatmap matrix for visualization."""
 
     num_positive = m_identity.sum(axis=0)
-    cells_singlet = num_positive[num_positive == 1].index
-    cells_multiplet = num_positive[num_positive > 1].index
+    cells_single = num_positive[num_positive == 1].index
+    cells_multiple = num_positive[num_positive > 1].index
     cells_negative = num_positive[num_positive == 0].index
 
-    cells_singlet = m_identity.loc[:, cells_singlet].sort_values(
+    cells_single = m_identity.loc[:, cells_single].sort_values(
         by=list(m_identity.index),
         axis=1,
         ascending=False).columns.values
 
-    cells_multiplet = m_identity.loc[:, cells_multiplet].sort_values(
+    cells_multiple = m_identity.loc[:, cells_multiple].sort_values(
         by=list(m_identity.index),
         axis=1,
         ascending=False).columns.values
@@ -186,8 +187,8 @@ def prepare_heatmap_matrix(m_identity,
         ascending=False).columns.values
 
     heatmap_matrix = m_norm.loc[:, np.concatenate(
-        (cells_singlet,
-         cells_multiplet,
+        (cells_single,
+         cells_multiple,
          cells_negative),
         axis=0)]
 
@@ -198,16 +199,13 @@ def prepare_heatmap_matrix(m_identity,
 
     heatmap_limits = np.percentile(
         a=heatmap_matrix,
-        q=[percentile_low,
-           percentile_high]
+        q=[percentile_low, percentile_high]
     )
 
     heatmap_matrix[heatmap_matrix < heatmap_limits[0]] = heatmap_limits[0]
     heatmap_matrix[heatmap_matrix > heatmap_limits[1]] = heatmap_limits[1]
 
     heatmap_matrix = pd.DataFrame(data=heatmap_matrix.T,
-                                  # index=m_identity.index,
-                                  # columns=m_identity.columns)
                                   index=m_norm.index,
                                   columns=m_norm.columns)
 
@@ -304,78 +302,50 @@ def prepare_embedding(cells,
 
 def plot_embedding(embedding,
                    ax,
-                   title=None,
-                   group=None,
-                   show_group_labels=False,
+                   title,
                    marker_size=10):
     """Plots embedding."""
 
-    if type(embedding) is not pd.DataFrame:
-        embedding = pd.DataFrame(data=embedding[:, range(2)],
-                                 columns=['x', 'y'])
-    else:
-        embedding = embedding.iloc[:, range(2)].copy()
-        embedding.columns = ['x', 'y']
+    category = sorted(embedding.category.unique())
+    category = sorted(category, key='multiple'.__eq__)
 
-    if group is not None:
-        if embedding.shape[0] == len(group):
-            embedding['category'] = list(group)
+    p_handles = list()
+    for val, color in zip(
+            category,
+            sns.color_palette(palette='husl',
+                              n_colors=embedding['category'].nunique())):
 
-            embedding['color'] = embedding['category'].map(
-                dict(zip(sorted(embedding['category'].unique()),
-                         sns.color_palette(
-                             palette='husl',
-                             n_colors=embedding['category'].nunique()))))
+        p = ax.scatter(x=embedding.loc[embedding.category == val, 'x_tsne'],
+                       y=embedding.loc[embedding.category == val, 'y_tsne'],
+                       s=10,
+                       marker='.',
+                       # c=b,
+                       color=color,
+                       alpha=1,
+                       linewidths=0,
+                       rasterized=False,
+                       edgecolors=None)
 
-        else:
-            embedding['category'] = np.array(np.isin(embedding.index,
-                                                     group),
-                                             dtype=np.int)
+        p_handles.append(p)
 
-            embedding.sort_values(by=['category'], inplace=True)
-            embedding['color'] = embedding['category'].map(
-                dict(zip([0, 1], ['darkgrey', '#ff8c69'])))
-
-    else:
-        embedding['color'] = 'tab:blue'
-
-    ax.scatter(x=embedding['x'],
-               y=embedding['y'],
-               s=marker_size,
-               marker='.',
-               c=embedding['color'],
-               alpha=1,
-               linewidths=0,
-               rasterized=False,
-               edgecolors=None)
-
-    if group is not None and show_group_labels:
-        group_labels = embedding.groupby('category').median()
-        if type(show_group_labels) is not bool:
-            group_labels = group_labels.loc[show_group_labels].copy()
-
-        for i in group_labels.index:
-            ax.annotate(text=str(i),
-                        # The 's' parameter of annotate() has been
-                        # renamed 'text' since Matplotlib 3.3
-                        # s=str(i),
-                        xy=(group_labels.loc[i]['x'],
-                            group_labels.loc[i]['y']),
-                        fontsize=7,
-                        horizontalalignment='center',
-                        verticalalignment='center')
-
-    if title:
-        ax.set_title(label=title, fontdict=None, loc='center', fontsize=8)
+    ax.set_title(label=title, fontdict=None, loc='center', fontsize=8)
 
     for i in ['top', 'bottom', 'left', 'right']:
         ax.spines[i].set_linewidth(w=0.5)
         ax.spines[i].set_color(c='grey')
 
-    # ax.set_axis_off()
     ax.xaxis.set_ticks(ticks=[])
     ax.yaxis.set_ticks(ticks=[])
-    # ax.set_facecolor(color='white')
+
+    ax.legend(handles=p_handles,
+              labels=category,
+              bbox_to_anchor=(1.02, 1),
+              loc='upper left',
+              markerscale=4,
+              fontsize=6,
+              frameon=True,
+              shadow=False,
+              framealpha=1)
 
     return ax
 
@@ -383,6 +353,8 @@ def plot_embedding(embedding,
 def demultiplex_feature_barcoding(matrix_featurecount_file,
                                   output_directory='demultiplexed',
                                   q=0.9999,
+                                  initial_clustering_methold='kmedoids',
+                                  visualization=True,
                                   seed=42):
     """."""
 
@@ -413,8 +385,8 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         for i in matrix_featurecount.index
     ]
 
-    # matrix_featurecount = matrix_featurecount.loc[
-    #     matrix_featurecount.sum(axis=1) >= 300]
+    matrix_featurecount = matrix_featurecount.loc[
+        (matrix_featurecount > 0).sum(axis=1) >= 200]
 
     logger.info(f'Number of cells: {matrix_featurecount.shape[1]:,}')
     logger.info(f'Number of features: {matrix_featurecount.shape[0]:,}')
@@ -424,10 +396,13 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
     logger.info('Demultiplexing ...')
 
     try:
-        cells_demultiplexed, m_identity = demultiplex(m=matrix_featurecount,
-                                                      q1=99,
-                                                      q2=q,
-                                                      seed=seed)
+        cells_demultiplexed, m_identity = demultiplex(
+            m=matrix_featurecount,
+            q1=99,
+            q2=q,
+            method=initial_clustering_methold,
+            seed=seed
+        )
         cells_demultiplexed.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_FILE)
     except ValueError as err:
         logger.critical(
@@ -441,54 +416,53 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
                               columns=matrix_featurecount.columns)
     m_identity.to_csv(path_or_buf=MATRIX_CELL_IDENTITY, compression='infer')
 
-    # heatmap
-    logger.info('Generating heatmap ...')
-    matrix_heatmap = prepare_heatmap_matrix(
-        m_identity=m_identity,
-        m_norm=matrix_featurecount.apply(normalize_clr, axis=1),
-        percentile_low=1,
-        percentile_high=99
-    )
+    if visualization:
 
-    fig, ax = plt.subplots(
-        nrows=1, ncols=1,
-        figsize=(6, max(2, len(matrix_featurecount.index) * 0.25))
-    )
-    plot_heatmap_features_selected(heatmat_matrix=matrix_heatmap,
-                                   ax=ax,
-                                   color_map='viridis',
-                                   title='Cell classification, kmedoids')
-    plt.tight_layout()
-    fig.savefig(fname=CELLS_DEMULTIPLEXED_HEATMAP_PLOT,
-                transparent=True,
-                bbox_inches='tight')
+        # heatmap
+        logger.info('Generating heatmap ...')
+        matrix_heatmap = prepare_heatmap_matrix(
+            m_identity=m_identity,
+            m_norm=matrix_featurecount.apply(normalize_clr, axis=1),
+            percentile_low=1,
+            percentile_high=99
+        )
 
-    # t-SNE
-    logger.info('Embedding ...')
-    cells_embedding = cells_demultiplexed.index[
-        cells_demultiplexed['category'] != 'negative']
+        fig, ax = plt.subplots(
+            nrows=1, ncols=1,
+            figsize=(6, max(2, len(matrix_featurecount.index) * 0.25))
+        )
+        plot_heatmap_features_selected(heatmat_matrix=matrix_heatmap,
+                                       ax=ax,
+                                       color_map='viridis',
+                                       title='Cell classification')
+        plt.tight_layout()
+        fig.savefig(fname=CELLS_DEMULTIPLEXED_HEATMAP_PLOT,
+                    transparent=True,
+                    bbox_inches='tight')
 
-    embedding = prepare_embedding(
-        cells=cells_embedding,
-        m=matrix_featurecount.apply(normalize_clr, axis=1),
-        seed=seed
-    )
-    embedding['category'] = cells_demultiplexed.loc[embedding.index]
-    embedding.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_EMBEDDING_FILE)
+        # t-SNE
+        logger.info('Embedding ...')
+        cells_embedding = cells_demultiplexed.index[
+            cells_demultiplexed['category'] != 'negative']
 
-    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4, 3))
-    plot_embedding(embedding=embedding,
-                   ax=ax,
-                   title='t-SNE; Cell classification, kmedoids',
-                   group=embedding['category'],
-                   show_group_labels=[
-                       i for i in embedding['category'].unique()
-                       if i != 'multiplet'],
-                   marker_size=10)
-    plt.tight_layout()
+        embedding = prepare_embedding(
+            cells=cells_embedding,
+            m=matrix_featurecount.apply(normalize_clr, axis=1),
+            seed=seed
+        )
+        embedding['category'] = cells_demultiplexed.loc[embedding.index]
+        embedding.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_EMBEDDING_FILE)
 
-    fig.savefig(fname=CELLS_DEMULTIPLEXED_EMBEDDING_PLOT,
-                transparent=None,
-                bbox_inches='tight')
+        fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4.5, 3))
+        plot_embedding(embedding=embedding,
+                       ax=ax,
+                       title='t-SNE; Cell classification',
+                       marker_size=10)
+
+        plt.tight_layout()
+
+        fig.savefig(fname=CELLS_DEMULTIPLEXED_EMBEDDING_PLOT,
+                    transparent=None,
+                    bbox_inches='tight')
 
     return matrix_featurecount_file

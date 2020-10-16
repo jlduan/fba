@@ -154,6 +154,8 @@ def main():
             matrix_featurecount_file=args.input,
             output_directory=args.output_directory,
             q=args.quantile,
+            initial_clustering_methold=args.method_extra,
+            visualization=args.visualization,
             seed=42
         )
         logger.info('Done.')

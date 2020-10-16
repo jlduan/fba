@@ -35,6 +35,7 @@ setup(
         'scikit-learn',
         'statsmodels',
         'pyclustering',
+        'hdbscan',
         'matplotlib>=3.3'
     ],
     entry_points={

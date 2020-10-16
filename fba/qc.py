@@ -521,7 +521,6 @@ def analyze_bulk(read_file,
         if read_counter % 10_000_000 == 0:
             logger.info(f'Reads processed: {read_counter:,}')
 
-
         if read_seq.count('N') <= num_n_threshold:
             x2, y2 = read_coords
 

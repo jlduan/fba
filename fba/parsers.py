@@ -59,7 +59,7 @@ def add_extract_subparser(subparsers):
     parser = subparsers.add_parser(
         'extract',
         help='extract feature barcodes',
-        description='Extract cell and feature barcodes from paired fastq files. For single cell RNA-Seq assay, reads 1 contain cell barcodes and UMIs, and reads 2 contain feature barcodes.'
+        description='Extract cell and feature barcodes from paired fastq files. For single cell RNA-Seq assay, reads 1 usually contain cell barcodes and UMIs, and reads 2 contain feature barcodes.'
     )
 
     parser.add_argument(
@@ -554,7 +554,7 @@ def add_demultiplex_subparser(subparsers):
         dest='input',
         required=True,
         type=str,
-        help='specify an input file (feature count matrix). The output of count subcommand'
+        help='specify an input file (feature count matrix). The output of `count` subcommand'
     )
 
     parser.add_argument(
@@ -578,11 +578,32 @@ def add_demultiplex_subparser(subparsers):
 
     parser.add_argument(
         '-q',
+        '--quantile',
         dest='quantile',
         required=False,
         type=float,
         default=0.9999,
-        help='specify quantile for the probability mass function (0.8 to 1 recommended). The default is 0.9999'
+        help='specify quantile cutoff for the probability mass function. The default is 0.9999'
+    )
+
+    parser.add_argument(
+        '-me',
+        '--method_extra',
+        dest='method_extra',
+        required=False,
+        type=str,
+        default='kmedoids',
+        choices=['kmedoids', 'hdbscan'],
+        help='specify inital clustering method. The default is kmedoids'
+    )
+
+    parser.add_argument(
+        '-v',
+        '--visualization',
+        dest='visualization',
+        required=False,
+        action='store_true',
+        help='specify to visualize demultiplexing result'
     )
 
 
