@@ -43,7 +43,7 @@ CATCGAAGTGATGCCC
 TCAGATGCACGAGAGT
 ```
 
-Prepare feature barcodes.
+Prepare feature barcodes (hashtag-oligos, HTO).
 
 ```shell
 $ gzip -dc GSM2895283_Hashtag-HTO-count.csv.gz | cut -d ',' -f1 | grep Batch | gsed 's/-/\t/g' > feature_barcodes.tsv
@@ -68,7 +68,7 @@ BatchH  TATCACATCGGT
 
 ## QC
 
-Sample the first 20,000 (set by `-n`) read pairs for quality control. Use `-t` to set the number of threads. The diagnostic results and plots are generated in the `qc` directory (set by `--output_directory`). By default, full length of read 1 and read 2 are searched against known cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use `-r1_coords` and/or `-r2_coords` to limit the search range.  Use `-cb_n` and/or `-fb_n` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 (set by `-n`) read pairs for quality control. Use `-t` to set the number of threads. The diagnostic results and plots are generated in the `qc` directory (set by `--output_directory`). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use `-r1_coords` and/or `-r2_coords` to limit the search range.  Use `-cb_n` and/or `-fb_n` to set the mismatch tolerance for cell and feature barcode matching.
 
 ```shell
 $ fba qc \
@@ -90,7 +90,7 @@ This library is constructed using Chromium Single Cell 3' Reagent Kits (v2 Chemi
     <img src='Pyplot_read1_barcodes_starting_ending.png' alt='' width='350'/>
 </p>
 
-As for read 2, based on the per base content, it suggests that bases 0-11 are relatively GC balanced for the reads we have sampled. Staring from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo barcodes. Most of the reads have the correct structure.
+As for read 2, based on the per base content, it suggests that bases 0-11 are relatively GC balanced for the reads we have sampled. Starting from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences. Most of the reads have the correct structure.
 
 <p align='center'>
     <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='800'/>
@@ -121,7 +121,7 @@ NCACGGAGTTCCCTTGCCAATGTAGTTTT   AGGGAGTTCGTTTGCC        2:18    3:0:0   NGCTTACT
 
 ## Barcode extraction
 
-The length of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on qc results, the distributions of staring and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to `0,16` on read 1 and `0,12` on read 2. One mismatches for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (`-cb_n`, `-cf_n`) are allowed.
+The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on qc results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to `0,16` on read 1 and `0,12` on read 2. One mismatch for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (`-cb_n`, `-cf_n`) are allowed.
 
 ```shell
 $ fba extract \
@@ -158,37 +158,39 @@ CGCGGTAAGACACTAAcggccgtggtttt   CGCGGTAAGACACTAA        0       TATCACATCGGTtaaa
 
 Result summary.
 
+91.5 % (67,916,430 out of 74,219,921) of total read pairs have valid cell and feature barcodes. Majority of fragments in this library have correct structure.
+
 ```shell
-2020-10-05 19:40:44,597 - fba.__main__ - INFO - fba version: 0.0.5dev
-2020-10-05 19:40:44,597 - fba.__main__ - INFO - Initiating logging ...
-2020-10-05 19:40:44,597 - fba.__main__ - INFO - Python version: 3.7
-2020-10-05 19:40:44,597 - fba.__main__ - INFO - Using extract subcommand ...
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Number of reference cell barcodes: 65,000
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Number of reference feature barcodes: 8
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16]
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12]
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 1
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1
-2020-10-05 19:40:44,619 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
-2020-10-05 19:40:44,620 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
-2020-10-05 19:40:46,078 - fba.levenshtein - INFO - Matching ...
-2020-10-05 19:57:36,727 - fba.levenshtein - INFO - Read pairs processed: 10,000,000
-2020-10-05 20:14:30,690 - fba.levenshtein - INFO - Read pairs processed: 20,000,000
-2020-10-05 20:31:09,269 - fba.levenshtein - INFO - Read pairs processed: 30,000,000
-2020-10-05 20:47:46,952 - fba.levenshtein - INFO - Read pairs processed: 40,000,000
-2020-10-05 21:04:23,654 - fba.levenshtein - INFO - Read pairs processed: 50,000,000
-2020-10-05 21:21:01,489 - fba.levenshtein - INFO - Read pairs processed: 60,000,000
-2020-10-05 21:37:48,811 - fba.levenshtein - INFO - Read pairs processed: 70,000,000
-2020-10-05 21:44:56,919 - fba.levenshtein - INFO - Number of read pairs processed: 74,219,921
-2020-10-05 21:44:56,919 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 67,978,937
-2020-10-05 21:44:56,954 - fba.__main__ - INFO - Done.
+2020-10-19 22:34:54,404 - fba.__main__ - INFO - fba version: 0.0.6
+2020-10-19 22:34:54,404 - fba.__main__ - INFO - Initiating logging ...
+2020-10-19 22:34:54,404 - fba.__main__ - INFO - Python version: 3.7
+2020-10-19 22:34:54,404 - fba.__main__ - INFO - Using extract subcommand ...
+2020-10-19 22:34:54,472 - fba.levenshtein - INFO - Number of reference cell barcodes: 65,000
+2020-10-19 22:34:54,472 - fba.levenshtein - INFO - Number of reference feature barcodes: 8
+2020-10-19 22:34:54,472 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16]
+2020-10-19 22:34:54,472 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12]
+2020-10-19 22:34:54,473 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 1
+2020-10-19 22:34:54,473 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1
+2020-10-19 22:34:54,473 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+2020-10-19 22:34:54,473 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+2020-10-19 22:34:57,841 - fba.levenshtein - INFO - Matching ...
+2020-10-19 22:47:20,847 - fba.levenshtein - INFO - Read pairs processed: 10,000,000
+2020-10-19 22:59:40,784 - fba.levenshtein - INFO - Read pairs processed: 20,000,000
+2020-10-19 23:11:46,464 - fba.levenshtein - INFO - Read pairs processed: 30,000,000
+2020-10-19 23:23:52,232 - fba.levenshtein - INFO - Read pairs processed: 40,000,000
+2020-10-19 23:35:57,551 - fba.levenshtein - INFO - Read pairs processed: 50,000,000
+2020-10-19 23:48:04,737 - fba.levenshtein - INFO - Read pairs processed: 60,000,000
+2020-10-20 00:00:13,235 - fba.levenshtein - INFO - Read pairs processed: 70,000,000
+2020-10-20 00:05:20,683 - fba.levenshtein - INFO - Number of read pairs processed: 74,219,921
+2020-10-20 00:05:20,684 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 67,916,430
+2020-10-20 00:05:20,773 - fba.__main__ - INFO - Done.
 ```
 
 <br>
 
 ## Matrix generation
 
-Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools ([Smith, T., et al. 2017. Genome Res. 27, 491–499.](http://www.genome.org/cgi/doi/10.1101/gr.209601.116)). Use `-us` to set the UMI starting position on read 1. Use `-ul` to set the UMI length. Fragments with UMI length less than this value are discarded. Use `-um` to set mismatch threshold. UMI deduplication method is set by `-ud`.
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools ([Smith, T., et al. 2017. Genome Res. 27, 491–499.](http://www.genome.org/cgi/doi/10.1101/gr.209601.116)). Use `-us` to set the UMI starting position on read 1. Use `-ul` to set the UMI length. Fragments with UMI length less than this value are discarded. Use `-um` to set mismatch threshold. UMI deduplication method is set by `-ud`.
 
 The generated feature count matrix can be easily imported into well-established single cell analysis packages: [Seruat](https://satijalab.org/seurat/) and [Scanpy](https://scanpy.readthedocs.io/en/stable/).
 
@@ -205,23 +207,25 @@ $ fba count \
 
 Result summary.
 
+25.1% (17,022,125 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,125 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.
+
 ```shell
-2020-10-05 21:45:02,273 - fba.__main__ - INFO - fba version: 0.0.5dev
-2020-10-05 21:45:02,273 - fba.__main__ - INFO - Initiating logging ...
-2020-10-05 21:45:02,273 - fba.__main__ - INFO - Python version: 3.7
-2020-10-05 21:45:02,273 - fba.__main__ - INFO - Using count subcommand ...
-2020-10-05 21:45:02,273 - fba.count - INFO - UMI-tools version: 1.0.1
-2020-10-05 21:45:02,320 - fba.count - INFO - UMI starting position on read 1: 16
-2020-10-05 21:45:02,320 - fba.count - INFO - UMI length: 10
-2020-10-05 21:45:02,320 - fba.count - INFO - UMI-tools deduplication threshold: 1
-2020-10-05 21:45:02,320 - fba.count - INFO - UMI-tools deduplication method: directional
-2020-10-05 21:45:02,320 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-2020-10-05 21:51:05,595 - fba.count - INFO - Number of lines processed: 67,978,937
-2020-10-05 21:51:05,766 - fba.count - INFO - Number of cell barcodes detected: 64,999
-2020-10-05 21:51:05,766 - fba.count - INFO - Number of features detected: 8
-2020-10-05 22:02:03,506 - fba.count - INFO - Total UMIs after deduplication: 17,028,828
-2020-10-05 22:02:03,617 - fba.count - INFO - Median number of UMIs per cell: 63.0
-2020-10-05 22:02:05,218 - fba.__main__ - INFO - Done.
+2020-10-20 00:05:25,095 - fba.__main__ - INFO - fba version: 0.0.6
+2020-10-20 00:05:25,095 - fba.__main__ - INFO - Initiating logging ...
+2020-10-20 00:05:25,095 - fba.__main__ - INFO - Python version: 3.7
+2020-10-20 00:05:25,095 - fba.__main__ - INFO - Using count subcommand ...
+2020-10-20 00:05:25,095 - fba.count - INFO - UMI-tools version: 1.0.1
+2020-10-20 00:05:25,100 - fba.count - INFO - UMI starting position on read 1: 16
+2020-10-20 00:05:25,100 - fba.count - INFO - UMI length: 10
+2020-10-20 00:05:25,101 - fba.count - INFO - UMI-tools deduplication threshold: 1
+2020-10-20 00:05:25,101 - fba.count - INFO - UMI-tools deduplication method: directional
+2020-10-20 00:05:25,101 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+2020-10-20 00:09:09,293 - fba.count - INFO - Number of lines processed: 67,916,430
+2020-10-20 00:09:09,479 - fba.count - INFO - Number of cell barcodes detected: 64,998
+2020-10-20 00:09:09,479 - fba.count - INFO - Number of features detected: 8
+2020-10-20 00:24:02,332 - fba.count - INFO - Total UMIs after deduplication: 17,022,125
+2020-10-20 00:24:02,458 - fba.count - INFO - Median number of UMIs per cell: 63.0
+2020-10-20 00:24:07,980 - fba.__main__ - INFO - Done.
 ```
 
 <br>
@@ -234,17 +238,16 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
 $ fba demultiplex \
     -i matrix_featurecount.csv.gz \
     --output_directory demultiplexed \
-    -m 1
+    -v
 ```
 
 
-Heatmap of relative expressions of features across all cells. Each column represents a single cell.
+Heatmap of relative abundance of features across all cells. Each column represents a single cell.
 <p align='center'>
     <img src='Pyplot_heatmap_cells_demultiplexed.png' alt='' width='700'/>
 </p>
 
-
-t-SNE embedding based on the expressions of features.
+t-SNE embedding based on the abundance of features.
 <p align='center'>
     <img src='Pyplot_embedding_cells_demultiplexed.png' alt='' width='500'/>
 </p>

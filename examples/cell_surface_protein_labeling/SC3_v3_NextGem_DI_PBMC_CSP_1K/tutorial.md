@@ -188,6 +188,8 @@ GATGGAGGTGAGCTAGaaatgccaagtt    GATGGAGCAGAGCTAG        2       acacaatgaaTGTTCC
 
 Result summary.
 
+59.8 % (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.
+
 ```shell
 2020-10-19 21:37:16,382 - fba.__main__ - INFO - fba version: 0.0.6
 2020-10-19 21:37:16,382 - fba.__main__ - INFO - Initiating logging ...
@@ -226,6 +228,8 @@ $ fba count \
 ```
 
 Result summary.
+
+69.8% (3,214,495 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,495 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.
 
 ```shell
 2020-10-19 21:53:32,215 - fba.__main__ - INFO - fba version: 0.0.6

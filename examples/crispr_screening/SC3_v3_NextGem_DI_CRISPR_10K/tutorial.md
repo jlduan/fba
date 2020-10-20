@@ -81,7 +81,7 @@ NON_TARGET-1    AACGTGCTGACGATGCGGGC
 
 ## QC
 
-Sample the first 20,000 (set by `-n`) read pairs for quality control. Use `-t` to set the number of threads. The diagnostic results and plots are generated in the `qc` directory (set by `--output_directory`). By default, full length of read 1 and read 2 are searched against known cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use `-r1_coords` and/or `-r2_coords` to limit the search range. Use `-cb_n` and/or `-fb_n` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 (set by `-n`) read pairs for quality control. Use `-t` to set the number of threads. The diagnostic results and plots are generated in the `qc` directory (set by `--output_directory`). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use `-r1_coords` and/or `-r2_coords` to limit the search range. Use `-cb_n` and/or `-fb_n` to set the mismatch tolerance for cell and feature barcode matching.
 
 
 ```shell
@@ -100,7 +100,7 @@ This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit 
     <img src='Pyplot_read1_per_base_seq_content.png' alt='' width='350'/>
 </p>
 
-As for read 2, based on per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually [Template Switch Oligo (TSO) sequence](https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf). Staring from base 32, it seems there are two genotypes for the reads we have sampled.
+As for read 2, based on the per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually [Template Switch Oligo (TSO) sequence](https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf). Starting from base 32, it seems there are two genotypes for the reads we have sampled.
 
 <p align='center'>
     <img src='Pyplot_read2_per_base_seq_content.png' alt='' width='800'/>
@@ -116,15 +116,15 @@ The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `m
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
 
 read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
-CNCCACACACGTGTTAatgagtactagc    CCTCACACACGTAGTT        0:15    2:0:1   AAGCAGTGGTATCAACGCAGAGTACATGGGATAGGTTTGGTCCTAGCCTTTCTATTAGCTCTTAGTAAGATTACACATGCAAGCATCCCC      no_match        NA      NA
-GNCGCGATCAGCATTActtttgtcaccc    GTCGCGAAGAGCATTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGACTGTTGCTGGTGTGTACTTGCTAAGGTTTATGTCAGTTCAAGATTATAAGCCCCCCAG      no_match        NA      NA
-TNGGAAGGTAAGTGTAatcgagggaaca    TGGGAAGCAAAGTGTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
-CNCCCAAGTCGATAGGgagcgcaagcat    CCCAACTCACGATAGG        2:16    1:0:2   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
-CNCACTGCAAACGGTGggcgtaaatgag    CTCACTGGTAACGGTG        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
-ANCATCACAGGCGCTTgtcccactatat    AGCATCAGTGGCGCTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
-ANACGAACACTTTCATccaaaagaagtt    AAACGAAGTCTTTCAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
-ANCAACCAGTATCGTTgaaatcctggta    AACAACCTCTATCGTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGAACGTGCTGACGATGCGGGCGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAA      NON_TARGET-1_AACGTGCTGACGATGCGGGC       31:51   0:0:0
-GNAGCCCGTACCACATgggcccagtatg    GAAGCCCCAACCACAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT      RAB1A-2_GCCGGCGAACCAGGAAATA     31:50   0:0:0
+CNCCACACACGTGTTAatgagtactagc    CCTCACACACGTAGTT        0:15    2:0:1   AAGCAGTGGTATCAACGCAGAGTACATGGGATAGGTTTGGTCCTAGCCTTTCTATTAGCTCTTAGTAAGATTACACATGCAAGCATCCCC    no_match        NA      NA
+GNCGCGATCAGCATTActtttgtcaccc    GTCGCGAAGAGCATTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGACTGTTGCTGGTGTGTACTTGCTAAGGTTTATGTCAGTTCAAGATTATAAGCCCCCCAG    no_match        NA      NA
+TNGGAAGGTAAGTGTAatcgagggaaca    TGGGAAGCAAAGTGTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
+CNCCCAAGTCGATAGGgagcgcaagcat    CCCAACTCACGATAGG        2:16    1:0:2   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
+CNCACTGCAAACGGTGggcgtaaatgag    CTCACTGGTAACGGTG        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
+ANCATCACAGGCGCTTgtcccactatat    AGCATCAGTGGCGCTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
+ANACGAACACTTTCATccaaaagaagtt    AAACGAAGTCTTTCAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
+ANCAACCAGTATCGTTgaaatcctggta    AACAACCTCTATCGTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGAACGTGCTGACGATGCGGGCGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAA    NON_TARGET-1_AACGTGCTGACGATGCGGGC       31:51   0:0:0
+GNAGCCCGTACCACATgggcccagtatg    GAAGCCCCAACCACAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
 ```
 
 <br>
@@ -168,43 +168,45 @@ ACAACCACACATCTAGcggcatcatact    ACAACCAGTCATCTAG        2       aagcagtggtatcaac
 AGACTCAAGTGCTAGAacagaactggtg    AGACTCATCTGCTAGA        2       aagcagtggtatcaacgcagagtacatggggAACGTGCTGACGATGCGGGCgtttaagagctaagctggaaacagcatagcaagtttaaa    NON_TARGET-1_AACGTGCTGACGATGCGGGC        0
 GAGTTGTTCGAACATTctgcccgacgtc    GAGTTGTAGGAACATT        2       aagcagtggtatcaacgcagagtacatggggAACGTGCTGACGATGCGGGCgtttaagagctaagctggaaacagcatagcaagtttaaa    NON_TARGET-1_AACGTGCTGACGATGCGGGC        0
 AGACTCAGTGGCACAAtgtcagaattca    AGACTCACAGGCACAA        2       aagcagtggtatcaacgcagagtacatggggGCCGGCGAACCAGGAAATAGtttaagagctaagctggaaacagcatagcaagtttaaat    RAB1A-2_GCCGGCGAACCAGGAAATAG     0
-CGGTCAGTCTCATTGCcaactcaagccc    CGGTCAGAGTCATTGC        2       aagcagtggtatcaacgcagagtacatggggCCGGCGAACCAGGAAATAGTttaagagctaagctggaaacagcatagcaagtttaaata    RAB1A-2_GCCGGCGAACCAGGAAATAG     2
 TGCACGGAGGATAACCcgtgcacgtaca    TGCACGGTCGATAACC        2       aagcagtggtatcaacgcagagtacatggggGCCGGCGAACCAGGAAATAGtttaagagctaagctggaaacagcatagcaagtttaaat    RAB1A-2_GCCGGCGAACCAGGAAATAG     0
+CGTAGTAGTAACACGGaagagggaactg    CGTAGTAGTAACGCGA        2       aagcagtggtatcaacgcagagtacatggggAACGTGCTGACGATGCGGGCgtttaagagctaagctggaaacagcatagcaagtttaaa    NON_TARGET-1_AACGTGCTGACGATGCGGGC        0
 ```
 
 Result summary.
 
+64.7 % (93,795,979 out of 145,032,428) of total read pairs have valid cell and feature barcodes. Majority of fragments in this library have correct structure.
+
 ```shell
-2020-10-05 19:46:18,945 - fba.__main__ - INFO - fba version: 0.0.5dev
-2020-10-05 19:46:18,945 - fba.__main__ - INFO - Initiating logging ...
-2020-10-05 19:46:18,945 - fba.__main__ - INFO - Python version: 3.7
-2020-10-05 19:46:18,945 - fba.__main__ - INFO - Using extract subcommand ...
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Number of reference cell barcodes: 11,791
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Number of reference feature barcodes: 2
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16]
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Read 2 coordinates to search: [31, 51]
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 2
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
-2020-10-05 19:46:18,954 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
-2020-10-05 19:46:20,657 - fba.levenshtein - INFO - Matching ...
-2020-10-05 20:30:52,171 - fba.levenshtein - INFO - Read pairs processed: 10,000,000
-2020-10-05 21:15:17,539 - fba.levenshtein - INFO - Read pairs processed: 20,000,000
-2020-10-05 21:59:37,841 - fba.levenshtein - INFO - Read pairs processed: 30,000,000
-2020-10-05 22:44:02,259 - fba.levenshtein - INFO - Read pairs processed: 40,000,000
-2020-10-05 23:28:29,295 - fba.levenshtein - INFO - Read pairs processed: 50,000,000
-2020-10-06 00:13:19,941 - fba.levenshtein - INFO - Read pairs processed: 60,000,000
-2020-10-06 00:58:24,444 - fba.levenshtein - INFO - Read pairs processed: 70,000,000
-2020-10-06 01:43:25,282 - fba.levenshtein - INFO - Read pairs processed: 80,000,000
-2020-10-06 02:28:27,052 - fba.levenshtein - INFO - Read pairs processed: 90,000,000
-2020-10-06 03:13:25,809 - fba.levenshtein - INFO - Read pairs processed: 100,000,000
-2020-10-06 03:58:32,029 - fba.levenshtein - INFO - Read pairs processed: 110,000,000
-2020-10-06 04:43:30,087 - fba.levenshtein - INFO - Read pairs processed: 120,000,000
-2020-10-06 05:28:29,441 - fba.levenshtein - INFO - Read pairs processed: 130,000,000
-2020-10-06 06:13:31,044 - fba.levenshtein - INFO - Read pairs processed: 140,000,000
-2020-10-06 06:36:04,255 - fba.levenshtein - INFO - Number of read pairs processed: 145,032,428
-2020-10-06 06:36:04,255 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 95,618,809
-2020-10-06 06:36:04,289 - fba.__main__ - INFO - Done.
+2020-10-19 21:54:28,947 - fba.__main__ - INFO - fba version: 0.0.6
+2020-10-19 21:54:28,947 - fba.__main__ - INFO - Initiating logging ...
+2020-10-19 21:54:28,948 - fba.__main__ - INFO - Python version: 3.7
+2020-10-19 21:54:28,948 - fba.__main__ - INFO - Using extract subcommand ...
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Number of reference cell barcodes: 11,791
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Number of reference feature barcodes: 2
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16]
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Read 2 coordinates to search: [31, 51]
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 2
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+2020-10-19 21:54:28,958 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+2020-10-19 21:54:31,853 - fba.levenshtein - INFO - Matching ...
+2020-10-19 22:23:09,644 - fba.levenshtein - INFO - Read pairs processed: 10,000,000
+2020-10-19 22:51:39,358 - fba.levenshtein - INFO - Read pairs processed: 20,000,000
+2020-10-19 23:20:08,349 - fba.levenshtein - INFO - Read pairs processed: 30,000,000
+2020-10-19 23:48:37,588 - fba.levenshtein - INFO - Read pairs processed: 40,000,000
+2020-10-20 00:17:06,236 - fba.levenshtein - INFO - Read pairs processed: 50,000,000
+2020-10-20 00:45:31,488 - fba.levenshtein - INFO - Read pairs processed: 60,000,000
+2020-10-20 01:13:59,161 - fba.levenshtein - INFO - Read pairs processed: 70,000,000
+2020-10-20 01:42:26,881 - fba.levenshtein - INFO - Read pairs processed: 80,000,000
+2020-10-20 02:10:54,925 - fba.levenshtein - INFO - Read pairs processed: 90,000,000
+2020-10-20 02:39:24,302 - fba.levenshtein - INFO - Read pairs processed: 100,000,000
+2020-10-20 03:07:53,490 - fba.levenshtein - INFO - Read pairs processed: 110,000,000
+2020-10-20 03:36:18,279 - fba.levenshtein - INFO - Read pairs processed: 120,000,000
+2020-10-20 04:04:44,338 - fba.levenshtein - INFO - Read pairs processed: 130,000,000
+2020-10-20 04:33:11,574 - fba.levenshtein - INFO - Read pairs processed: 140,000,000
+2020-10-20 04:47:27,043 - fba.levenshtein - INFO - Number of read pairs processed: 145,032,428
+2020-10-20 04:47:27,044 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 93,795,979
+2020-10-20 04:47:27,155 - fba.__main__ - INFO - Done.
 ```
 
 <br>
@@ -227,25 +229,25 @@ $ fba count \
 
 Result summary.
 
-95,618,809 of 145,032,428 read pairs have valid cell and feature barcodes. And in total, 7,290,823 UMIs contribute to  the final expression matrix after UMI removal.
+7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,145,799 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.
 
 ```shell
-2020-10-06 06:36:06,604 - fba.__main__ - INFO - fba version: 0.0.5dev
-2020-10-06 06:36:06,604 - fba.__main__ - INFO - Initiating logging ...
-2020-10-06 06:36:06,604 - fba.__main__ - INFO - Python version: 3.7
-2020-10-06 06:36:06,604 - fba.__main__ - INFO - Using count subcommand ...
-2020-10-06 06:36:06,604 - fba.count - INFO - UMI-tools version: 1.0.1
-2020-10-06 06:36:06,637 - fba.count - INFO - UMI starting position on read 1: 16
-2020-10-06 06:36:06,637 - fba.count - INFO - UMI length: 12
-2020-10-06 06:36:06,637 - fba.count - INFO - UMI-tools deduplication threshold: 1
-2020-10-06 06:36:06,637 - fba.count - INFO - UMI-tools deduplication method: directional
-2020-10-06 06:36:06,637 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-2020-10-06 06:43:43,453 - fba.count - INFO - Number of lines processed: 95,618,809
-2020-10-06 06:43:43,463 - fba.count - INFO - Number of cell barcodes detected: 11,780
-2020-10-06 06:43:43,463 - fba.count - INFO - Number of features detected: 2
-2020-10-06 06:52:31,118 - fba.count - INFO - Total UMIs after deduplication: 7,290,823
-2020-10-06 06:52:31,140 - fba.count - INFO - Median number of UMIs per cell: 486.0
-2020-10-06 06:52:31,256 - fba.__main__ - INFO - Done.
+2020-10-20 04:47:32,738 - fba.__main__ - INFO - fba version: 0.0.6
+2020-10-20 04:47:32,738 - fba.__main__ - INFO - Initiating logging ...
+2020-10-20 04:47:32,738 - fba.__main__ - INFO - Python version: 3.7
+2020-10-20 04:47:32,738 - fba.__main__ - INFO - Using count subcommand ...
+2020-10-20 04:47:32,738 - fba.count - INFO - UMI-tools version: 1.0.1
+2020-10-20 04:47:32,795 - fba.count - INFO - UMI starting position on read 1: 16
+2020-10-20 04:47:32,795 - fba.count - INFO - UMI length: 12
+2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication threshold: 1
+2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication method: directional
+2020-10-20 04:47:32,795 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+2020-10-20 04:51:50,886 - fba.count - INFO - Number of lines processed: 93,795,979
+2020-10-20 04:51:50,893 - fba.count - INFO - Number of cell barcodes detected: 11,758
+2020-10-20 04:51:50,894 - fba.count - INFO - Number of features detected: 2
+2020-10-20 05:00:42,298 - fba.count - INFO - Total UMIs after deduplication: 7,145,799
+2020-10-20 05:00:42,320 - fba.count - INFO - Median number of UMIs per cell: 477.0
+2020-10-20 05:00:42,434 - fba.__main__ - INFO - Done.
 ```
 
 <br>
@@ -259,10 +261,16 @@ $ fba demultiplex \
     -i matrix_featurecount.csv.gz \
     --output_directory demultiplexed \
     -m 1 \
-    -q 0.8
+    -q 0.75 \
+    -v
 ```
 
 Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 <p align='center'>
     <img src='Pyplot_heatmap_cells_demultiplexed.png' alt='' width='700'/>
+</p>
+
+t-SNE embedding based on the abundance of features.
+<p align='center'>
+    <img src='Pyplot_embedding_cells_demultiplexed.png' alt='' width='500'/>
 </p>
