@@ -30,12 +30,12 @@ optional arguments:
 
 functions:
 
-    extract         extract feature barcodes
+    extract         extract cell and feature barcodes
     map             map enriched transcripts
-    filter          filter extracted feature barcodes
+    filter          filter extracted barcodes
     count           count feature barcodes per cell
-    demultiplex     demultiplex cells based on feature barcoding
-    qc              quality control of feature barcoding
+    demultiplex     demultiplex cells based on feature abundance
+    qc              quality control of feature barcoding assay
     kallisto_wrapper
                     deploy kallisto/bustools for feature barcoding
                     quantification

@@ -77,8 +77,7 @@ def main():
                     read2_coords=args.read2_coords,
                     output_file=args.output,
                     cb_num_n_threshold=args.cb_num_n_threshold,
-                    fb_num_n_threshold=args.fb_num_n_threshold,
-                    exhaustive=args.exhaustive
+                    fb_num_n_threshold=args.fb_num_n_threshold
             ):
                 f.write(out + '\n')
 

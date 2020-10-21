@@ -25,7 +25,7 @@ def indexkeys(word, max_dist):
     limit = min(max_dist, wordlen) + 1
 
     for dist in range(limit):
-        variants = combinations(word, wordlen-dist)
+        variants = combinations(word, wordlen - dist)
 
         for variant in variants:
             res.add(''.join(variant))
@@ -38,12 +38,13 @@ def bytes2set(b, delimiter=b'\x00', encoding='utf-8'):
     >>> int2byte(b'a\x00b\x00c')
     {u'a', u'b', u'c'}
     """
+
     if not b:
         return set()
 
-    lis = b.split(delimiter)
+    list_ = b.split(delimiter)
 
-    return set(bword.decode(encoding) for bword in lis)
+    return set(bword.decode(encoding) for bword in list_)
 
 
 def set2bytes(s, delimiter=b'\x00', encoding='utf-8'):
@@ -51,12 +52,13 @@ def set2bytes(s, delimiter=b'\x00', encoding='utf-8'):
     >>> set2byte({u'a', u'b', u'c')
     b'a\x00b\x00c'
     """
-    lis = []
+
+    list_ = []
     for uword in sorted(s):
         bword = uword.encode(encoding)
-        lis.append(bword)
+        list_.append(bword)
 
-    return delimiter.join(lis)
+    return delimiter.join(list_)
 
 
 def create_index(barcodes, num_mismatches=1):
@@ -78,6 +80,7 @@ def create_index(barcodes, num_mismatches=1):
 
     d = dict()
     for bc in barcodes:
+
         for key in indexkeys(bc, num_mismatches):
             bkey = key.encode()
             barcode_set = {bc}
@@ -115,61 +118,21 @@ def query_index(seq, barcode_index, num_mismatches=1):
     """
 
     res = {d: [] for d in range(num_mismatches + 1)}
-    cands = set()
 
-    for key in indexkeys(seq, num_mismatches):
-        if key in barcode_index:
-            cands.add(barcode_index[key])
-
-    if seq in cands:
-        res[0].append(seq)
-
-    else:
-        for cand in cands:
-            dist = levenshtein(seq, cand, num_mismatches)
-
-            if dist <= num_mismatches:
-                res[dist].append(cand)
-
-    return res
-
-
-def query_index_fast(seq, barcode_index, num_mismatches=1):
-    """Performs a fuzzy barcode search.
-
-    Parameters
-    ----------
-    seq : str
-        A DNA string.
-    barcode_index : dict
-        A FastSS index of barcodes.
-    num_mismatches : int, optional
-        Maximum levenshtein distance allowd.
-
-    Returns
-    -------
-    dict
-        A dictionary of fuzzy searching result. Keys are levenshtein distance.
-        Values are list of matched barcodes.
-    """
-
-    res = {d: [] for d in range(num_mismatches + 1)}
-    cands = set()
-
-    for key in indexkeys(seq, num_mismatches):
-        if key in barcode_index:
-            cands.add(barcode_index[key])
+    cands = {barcode_index.get(key) for key in indexkeys(seq, num_mismatches)}
+    # cands.discard(None)
+    # cands = {i for i in cands if i}
 
     if seq in cands:
         res[0].append(seq)
 
     else:
         for cand in cands:
-            dist = levenshtein(seq, cand, num_mismatches)
+            if cand:
+                dist = levenshtein(seq, cand, num_mismatches)
 
-            if dist <= num_mismatches:
-                res[dist].append(cand)
-                break
+                if dist <= num_mismatches:
+                    res[dist].append(cand)
 
     return res
 
@@ -265,8 +228,7 @@ def match_barcodes_paired_fastss(read_seqs,
                                  cb_num_mismatches=1,
                                  fb_num_mismatches=1,
                                  cb_num_n_threshold=3,
-                                 fb_num_n_threshold=3,
-                                 exhaustive=False):
+                                 fb_num_n_threshold=3):
     """Searches one read pair for known cell and feature barcodes.
 
     Parameters
@@ -293,9 +255,6 @@ def match_barcodes_paired_fastss(read_seqs,
         threshold will be skipped.
     fb_num_n_threshold : int, optional
         Maximum Ns allowd for read 2.
-    exhaustive : bool, optional
-        If True, all barcodes meeting the critiera will be evaluated and the
-        best one is choosen.
 
     Returns
     -------
@@ -308,14 +267,9 @@ def match_barcodes_paired_fastss(read_seqs,
     if read1_seq.count('N') <= cb_num_n_threshold:
         x1, y1 = read1_coords
 
-        if exhaustive:
-            cb_queries = query_index(read1_seq[x1: y1],
-                                     barcode_index=cb_index,
-                                     num_mismatches=cb_num_mismatches)
-        else:
-            cb_queries = query_index_fast(read1_seq[x1: y1],
-                                          barcode_index=cb_index,
-                                          num_mismatches=cb_num_mismatches)
+        cb_queries = query_index(read1_seq[x1: y1],
+                                 barcode_index=cb_index,
+                                 num_mismatches=cb_num_mismatches)
 
         cb_matched = select_query(cb_queries,
                                   read1_seq[x1: y1],
@@ -324,14 +278,9 @@ def match_barcodes_paired_fastss(read_seqs,
         if cb_matched and read2_seq.count('N') <= fb_num_n_threshold:
             x2, y2 = read2_coords
 
-            if exhaustive:
-                fb_queries = query_index(read2_seq[x2: y2],
-                                         barcode_index=fb_index,
-                                         num_mismatches=fb_num_mismatches)
-            else:
-                fb_queries = query_index_fast(read2_seq[x2: y2],
-                                              barcode_index=fb_index,
-                                              num_mismatches=fb_num_mismatches)
+            fb_queries = query_index(read2_seq[x2: y2],
+                                     barcode_index=fb_index,
+                                     num_mismatches=fb_num_mismatches)
 
             fb_matched = select_query(fb_queries,
                                       read2_seq[x2: y2],
@@ -354,8 +303,7 @@ def extract_feature_barcoding_fastss(read1_file,
                                      fb_num_mismatches,
                                      output_file,
                                      cb_num_n_threshold=3,
-                                     fb_num_n_threshold=3,
-                                     exhaustive=False):
+                                     fb_num_n_threshold=3):
     """Extracts feature barcodes."""
 
     with open_by_suffix(file_name=cb_file) as f:
@@ -415,8 +363,7 @@ def extract_feature_barcoding_fastss(read1_file,
                 cb_num_mismatches=cb_num_mismatches,
                 fb_num_mismatches=fb_num_mismatches,
                 cb_num_n_threshold=cb_num_n_threshold,
-                fb_num_n_threshold=fb_num_n_threshold,
-                exhaustive=exhaustive
+                fb_num_n_threshold=fb_num_n_threshold
             )
             if out:
                 read_counter[0] += 1
