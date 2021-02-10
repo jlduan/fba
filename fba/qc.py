@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from pathlib import Path
+from itertools import cycle
 from itertools import islice
 from fba.levenshtein import (
     create_index,
@@ -166,11 +167,15 @@ def summarize_sequence_content(read1_file,
     Path(output_directory).mkdir(exist_ok=True)
     R1_ACGT_PLOT = \
         Path(output_directory) / 'Pyplot_read1_per_base_seq_content.pdf'
+    R1_ACGT_PLOT_GREY = \
+        Path(output_directory) / 'Pyplot_read1_per_base_seq_content_grey.pdf'
     R1_N_PLOT = \
         Path(output_directory) / 'Pyplot_read1_per_base_seq_content_n.pdf'
     # read2
     R2_ACGT_PLOT = \
         Path(output_directory) / 'Pyplot_read2_per_base_seq_content.pdf'
+    R2_ACGT_PLOT_GREY = \
+        Path(output_directory) / 'Pyplot_read2_per_base_seq_content_grey.pdf'
     R2_N_PLOT = \
         Path(output_directory) / 'Pyplot_read2_per_base_seq_content_n.pdf'
 
@@ -210,72 +215,54 @@ def summarize_sequence_content(read1_file,
     read2_composition = pd.DataFrame(
         {i: (read2_matrix == i).mean(axis=0) for i in list('ACGTN')})
 
-    nucleotide_dict = {i: j for i, j in zip(
-        list('ACGTN'), ['#a0cbe8', '#8cd17d', '#e15759', '#f1ce63', 'black'])}
+    color_palettes = [
+        # ['#a0cbe8', '#8cd17d', '#e15759', '#f1ce63', 'black'],
+        ['#E16A86', '#909800', '#00AD9A', '#9183E6', 'black'],
+        ['#000000', '#404040', '#7f7f7f', '#bfbfbf', 'black']
+    ]
 
     read1_length = read1_composition.shape[0]
     read2_length = read2_composition.shape[0]
 
     # read1
-    fig, ax = plt.subplots(nrows=1,
-                           ncols=1,
-                           figsize=(max(2.8,  read1_length / 15), 2.5))
-    plot_sequence_content(
-        read_composition=read1_composition,
-        title='Read 1 per base sequence content',
-        nucleotide_dict=nucleotide_dict,
-        ax=ax
-    )
-    plt.tight_layout()
-    fig.savefig(fname=R1_ACGT_PLOT,
-                transparent=None,
-                bbox_inches='tight')
+    for p, c, n in zip([R1_ACGT_PLOT, R1_ACGT_PLOT_GREY, R1_N_PLOT],
+                       cycle(color_palettes),
+                       ['ACGT', 'ACGT', 'N']):
 
-    fig, ax = plt.subplots(nrows=1,
-                           ncols=1,
-                           figsize=(max(2.8, read1_length / 15), 2.5))
-    plot_sequence_content(
-        read_composition=read1_composition,
-        title='Read 1 per base sequence content',
-        nucleotide_dict=nucleotide_dict,
-        ax=ax,
-        nucleotides='N'
-    )
-    ax.set_yticklabels(labels=[f'{i:,.3%}' for i in ax.get_yticks()])
-    plt.tight_layout()
-    fig.savefig(fname=R1_N_PLOT,
-                transparent=None,
-                bbox_inches='tight')
+        fig, ax = plt.subplots(nrows=1,
+                               ncols=1,
+                               figsize=(max(2.8,  read1_length / 15), 2.5))
+        plot_sequence_content(
+            read_composition=read1_composition,
+            title='Read 1 per base sequence content',
+            nucleotide_dict={i: j for i, j in zip(list('ACGTN'), c)},
+            ax=ax,
+            nucleotides=n
+        )
+        plt.tight_layout()
+        fig.savefig(fname=p,
+                    transparent=None,
+                    bbox_inches='tight')
 
     # read2
-    fig, ax = plt.subplots(nrows=1,
-                           ncols=1,
-                           figsize=(max(2.8, read2_length / 15), 2.5))
-    plot_sequence_content(
-        read_composition=read2_composition,
-        title='Read 2 per base sequence content',
-        nucleotide_dict=nucleotide_dict,
-        ax=ax
-    )
-    plt.tight_layout()
-    fig.savefig(fname=R2_ACGT_PLOT,
-                transparent=None, bbox_inches='tight')
+    for p, c, n in zip([R2_ACGT_PLOT, R2_ACGT_PLOT_GREY, R2_N_PLOT],
+                       cycle(color_palettes),
+                       ['ACGT', 'ACGT', 'N']):
 
-    fig, ax = plt.subplots(nrows=1,
-                           ncols=1,
-                           figsize=(max(2.8, read2_length / 15), 2.5))
-    plot_sequence_content(
-        read_composition=read2_composition,
-        title='Read 2 per base sequence content',
-        nucleotide_dict=nucleotide_dict,
-        ax=ax,
-        nucleotides='N'
-    )
-    ax.set_yticklabels(labels=[f'{i:,.3%}' for i in ax.get_yticks()])
-    plt.tight_layout()
-    fig.savefig(fname=R2_N_PLOT,
-                transparent=None,
-                bbox_inches='tight')
+        fig, ax = plt.subplots(nrows=1,
+                               ncols=1,
+                               figsize=(max(2.8,  read2_length / 15), 2.5))
+        plot_sequence_content(
+            read_composition=read2_composition,
+            title='Read 2 per base sequence content',
+            nucleotide_dict={i: j for i, j in zip(list('ACGTN'), c)},
+            ax=ax,
+            nucleotides=n
+        )
+        plt.tight_layout()
+        fig.savefig(fname=p,
+                    transparent=None,
+                    bbox_inches='tight')
 
     return output_directory
 
@@ -488,7 +475,10 @@ def analyze_bulk(read_file,
 
     logger.info('Number of reference feature barcodes: '
                 f'{len(feature_barcode_count):,}')
-    logger.info(f'Read 2 coordinates to search: {read_coords}')
+
+    logger.info('Read 2 coordinates to search: [' +
+                ', '.join([str(i) for i in read_coords]) + ')')
+
     logger.info(
         f'Feature barcode maximum number of mismatches: {num_mismatches}')
     logger.info(

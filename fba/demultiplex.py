@@ -265,7 +265,6 @@ def prepare_embedding(cells,
                       seed=42):
     """Embeds cells."""
 
-    # t-SNE
     if method == 'tsne':
         embedding = TSNE(
             n_components=2,
@@ -307,11 +306,12 @@ def plot_embedding(embedding,
     category = sorted(embedding.category.unique())
     category = sorted(category, key='multiple'.__eq__)
 
+    colors = sns.color_palette(palette='husl',
+                               n_colors=embedding['category'].nunique())[:-1]
+    colors.append('black')
+
     p_handles = list()
-    for val, color in zip(
-            category,
-            sns.color_palette(palette='husl',
-                              n_colors=embedding['category'].nunique())):
+    for val, color in zip(category, colors):
 
         p = ax.scatter(x=embedding.loc[embedding.category == val, 'x'],
                        y=embedding.loc[embedding.category == val, 'y'],
