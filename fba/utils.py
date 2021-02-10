@@ -71,18 +71,19 @@ def get_binary_path(binary_name):
         raise FileNotFoundError(binary_name, 'not found in PATH\n')
 
 
-def run_executable(cmd_line):
+def run_executable(cmd_line, use_shell=False):
     """Runs executable."""
 
     proc = subprocess.Popen(
         cmd_line,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
-        universal_newlines=True,
+        shell=use_shell,
+        universal_newlines=True
     )
 
     try:
-        outs, errs = proc.communicate(timeout=15)
+        outs, errs = proc.communicate(timeout=100)
     except subprocess.TimeoutExpired:
         # logger.critical(e, exc_info=True)
         proc.kill()
@@ -119,6 +120,17 @@ def parse_bowtie2_version():
     outs, _ = run_executable(cmd_line=cmd)
 
     return outs.split(' version ')[1].split()[0]
+
+
+def parse_bwa_version():
+    """Parses bwa version."""
+
+    cmd = [get_binary_path(binary_name='bwa')]
+    _, errs = run_executable(cmd_line=cmd)
+
+    bwa_version = [i for i in errs.split(
+        '\n') if i.startswith('Ver')][0].split(' ')[1].split('-')[0]
+    return bwa_version
 
 
 def parse_samtools_version():

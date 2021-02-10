@@ -23,6 +23,7 @@ from fba.utils import (
     run_executable,
     get_logger,
     parse_bowtie2_version,
+    parse_bwa_version,
     parse_samtools_version
 )
 from fba import __version__
@@ -242,6 +243,58 @@ def generate_unaligned_bam(read1_file,
     return unaligned_bam_file, read_counter
 
 
+def generate_modified_fastq(read1_file,
+                            read2_file,
+                            cb_file,
+                            read1_coords,
+                            modified_read_file,
+                            num_mismatches=1,
+                            num_n_threshold=3):
+    """Matches cell barcodes and generates modified fastq file."""
+
+    cell_barcodes = [i.rstrip().split('-')[0]
+                     for i in open_by_suffix(cb_file, mode='r')]
+
+    cb_index = create_index(barcodes=cell_barcodes,
+                            num_mismatches=num_mismatches)
+
+    read_counter = [int(), int()]
+    with dnaio.open(file1=read1_file,
+                    file2=read2_file,
+                    fileformat='fastq',
+                    mode='r') as f, dnaio.open(file1=modified_read_file,
+                                               fileformat='fastq',
+                                               mode='w') as f_out:
+
+        for rec in f:
+            read_counter[1] += 1
+
+            read1, read2 = rec
+            reads = (read1.name,
+                     read1.sequence, read1.qualities,
+                     read2.sequence, read2.qualities)
+            out = match_cell_barcodes(reads=reads,
+                                      barcode_index=cb_index,
+                                      read_coords=read1_coords,
+                                      num_mismatches=num_mismatches,
+                                      num_n_threshold=num_n_threshold)
+            if out:
+                read_counter[0] += 1
+
+                read_name, read1_seq, _, read2_seq, read2_qual, bc, dist = out
+                read_info = '#'.join([read1_seq,
+                                      bc,
+                                      str(dist)])
+
+                read_name = ' '.join([read_name.split(' ')[0],
+                                      'RI:Z:' + read_info])
+
+                s2 = dnaio.Sequence(read_name, read2_seq, read2_qual)
+                f_out.write(s2)
+
+    return modified_read_file, read_counter
+
+
 def fb2fa_concatenated(x, fasta_file, num_n=0):
     """Generates feature barcode fasta file.
 
@@ -279,24 +332,38 @@ def fb2fa_concatenated(x, fasta_file, num_n=0):
 
 
 def build_bt2_index(fasta_file,
-                    bt2_index_base):
+                    index_base):
     """Builds bowtie2 index."""
 
     cmd = [
         get_binary_path(binary_name='bowtie2-build'),
         str(fasta_file),
-        str(bt2_index_base)
+        str(index_base)
     ]
-    outs, errs = run_executable(cmd_line=cmd)
+    _, errs = run_executable(cmd_line=cmd)
 
-    return bt2_index_base, errs
+    return index_base, errs
 
 
-def align_reads(unaligned_bam_file,
-                bt2_index_base,
-                alignment_file,
-                temp_prefix,
-                num_threads=1):
+def build_bwa_index(fasta_file):
+    """Builds bwa index."""
+
+    cmd = [
+        get_binary_path(binary_name='bwa'),
+        'index',
+        str(fasta_file)
+    ]
+    cmd = ' '.join(cmd)
+    _, errs = run_executable(cmd_line=cmd, use_shell=True)
+
+    return fasta_file, errs
+
+
+def align_reads_bowtie2(unaligned_bam_file,
+                        index_base,
+                        alignment_file,
+                        temp_prefix,
+                        num_threads=1):
     """Aligns unaligned bam file."""
 
     bowtie2_align_parameter = (
@@ -310,7 +377,7 @@ def align_reads(unaligned_bam_file,
     cmd = [
         get_binary_path(binary_name='bowtie2'),
         bowtie2_align_parameter,
-        ' '.join(['-x', str(bt2_index_base),
+        ' '.join(['-x', str(index_base),
                   '-b', str(unaligned_bam_file)]),
         '|',
         get_binary_path(binary_name='samtools'),
@@ -324,8 +391,42 @@ def align_reads(unaligned_bam_file,
         str(alignment_file),
         '-'
     ]
+    _, errs = run_executable(cmd_line=cmd)
 
-    outs, errs = run_executable(cmd_line=cmd)
+    return alignment_file, errs
+
+
+def align_reads_bwa(modified_read_file,
+                    index_base,
+                    alignment_file,
+                    temp_prefix,
+                    num_threads=1):
+    """Aligns modified fastq file."""
+
+    bwa_align_parameter = ['-t', str(num_threads), '-C']
+    samtools_path = get_binary_path(binary_name='samtools')
+
+    cmd = [
+        get_binary_path(binary_name='bwa'),
+        'mem',
+        ' '.join(bwa_align_parameter),
+        str(index_base),
+        str(modified_read_file),
+        '|',
+        samtools_path,
+        'view -uS - |',
+        samtools_path,
+        'sort -T',
+        temp_prefix,
+        '-@',
+        str(num_threads),
+        '-o',
+        str(alignment_file),
+        '-'
+    ]
+
+    cmd = ' '.join(cmd)
+    _, errs = run_executable(cmd_line=cmd, use_shell=True)
 
     return alignment_file, errs
 
@@ -376,14 +477,20 @@ def generate_matrix_from_alignment(alignment_file,
             for aln in f.fetch(i):
 
                 if aln.mapping_quality >= mapq:
-                    cell_barcode = aln.get_tag('CB')
+
+                    if aln.has_tag('RI'):
+                        read1_seq, cell_barcode, _ = aln.get_tag(
+                            'RI').split('#')
+                    else:
+                        cell_barcode = aln.get_tag('CB')
+                        read1_seq = aln.get_tag('R1')
 
                     if cell_barcode not in matrix_featurecount[i]:
                         matrix_featurecount[i][cell_barcode] = list()
 
-                    if len(aln.get_tag('R1')) >= umi_pos_start + umi_length:
+                    if len(read1_seq) >= umi_pos_start + umi_length:
                         matrix_featurecount[i][cell_barcode].append(
-                            aln.get_tag('R1')[
+                            read1_seq[
                                 umi_pos_start:(umi_pos_start + umi_length)
                             ].encode())
 
@@ -419,7 +526,8 @@ def map_feature_barcoding(read1_file,
                           umi_deduplication_threshold=1,
                           mapq=10,
                           output_directory='barcode_mapping',
-                          num_threads=None):
+                          num_threads=None,
+                          aligner='bwa'):
     """Maps feature barcoding. """
 
     output_directory = Path(output_directory)
@@ -427,49 +535,79 @@ def map_feature_barcoding(read1_file,
 
     FB_FASTA_FILE = str(output_directory / 'feature_ref.fasta')
     FEATURE_BARCODE_REF = str(output_directory / 'feature_ref')
-    FEATURE_BARCODE_INDEX_LOG = str(output_directory / 'bowtie2-build.log')
-
-    UNALIGNED_BAM_FILE = str(output_directory / 'unaligned.bam')
     ALIGNMENT_FILE = str(output_directory / 'aligned.bam')
-    ALIGNMENT_LOG = str(output_directory / 'bowtie2.log')
-
-    logger.info(f'bowtie2 version: {parse_bowtie2_version()}')
-    logger.info(f'samtools version: {parse_samtools_version()}')
-
-    if version.parse(parse_bowtie2_version()) < version.parse('2.4.0'):
-        logger.critical('Please use bowtie2 >= 2.4.0')
-        sys.exit(1)
 
     fasta_file = fb2fa_concatenated(
         x=fb_file, fasta_file=FB_FASTA_FILE, num_n=num_n_ref)
-    feature_barcode_ref, _ = build_bt2_index(
-        fasta_file=fasta_file,
-        bt2_index_base=FEATURE_BARCODE_REF)
+
+    if aligner == 'bowtie2':
+        FEATURE_BARCODE_INDEX_LOG = str(output_directory / 'bowtie2-build.log')
+        UNALIGNED_BAM_FILE = str(output_directory / 'unaligned.bam')
+        ALIGNMENT_LOG = str(output_directory / 'bowtie2.log')
+
+        logger.info(f'bowtie2 version: {parse_bowtie2_version()}')
+
+        if version.parse(parse_bowtie2_version()) < version.parse('2.4.0'):
+            logger.critical('Please use bowtie2 >= 2.4.0')
+            sys.exit(1)
+
+        feature_barcode_ref, _ = build_bt2_index(
+            fasta_file=fasta_file,
+            index_base=FEATURE_BARCODE_REF)
+
+    elif aligner == 'bwa':
+        FEATURE_BARCODE_INDEX_LOG = str(output_directory / 'bwa-index.log')
+        MODIFIED_READ_FILE = str(output_directory / 'modified.fq.gz')
+        ALIGNMENT_LOG = str(output_directory / 'bwa.log')
+
+        logger.info(f'bwa version: {parse_bwa_version()}')
+
+        if version.parse(parse_bwa_version()) < version.parse('0.7.0'):
+            logger.critical('Please use bwa >= 0.7.0')
+            sys.exit(1)
+
+        fasta_file, _ = build_bwa_index(
+            fasta_file=fasta_file)
+
+    logger.info(f'samtools version: {parse_samtools_version()}')
     with open_by_suffix(file_name=FEATURE_BARCODE_INDEX_LOG, mode='w') as f:
         f.write(_)
 
     num_cb = len([i for i in open_by_suffix(cb_file)])
     logger.info(f'Number of reference cell barcodes: {num_cb:,}')
-    logger.info(f'Read 1 coordinates to search: {read1_coords}')
+    logger.info('Read 1 coordinates to search: [' +
+                ', '.join([str(i) for i in read1_coords]) + ')')
     logger.info(
         f'Cell barcode maximum number of mismatches: {num_mismatches}')
     logger.info(
         f'Read 1 maximum number of N allowed: {num_n_threshold}')
 
-    logger.info('Matching cell barcodes (read 1) ...')
-    unaligned_bam_file, read_counter = generate_unaligned_bam(
-        read1_file=read1_file,
-        read2_file=read2_file,
-        cb_file=cb_file,
-        fb_file=fb_file,
-        unaligned_bam_file=UNALIGNED_BAM_FILE,
-        read1_coords=read1_coords,
-        num_mismatches=num_mismatches,
-        num_n_threshold=num_n_threshold,
-        num_n_ref=num_n_ref
-    )
+    logger.info('Matching cell barcodes, read 1 ...')
 
-    logger.info(f'Number of read pairs processed: {read_counter[1]:,}')
+    if aligner == 'bowtie2':
+        unaligned_bam_file, read_counter = generate_unaligned_bam(
+            read1_file=read1_file,
+            read2_file=read2_file,
+            cb_file=cb_file,
+            fb_file=fb_file,
+            unaligned_bam_file=UNALIGNED_BAM_FILE,
+            read1_coords=read1_coords,
+            num_mismatches=num_mismatches,
+            num_n_threshold=num_n_threshold,
+            num_n_ref=num_n_ref
+        )
+
+    elif aligner == 'bwa':
+        modified_read_file, read_counter = generate_modified_fastq(
+            read1_file=read1_file,
+            read2_file=read2_file,
+            cb_file=cb_file,
+            read1_coords=read1_coords,
+            modified_read_file=MODIFIED_READ_FILE,
+            num_mismatches=num_mismatches,
+            num_n_threshold=num_n_threshold)
+
+    logger.info(f'number of read pairs processed: {read_counter[1]:,}')
     logger.info('Number of read pairs w/ valid cell barcodes: '
                 f'{read_counter[0]:,}')
 
@@ -481,12 +619,23 @@ def map_feature_barcoding(read1_file,
     logger.info(f'Number of threads: {num_threads}')
 
     logger.info('Aligning read 2 ...')
-    alignment_file, _ = align_reads(
-        unaligned_bam_file=unaligned_bam_file,
-        bt2_index_base=feature_barcode_ref,
-        alignment_file=ALIGNMENT_FILE,
-        temp_prefix=next(_get_candidate_names()),
-        num_threads=num_threads)
+
+    if aligner == 'bowtie2':
+        alignment_file, _ = align_reads_bowtie2(
+            unaligned_bam_file=unaligned_bam_file,
+            index_base=feature_barcode_ref,
+            alignment_file=ALIGNMENT_FILE,
+            temp_prefix=next(_get_candidate_names()),
+            num_threads=num_threads)
+
+    elif aligner == 'bwa':
+        alignment_file, _ = align_reads_bwa(
+            modified_read_file=modified_read_file,
+            index_base=fasta_file,
+            alignment_file=ALIGNMENT_FILE,
+            temp_prefix=next(_get_candidate_names()),
+            num_threads=num_threads)
+
     pysam.index(alignment_file, alignment_file + '.bai')
     with open_by_suffix(file_name=ALIGNMENT_LOG, mode='w') as f:
         f.write(_)

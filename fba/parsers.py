@@ -165,7 +165,7 @@ def add_map_subparser(subparsers):
     parser = subparsers.add_parser(
         'map',
         help='map enriched transcripts',
-        description='Quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).'
+        description='Quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).'
     )
 
     parser.add_argument(
@@ -236,6 +236,17 @@ def add_map_subparser(subparsers):
         type=int,
         default=3,
         help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is 3'
+    )
+
+    parser.add_argument(
+        '-al',
+        '--aligner',
+        dest='aligner',
+        required=False,
+        type=str,
+        choices=['bwa', 'bowtie2'],
+        default='bwa',
+        help='specify aligner for read 2. The default is \'bwa\''
     )
 
     parser.add_argument(
