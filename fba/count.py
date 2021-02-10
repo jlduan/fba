@@ -91,11 +91,11 @@ def generate_matrix(matching_file,
                 umi_seq = read_seq[
                     umi_pos_start:umi_pos_end].upper().encode()
 
-            if feature_barcode not in matrix_featurecount[cell_barcode]:
-                matrix_featurecount[cell_barcode][feature_barcode] = list()
+                if feature_barcode not in matrix_featurecount[cell_barcode]:
+                    matrix_featurecount[cell_barcode][feature_barcode] = list()
 
-            matrix_featurecount[cell_barcode][
-                feature_barcode].append(umi_seq)
+                matrix_featurecount[cell_barcode][
+                    feature_barcode].append(umi_seq)
 
     logger.info(f'Number of lines processed: {line_counter:,}')
 

@@ -1,4 +1,4 @@
-# extract.py
+# regex.py
 
 import regex
 import dnaio

@@ -1,4 +1,4 @@
-# polyleven.py
+# levenshtein.py
 
 import sys
 import dnaio
