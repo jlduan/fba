@@ -320,8 +320,11 @@ def extract_feature_barcoding_fastss(read1_file,
         f'Number of reference feature barcodes: {len(feature_barcodes):,}'
     )
 
-    logger.info(f'Read 1 coordinates to search: {read1_coords}')
-    logger.info(f'Read 2 coordinates to search: {read2_coords}')
+    logger.info('Read 1 coordinates to search: [' +
+                ', '.join([str(i) for i in read1_coords]) + ')')
+    logger.info('Read 2 coordinates to search: [' +
+                ', '.join([str(i) for i in read2_coords]) + ')')
+
     logger.info(
         f'Cell barcode maximum number of mismatches: {cb_num_mismatches}')
     logger.info(
