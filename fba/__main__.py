@@ -101,7 +101,8 @@ def main():
             umi_deduplication_threshold=args.umi_mismatches,
             mapq=args.mapq,
             output_directory=args.output_directory,
-            num_threads=args.threads
+            num_threads=args.threads,
+            aligner=args.aligner
         )
 
         matrix_featurecount.to_csv(path_or_buf=args.output,
@@ -153,8 +154,9 @@ def main():
             matrix_featurecount_file=args.input,
             output_directory=args.output_directory,
             q=args.quantile,
-            initial_clustering_methold=args.method_extra,
+            initial_clustering_methold=args.clustering_method,
             visualization=args.visualization,
+            embeding_method=args.visualization_method,
             seed=42
         )
         logger.info('Done.')

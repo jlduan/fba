@@ -589,14 +589,14 @@ def add_demultiplex_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-me',
-        '--method_extra',
-        dest='method_extra',
+        '-cm',
+        '--clustering_method',
+        dest='clustering_method',
         required=False,
         type=str,
         default='kmedoids',
         choices=['kmedoids', 'hdbscan'],
-        help='specify inital clustering method. The default is kmedoids'
+        help='specify inital clustering method. The default is \'kmedoids\''
     )
 
     parser.add_argument(
@@ -606,6 +606,17 @@ def add_demultiplex_subparser(subparsers):
         required=False,
         action='store_true',
         help='specify to visualize demultiplexing result'
+    )
+
+    parser.add_argument(
+        '-vm',
+        '--visualization_method',
+        dest='visualization_method',
+        required=False,
+        type=str,
+        choices=['tsne', 'umap'],
+        default='tsne',
+        help='specify embedding method for visualization (works if \'-v\' is given). The default is \'tsne\''
     )
 
 

@@ -36,7 +36,8 @@ setup(
         'statsmodels',
         'pyclustering',
         'hdbscan',
-        'matplotlib>=3.3'
+        'matplotlib>=3.3',
+        'umap-learn'
     ],
     entry_points={
         'console_scripts': ['fba=fba.__main__:main'],

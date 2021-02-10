@@ -14,8 +14,8 @@ from sklearn.preprocessing import StandardScaler
 from pathlib import Path
 # from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
+import umap
 from fba.utils import get_logger
-# import umap
 
 
 logger = get_logger(logger_name=__name__)
@@ -261,41 +261,39 @@ def plot_heatmap_features_selected(heatmat_matrix,
 
 def prepare_embedding(cells,
                       m,
+                      method='umap',
                       seed=42):
     """Embeds cells."""
 
     # t-SNE
-    embedding_tsne = TSNE(
-        n_components=2,
-        perplexity=30.0,
-        early_exaggeration=12.0,
-        learning_rate=200.0,
-        n_iter=1000,
-        n_iter_without_progress=300,
-        min_grad_norm=1e-07,
-        metric='euclidean',
-        init='random',
-        verbose=0,
-        random_state=seed,
-        method='barnes_hut',
-        angle=0.5).fit_transform(m.loc[:, cells].T)
+    if method == 'tsne':
+        embedding = TSNE(
+            n_components=2,
+            perplexity=30.0,
+            early_exaggeration=12.0,
+            learning_rate=200.0,
+            n_iter=1000,
+            n_iter_without_progress=300,
+            min_grad_norm=1e-07,
+            metric='euclidean',
+            init='random',
+            verbose=0,
+            random_state=seed,
+            method='barnes_hut',
+            angle=0.5).fit_transform(m.loc[:, cells].T)
 
-    embedding = pd.DataFrame(embedding_tsne,
-                             columns=['x_tsne', 'y_tsne'],
-                             index=cells)
-    """
-    embedding_umap = umap.UMAP(
-        n_neighbors=10,
-        min_dist=0.1,
-        n_components=2,
-        metric='euclidean',
-        random_state=seed,
-        verbose=True).fit_transform(m.loc[:, cells].T)
+    elif method == 'umap':
+        embedding = umap.UMAP(
+            n_neighbors=10,
+            min_dist=0.1,
+            n_components=2,
+            metric='euclidean',
+            random_state=seed,
+            verbose=True).fit_transform(m.loc[:, cells].T)
 
-    embedding = pd.DataFrame(embedding_umap,
-                             columns=['x_umap', 'y_umap'],
+    embedding = pd.DataFrame(embedding,
+                             columns=['x', 'y'],
                              index=cells)
-    """
 
     return embedding
 
@@ -315,9 +313,9 @@ def plot_embedding(embedding,
             sns.color_palette(palette='husl',
                               n_colors=embedding['category'].nunique())):
 
-        p = ax.scatter(x=embedding.loc[embedding.category == val, 'x_tsne'],
-                       y=embedding.loc[embedding.category == val, 'y_tsne'],
-                       s=10,
+        p = ax.scatter(x=embedding.loc[embedding.category == val, 'x'],
+                       y=embedding.loc[embedding.category == val, 'y'],
+                       s=marker_size,
                        marker='.',
                        # c=b,
                        color=color,
@@ -355,6 +353,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
                                   q=0.9999,
                                   initial_clustering_methold='kmedoids',
                                   visualization=True,
+                                  embeding_method='tsne',
                                   seed=42):
     """."""
 
@@ -373,10 +372,10 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         'Pyplot_embedding_cells_demultiplexed.pdf'
 
     logger.info(f'Output directory: {output_directory}')
-    logger.info(f'Loading feature count matrix: {matrix_featurecount_file}')
+    logger.info(
+        f'Loading feature count matrix: {matrix_featurecount_file} ...')
 
     matrix_featurecount = pd.read_csv(
-        # filepath_or_buffer='matrix_featurecount.csv.gz',
         filepath_or_buffer=matrix_featurecount_file,
         index_col=0
     )
@@ -440,7 +439,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
                     transparent=True,
                     bbox_inches='tight')
 
-        # t-SNE
+        # embedding
         logger.info('Embedding ...')
         cells_embedding = cells_demultiplexed.index[
             cells_demultiplexed['category'] != 'negative']
@@ -448,6 +447,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         embedding = prepare_embedding(
             cells=cells_embedding,
             m=matrix_featurecount.apply(normalize_clr, axis=1),
+            method=embeding_method,
             seed=seed
         )
         embedding['category'] = cells_demultiplexed.loc[embedding.index]
@@ -456,7 +456,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(4.5, 3))
         plot_embedding(embedding=embedding,
                        ax=ax,
-                       title='t-SNE; Cell classification',
+                       title=embeding_method.upper() + '; Cell classification',
                        marker_size=10)
 
         plt.tight_layout()
