@@ -191,22 +191,22 @@ Result summary.
 59.8 % (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.
 
 ```shell
-2020-10-19 21:37:16,382 - fba.__main__ - INFO - fba version: 0.0.6
-2020-10-19 21:37:16,382 - fba.__main__ - INFO - Initiating logging ...
-2020-10-19 21:37:16,382 - fba.__main__ - INFO - Python version: 3.7
-2020-10-19 21:37:16,382 - fba.__main__ - INFO - Using extract subcommand ...
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Number of reference cell barcodes: 1,200
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Number of reference feature barcodes: 32
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16]
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Read 2 coordinates to search: [10, 25]
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 2
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
-2020-10-19 21:37:16,385 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
-2020-10-19 21:37:16,659 - fba.levenshtein - INFO - Matching ...
-2020-10-19 21:53:28,994 - fba.levenshtein - INFO - Number of read pairs processed: 7,704,799
-2020-10-19 21:53:29,009 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,607,787
-2020-10-19 21:53:29,029 - fba.__main__ - INFO - Done.
+2021-02-17 15:54:32,826 - fba.__main__ - INFO - fba version: 0.0.7
+2021-02-17 15:54:32,826 - fba.__main__ - INFO - Initiating logging ...
+2021-02-17 15:54:32,826 - fba.__main__ - INFO - Python version: 3.7
+2021-02-17 15:54:32,826 - fba.__main__ - INFO - Using extract subcommand ...
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Number of reference cell barcodes: 1,200
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Number of reference feature barcodes: 32
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Read 2 coordinates to search: [10, 25)
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 2
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+2021-02-17 15:54:32,829 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+2021-02-17 15:54:33,095 - fba.levenshtein - INFO - Matching ...
+2021-02-17 16:10:39,440 - fba.levenshtein - INFO - Number of read pairs processed: 7,704,799
+2021-02-17 16:10:39,443 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,607,787
+2021-02-17 16:10:39,459 - fba.__main__ - INFO - Done.
 ```
 
 <br>
@@ -229,23 +229,23 @@ $ fba count \
 
 Result summary.
 
-69.8% (3,214,495 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,495 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.
+69.8% (3,214,496 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,496 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.
 
 ```shell
-2020-10-19 21:53:32,215 - fba.__main__ - INFO - fba version: 0.0.6
-2020-10-19 21:53:32,215 - fba.__main__ - INFO - Initiating logging ...
-2020-10-19 21:53:32,215 - fba.__main__ - INFO - Python version: 3.7
-2020-10-19 21:53:32,216 - fba.__main__ - INFO - Using count subcommand ...
-2020-10-19 21:53:32,216 - fba.count - INFO - UMI-tools version: 1.0.1
-2020-10-19 21:53:32,247 - fba.count - INFO - UMI starting position on read 1: 16
-2020-10-19 21:53:32,247 - fba.count - INFO - UMI length: 12
-2020-10-19 21:53:32,247 - fba.count - INFO - UMI-tools deduplication threshold: 1
-2020-10-19 21:53:32,247 - fba.count - INFO - UMI-tools deduplication method: directional
-2020-10-19 21:53:32,247 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-2020-10-19 21:53:46,512 - fba.count - INFO - Number of lines processed: 4,607,787
-2020-10-19 21:53:46,515 - fba.count - INFO - Number of cell barcodes detected: 1,199
-2020-10-19 21:53:46,515 - fba.count - INFO - Number of features detected: 30
-2020-10-19 21:55:16,027 - fba.count - INFO - Total UMIs after deduplication: 3,214,495
-2020-10-19 21:55:16,030 - fba.count - INFO - Median number of UMIs per cell: 2,564.0
-2020-10-19 21:55:16,066 - fba.__main__ - INFO - Done.
+2021-02-17 16:10:46,326 - fba.__main__ - INFO - fba version: 0.0.7
+2021-02-17 16:10:46,326 - fba.__main__ - INFO - Initiating logging ...
+2021-02-17 16:10:46,326 - fba.__main__ - INFO - Python version: 3.7
+2021-02-17 16:10:46,326 - fba.__main__ - INFO - Using count subcommand ...
+2021-02-17 16:10:46,326 - fba.count - INFO - UMI-tools version: 1.0.0
+2021-02-17 16:10:46,331 - fba.count - INFO - UMI starting position on read 1: 16
+2021-02-17 16:10:46,332 - fba.count - INFO - UMI length: 12
+2021-02-17 16:10:46,332 - fba.count - INFO - UMI-tools deduplication threshold: 1
+2021-02-17 16:10:46,332 - fba.count - INFO - UMI-tools deduplication method: directional
+2021-02-17 16:10:46,332 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+2021-02-17 16:10:59,910 - fba.count - INFO - Number of lines processed: 4,607,787
+2021-02-17 16:10:59,913 - fba.count - INFO - Number of cell barcodes detected: 1,199
+2021-02-17 16:10:59,913 - fba.count - INFO - Number of features detected: 30
+2021-02-17 16:12:26,263 - fba.count - INFO - Total UMIs after deduplication: 3,214,496
+2021-02-17 16:12:26,266 - fba.count - INFO - Median number of UMIs per cell: 2,564.0
+2021-02-17 16:12:26,313 - fba.__main__ - INFO - Done.
 ```
