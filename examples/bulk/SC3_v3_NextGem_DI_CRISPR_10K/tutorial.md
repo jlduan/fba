@@ -44,36 +44,36 @@ Result summary.
 58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes.
 
 ```shell
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - fba version: 0.0.6
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - Initiating logging ...
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - Python version: 3.7
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - Using qc subcommand ...
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
-2020-10-19 21:55:33,663 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
-2020-10-19 21:55:33,664 - fba.qc - INFO - Number of reference feature barcodes: 2
-2020-10-19 21:55:33,664 - fba.qc - INFO - Read 2 coordinates to search: [31, 51]
-2020-10-19 21:55:33,664 - fba.qc - INFO - Feature barcode maximum number of mismatches: 1
-2020-10-19 21:55:33,664 - fba.qc - INFO - Read 2 maximum number of N allowed: inf
-2020-10-19 21:55:33,665 - fba.qc - INFO - Number of read pairs to analyze: all
-2020-10-19 21:55:33,665 - fba.qc - INFO - Matching ...
-2020-10-19 21:58:04,681 - fba.qc - INFO - Reads processed: 10,000,000
-2020-10-19 22:00:35,884 - fba.qc - INFO - Reads processed: 20,000,000
-2020-10-19 22:03:06,736 - fba.qc - INFO - Reads processed: 30,000,000
-2020-10-19 22:05:36,955 - fba.qc - INFO - Reads processed: 40,000,000
-2020-10-19 22:08:07,207 - fba.qc - INFO - Reads processed: 50,000,000
-2020-10-19 22:10:37,627 - fba.qc - INFO - Reads processed: 60,000,000
-2020-10-19 22:13:08,185 - fba.qc - INFO - Reads processed: 70,000,000
-2020-10-19 22:15:38,854 - fba.qc - INFO - Reads processed: 80,000,000
-2020-10-19 22:18:09,499 - fba.qc - INFO - Reads processed: 90,000,000
-2020-10-19 22:20:40,123 - fba.qc - INFO - Reads processed: 100,000,000
-2020-10-19 22:23:10,740 - fba.qc - INFO - Reads processed: 110,000,000
-2020-10-19 22:25:41,470 - fba.qc - INFO - Reads processed: 120,000,000
-2020-10-19 22:28:12,351 - fba.qc - INFO - Reads processed: 130,000,000
-2020-10-19 22:30:43,402 - fba.qc - INFO - Reads processed: 140,000,000
-2020-10-19 22:31:59,298 - fba.qc - INFO - Number of reads processed: 145,032,428
-2020-10-19 22:31:59,299 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 84,973,062
-2020-10-19 22:31:59,299 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
-2020-10-19 22:31:59,339 - fba.__main__ - INFO - Done.
+2021-02-17 16:12:35,393 - fba.__main__ - INFO - fba version: 0.0.7
+2021-02-17 16:12:35,393 - fba.__main__ - INFO - Initiating logging ...
+2021-02-17 16:12:35,393 - fba.__main__ - INFO - Python version: 3.7
+2021-02-17 16:12:35,393 - fba.__main__ - INFO - Using qc subcommand ...
+2021-02-17 16:12:35,394 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
+2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
+2021-02-17 16:12:35,395 - fba.qc - INFO - Number of reference feature barcodes: 2
+2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)
+2021-02-17 16:12:35,395 - fba.qc - INFO - Feature barcode maximum number of mismatches: 1
+2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 maximum number of N allowed: inf
+2021-02-17 16:12:35,395 - fba.qc - INFO - Number of read pairs to analyze: all
+2021-02-17 16:12:35,395 - fba.qc - INFO - Matching ...
+2021-02-17 16:15:07,684 - fba.qc - INFO - Reads processed: 10,000,000
+2021-02-17 16:17:39,083 - fba.qc - INFO - Reads processed: 20,000,000
+2021-02-17 16:20:09,116 - fba.qc - INFO - Reads processed: 30,000,000
+2021-02-17 16:22:38,981 - fba.qc - INFO - Reads processed: 40,000,000
+2021-02-17 16:25:11,671 - fba.qc - INFO - Reads processed: 50,000,000
+2021-02-17 16:27:44,790 - fba.qc - INFO - Reads processed: 60,000,000
+2021-02-17 16:30:18,110 - fba.qc - INFO - Reads processed: 70,000,000
+2021-02-17 16:32:51,391 - fba.qc - INFO - Reads processed: 80,000,000
+2021-02-17 16:35:24,625 - fba.qc - INFO - Reads processed: 90,000,000
+2021-02-17 16:37:57,678 - fba.qc - INFO - Reads processed: 100,000,000
+2021-02-17 16:40:30,706 - fba.qc - INFO - Reads processed: 110,000,000
+2021-02-17 16:43:03,867 - fba.qc - INFO - Reads processed: 120,000,000
+2021-02-17 16:45:37,197 - fba.qc - INFO - Reads processed: 130,000,000
+2021-02-17 16:48:10,511 - fba.qc - INFO - Reads processed: 140,000,000
+2021-02-17 16:49:27,662 - fba.qc - INFO - Number of reads processed: 145,032,428
+2021-02-17 16:49:27,663 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 84,973,062
+2021-02-17 16:49:27,664 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
+2021-02-17 16:49:27,689 - fba.__main__ - INFO - Done.
 ```
 
 <br>
@@ -108,34 +108,34 @@ Result summary.
 69.16% (100,307,853 / 145,032,428) of reads have valid feature barcodes.
 
 ```shell
-2020-10-19 22:32:33,657 - fba.__main__ - INFO - fba version: 0.0.6
-2020-10-19 22:32:33,658 - fba.__main__ - INFO - Initiating logging ...
-2020-10-19 22:32:33,658 - fba.__main__ - INFO - Python version: 3.7
-2020-10-19 22:32:33,658 - fba.__main__ - INFO - Using qc subcommand ...
-2020-10-19 22:32:33,658 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
-2020-10-19 22:32:33,658 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
-2020-10-19 22:32:33,670 - fba.qc - INFO - Number of reference feature barcodes: 2
-2020-10-19 22:32:33,670 - fba.qc - INFO - Read 2 coordinates to search: [31, 51]
-2020-10-19 22:32:33,670 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2
-2020-10-19 22:32:33,670 - fba.qc - INFO - Read 2 maximum number of N allowed: inf
-2020-10-19 22:32:33,670 - fba.qc - INFO - Number of read pairs to analyze: all
-2020-10-19 22:32:33,670 - fba.qc - INFO - Matching ...
-2020-10-19 22:49:01,502 - fba.qc - INFO - Reads processed: 10,000,000
-2020-10-19 23:05:29,402 - fba.qc - INFO - Reads processed: 20,000,000
-2020-10-19 23:21:57,536 - fba.qc - INFO - Reads processed: 30,000,000
-2020-10-19 23:38:28,123 - fba.qc - INFO - Reads processed: 40,000,000
-2020-10-19 23:54:55,946 - fba.qc - INFO - Reads processed: 50,000,000
-2020-10-20 00:11:23,748 - fba.qc - INFO - Reads processed: 60,000,000
-2020-10-20 00:27:50,410 - fba.qc - INFO - Reads processed: 70,000,000
-2020-10-20 00:44:17,468 - fba.qc - INFO - Reads processed: 80,000,000
-2020-10-20 01:00:45,392 - fba.qc - INFO - Reads processed: 90,000,000
-2020-10-20 01:17:12,952 - fba.qc - INFO - Reads processed: 100,000,000
-2020-10-20 01:33:40,369 - fba.qc - INFO - Reads processed: 110,000,000
-2020-10-20 01:50:07,896 - fba.qc - INFO - Reads processed: 120,000,000
-2020-10-20 02:06:33,881 - fba.qc - INFO - Reads processed: 130,000,000
-2020-10-20 02:23:00,000 - fba.qc - INFO - Reads processed: 140,000,000
-2020-10-20 02:31:16,393 - fba.qc - INFO - Number of reads processed: 145,032,428
-2020-10-20 02:31:16,394 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 100,307,853
-2020-10-20 02:31:16,395 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
-2020-10-20 02:31:16,427 - fba.__main__ - INFO - Done.
+2021-02-17 16:12:00,407 - fba.__main__ - INFO - fba version: 0.0.7
+2021-02-17 16:12:00,407 - fba.__main__ - INFO - Initiating logging ...
+2021-02-17 16:12:00,408 - fba.__main__ - INFO - Python version: 3.7
+2021-02-17 16:12:00,408 - fba.__main__ - INFO - Using qc subcommand ...
+2021-02-17 16:12:00,408 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
+2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
+2021-02-17 16:12:00,426 - fba.qc - INFO - Number of reference feature barcodes: 2
+2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)
+2021-02-17 16:12:00,426 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2
+2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 maximum number of N allowed: inf
+2021-02-17 16:12:00,426 - fba.qc - INFO - Number of read pairs to analyze: all
+2021-02-17 16:12:00,426 - fba.qc - INFO - Matching ...
+2021-02-17 16:28:02,710 - fba.qc - INFO - Reads processed: 10,000,000
+2021-02-17 16:44:07,554 - fba.qc - INFO - Reads processed: 20,000,000
+2021-02-17 17:00:13,431 - fba.qc - INFO - Reads processed: 30,000,000
+2021-02-17 17:16:17,034 - fba.qc - INFO - Reads processed: 40,000,000
+2021-02-17 17:32:21,635 - fba.qc - INFO - Reads processed: 50,000,000
+2021-02-17 17:48:26,948 - fba.qc - INFO - Reads processed: 60,000,000
+2021-02-17 18:04:31,050 - fba.qc - INFO - Reads processed: 70,000,000
+2021-02-17 18:20:34,413 - fba.qc - INFO - Reads processed: 80,000,000
+2021-02-17 18:36:38,778 - fba.qc - INFO - Reads processed: 90,000,000
+2021-02-17 18:52:44,033 - fba.qc - INFO - Reads processed: 100,000,000
+2021-02-17 19:08:49,500 - fba.qc - INFO - Reads processed: 110,000,000
+2021-02-17 19:24:56,356 - fba.qc - INFO - Reads processed: 120,000,000
+2021-02-17 19:41:02,072 - fba.qc - INFO - Reads processed: 130,000,000
+2021-02-17 19:57:09,967 - fba.qc - INFO - Reads processed: 140,000,000
+2021-02-17 20:05:15,665 - fba.qc - INFO - Number of reads processed: 145,032,428
+2021-02-17 20:05:15,666 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 100,307,853
+2021-02-17 20:05:15,667 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
+2021-02-17 20:05:15,701 - fba.__main__ - INFO - Done.
 ```
