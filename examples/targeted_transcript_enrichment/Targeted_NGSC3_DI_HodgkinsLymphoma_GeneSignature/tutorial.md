@@ -124,52 +124,50 @@ $ fba map \
 
 Result summary.
 
-7.67% of total read pairs (2,405,985 of 31,372,024) contribute to the final expression matrix after UMI deduplication. Sequenced quite deep.
+7.67% of total read pairs (2,405,998 of 31,372,024) contribute to the final expression matrix after UMI deduplication. Sequenced quite deep.
 
 ```shell
-2021-02-15 00:07:57,867 - fba.__main__ - INFO - fba version: 0.0.7
-2021-02-15 00:07:57,867 - fba.__main__ - INFO - Initiating logging ...
-2021-02-15 00:07:57,867 - fba.__main__ - INFO - Python version: 3.7
-2021-02-15 00:07:57,867 - fba.__main__ - INFO - Using map subcommand ...
-2021-02-15 00:07:57,970 - fba.map - INFO - bwa version: 0.7.17
-2021-02-15 00:08:00,052 - fba.map - INFO - samtools version: 1.3
-2021-02-15 00:08:00,059 - fba.map - INFO - Number of reference cell barcodes: 3,394
-2021-02-15 00:08:00,059 - fba.map - INFO - Read 1 coordinates to search: [0, 16)
-2021-02-15 00:08:00,059 - fba.map - INFO - Cell barcode maximum number of mismatches: 1
-2021-02-15 00:08:00,059 - fba.map - INFO - Read 1 maximum number of N allowed: 3
-2021-02-15 00:08:00,059 - fba.map - INFO - Matching cell barcodes, read 1 ...
-2021-02-15 00:20:38,019 - fba.map - INFO - number of read pairs processed: 31,372,024
-2021-02-15 00:20:38,020 - fba.map - INFO - Number of read pairs w/ valid cell barcodes: 28,336,049
-2021-02-15 00:20:38,049 - fba.map - INFO - Number of reference features: 1,142
-2021-02-15 00:20:38,049 - fba.map - INFO - Number of threads: 48
-2021-02-15 00:20:38,049 - fba.map - INFO - Aligning read 2 ...
-2021-02-15 00:24:41,461 - fba.map - INFO -
+2021-02-17 23:33:59,615 - fba.__main__ - INFO - fba version: 0.0.7
+2021-02-17 23:33:59,615 - fba.__main__ - INFO - Initiating logging ...
+2021-02-17 23:33:59,615 - fba.__main__ - INFO - Python version: 3.7
+2021-02-17 23:33:59,615 - fba.__main__ - INFO - Using map subcommand ...
+2021-02-17 23:33:59,863 - fba.map - INFO - bwa version: 0.7.17
+2021-02-17 23:34:02,116 - fba.map - INFO - samtools version: 1.3
+2021-02-17 23:34:02,145 - fba.map - INFO - Number of reference cell barcodes: 3,394
+2021-02-17 23:34:02,145 - fba.map - INFO - Read 1 coordinates to search: [0, 16)
+2021-02-17 23:34:02,145 - fba.map - INFO - Cell barcode maximum number of mismatches: 1
+2021-02-17 23:34:02,145 - fba.map - INFO - Read 1 maximum number of N allowed: 3
+2021-02-17 23:34:02,145 - fba.map - INFO - Matching cell barcodes, read 1 ...
+2021-02-17 23:47:07,994 - fba.map - INFO - number of read pairs processed: 31,372,024
+2021-02-17 23:47:07,995 - fba.map - INFO - Number of read pairs w/ valid cell barcodes: 28,336,049
+2021-02-17 23:47:08,024 - fba.map - INFO - Number of reference features: 1,142
+2021-02-17 23:47:08,024 - fba.map - INFO - Number of threads: 56
+2021-02-17 23:47:08,024 - fba.map - INFO - Aligning read 2 ...
+2021-02-17 23:52:34,225 - fba.map - INFO -
 [M::bwa_idx_load_from_disk] read 0 ALT contigs
-[M::process] read 5333334 sequences (480000060 bp)...
-[M::mem_process_seqs] Processed 5333334 reads in 363.214 CPU sec, 19.466 real sec
-[M::process] read 5333334 sequences (480000060 bp)...
-[M::mem_process_seqs] Processed 5333334 reads in 360.132 CPU sec, 7.731 real sec
-[M::process] read 5333334 sequences (480000060 bp)...
-[M::mem_process_seqs] Processed 5333334 reads in 368.232 CPU sec, 7.833 real sec
-[M::process] read 5333334 sequences (480000060 bp)...
-[M::mem_process_seqs] Processed 5333334 reads in 400.872 CPU sec, 11.703 real sec
-[M::process] read 5333334 sequences (480000060 bp)...
-[M::process] read 1669379 sequences (150244110 bp)...
-[M::mem_process_seqs] Processed 5333334 reads in 397.386 CPU sec, 8.356 real sec
-[M::mem_process_seqs] Processed 1669379 reads in 111.370 CPU sec, 2.963 real sec
+[M::process] read 6222224 sequences (560000160 bp)...
+[M::mem_process_seqs] Processed 6222224 reads in 1411.678 CPU sec, 87.647 real sec
+[M::process] read 6222224 sequences (560000160 bp)...
+[M::mem_process_seqs] Processed 6222224 reads in 484.034 CPU sec, 11.666 real sec
+[M::process] read 6222224 sequences (560000160 bp)...
+[M::mem_process_seqs] Processed 6222224 reads in 487.450 CPU sec, 11.070 real sec
+[M::process] read 6222224 sequences (560000160 bp)...
+[M::mem_process_seqs] Processed 6222224 reads in 457.438 CPU sec, 8.857 real sec
+[M::process] read 3447153 sequences (310243770 bp)...
+[M::mem_process_seqs] Processed 3447153 reads in 273.114 CPU sec, 8.418 real sec
 [main] Version: 0.7.17-r1198-dirty
-[main] CMD: /home2/s166631/bin/bwa mem -t 48 -C barcode_mapping/feature_ref.fasta barcode_mapping/modified.fq.gz
-[main] Real time: 115.290 sec; CPU: 2067.228 sec
-2021-02-15 00:24:41,463 - fba.map - INFO - Generating matrix (UMI deduplication) ...
-2021-02-15 00:24:41,463 - fba.map - INFO - UMI-tools version: 1.0.0
-2021-02-15 00:24:41,463 - fba.map - INFO - Mapping quality threshold: 10
-2021-02-15 00:24:41,463 - fba.map - INFO - UMI starting position on read 1: 16
-2021-02-15 00:24:41,463 - fba.map - INFO - UMI length: 12
-2021-02-15 00:24:41,463 - fba.map - INFO - UMI-tools deduplication threshold: 1
-2021-02-15 00:24:41,463 - fba.map - INFO - UMI-tools deduplication method: directional
-2021-02-15 00:26:13,426 - fba.map - INFO - Number of cell barcodes detected: 3,379
-2021-02-15 00:26:13,427 - fba.map - INFO - Number of features detected: 1,129
-2021-02-15 00:26:13,431 - fba.map - INFO - Total UMIs after deduplication: 2,405,985
-2021-02-15 00:26:13,441 - fba.map - INFO - Median number of UMIs per cell: 507.0
-2021-02-15 00:26:17,719 - fba.__main__ - INFO - Done.
+[main] CMD: /home2/s166631/bin/bwa mem -t 56 -C barcode_mapping/feature_ref.fasta barcode_mapping/modified.fq.gz
+[main] Real time: 187.399 sec; CPU: 3189.278 sec
+2021-02-17 23:52:34,226 - fba.map - INFO - Generating matrix (UMI deduplication) ...
+2021-02-17 23:52:34,226 - fba.map - INFO - UMI-tools version: 1.1.1
+2021-02-17 23:52:34,226 - fba.map - INFO - Mapping quality threshold: 10
+2021-02-17 23:52:34,226 - fba.map - INFO - UMI starting position on read 1: 16
+2021-02-17 23:52:34,226 - fba.map - INFO - UMI length: 12
+2021-02-17 23:52:34,226 - fba.map - INFO - UMI-tools deduplication threshold: 1
+2021-02-17 23:52:34,226 - fba.map - INFO - UMI-tools deduplication method: directional
+2021-02-17 23:54:06,700 - fba.map - INFO - Number of cell barcodes detected: 3,379
+2021-02-17 23:54:06,700 - fba.map - INFO - Number of features detected: 1,129
+2021-02-17 23:54:06,704 - fba.map - INFO - Total UMIs after deduplication: 2,405,998
+2021-02-17 23:54:06,713 - fba.map - INFO - Median number of UMIs per cell: 507.0
+2021-02-17 23:54:11,085 - fba.__main__ - INFO - Done.
 ```
