@@ -32,10 +32,10 @@ $ fba qc \
 
 The content of `qc/feature_barcode_frequency.csv`.
 
-| feature barcode                    | num_reads  | percentage         |
-|------------------------------------|------------|--------------------|
-| NON\_TARGET-1_AACGTGCTGACGATGCGGGC | 59,310,228 | 0.6979885931379053 |
-| RAB1A-2_GCCGGCGAACCAGGAAATAG       | 25,662,834 | 0.3020114068620947 |
+| feature barcode                    | num_reads  | percentage        |
+|------------------------------------|------------|-------------------|
+| NON\_TARGET-1_AACGTGCTGACGATGCGGGC | 59,310,228 | 0.697988593137905 |
+| RAB1A-2_GCCGGCGAACCAGGAAATAG       | 25,662,834 | 0.302011406862095 |
 
 <br>
 
