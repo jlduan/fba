@@ -11,7 +11,7 @@ setup(
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jlduan/fba',
-    packages=find_packages(exclude=('examples',)),
+    packages=find_packages(exclude=('docs',)),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
