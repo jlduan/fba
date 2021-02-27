@@ -308,10 +308,10 @@ def plot_embedding(embedding,
 
     colors = sns.color_palette(palette='husl',
                                n_colors=embedding['category'].nunique())[:-1]
-    colors.append('black')
+    colors.append('#595959')
 
     p_handles = list()
-    for val, color in zip(category, colors):
+    for val, color in zip(category[::-1], colors[::-1]):
 
         p = ax.scatter(x=embedding.loc[embedding.category == val, 'x'],
                        y=embedding.loc[embedding.category == val, 'y'],
@@ -335,7 +335,7 @@ def plot_embedding(embedding,
     ax.xaxis.set_ticks(ticks=[])
     ax.yaxis.set_ticks(ticks=[])
 
-    ax.legend(handles=p_handles,
+    ax.legend(handles=p_handles[::-1],
               labels=category,
               bbox_to_anchor=(1.02, 1),
               loc='upper left',
