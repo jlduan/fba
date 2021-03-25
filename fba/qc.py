@@ -68,9 +68,8 @@ def plot_sequence_content(read_composition, title,
     ax.set_title(label=title, fontsize=7)
     ax.tick_params(labelsize=6, labelcolor='black', direction='out')
     ax.xaxis.set_ticks(range(0, read_composition.shape[0], 2))
-    # UserWarning:
-    # FixedFormatter should only be used together with FixedLocator
-    # https://github.com/pandas-dev/pandas/issues/35684#issuecomment-687621472
+
+    ax.set_yticks(ax.get_yticks())
     ax.set_yticklabels(labels=[f'{i:3,.1%}' for i in ax.get_yticks()])
 
     for i in ['top', 'bottom', 'left', 'right']:
@@ -121,8 +120,6 @@ def plot_barcode_startend(s, e, bases, title, ax):
     ax.xaxis.set_ticks(range(0, len(bases), 2))
     ax.set_xbound(lower=-1, upper=len(bases) + 1)
     ax.set_ylim(bottom=0, top=1)
-    # suppress UserWarning:
-    # FixedFormatter should only be used together with FixedLocator
     ax.set_yticks(ax.get_yticks().tolist())
     ax.set_yticklabels(labels=['{:,.1%}'.format(i) for i in ax.get_yticks()])
 
