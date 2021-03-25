@@ -1,5 +1,3 @@
-
-
 # fba; percentile
 fba extract \
     -1 $READ1 \
