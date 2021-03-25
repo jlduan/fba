@@ -23,7 +23,6 @@ $ fba
 usage: fba [-h]  ...
 
 Tools for feature barcoding analyses
-Version: 0.0.6
 
 optional arguments:
   -h, --help        show this help message and exit
