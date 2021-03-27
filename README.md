@@ -1,5 +1,5 @@
 
-[![PyPI](https://img.shields.io/pypi/v/fba?logo=pypi&style=flat-square)](https://pypi.org/project/fba/) [![PyPI - License](https://img.shields.io/pypi/l/fba?style=flat-square)](https://github.com/jlduan/fba/blob/master/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/fba?logo=pypi&style=flat-square)](https://pypi.org/project/fba/) [![PyPI - License](https://img.shields.io/pypi/l/fba?style=flat-square)](https://github.com/jlduan/fba/blob/master/LICENSE) ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/jlduan/fba/fba?style=flat-square)
 
 # fba
 
