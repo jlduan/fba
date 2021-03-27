@@ -135,8 +135,7 @@ $ fba extract \
     -cb_m 1 \
     -fb_m 1 \
     -cb_n 3 \
-    -fb_n 3 \
-    -e
+    -fb_n 3
 ```
 
 Preview of result.
