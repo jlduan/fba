@@ -19,7 +19,7 @@ setup(
         'Operating System :: MacOS :: MacOS X',
         'Operating System :: POSIX :: Linux',
         'Operating System :: Unix',
-        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3',
         'Topic :: Scientific/Engineering :: Bio-Informatics'
     ],
     python_requires='>=3.6',
