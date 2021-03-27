@@ -59,7 +59,12 @@ def add_extract_subparser(subparsers):
     parser = subparsers.add_parser(
         'extract',
         help='extract cell and feature barcodes',
-        description='Extract cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.'
+        description=(
+            'Extract cell and feature barcodes from paired fastq files. '
+            'For single cell assays, '
+            'read 1 usually contains cell partitioning and UMI information, '
+            'and read 2 contains feature information.'
+        )
     )
 
     parser.add_argument(
@@ -109,7 +114,12 @@ def add_extract_subparser(subparsers):
         required=False,
         default=(0, 16),
         type=coords,
-        help='specify expected coordinates \'start,end\' of read 1 to search. For example, \'0,16\': starts at 0, stops at 15. Nucleotide bases outside the range will be masked as lower case in output. The default is \'0,16\''
+        help=(
+            'specify coordinates \'start,end\' of read 1 to search. '
+            'For example, \'0,16\': starts at 0, stops at 15. '
+            'Nucleotide bases outside the range will be masked '
+            'as lower case in output. Default (0,16)'
+        )
     )
 
     parser.add_argument(
@@ -126,7 +136,7 @@ def add_extract_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify cell barcode mismatching threshold. The default is 1'
+        help='specify cell barcode mismatching threshold. Default (1)'
     )
 
     parser.add_argument(
@@ -136,7 +146,7 @@ def add_extract_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify feature barcode mismatching threshold. The default is 1'
+        help='specify feature barcode mismatching threshold. Default (1)'
     )
 
     parser.add_argument(
@@ -146,7 +156,8 @@ def add_extract_subparser(subparsers):
         required=False,
         type=int,
         default=3,
-        help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is 3'
+        help=('specify maximum number of ambiguous nucleotides '
+              'allowed for read 1. Default (3)')
     )
 
     parser.add_argument(
@@ -156,7 +167,8 @@ def add_extract_subparser(subparsers):
         required=False,
         type=int,
         default=3,
-        help='specify maximum number of ambiguous nucleotides allowed for read 2. The default is 3'
+        help=('specify maximum number of ambiguous nucleotides '
+              'allowed for read 2. Default (3)')
     )
 
 
@@ -165,7 +177,17 @@ def add_map_subparser(subparsers):
     parser = subparsers.add_parser(
         'map',
         help='map enriched transcripts',
-        description='Quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).'
+        description=(
+            'Quantify enriched transcripts '
+            '(through hybridization or PCR amplification) '
+            'from parent single cell libraries. '
+            'Read 1 contains cell partitioning and UMI information, '
+            'and read 2 contains transcribed regions of '
+            'enriched/targeted transcripts of interest. '
+            'BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used '
+            'for read 2 alignment. The quantification (UMI deduplication) '
+            'of enriched/targeted transcripts is powered by '
+            'UMI-tools (Smith, T., et al. 2017).')
     )
 
     parser.add_argument(
@@ -215,7 +237,12 @@ def add_map_subparser(subparsers):
         required=False,
         default=(0, 16),
         type=coords,
-        help='specify expected coordinates \'start,end\' of read 1 to search for cell barcodes. The default is \'0,16\''
+        help=(
+            'specify coordinates \'start,end\' of read 1 to search. '
+            'For example, \'0,16\': starts at 0, stops at 15. '
+            'Nucleotide bases outside the range will be masked '
+            'as lower case in output. Default (0,16)'
+        )
     )
 
     parser.add_argument(
@@ -225,7 +252,7 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify cell barcode mismatching threshold. The default is 1'
+        help='specify cell barcode mismatching threshold. Default (1)'
     )
 
     parser.add_argument(
@@ -235,7 +262,8 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=3,
-        help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is 3'
+        help=('specify maximum number of ambiguous nucleotides '
+              'allowed for read 1. Default (3)')
     )
 
     parser.add_argument(
@@ -246,7 +274,7 @@ def add_map_subparser(subparsers):
         type=str,
         choices=['bwa', 'bowtie2'],
         default='bwa',
-        help='specify aligner for read 2. The default is \'bwa\''
+        help='specify aligner for read 2. Default (bwa)'
     )
 
     parser.add_argument(
@@ -255,7 +283,8 @@ def add_map_subparser(subparsers):
         required=False,
         default=10,
         type=int,
-        help='specify minimal mapping quality required for feature mapping. The default is 10'
+        help=('specify minimal mapping quality required for feature mapping. '
+              'Default (10)')
     )
 
     parser.add_argument(
@@ -265,7 +294,7 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=16,
-        help='specify expected UMI starting postion on read 1. The default is 16'
+        help='specify expected UMI starting postion on read 1. Default (16)'
     )
 
     parser.add_argument(
@@ -275,7 +304,9 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=12,
-        help='specify the length of UMIs on read 1. Reads with UMI length less than this value will be discarded. The default is 12'
+        help=('specify the length of UMIs on read 1. '
+              'Reads with UMI length less than this value will be discarded. '
+              'Default (12)')
     )
 
     parser.add_argument(
@@ -285,7 +316,8 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximun edit distance allowed for UMIs on read 1 for deduplication. The default is 1'
+        help=('specify the maximun edit distance allowed for UMIs '
+              'on read 1 for deduplication. Default (1)')
     )
 
     parser.add_argument(
@@ -297,7 +329,9 @@ def add_map_subparser(subparsers):
         choices=['unique', 'percentile',
                  'cluster', 'adjacency', 'directional'],
         default='directional',
-        help='specify UMI deduplication method (powered by UMI-tools. Smith, T., et al. 2017). The default is \'directional\''
+        help=('specify UMI deduplication method '
+              '(powered by UMI-tools. Smith, T., et al. 2017). '
+              'Default (directional)')
     )
 
     parser.add_argument(
@@ -306,7 +340,7 @@ def add_map_subparser(subparsers):
         required=False,
         type=str,
         default='barcode_mapping',
-        help='specify a temp directory. The default is \'./barcode_mapping\''
+        help='specify a temp directory. Default (./barcode_mapping)'
     )
 
     parser.add_argument(
@@ -315,7 +349,8 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=None,
-        help='specify number of threads to launch. The default is to use all available'
+        help=('specify number of threads to launch. '
+              'The default is to use all available')
     )
 
     parser.add_argument(
@@ -324,7 +359,8 @@ def add_map_subparser(subparsers):
         required=False,
         type=int,
         default=0,
-        help='specify the number of Ns to separate sequences belonging to the same feature. The default is 0'
+        help=('specify the number of Ns to separate sequences '
+              'belonging to the same feature. Default (0)')
     )
 
 
@@ -333,7 +369,13 @@ def add_filter_subparser(subparsers):
     parser = subparsers.add_parser(
         'filter',
         help='filter extracted barcodes',
-        description='Filter extracted cell and feature barcodes (output of `extract` or `qc`). Additional fragment filter/selection can be applied through `-cb_seq` and/or `-fb_seq`.')
+        description=(
+            'Filter extracted cell and feature barcodes '
+            '(output of `extract` or `qc`). '
+            'Additional fragment filter/selection '
+            'can be applied through `-cb_seq` and/or `-fb_seq`.'
+        )
+    )
 
     parser.add_argument(
         '-i',
@@ -341,7 +383,7 @@ def add_filter_subparser(subparsers):
         dest='input',
         required=True,
         type=str,
-        help='specify an input file. The output of extract or qc subcommand'
+        help='specify an input file. The output of `extract` or `qc`'
     )
 
     parser.add_argument(
@@ -360,7 +402,10 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=0,
-        help='specify expected cell barcode starting postion on read 1. The default is 0'
+        help=(
+            'specify expected cell barcode starting postion on read 1. '
+            'Default (0)'
+        )
     )
 
     parser.add_argument(
@@ -370,7 +415,7 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify cell barcode mismatching threshold. The default is 1'
+        help='specify cell barcode mismatching threshold. Default (1)'
     )
 
     parser.add_argument(
@@ -380,7 +425,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximum left shift allowed for cell barcode. The default is 1'
+        help=('specify the maximum left shift allowed for cell barcode. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -390,7 +436,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximum right shift allowed for cell barcode. The default is 1'
+        help=('specify the maximum right shift allowed for cell barcode. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -400,7 +447,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=str,
         default=None,
-        help='specify an extra constant sequence to filter on read 1. The default is None'
+        help=('specify an extra constant sequence to filter on read 1. '
+              'Default (None)')
     )
 
     parser.add_argument(
@@ -410,7 +458,10 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=None,
-        help='specify the maximun edit distance allowed for the extra constant sequence on read 1 for filtering. The default is off'
+        help=(
+            'specify the maximun edit distance allowed '
+            'for the extra constant sequence on read 1 for filtering. '
+            'Default (None)')
     )
 
     parser.add_argument(
@@ -420,7 +471,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=10,
-        help='specify expected feature barcode starting postion on read 2. The default is 10'
+        help=('specify expected feature barcode starting postion on read 2. '
+              'Default (10)')
     )
 
     parser.add_argument(
@@ -430,7 +482,7 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify feature barcode mismatching threshold. The default is 1'
+        help=('specify feature barcode mismatching threshold. Default (1)')
     )
 
     parser.add_argument(
@@ -440,7 +492,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximum left shift allowed for feature barcode. The default is 1'
+        help=('specify the maximum left shift allowed for feature barcode. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -450,7 +503,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximum right shift allowed for feature barcode. The default is 1'
+        help=('specify the maximum right shift allowed for feature barcode. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -460,7 +514,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=str,
         default=None,
-        help='specify an extra constant sequence to filter on read 2. The default is None'
+        help=('specify an extra constant sequence to filter on read 2. '
+              'Default (None)')
     )
 
     parser.add_argument(
@@ -470,7 +525,8 @@ def add_filter_subparser(subparsers):
         required=False,
         type=int,
         default=None,
-        help='specify the maximun edit distance allowed for the extra constant sequence on read 2. The default is off'
+        help=('specify the maximun edit distance allowed '
+              'for the extra constant sequence on read 2. Default (None)')
     )
 
 
@@ -479,7 +535,9 @@ def add_count_subparser(subparsers):
     parser = subparsers.add_parser(
         'count',
         help='count feature barcodes per cell',
-        description='Count UMIs per feature per cell (UMI deduplication), powered by UMI-tools (Smith, T., et al. 2017). Take the output of `extract` or `filter` as input.'
+        description=('Count UMIs per feature per cell (UMI deduplication), '
+                     'powered by UMI-tools (Smith, T., et al. 2017). '
+                     'Take the output of `extract` or `filter` as input.')
     )
 
     parser.add_argument(
@@ -507,7 +565,7 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=16,
-        help='specify expected UMI starting postion on read 1. The default is 16'
+        help='specify expected UMI starting postion on read 1. Default (16)'
     )
 
     parser.add_argument(
@@ -517,7 +575,9 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=12,
-        help='specify the length of UMIs on read 1. Reads with UMI length less than this value will be discarded. The default is 12'
+        help=('specify the length of UMIs on read 1. '
+              'Reads with UMI length less than this value will be discarded. '
+              'Default (12)')
     )
     parser.add_argument(
         '-um',
@@ -526,7 +586,8 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify the maximun edit distance allowed for UMIs on read 1 for deduplication. The default is 1'
+        help=('specify the maximun edit distance allowed '
+              'for UMIs on read 1 for deduplication. Default (1)')
     )
 
     parser.add_argument(
@@ -538,7 +599,9 @@ def add_count_subparser(subparsers):
         choices=['unique', 'percentile',
                  'cluster', 'adjacency', 'directional'],
         default='directional',
-        help='specify UMI deduplication method (powered by UMI-tools. Smith, T., et al. 2017). The default is \'directional\''
+        help=('specify UMI deduplication method '
+              '(powered by UMI-tools. Smith, T., et al. 2017). '
+              'Default (directional)')
     )
 
 
@@ -547,7 +610,8 @@ def add_demultiplex_subparser(subparsers):
     parser = subparsers.add_parser(
         'demultiplex',
         help='demultiplex cells based on feature abundance',
-        description='Demultiplex cells based on the abundance of features (matrix generated by `count` as input).'
+        description=('Demultiplex cells based on the abundance of features '
+                     '(matrix generated by `count` as input).')
     )
 
     parser.add_argument(
@@ -556,7 +620,8 @@ def add_demultiplex_subparser(subparsers):
         dest='input',
         required=True,
         type=str,
-        help='specify an input file (feature count matrix). The output of `count` subcommand'
+        help=('specify an input file (feature count matrix). '
+              'The output of `count`')
     )
 
     parser.add_argument(
@@ -565,7 +630,7 @@ def add_demultiplex_subparser(subparsers):
         required=False,
         type=str,
         default='demultiplexed',
-        help='specify a output directory. The default is \'./demultiplexed\''
+        help='specify a output directory. Default (./demultiplexed)'
     )
 
     parser.add_argument(
@@ -575,7 +640,8 @@ def add_demultiplex_subparser(subparsers):
         type=int,
         default=1,
         choices=[1],
-        help='specify demultiplexing method. \'1\': Stoeckius et al. 2018. The default is 1'
+        help=('specify demultiplexing method. \'1\': Stoeckius et al. 2018. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -585,7 +651,8 @@ def add_demultiplex_subparser(subparsers):
         required=False,
         type=float,
         default=0.9999,
-        help='specify quantile cutoff for the probability mass function. The default is 0.9999'
+        help=('specify quantile cutoff for the probability mass function. '
+              'Default (0.9999)')
     )
 
     parser.add_argument(
@@ -596,7 +663,7 @@ def add_demultiplex_subparser(subparsers):
         type=str,
         default='kmedoids',
         choices=['kmedoids', 'hdbscan'],
-        help='specify inital clustering method. The default is \'kmedoids\''
+        help='specify inital clustering method. Default (kmedoids)'
     )
 
     parser.add_argument(
@@ -616,7 +683,8 @@ def add_demultiplex_subparser(subparsers):
         type=str,
         choices=['tsne', 'umap'],
         default='tsne',
-        help='specify embedding method for visualization (works if \'-v\' is given). The default is \'tsne\''
+        help=('specify embedding method for '
+              'visualization (works if \'-v\' is given). Default (tsne)')
     )
 
 
@@ -625,7 +693,9 @@ def add_qc_subparser(subparsers):
     parser = subparsers.add_parser(
         'qc',
         help='quality control of feature barcoding assay',
-        description='Generate diagnostic information. If `-1` is omitted, bulk mode is enabled and only read 2 will be analyzed.'
+        description=('Generate diagnostic information. '
+                     'If `-1` is omitted, '
+                     'bulk mode is enabled and only read 2 will be analyzed.')
     )
 
     parser.add_argument(
@@ -643,7 +713,14 @@ def add_qc_subparser(subparsers):
         dest='read2',
         required=True,
         type=str,
-        help='specify fastq file for read 2. If only read 2 file is provided, bulk mode is enabled (skipping arguments \'-1\', \' -w\', \'-cb_m\', \'-r1_coords\', must provide \'-r2_coords\' and \'-fb_m\'). In bulk mode, reads 2 will be searched against reference feature barcodes and read count for each feature barcode will be summarized'
+        help=('specify fastq file for read 2. '
+              'If only read 2 file is provided, '
+              'bulk mode is enabled '
+              '(skipping arguments \'-1\', \' -w\', \'-cb_m\', '
+              '\'-r1_coords\', must provide \'-r2_coords\' and \'-fb_m\'). '
+              'In bulk mode, reads 2 will be searched against '
+              'reference feature barcodes and '
+              'read count for each feature barcode will be summarized')
     )
 
     parser.add_argument(
@@ -668,7 +745,11 @@ def add_qc_subparser(subparsers):
         required=False,
         default=None,
         type=coords,
-        help='specify coordinates \'start,end\' of read 1 to search (doesn\'t need to be the exact expected barcode range). The default is to use all the nucleotide bases. Nucleotide bases outside the range will be masked as lower case in output'
+        help=('specify coordinates \'start,end\' of read 1 to search '
+              '(doesn\'t need to be the exact expected barcode range). '
+              'The default is to use all the nucleotide bases. '
+              'Nucleotide bases outside the range will be masked '
+              'as lower case in output')
     )
 
     parser.add_argument(
@@ -686,7 +767,7 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=3,
-        help='specify cell barcode mismatching threshold. The default is 3'
+        help='specify cell barcode mismatching threshold. Default (3)'
     )
 
     parser.add_argument(
@@ -696,7 +777,7 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=3,
-        help='specify feature barcode mismatching threshold. The default is 3'
+        help='specify feature barcode mismatching threshold. Default (3)'
     )
 
     parser.add_argument(
@@ -706,7 +787,8 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=np.Inf,
-        help='specify maximum number of ambiguous nucleotides allowed for read 1. The default is no limit'
+        help=('specify maximum number of ambiguous nucleotides allowed '
+              'for read 1. The default is no limit')
     )
 
     parser.add_argument(
@@ -716,7 +798,8 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=np.Inf,
-        help='specify maximum number of ambiguous nucleotides allowed for read 2. The default is no limit'
+        help=('specify maximum number of ambiguous nucleotides allowed '
+              'for read 2. The default is no limit')
     )
 
     parser.add_argument(
@@ -725,7 +808,8 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=None,
-        help='specify number of threads for barcode extraction. The default is to use all available'
+        help=('specify number of threads for barcode extraction. '
+              'Default is to use all available')
     )
 
     parser.add_argument(
@@ -734,7 +818,8 @@ def add_qc_subparser(subparsers):
         required=False,
         # type=int,
         default=100_000,
-        help='specify number of reads for analysis. Set to \'None\' will analyze all the reads. The default is 100,000'
+        help=('specify number of reads for analysis. '
+              'Set to (None) will analyze all the reads. Default (100,000)')
     )
 
     parser.add_argument(
@@ -743,7 +828,7 @@ def add_qc_subparser(subparsers):
         required=False,
         type=int,
         default=50_000,
-        help='specify the chunk size for multiprocessing. The default is 50,000'
+        help='specify the chunk size for multiprocessing. Default (50,000)'
     )
 
     parser.add_argument(
@@ -752,7 +837,7 @@ def add_qc_subparser(subparsers):
         required=False,
         type=str,
         default='qc',
-        help='specify a output directory. The default is \'./qc\''
+        help='specify a output directory. Default (./qc)'
     )
 
 
@@ -761,7 +846,9 @@ def add_kallisto_subparser(subparsers):
     parser = subparsers.add_parser(
         'kallisto_wrapper',
         help='deploy kallisto/bustools for feature barcoding quantification',
-        description='Deploy kallisto/bustools for feature barcoding quantification (just a wrapper) (Bray, N.L., et al. 2016).'
+        description=(
+            'Deploy kallisto/bustools for feature barcoding quantification '
+            '(just a wrapper) (Bray, N.L., et al. 2016).')
     )
 
     parser.add_argument(
@@ -820,7 +907,8 @@ def add_kallisto_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help='specify number of kallisto/bustools threads to launch. The default is 1'
+        help=('specify number of kallisto/bustools threads to launch. '
+              'Default (1)')
     )
 
     parser.add_argument(
@@ -829,5 +917,5 @@ def add_kallisto_subparser(subparsers):
         required=False,
         type=str,
         default='barcode_mapping',
-        help='specify a temp directory. The default is \'./kallisto\''
+        help='specify a temp directory. Default (./kallisto)'
     )
