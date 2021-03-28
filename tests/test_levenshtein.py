@@ -7,10 +7,10 @@ from fba.levenshtein import (
     set2bytes,
     create_index,
     query_index,
-    select_query,
-    format_one_query,
-    match_barcodes_paired_fastss,
-    extract_feature_barcoding_fastss
+    # select_query,
+    # format_one_query,
+    # match_barcodes_paired_fastss,
+    # extract_feature_barcoding_fastss
 )
 
 
