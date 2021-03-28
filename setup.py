@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-with open('README.md', 'r') as fh:
+with open(file='README.md', mode='r') as fh:
     long_description = fh.read()
 
 setup(
@@ -23,22 +23,7 @@ setup(
         'Topic :: Scientific/Engineering :: Bio-Informatics'
     ],
     python_requires='>=3.6',
-    install_requires=[
-        'regex',
-        'polyleven>=0.5',
-        'dnaio',
-        'pysam>=0.14.0',
-        'pandas',
-        'numpy',
-        'umi_tools>=1.0.0',
-        'scipy',
-        'scikit-learn',
-        'statsmodels',
-        'pyclustering',
-        'hdbscan',
-        'matplotlib>=3.3',
-        'umap-learn'
-    ],
+    install_requires=[i.rstrip() for i in open(file='requirements.txt')],
     entry_points={
         'console_scripts': ['fba=fba.__main__:main'],
     }

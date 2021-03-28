@@ -1,0 +1,14 @@
+regex
+polyleven>=0.5
+dnaio
+pysam>=0.14.0
+pandas
+numpy
+umi_tools>=1.0.0
+scipy
+scikit-learn
+statsmodels
+pyclustering
+hdbscan
+matplotlib>=3.3
+umap-learn
