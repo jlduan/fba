@@ -35,11 +35,11 @@ jobs:
     - name: Test with pytest
       run: |
         python -m pytest
-        python -m pytest --cov=fba --cov-report=annotate --cov-report=term
+        python -m pytest --cov=fba --cov-report html:tests/cov_html --cov-report=xml:tests/cov.xml --cov-report=term
     - name: Upload pytest cov results
       uses: actions/upload-artifact@v2
       with:
         name: pytest-results-${{ matrix.python-version }}
-        path: junit/test-results-${{ matrix.python-version }}.xml
+        path: test/test-results-${{ matrix.python-version }}.xml
       # Use always() to always run this step to publish test results when there are test failures
       if: ${{ always() }}
