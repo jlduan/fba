@@ -65,7 +65,6 @@ def main():
                     fb_num_mismatches=args.feature_barcode_mismatches,
                     read1_coords=args.read1_coords,
                     read2_coords=args.read2_coords,
-                    output_file=args.output,
                     cb_num_n_threshold=args.cb_num_n_threshold,
                     fb_num_n_threshold=args.fb_num_n_threshold
             ):

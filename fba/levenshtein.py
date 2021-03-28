@@ -183,9 +183,9 @@ def format_one_query(q, read_seq, read_coords, barcode_dict=None):
 
     Parameters
     ----------
-    q : tuple
-        A dictionary of fuzzy searching result. Keys are levenshtein distance.
-        Values are list of matched barcodes.
+    q : dict
+        A dictionary of fuzzy searching result. Key is levenshtein distance.
+        Value is list of matched barcodes.
     read_seq : str
         A DNA string (full length read).
     read_coords : tuple or list
@@ -204,9 +204,7 @@ def format_one_query(q, read_seq, read_coords, barcode_dict=None):
         Levenshtein distance.
     """
 
-    read_seq_m, _ = q
     x, y = read_coords
-
     read_seq = (read_seq[:x].lower()
                 + read_seq[x:y]
                 + read_seq[y:].lower())
@@ -301,7 +299,6 @@ def extract_feature_barcoding_fastss(read1_file,
                                      read2_coords,
                                      cb_num_mismatches,
                                      fb_num_mismatches,
-                                     output_file,
                                      cb_num_n_threshold=3,
                                      fb_num_n_threshold=3):
     """Extracts feature barcodes."""
