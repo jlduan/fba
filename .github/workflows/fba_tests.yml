@@ -34,4 +34,12 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=30 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        python -m pytest --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
+        python -m pytest
+        python -m pytest --cov=fba --cov-report=annotate --cov-report=term
+    - name: Upload pytest cov results
+      uses: actions/upload-artifact@v2
+      with:
+        name: pytest-results-${{ matrix.python-version }}
+        path: junit/test-results-${{ matrix.python-version }}.xml
+      # Use always() to always run this step to publish test results when there are test failures
+      if: ${{ always() }}
