@@ -5,7 +5,7 @@ with open(file='README.md', mode='r') as fh:
 
 setup(
     name='fba',
-    version='0.0.8',
+    version='0.0.9',
     author='JD',
     description='Tools for feature barcoding analyses',
     long_description=long_description,
