@@ -2,8 +2,6 @@
 
 import sys
 import importlib
-import pandas as pd
-from pathlib import Path
 from fba import __version__
 from fba.parsers import parse_args
 from fba.utils import open_by_suffix, get_logger
@@ -69,7 +67,6 @@ def main():
                     fb_num_n_threshold=args.fb_num_n_threshold
             ):
                 f.write(out + '\n')
-
         logger.info('Done.')
 
     elif (args.command == 'map'):
@@ -141,8 +138,8 @@ def main():
 
     elif (args.command == 'demultiplex'):
         logger.info('Using demultiplex subcommand ...')
-
         m = importlib.import_module(name=f'fba.{args.command}')
+
         _ = m.demultiplex_feature_barcoding(
             matrix_featurecount_file=args.input,
             output_directory=args.output_directory,
@@ -157,6 +154,9 @@ def main():
     elif (args.command == 'qc'):
         logger.info('Using qc subcommand ...')
         m = importlib.import_module(name=f'fba.{args.command}')
+
+        import pandas as pd
+        from pathlib import Path
 
         if not isinstance(args.num_reads, int):
             if args.num_reads.isdigit():

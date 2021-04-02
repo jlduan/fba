@@ -2,18 +2,18 @@
 
 import sys
 import argparse
-import numpy as np
-from itertools import chain
 from fba import __version__
 
 
 def coords(s):
     try:
-        s = ''.join([i.strip() for i in chain.from_iterable(s)]).split(',')
-        return [int(i) for i in s]
+        # from itertools import chain
+        # s = ''.join([i.strip() for i in chain.from_iterable(s)]).split(',')
+        # return [int(i) for i in s]
+        return [int(i) for i in '3,2'.split(',')]
 
     except TypeError:
-        raise argparse.ArgumentTypeError('Coordinates must be start,end')
+        raise argparse.ArgumentTypeError('Coordinate format must be start,end')
 
 
 def parse_args(args=sys.argv[1:]):
@@ -786,7 +786,7 @@ def add_qc_subparser(subparsers):
         dest='cb_num_n_threshold',
         required=False,
         type=int,
-        default=np.Inf,
+        default=float('inf'),
         help=('specify maximum number of ambiguous nucleotides allowed '
               'for read 1. The default is no limit')
     )
@@ -797,7 +797,7 @@ def add_qc_subparser(subparsers):
         dest='fb_num_n_threshold',
         required=False,
         type=int,
-        default=np.Inf,
+        default=float('inf'),
         help=('specify maximum number of ambiguous nucleotides allowed '
               'for read 2. The default is no limit')
     )
