@@ -15,7 +15,7 @@ Fastq files and feature barcodes are prepared as described at [here](https://git
 
 ## QC
 
-In the qc subcommand, if `-1` (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.
+In the `qc` subcommand, if `-1` (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.
 
 Use `-2` to specify read 2, and `-f` to specify feature barcodes. Search range on reads 2 can be controlled by `-r2_coords`. In this example, only one mismatch is allowed for feature barcode matching (set by `-fb_m`). Use `-n` to specify the number of reads to analyze (`None` is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in `qc/feature_barcode_frequency.csv`.
 

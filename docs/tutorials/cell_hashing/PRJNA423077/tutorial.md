@@ -100,7 +100,7 @@ As for read 2, based on the per base content, it suggests that bases 0-11 are re
     <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='800'/>
 </p>
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
+The detailed `qc` results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
@@ -121,7 +121,7 @@ NCACGGAGTTCCCTTGCCAATGTAGTTTT   AGGGAGTTCGTTTGCC        2:18    3:0:0   NGCTTACT
 
 ## Barcode extraction
 
-The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on qc results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to `0,16` on read 1 and `0,12` on read 2. One mismatch for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (`-cb_n`, `-cf_n`) are allowed.
+The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on `qc` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to `0,16` on read 1 and `0,12` on read 2. One mismatch for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (`-cb_n`, `-cf_n`) are allowed.
 
 ```shell
 $ fba extract \

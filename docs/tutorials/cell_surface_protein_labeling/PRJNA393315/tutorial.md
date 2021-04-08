@@ -94,7 +94,7 @@ As for read 2, based on the per base content, it suggests that bases 0-5 are act
 </p>
 
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
+The detailed `qc` results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
@@ -115,7 +115,7 @@ NCGGCCAGGGTGTAGCACGGATTGC       CTGATAGCAGGGATTG        9:24    2:0:1   ACAGTGCA
 
 ## Barcode extraction
 
-The lengths of cell and feature barcodes are all identical (16 and 6, respectively). And based on qc results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to `0,16` on read 1 and `0,6` on read 2. One mismatch for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (`-cb_n`, `-cf_n`) are allowed.
+The lengths of cell and feature barcodes are all identical (16 and 6, respectively). And based on `qc` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to `0,16` on read 1 and `0,6` on read 2. One mismatch for cell and feature barcodes (`-cb_m`, `-cf_m`) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (`-cb_n`, `-cf_n`) are allowed.
 
 ```shell
 $ fba extract \

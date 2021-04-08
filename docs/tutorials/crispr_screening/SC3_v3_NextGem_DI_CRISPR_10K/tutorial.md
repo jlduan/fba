@@ -110,7 +110,7 @@ As for read 2, based on the per base content, it suggests that bases 0-31 are co
     <img src='Pyplot_read2_barcodes_starting_ending.png' alt='' width='800'/>
 </p>
 
-The detailed qc results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
+The detailed `qc` results are stored in `feature_barcoding_output.tsv.gz` file. `matching_pos` columns indicate the matched positions on reads. `matching_description` columns indicate mismatches in substitutions:insertions:deletions format.
 
 ```shell
 $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
