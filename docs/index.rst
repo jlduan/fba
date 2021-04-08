@@ -25,9 +25,8 @@ fba: Tools for feature barcoding analysis
 .. image:: https://codecov.io/gh/jlduan/fba/branch/master/graph/badge.svg?token=H3189R59G0
    :target: https://codecov.io/gh/jlduan/fba
 
-.. image:: https://zenodo.org/badge/292596737.svg
-   :target: https://zenodo.org/badge/latestdoi/292596737
-
+.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4642815.svg
+   :target: https://doi.org/10.5281/zenodo.4642815
 
 Quickstart
 ----------
