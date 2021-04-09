@@ -9,8 +9,10 @@ on:
     paths-ignore:
       - 'docs/**'
   pull_request:
-    branches: [ $default-branch ]
+    branches:
+      - $default-branch
   schedule:
+    # * is a special character in YAML so you have to quote this string
     - cron:  '3 14 15 * *'
 
 jobs:
@@ -45,4 +47,5 @@ jobs:
       run: |
         python -m pytest
     - name: Install fba
+      run: |
         pip install -e .
