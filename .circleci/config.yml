@@ -1,16 +1,24 @@
-version: 2
-jobs:
-  build:
-    docker:
-      - image: circleci/python:3.7
+version: 2.1
 
+orbs:
+  python: circleci/python@1.3.4
+
+jobs:
+  build-and-test:
+    executor: python/default
+    tag: '3.6'
     steps:
-      # Step 1: obtain repo from GitHub
       - checkout
-      # Step 2: create virtual env and install dependencies
+      - python/install-packages:
+          pkg-manager: pip
+          pip-dependency-file: requirements.txt
       - run:
-          name: install dependencies
-          command: |
-            python3 -m pip install --upgrade pip
-            python3 -m pip install flake8 pytest
-            if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        name: Install flake8 pytest
+        command: |
+          python -m pip install flake8 pytes
+
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
