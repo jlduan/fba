@@ -6,7 +6,6 @@ on:
   push:
     branches:
       - tests
-    branches-ignore:
     paths-ignore:
       - 'docs/**'
   pull_request:
@@ -48,4 +47,4 @@ jobs:
       run: |
         python -m pytest
     - name: Install fba
-        pip install fba
+        pip install -e .
