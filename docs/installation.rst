@@ -3,7 +3,7 @@ Installation
 
 
 
-``fba`` can be installed with pip (Stable version on PyPI)
+``fba`` can be installed with pip (Stable version on PyPI):
 
 .. code-block::
 
