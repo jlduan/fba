@@ -4,7 +4,18 @@ name: fba using Conda
 
 on:
   push:
-    branches: [tests]
+    branches:
+      - tests
+    branches-ignore:
+      - docs
+    paths-ignore:
+      - 'docs/**'
+  pull_request:
+    branches:
+      - $default-branch
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '3 14 15 * *'
 
 jobs:
   build-linux:
