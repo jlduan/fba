@@ -19,6 +19,9 @@ Welcome to fba's documentation!
 .. image:: https://github.com/jlduan/fba/actions/workflows/fba.yml/badge.svg?branch=master
    :target: https://github.com/jlduan/fba/actions/workflows/fba.yml
 
+.. image:: https://circleci.com/gh/jlduan/fba/tree/master.svg?style=svg
+   :target: https://circleci.com/gh/jlduan/fba/tree/master
+
 .. image:: https://readthedocs.org/projects/fba/badge/?version=latest
    :target: https://fba.readthedocs.io/en/latest/
 
