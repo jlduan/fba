@@ -8,13 +8,14 @@ jobs:
     executor: python/default
     steps:
       - checkout
-      - python/install-packages:
-          pkg-manager: pip
-          pip-dependency-file: requirements.txt
       - run:
-        name: Install flake8 pytest
+        name: Install dependencies
         command: |
-          python -m pip install flake8 pytes
+          python -m pip install --upgrade pip
+          python -m pip install flake8 pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+
 
 
 workflows:
