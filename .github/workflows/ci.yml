@@ -1,13 +1,12 @@
 # https://github.com/actions/starter-workflows/blob/main/ci/python-package-conda.yml
 
-name: fba using Conda
+name: CI
 
 on:
   push:
     branches:
       - tests
     branches-ignore:
-      - docs
     paths-ignore:
       - 'docs/**'
   pull_request:
@@ -18,9 +17,11 @@ on:
     - cron:  '3 14 15 * *'
 
 jobs:
-  build-linux:
-    runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ${{ matrix.os }}
     strategy:
+      matrix:
+        os: [ubuntu-latest]
       max-parallel: 5
 
     steps:
@@ -29,21 +30,22 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: 3.8
-    - name: Add conda to system path
+    - name: Add Conda to system path
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
         conda env update --file environment.yml --name base
+        conda install flake8 pytest
     - name: Lint with flake8
       run: |
-        conda install flake8
         # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=30 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        conda install pytest
         python -m pytest
+    - name: Install fba
+        pip install fba
