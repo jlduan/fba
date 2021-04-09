@@ -93,22 +93,26 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
 This library is constructed using Chromium Single Cell 3' Reagent Kits (v2 Chemistry). The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
-   :width: 350
+   :width: 350px
+   :align: center
 
 |
 
 .. image:: Pyplot_read1_barcodes_starting_ending.png
-   :width: 350
+   :width: 350px
+   :align: center
 
 As for read 2, based on the per base content, it suggests that bases 0-11 are relatively GC balanced for the reads we have sampled. Starting from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences. Most of the reads have the correct structure.
 
 .. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 800
+   :width: 800px
+   :align: center
 
 |
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 800
+   :width: 800px
+   :align: center
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
@@ -260,11 +264,13 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
 Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
-   :width: 700
-
-|
+   :alt: Heatmap
+   :width: 700px
+   :align: center
 
 t-SNE embedding based on the abundance of features.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
-   :width: 500
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center

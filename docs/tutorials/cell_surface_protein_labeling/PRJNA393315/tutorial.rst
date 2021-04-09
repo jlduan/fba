@@ -21,7 +21,6 @@ Download fastq files.
     $ curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_1.fastq.gz
     $ curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_2.fastq.gz
 
-
 Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.
 
 .. code-block::
@@ -29,7 +28,6 @@ Download cell barcode info. These are the cell-associated barcodes in this singl
     $ wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz
 
     $ gzip -dc GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz | head -1 | sed 's/,/\n/g' | awk 'NF' > cell_barcodes.txt
-
 
 Inspect cell barcodes.
 
@@ -86,17 +84,20 @@ Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-
 This library is constructed using Chromium Single Cell 3' Reagent Kits (v2 Chemistry). The first 16 bases are cell barcodes and the following 9 bases are UMIs (Read 1 length is 25). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly G enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
-   :width: 390
+   :width: 390px
+   :align: center
 
 As for read 2, based on the per base content, it suggests that bases 0-5 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
 
 .. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 400
+   :width: 400px
+   :align: center
 
 |
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 400
+   :width: 400px
+   :align: center
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 

@@ -101,20 +101,22 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
-   :width: 350
+   :width: 350px
+   :align: center
 
 As for read 2, based on the per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually `Template Switch Oligo (TSO) sequence`_. Starting from base 32, it seems there are two genotypes for the reads we have sampled.
 
 .. _`Template Switch Oligo (TSO) sequence`: https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf
 
-
 .. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 800
+   :width: 800px
+   :align: center
 
 |
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 800
+   :width: 800px
+   :align: center
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
@@ -283,9 +285,13 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
 Heatmap of relative expressions of features across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
-   :width: 700
+   :alt: Heatmap
+   :width: 700px
+   :align: center
 
 t-SNE embedding based on the abundance of features.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
-   :width: 500
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center

@@ -121,18 +121,20 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
-   :width: 350
+   :width: 350px
+   :align: center
 
 As for read 2, based on the per base content, it suggests that bases 0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled, which could mean that their sequences are random at library-level. While bases 34-55 and 84-89 are constant sequences and we can almost read the bases. Bases 10-24 are less random but also not constant. They are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
 
 
 .. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 800
-
+   :width: 800px
+   :align: center
 |
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 800
+   :width: 800px
+   :align: center
 
 
 The fragment structure in this feature barcoding library inferred from ``qc`` results matches the design (`Table 1`_. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called 'Capture Sequence 1' on beads.
@@ -192,7 +194,6 @@ Preview of result.
     GGCAGTCGTAAGGTTAtgcaccacacga    GGCAGTCCAAAGGTTA        2       gcaacatggtTCTCAGACCTCCGTAgcatgttaggctttaaggccggtcctagcaatcgtgtggtgcataaccttacgactgccctgtct    CD14_TCTCAGACCTCCGTA     0
     GATGGAGGTGAGCTAGaaatgccaagtt    GATGGAGCAGAGCTAG        2       acacaatgaaTGTTCCCGCTCAACTtaccggggtgctttaaggccggtcctagcaaaacttggcatttctagctcacctccatcctgtct    CD4_TGTTCCCGCTCAACT      0
 
-
 Result summary.
 
 59.8 % (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.
@@ -229,8 +230,6 @@ The generated feature count matrix can be easily imported into well-established 
 .. _Seruat: https://satijalab.org/seurat/
 
 .. _Scanpy: https://scanpy.readthedocs.io/en/stable
-
-
 
 .. code-block::
 

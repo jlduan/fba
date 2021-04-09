@@ -116,7 +116,6 @@ First, all read 1 are searched against reference cell-associated barcodes. Use `
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
-
 The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
 
 .. _Seruat: https://satijalab.org/seurat/
