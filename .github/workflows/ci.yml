@@ -60,3 +60,5 @@ jobs:
         ls -l $HOME
         echo $GITHUB_WORKSPACE
         ls -l $GITHUB_WORKSPACE
+        ls -l tests/data
+        fba
