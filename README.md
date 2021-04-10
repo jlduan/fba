@@ -1,7 +1,8 @@
 
 [![PyPI](https://img.shields.io/pypi/v/fba?logo=pypi&style=flat-square)](https://pypi.org/project/fba/)
 [![License](https://img.shields.io/badge/license-MIT-green?logo=data%3Aimage%2Fsvg%2Bxml%3Bbase64%2CPD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLXphei0tPgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgaGVpZ2h0PSIxNjYiIHdpZHRoPSIzMjEiPgo8ZyBzdHJva2Utd2lkdGg9IjM1IiBzdHJva2U9IiNBMzFGMzQiPgo8cGF0aCBkPSJtMTcuNSwwdjE2Nm01Ny0xNjZ2MTEzbTU3LTExM3YxNjZtNTctMTY2djMzbTU4LDIwdjExMyIvPgo8cGF0aCBkPSJtMTg4LjUsNTN2MTEzIiBzdHJva2U9IiM4QThCOEMiLz4KPHBhdGggZD0ibTIyOSwxNi41aDkyIiBzdHJva2Utd2lkdGg9IjMzIi8%2BCjwvZz4KPC9zdmc%2BCg%3D%3D&style=flat-square)](https://github.com/jlduan/fba/blob/master/LICENSE)
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jlduan/fba/fba/master?logo=github-actions&style=flat-square)](https://github.com/jlduan/fba/actions/workflows/fba.yml)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jlduan/fba/ci/master?logo=github-actions&style=flat-square)](https://github.com/jlduan/fba/actions/workflows/ci.yml)
+[![CircleCI](https://img.shields.io/circleci/build/github/jlduan/fba/master?logo=circleci&style=flat-square)](https://app.circleci.com/pipelines/github/jlduan/fba)
 [![Read the Docs](https://img.shields.io/readthedocs/fba?logo=read-the-docs&style=flat-square)](https://fba.readthedocs.io/en/latest/index.html)
 [![Codecov](https://img.shields.io/codecov/c/gh/jlduan/fba?logo=codecov&style=flat-square)](https://app.codecov.io/gh/jlduan/fba)
 [![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/jlduan/fba/latest?color=9cf&logo=git&logoColor=red&style=flat-square)](https://github.com/jlduan/fba/commits)

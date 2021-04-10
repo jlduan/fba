@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - master
-      - tests
 
 jobs:
   run:
@@ -33,5 +32,7 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v1
       with:
+        env_vars: OS,PYTHON
+        name: codecov-umbrella
         fail_ci_if_error: true
         verbose: true

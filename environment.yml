@@ -1,0 +1,24 @@
+name: fba
+channels:
+  - defaults
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.8
+  - dnaio
+  - hdbscan
+  - matplotlib>=3.3
+  - numpy
+  - pandas
+  - polyleven>=0.5
+  - pyclustering
+  - pysam>=0.14.0
+  - scikit-learn
+  - scipy
+  - statsmodels
+  - umap-learn
+  - umi_tools>=1.0.0
+  - samtools
+  - seaborn
+  - bowtie2>=2.4.0
+  - bwa>=0.7.0

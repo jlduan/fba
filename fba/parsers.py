@@ -10,7 +10,7 @@ def coords(s):
         # from itertools import chain
         # s = ''.join([i.strip() for i in chain.from_iterable(s)]).split(',')
         # return [int(i) for i in s]
-        return [int(i) for i in '3,2'.split(',')]
+        return [int(i) for i in s.split(',')]
 
     except TypeError:
         raise argparse.ArgumentTypeError('Coordinate format must be start,end')
