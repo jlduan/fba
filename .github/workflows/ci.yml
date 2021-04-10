@@ -5,7 +5,7 @@ name: ci
 on:
   push:
     branches:
-      - tests
+      - $default-branch
     paths-ignore:
       - 'docs/**'
   pull_request:
