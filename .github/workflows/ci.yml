@@ -56,7 +56,6 @@ jobs:
         echo $PWD
         ls -l $PWD
         ls -l ..
-        ls -l ../tests/data/
         echo $HOME
         ls -l $HOME
         echo $GITHUB_WORKSPACE
