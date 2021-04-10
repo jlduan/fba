@@ -67,4 +67,19 @@ jobs:
 
         fba qc -1 read_R1.fq.gz -2 read_R2.fq.gz \
           -w cell_barcodes.tsv.gz -f feature_barcodes.tsv.bz2 \
-          -t 2 -n 2000 --chunk_size 200 --output_directory test_qc
+          -t 2 -n 2000 --chunk_size 400 --output_directory test_qc
+
+        fba extract -1 read_R1.fq.gz -2 read_R2.fq.gz \
+          -w cell_barcodes.tsv.gz \
+          -f feature_barcodes.tsv.bz2 \
+          -o test_feature_barcoding_output.tsv.gz \
+          -r1_coords 0,16 \
+          -r2_coords 31,51 \
+          -cb_m 2 -fb_m 1
+
+        fba count -i test_feature_barcoding_output.tsv.gz \
+          -o test_matrix_featurecount.csv.gz
+
+        fba demultiplex -i matrix_featurecount.csv.gz \
+          -q 0.75 -cm kmedoids -v -vm umap \
+          --output_directory test_demultiplexed
