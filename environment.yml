@@ -19,5 +19,6 @@ dependencies:
   - umap-learn
   - umi_tools>=1.0.0
   - samtools
+  - seaborn
   - bowtie2>=2.4.0
   - bwa>=0.7.0

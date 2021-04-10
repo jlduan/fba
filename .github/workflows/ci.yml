@@ -58,11 +58,11 @@ jobs:
         ls -l ${GITHUB_WORKSPACE}
         ls -l ${GITHUB_WORKSPACE}/fba
         ls -l ${GITHUB_WORKSPACE}/tests/
-    - name: Test extract, count, demultiplex
+    - name: Test qc, extract, count, demultiplex
       run: |
         fba
-        ls -l ${GITHUB_WORKSPACE}/tests/data
-        cd ${GITHUB_WORKSPACE}/tests/data
+        ls -l ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
+        cd ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
         ls -l
 
         fba qc -1 read_R1.fq.gz -2 read_R2.fq.gz \
