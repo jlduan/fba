@@ -32,6 +32,7 @@ jobs:
     - name: Add Conda to system path
       run: |
         # $CONDA is an environment variable pointing to the root of the miniconda directory
+        echo $CONDA
         echo $CONDA/bin >> $GITHUB_PATH
     - name: Install dependencies
       run: |
@@ -52,7 +53,10 @@ jobs:
         pip install -e .
     - name: Test extract, count, demultiplex
       run: |
-        echo $CONDA
         echo $PWD
+        ll $PWD
+        ls ../tests/data/
         echo $HOME
+        ll $HOME
         echo $GITHUB_WORKSPACE
+        ll $GITHUB_WORKSPACE
