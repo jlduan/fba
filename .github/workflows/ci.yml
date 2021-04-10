@@ -53,7 +53,7 @@ jobs:
     - name: Generate coverage report
       run: |
         python -m pytest --cov=fba --cov-report=xml
-    - name: Upload coverage to Codecov
+    - name: Upload coverage report to Codecov
       uses: codecov/codecov-action@v1
       with:
         env_vars: OS,PYTHON
@@ -68,12 +68,13 @@ jobs:
         ls -l ${GITHUB_WORKSPACE}
         ls -l ${GITHUB_WORKSPACE}/fba
         ls -l ${GITHUB_WORKSPACE}/tests/
+
+        #
+        fba
     - name: Test qc, extract, count, demultiplex
       run: |
-        fba
         ls -l ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
         cd ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
-        ls -l
 
         fba qc -1 read_R1.fq.gz -2 read_R2.fq.gz \
           -w cell_barcodes.tsv.gz -f feature_barcodes.tsv.bz2 \
