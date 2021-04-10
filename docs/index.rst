@@ -16,8 +16,8 @@ Welcome to fba's documentation!
 .. image:: https://img.shields.io/badge/license-MIT-yellow.svg
    :target: https://github.com/jlduan/fba/blob/master/LICENSE
 
-.. image:: https://github.com/jlduan/fba/actions/workflows/fba.yml/badge.svg?branch=master
-   :target: https://github.com/jlduan/fba/actions/workflows/fba.yml
+.. image:: https://github.com/jlduan/fba/actions/workflows/ci.yml/badge.svg?branch=master
+   :target: https://github.com/jlduan/fba/actions/workflows/ci.yml
 
 .. image:: https://circleci.com/gh/jlduan/fba/tree/master.svg?style=svg
    :target: https://circleci.com/gh/jlduan/fba/tree/master
