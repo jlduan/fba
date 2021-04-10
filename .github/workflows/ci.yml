@@ -83,3 +83,15 @@ jobs:
         fba demultiplex -i matrix_featurecount.csv.gz \
           -q 0.75 -cm kmedoids -v -vm umap \
           --output_directory test_demultiplexed
+    - name: Test map
+      run: |
+        ls -l ${GITHUB_WORKSPACE}/tests/map
+        cd ${GITHUB_WORKSPACE}/map
+
+        fba map -1 read_R1.fq.gz -2 read_R2.fq.gz \
+          -w cell_barcodes.tsv.gz \
+          -f features.tsv.bz2 \
+          -o test_matrix_featurecount.csv.gz \
+          -r1_coords 0,16 \
+          --output_directory test_barcode_mapping \
+          --num_n_ref 0
