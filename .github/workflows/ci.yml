@@ -61,3 +61,10 @@ jobs:
     - name: Test extract, count, demultiplex
       run: |
         fba
+        ls -l ${GITHUB_WORKSPACE}/tests/data
+        cd ${GITHUB_WORKSPACE}/tests/data
+        ls -l
+
+        fba qc -1 read_R1.fq.gz -2 read_R2.fq.gz \
+          -w cell_barcodes.tsv.gz -f feature_barcodes.tsv.bz2 \
+          -t 2 -n 2000 --chunk_size 200 --output_directory test_qc
