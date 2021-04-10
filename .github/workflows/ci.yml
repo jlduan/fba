@@ -54,9 +54,10 @@ jobs:
     - name: Test extract, count, demultiplex
       run: |
         echo $PWD
-        ll $PWD
-        ls ../tests/data/
+        ls -l $PWD
+        ls -l ..
+        ls -l ../tests/data/
         echo $HOME
-        ll $HOME
+        ls -l $HOME
         echo $GITHUB_WORKSPACE
-        ll $GITHUB_WORKSPACE
+        ls -l $GITHUB_WORKSPACE
