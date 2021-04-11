@@ -5,13 +5,16 @@ with open(file='README.md', mode='r') as fh:
 
 setup(
     name='fba',
-    version='0.0.10',
+    version='0.0.10.post0',
     author='JD',
     description='Tools for feature barcoding analyses',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jlduan/fba',
-    packages=find_packages(exclude=('docs', 'tests')),
+    packages=find_packages(
+        include=('requirements.txt',),
+        exclude=('docs', 'tests')
+    ),
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
