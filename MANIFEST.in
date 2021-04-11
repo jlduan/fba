@@ -1,0 +1,7 @@
+prune docs
+prune tests
+prune .circleci
+prune .github
+exclude .bumpversion.cfg
+exclude environment.yml
+include requirements.txt
