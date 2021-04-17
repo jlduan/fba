@@ -3,15 +3,22 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to fba's documentation!
+Welcome to ``fba``'s documentation!
 ===============================
 
 
 ``fba``: Tools for feature barcoding analysis
 
 
-.. image:: https://img.shields.io/pypi/v/fba.svg
+.. image:: https://img.shields.io/pypi/v/fba.svg?logo=pypi
    :target: https://pypi.python.org/pypi/fba
+
+.. image:: https://img.shields.io/conda/vn/bioconda/fba?logo=anaconda
+   :alt: Conda (channel only)
+   :target: https://bioconda.github.io/recipes/fba/README.html
+
+.. image:: https://badgen.net/github/release/jlduan/fba/stable?icon=github&color=orange
+   :target: https://github.com/jlduan/fba/releases
 
 .. image:: https://img.shields.io/badge/license-MIT-yellow.svg
    :target: https://github.com/jlduan/fba/blob/master/LICENSE
@@ -28,8 +35,8 @@ Welcome to fba's documentation!
 .. image:: https://codecov.io/gh/jlduan/fba/branch/master/graph/badge.svg?token=H3189R59G0
    :target: https://codecov.io/gh/jlduan/fba
 
-.. image:: https://zenodo.org/badge/DOI/10.5281/zenodo.4642815.svg
-   :target: https://doi.org/10.5281/zenodo.4642815
+.. image:: https://zenodo.org/badge/292596737.svg
+   :target: https://zenodo.org/badge/latestdoi/292596737
 
 
 Quickstart

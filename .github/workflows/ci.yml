@@ -8,13 +8,14 @@ on:
       - master
       - tests
     paths-ignore:
+      - 'README.md'
       - 'docs/**'
   pull_request:
     branches:
       - master
   schedule:
     # * is a special character in YAML so you have to quote this string
-    - cron:  '3 14 15 * *'
+    - cron: '3 14 15 * *'
 
 jobs:
   build-and-test:
@@ -69,11 +70,10 @@ jobs:
         ls -l ${GITHUB_WORKSPACE}
         ls -l ${GITHUB_WORKSPACE}/fba
         ls -l ${GITHUB_WORKSPACE}/tests/
-
-        #
-        fba
     - name: Test qc, extract, count, demultiplex
       run: |
+        fba
+
         ls -l ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
         cd ${GITHUB_WORKSPACE}/tests/qc-extract-count-demultiplex
 
