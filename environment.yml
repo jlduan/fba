@@ -4,7 +4,7 @@ channels:
   - conda-forge
   - bioconda
 dependencies:
-  - python=3.8
+  - python>=3.6
   - dnaio
   - hdbscan
   - matplotlib>=3.3

@@ -29,7 +29,6 @@ Alternatively, you can install this package with conda:
 $ conda install -c bioconda fba
 ```
 
-
 <br>
 
 ## Usage
@@ -82,5 +81,11 @@ functions:
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://fba.readthedocs.io/en/latest/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html#tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature)
 - Bulk
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
+
+<br>
+
+## Citation
+
+If you find `fba` useful in your research, please consider citing:
 
 <br>

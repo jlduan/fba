@@ -17,6 +17,9 @@ Welcome to ``fba``'s documentation!
    :alt: Conda (channel only)
    :target: https://bioconda.github.io/recipes/fba/README.html
 
+.. image:: https://badgen.net/github/release/jlduan/fba/stable?icon=github&color=orange
+   :target: https://github.com/jlduan/fba/releases
+
 .. image:: https://img.shields.io/badge/license-MIT-yellow.svg
    :target: https://github.com/jlduan/fba/blob/master/LICENSE
 
