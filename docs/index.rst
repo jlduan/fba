@@ -4,7 +4,7 @@
    contain the root `toctree` directive.
 
 Welcome to ``fba``'s documentation!
-===============================
+===================================
 
 
 ``fba``: Tools for feature barcoding analysis
@@ -34,6 +34,17 @@ Welcome to ``fba``'s documentation!
 
 .. image:: https://codecov.io/gh/jlduan/fba/branch/master/graph/badge.svg?token=H3189R59G0
    :target: https://codecov.io/gh/jlduan/fba
+
+.. image:: https://api.codeclimate.com/v1/badges/d52a1e18eb229ca39da2/maintainability
+   :alt: Maintainability
+   :target: https://codeclimate.com/github/jlduan/fba/maintainability
+
+.. image:: https://static.pepy.tech/personalized-badge/fba?period=total&units=international_system&left_color=grey&right_color=yellow&left_text=downloads
+   :target: https://pypi.org/project/fba
+
+.. image:: https://img.shields.io/conda/dn/bioconda/fba?logo=anaconda
+   :alt: Conda
+   :target: https://bioconda.github.io/recipes/fba/README.html
 
 .. image:: https://zenodo.org/badge/292596737.svg
    :target: https://zenodo.org/badge/latestdoi/292596737
@@ -76,6 +87,17 @@ Usage
                      deploy kallisto/bustools for feature barcoding
                      quantification
 
+
+Citation
+--------
+
+Jialei Duan, Gary Hon. FBA: feature barcoding analysis for single cell RNA-Seq. Bioinformatics. 2021 May 17:btab375. doi: `10.1093/bioinformatics/btab375`_. Epub ahead of print. PMID: 33999185.
+
+.. _`10.1093/bioinformatics/btab375`: https://doi.org/10.1093/bioinformatics/btab375
+
+.. raw:: html
+
+   <span class="__dimensions_badge_embed__" data-doi="10.1093/bioinformatics/btab375" data-hide-zero-citations="true" data-style="small_rectangle"></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 
 Contents
 --------
