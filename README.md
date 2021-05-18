@@ -84,3 +84,9 @@ functions:
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
 
 <br>
+
+## Citation
+
+Jialei Duan, Gary Hon. FBA: feature barcoding analysis for single cell RNA-Seq. Bioinformatics. 2021 May 17:btab375. doi: [10.1093/bioinformatics/btab375](https://doi.org/10.1093/bioinformatics/btab375). Epub ahead of print. PMID: 33999185.
+
+<br>
