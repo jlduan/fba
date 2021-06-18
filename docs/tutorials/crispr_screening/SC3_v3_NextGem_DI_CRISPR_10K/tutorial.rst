@@ -86,7 +86,7 @@ Clean up.
 QC
 --
 
-Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
 .. code-block::
 
@@ -95,7 +95,7 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
         -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz \
         -w filtered_feature_bc_matrix/barcodes.tsv.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv \
-        -r1_coords 0,16 \
+        -r1_c 0,16 \
         -n 20000
 
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
@@ -158,8 +158,8 @@ Search ranges are set to ``0,16`` on read 1 and ``31,51`` on read 2. Two mismatc
         -w filtered_feature_bc_matrix/barcodes.tsv.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv \
         -o feature_barcoding_output.tsv.gz \
-        -r1_coords 0,16 \
-        -r2_coords 31,51 \
+        -r1_c 0,16 \
+        -r2_c 31,51 \
         -cb_m 2 \
         -fb_m 2
 

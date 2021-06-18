@@ -70,7 +70,7 @@ Prepare feature barcodes (antibody-oligo sequences, from the online methods sect
 QC
 --
 
-Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
 .. code-block::
 
@@ -130,8 +130,8 @@ The lengths of cell and feature barcodes are all identical (16 and 6, respective
         -w cell_barcodes.txt \
         -f feature_barcodes.tsv \
         -o feature_barcoding_output.tsv.gz \
-        -r1_coords 0,16 \
-        -r2_coords 0,6 \
+        -r1_c 0,16 \
+        -r2_c 0,6 \
         -cb_m 1 \
         -fb_m 1 \
         -cb_n 3 \

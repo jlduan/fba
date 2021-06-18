@@ -17,7 +17,8 @@ Welcome to ``fba``'s documentation!
    :alt: Conda (channel only)
    :target: https://bioconda.github.io/recipes/fba/README.html
 
-.. image:: https://badgen.net/github/release/jlduan/fba/stable?icon=github&color=orange
+.. image:: https://img.shields.io/github/v/release/jlduan/fba?color=orange&logo=github
+   :alt: GitHub release (latest by date)
    :target: https://github.com/jlduan/fba/releases
 
 .. image:: https://img.shields.io/badge/license-MIT-yellow.svg
@@ -109,10 +110,3 @@ Contents
 
    installation
    user_guide
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

@@ -108,13 +108,15 @@ Re-format.
 Matrix generation
 -----------------
 
-First, all read 1 are searched against reference cell-associated barcodes. Use ``-r1_coords`` to set the search range, ``-cb_m`` to set the mismatching threshold. Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, `Li, H. (2013)`_ or  bowtie2, `Langmead, B., et al. (2012)`_). The default aligner is bwa. Only alignments passed mapping quality threshold (set by ``--mapq``) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
 
-.. _`Li, H. (2013)`: https://arxiv.org/abs/1303.3997
 
-.. _`Langmead, B., et al. (2012)`: http://dx.doi.org/10.1038/nmeth.1923
+First, all read 1 are searched against reference cell-associated barcodes. Use ``-r1_c`` to set the search range, ``-cb_m`` to set the mismatching threshold. Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, `Li, H. (2013). arXiv:1303.3997.`_ or  bowtie2, `Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`_). The default aligner is bwa. Only alignments passed mapping quality threshold (set by ``--mapq``) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (`Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
 
-.. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
+.. _`Li, H. (2013). arXiv:1303.3997.`: https://arxiv.org/abs/1303.3997
+
+.. _`Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`: http://dx.doi.org/10.1038/nmeth.1923
+
+.. _`Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
 
@@ -130,7 +132,7 @@ The generated feature count matrix can be easily imported into well-established 
         -w filtered_feature_bc_matrix/barcodes.tsv.gz \
         -f Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv \
         -o matrix_featurecount.csv.gz \
-        -r1_coords 0,16 \
+        -r1_c 0,16 \
         -cb_m 1 \
         -al bwa \
         --mapq 10 \

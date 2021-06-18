@@ -25,14 +25,14 @@ Threshold: one mismatch
 
 In the ``qc`` subcommand, if ``-1`` (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.
 
-Use ``-2`` to specify read 2, and ``-f`` to specify feature barcodes. Search range on reads 2 can be controlled by ``-r2_coords``. In this example, only one mismatch is allowed for feature barcode matching (set by ``-fb_m``). Use ``-n`` to specify the number of reads to analyze (``None`` is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in ``qc/feature_barcode_frequency.csv``.
+Use ``-2`` to specify read 2, and ``-f`` to specify feature barcodes. Search range on reads 2 can be controlled by ``-r2_c``. In this example, only one mismatch is allowed for feature barcode matching (set by ``-fb_m``). Use ``-n`` to specify the number of reads to analyze (``None`` is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in ``qc/feature_barcode_frequency.csv``.
 
 .. code-block::
 
     $ fba qc \
         -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv \
-        -r2_coords 31,51 \
+        -r2_c 31,51 \
         -fb_m 1 \
         -n None
 
@@ -57,7 +57,7 @@ Result summary.
     2021-02-17 16:12:35,393 - fba.__main__ - INFO - Python version: 3.7
     2021-02-17 16:12:35,393 - fba.__main__ - INFO - Using qc subcommand ...
     2021-02-17 16:12:35,394 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
-    2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
+    2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "--read1_coordinate"
     2021-02-17 16:12:35,395 - fba.qc - INFO - Number of reference feature barcodes: 2
     2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)
     2021-02-17 16:12:35,395 - fba.qc - INFO - Feature barcode maximum number of mismatches: 1
@@ -87,14 +87,14 @@ Result summary.
 Threshold: two mismatches
 +++++++++++++++++++++++++
 
-Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by `-fb_m`).
+Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by ``-fb_m``).
 
 .. code-block::
 
     $ fba qc \
         -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv \
-        -r2_coords 31,51 \
+        -r2_c 31,51 \
         -fb_m 2 \
         -n None
 
@@ -119,7 +119,7 @@ Result summary.
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Python version: 3.7
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Using qc subcommand ...
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
-    2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"
+    2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-read1_coordinate"
     2021-02-17 16:12:00,426 - fba.qc - INFO - Number of reference feature barcodes: 2
     2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)
     2021-02-17 16:12:00,426 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2
