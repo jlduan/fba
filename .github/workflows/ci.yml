@@ -85,8 +85,8 @@ jobs:
           -w cell_barcodes.tsv.gz \
           -f feature_barcodes.tsv.bz2 \
           -o test_feature_barcoding_output.tsv.gz \
-          -r1_coords 0,16 \
-          -r2_coords 31,51 \
+          --read1_coordinate 0,16 \
+          --read2_coordinate 31,51 \
           -cb_m 2 -fb_m 1
 
         fba count -i test_feature_barcoding_output.tsv.gz \
@@ -105,7 +105,7 @@ jobs:
           -w cell_barcodes.tsv.gz \
           -f features.tsv.bz2 \
           -o test_matrix_featurecount.csv.gz \
-          -r1_coords 0,16 \
+          --read1_coordinate 0,16 \
           --output_directory test_barcode_mapping \
           --num_n_ref 0
 
@@ -114,7 +114,7 @@ jobs:
           -w cell_barcodes.tsv.gz \
           -f features.tsv.bz2 \
           -o test_matrix_featurecount.csv.gz \
-          -r1_coords 0,16 \
+          --read1_coordinate 0,16 \
           -al bowtie2 \
           --mapq 10 \
           --output_directory test_barcode_mapping \

@@ -109,8 +109,8 @@ def add_extract_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r1_coords', '--read1_coords',
-        dest='read1_coords',
+        '-r1_c', '--read1_coordinate',
+        dest='read1_coordinate',
         required=False,
         default=(0, 16),
         type=coords,
@@ -123,11 +123,11 @@ def add_extract_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r2_coords', '--read2_coords',
-        dest='read2_coords',
+        '-r2_c', '--read2_coordinate',
+        dest='read2_coordinate',
         required=True,
         default=None,
-        type=coords, help='see \'-r1_coords\''
+        type=coords, help='see \'--read1_coordinate\''
     )
     parser.add_argument(
         '-cb_m',
@@ -232,8 +232,8 @@ def add_map_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r1_coords', '--read1_coords',
-        dest='read1_coords',
+        '-r1_c', '--read1_coordinate',
+        dest='read1_coordinate',
         required=False,
         default=(0, 16),
         type=coords,
@@ -717,7 +717,7 @@ def add_qc_subparser(subparsers):
               'If only read 2 file is provided, '
               'bulk mode is enabled '
               '(skipping arguments \'-1\', \' -w\', \'-cb_m\', '
-              '\'-r1_coords\', must provide \'-r2_coords\' and \'-fb_m\'). '
+              '\'-r1_c\', must provide \'-r2_c\' and \'-fb_m\'). '
               'In bulk mode, reads 2 will be searched against '
               'reference feature barcodes and '
               'read count for each feature barcode will be summarized')
@@ -740,8 +740,8 @@ def add_qc_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r1_coords', '--read1_coords',
-        dest='read1_coords',
+        '-r1_c', '--read1_coordinate',
+        dest='read1_coordinate',
         required=False,
         default=None,
         type=coords,
@@ -753,11 +753,11 @@ def add_qc_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r2_coords', '--read2_coords',
-        dest='read2_coords',
+        '-r2_c', '--read2_coordinate',
+        dest='read2_coordinate',
         required=False,
         default=None,
-        type=coords, help='see \'-r1_coords\''
+        type=coords, help='see \'-r1_c\''
     )
 
     parser.add_argument(

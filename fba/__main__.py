@@ -61,8 +61,8 @@ def main():
                     fb_file=args.feature_ref,
                     cb_num_mismatches=args.cell_barcode_mismatches,
                     fb_num_mismatches=args.feature_barcode_mismatches,
-                    read1_coords=args.read1_coords,
-                    read2_coords=args.read2_coords,
+                    read1_coords=args.read1_coordinate,
+                    read2_coords=args.read2_coordinate,
                     cb_num_n_threshold=args.cb_num_n_threshold,
                     fb_num_n_threshold=args.fb_num_n_threshold
             ):
@@ -78,7 +78,7 @@ def main():
             read2_file=args.read2,
             cb_file=args.whitelist,
             fb_file=args.feature_ref,
-            read1_coords=args.read1_coords,
+            read1_coords=args.read1_coordinate,
             num_mismatches=args.cell_barcode_mismatches,
             num_n_threshold=args.cb_num_n_threshold,
             num_n_ref=args.num_n_ref,
@@ -203,8 +203,8 @@ def main():
                         fb_num_mismatches=args.feature_barcode_mismatches,
                         cb_num_n_threshold=args.cb_num_n_threshold,
                         fb_num_n_threshold=args.fb_num_n_threshold,
-                        read1_coords=args.read1_coords,
-                        read2_coords=args.read2_coords,
+                        read1_coords=args.read1_coordinate,
+                        read2_coords=args.read2_coordinate,
                         num_threads=args.threads,
                         chunk_size=args.chunk_size,
                         num_reads=num_reads):
@@ -218,17 +218,18 @@ def main():
         else:
             logger.info('Bulk mode enabled: '
                         'only feature barcodes on reads 2 are analyzed')
-            if not args.read2_coords:
-                logger.critical('Please specify "-r2_coords" in bulk mode')
+            if not args.read2_coordinate:
+                logger.critical(
+                    'Please specify "--read2_coordinate" in bulk mode')
                 sys.exit(1)
 
             logger.info(
-                'Skipping arguments: "-1", "-w", "-cb_m", "-r1_coords"'
+                'Skipping arguments: "-1", "-w", "-cb_m", "--read2_coordinate"'
             )
 
             fb_frequency = m.analyze_bulk(
                 read_file=args.read2,
-                read_coords=args.read2_coords,
+                read_coords=args.read2_coordinate,
                 fb_file=args.feature_ref,
                 num_mismatches=args.feature_barcode_mismatches,
                 num_n_threshold=args.fb_num_n_threshold,
