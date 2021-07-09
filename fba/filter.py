@@ -54,7 +54,7 @@ def is_matched(x,
         position is determined based on the expected barcode starting postion
         and its length.
     sequence_regex: regex pattern, optional
-        A compiled regex pattern of additional constant sequecne to search on
+        A compiled regex pattern of additional constant sequence to search on
         read.
 
     Returns

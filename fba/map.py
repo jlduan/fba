@@ -49,9 +49,9 @@ def match_cell_barcodes(reads,
     read_coords : tuple or list
         The positions of read to compare against cell barcodes.
     num_mismatches : int, optional
-        Maximum levenshtein distance allowd.
+        Maximum levenshtein distance allowed.
     num_n_threshold : int, optional
-        Maximum Ns allowd for read. Read with more Ns than this
+        Maximum Ns allowed for read. Read with more Ns than this
         threshold will be skipped.
 
     Returns
@@ -154,12 +154,12 @@ def generate_unaligned_bam(read1_file,
     read1_coords : tuple or list
         The positions of read 1 to compare against cell barcodes.
     num_mismatches : int, optional
-        Maximum levenshtein distance allowd.
+        Maximum levenshtein distance allowed.
     num_n_threshold : int, optional
-        Maximum Ns allowd for read 1. Read 1 with more Ns than this
+        Maximum Ns allowed for read 1. Read 1 with more Ns than this
         threshold will be skipped.
     num_n_ref : int, optional
-        Number of Ns to use for separating seqeunces belonging to
+        Number of Ns to use for separating sequence belonging to
         the same feature. Needed for correctly constructing bam header.
 
     Returns
@@ -305,7 +305,7 @@ def fb2fa_concatenated(x, fasta_file, num_n=0):
     fasta_file : str
         The path and name of generated fasta file.
     num_n : int, optional
-        Number of Ns to use for separating seqeunces belonging to
+        Number of Ns to use for separating sequences belonging to
         the same feature.
 
     Returns
@@ -444,19 +444,19 @@ def generate_matrix_from_alignment(alignment_file,
     alignment_file : str
         The path and name of alignment file.
     umi_pos_start : int, optional
-        The starting coordiate of UMI on read 1. If the input matching result
+        The starting coordinate of UMI on read 1. If the input matching result
         is from the regex method of extract subcommand, the staring
         coordinate will be auto determined.
     umi_length : int, optional
         The length of UMI on read 1 after cell barcode. The default is 12.
     umi_deduplication_method : str, optional
-        The UMI dedupliation method used in UMI-tools
+        The UMI deduplication method used in UMI-tools
         (Smith, T., et al. (2017). Genome Res. 27, 491–499.).
         See https://cgatoxford.wordpress.com/2015/08/14/unique-molecular-identifiers-the-problem-the-solution-and-the-proof
     umi_deduplication_threshold : int, optional
         The mismatch tolerance for UMI deduplication.
     mapq : int, optional
-        The minimal mapping quality threshod. Alignment with mapq less than
+        The minimal mapping quality threshold. Alignment with mapq less than
         this value will be discarded.
 
     Returns

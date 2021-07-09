@@ -25,11 +25,11 @@ def generate_matrix(matching_file,
     umi_length : int, optional
         The length of UMI on read 1 after cell barcode. The default is 12.
     umi_pos_start : int, optional
-        The starting coordiate of UMI on read 1. If the input matching result
+        The starting coordinate of UMI on read 1. If the input matching result
         is from the regex method of extract subcommand, the staring
         coordinate will be auto determined.
     umi_deduplication_method : str, optional
-        The UMI dedupliation method used in UMI-tools
+        The UMI deduplication method used in UMI-tools
         (Smith, T., et al. (2017). Genome Res. 27, 491–499.).
         See https://cgatoxford.wordpress.com/2015/08/14/unique-molecular-identifiers-the-problem-the-solution-and-the-proof
     umi_deduplication_threshold : int, optional

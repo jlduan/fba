@@ -23,7 +23,7 @@ def compile_regex_ref_barcodes_exact(barcodes):
     Returns
     -------
     Pattern
-        A compiled regex patttern of a list of barcodes.
+        A compiled regex pattern of a list of barcodes.
     """
 
     ref_barcodes = '|'.join([f'({i})' for i in barcodes])
@@ -40,7 +40,7 @@ def compile_regex_ref_barcodes_fuzzy(barcodes, num_mismatches=1):
     barcodes : list
         A list of barcodes.
     num_mismatches : int, optional
-        The maximum errors allowd.
+        The maximum errors allowed.
 
     Returns
     -------
@@ -65,7 +65,7 @@ def compare_against_ref_barcodes(obs_sequence,
         A DNA string.
     compiled_pattern_exact : Pattern
         A compiled pattern object for exact matching.
-    compiled_pattern_fuzzey : list, optional
+    compiled_pattern_fuzzy : list, optional
         A list of compiled patterns.
 
     Returns
@@ -127,10 +127,10 @@ def match_barcodes(obs_sequence,
         A DNA string.
     compiled_pattern_exact : Pattern
         A compiled pattern object for exact matching.
-    compiled_pattern_fuzzey : list, optional
+    compiled_pattern_fuzzy : list, optional
         A list of compiled patterns.
     num_n_threshold : int, optional
-        Maximum Ns allowd. Read with more Ns than this
+        Maximum Ns allowed. Read with more Ns than this
         threshold will be skipped.
 
     Returns
@@ -180,10 +180,10 @@ def match_barcodes_paired(read_seqs,
     fb_compiled_fuzzy : list, optional
         A list of compiled patterns for feature barcode fuzzy matching.
     cb_num_n_threshold : int, optional
-        Maximum Ns allowd. Reads 1 with more Ns than this threshold
+        Maximum Ns allowed. Reads 1 with more Ns than this threshold
         will be skipped.
     fb_num_n_threshold : int, optional
-        Maximum Ns allowd. Reads 2 with more Ns than this threshold
+        Maximum Ns allowed. Reads 2 with more Ns than this threshold
         will be skipped.
 
     Returns
@@ -247,7 +247,7 @@ def extract_feature_barcoding_regex(read1_file,
         }
 
     logger.info(f'Number of reference cell barcodes: {len(cell_barcodes):,}')
-    logger.info('Number of refernece feature barcodes: '
+    logger.info('Number of reference feature barcodes: '
                 f'{len(feature_barcodes):,}')
 
     if read1_coords:
