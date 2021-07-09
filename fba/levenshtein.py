@@ -62,14 +62,14 @@ def set2bytes(s, delimiter=b'\x00', encoding='utf-8'):
 
 
 def create_index(barcodes, num_mismatches=1):
-    """Creates FastSS index for barcode simirality search.
+    """Creates FastSS index for barcode similarity search.
 
     Parameters
     ----------
     barcodes : list
         A list of barcodes to compare against.
     num_mismatches : int, optional
-        Maximum levenshtein distance allowd.
+        Maximum levenshtein distance allowed.
 
     Returns
     -------
@@ -108,7 +108,7 @@ def query_index(seq, barcode_index, num_mismatches=1):
     barcode_index : dict
         A FastSS index of barcodes.
     num_mismatches : int, optional
-        Maximum levenshtein distance allowd.
+        Maximum levenshtein distance allowed.
 
     Returns
     -------
@@ -142,7 +142,7 @@ def select_query(x, read_seq, read_qual):
 
     If multiple matches are found, select the one with the smallest levenshtein
     distance. If multiple matches having the same smallest levenshtein
-    distance, select the one with lowest sequecing quality sum at the
+    distance, select the one with lowest sequencing quality sum at the
     mismatched nucleotides. If there's still a tie, select the first one.
 
     Parameters
@@ -245,14 +245,14 @@ def match_barcodes_paired_fastss(read_seqs,
     read2_coords : tuple
         The positions of read 2 to compare against feature barcodes.
     cb_num_mismatches : int, optional
-        Maximum levenshtein distance allowd for cell barcode matching.
+        Maximum levenshtein distance allowed for cell barcode matching.
     fb_num_mismatches : int, optional
-        Maximum levenshtein distance allowd for feature barcode matching.
+        Maximum levenshtein distance allowed for feature barcode matching.
     cb_num_n_threshold : int, optional
-        Maximum Ns allowd for read 1. Read 1 with more Ns than this
+        Maximum Ns allowed for read 1. Read 1 with more Ns than this
         threshold will be skipped.
     fb_num_n_threshold : int, optional
-        Maximum Ns allowd for read 2.
+        Maximum Ns allowed for read 2.
 
     Returns
     -------

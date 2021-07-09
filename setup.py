@@ -8,7 +8,7 @@ setup(
     version='0.0.11',
     author='JD',
     author_email='t4mi27b3v@relay.firefox.com',
-    description='Tools for feature barcoding analyses',
+    description='Tools for feature barcoding analysis',
     long_description=long_description,
     long_description_content_type='text/markdown',
     url='https://github.com/jlduan/fba',

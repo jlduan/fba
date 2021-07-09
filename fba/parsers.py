@@ -22,7 +22,7 @@ def parse_args(args=sys.argv[1:]):
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
         description=(
-            'Tools for feature barcoding analyses\n'
+            'Tools for feature barcoding analysis\n'
             + "Version: "
             + __version__
         )
