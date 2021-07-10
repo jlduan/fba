@@ -13,17 +13,22 @@
 
 Tools for feature barcoding analysis
 
+
+
+
+
+
 <br>
 
 ## Installation
 
-`fba` can be installed with pip:
+`fba` can be installed with `pip`:
 
 ```shell
 $ pip install fba
 ```
 
-Alternatively, you can install this package with conda:
+Alternatively, you can install this package with `conda`:
 
 ```shell
 $ conda install -c bioconda fba

@@ -12,7 +12,7 @@ Usage
 
    usage: fba [-h]  ...
 
-   Tools for feature barcoding analyses
+   Tools for feature barcoding analysis
 
    optional arguments:
    -h, --help        show this help message and exit
@@ -47,7 +47,7 @@ Cell surface protein labeling
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies <tutorial_cell_surface_protein_labeling_PRJNA393315>`
-* :ref:`1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexe <tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K>`
+* :ref:`1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed <tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K>`
 
 
 Cell hashing

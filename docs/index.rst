@@ -71,7 +71,7 @@ Usage
 
    usage: fba [-h]  ...
 
-   Tools for feature barcoding analyses
+   Tools for feature barcoding analysis
 
    optional arguments:
    -h, --help        show this help message and exit
