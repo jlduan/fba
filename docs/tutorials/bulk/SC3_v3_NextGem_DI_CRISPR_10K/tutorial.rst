@@ -119,7 +119,7 @@ Result summary.
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Python version: 3.7
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Using qc subcommand ...
     2021-02-17 16:12:00,408 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed
-    2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "-read1_coordinate"
+    2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-1", "-w", "-cb_m", "--read1_coordinate"
     2021-02-17 16:12:00,426 - fba.qc - INFO - Number of reference feature barcodes: 2
     2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)
     2021-02-17 16:12:00,426 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2

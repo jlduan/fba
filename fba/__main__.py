@@ -224,7 +224,7 @@ def main():
                 sys.exit(1)
 
             logger.info(
-                'Skipping arguments: "-1", "-w", "-cb_m", "--read2_coordinate"'
+                'Skipping arguments: "-1", "-w", "-cb_m", "--read1_coordinate"'
             )
 
             fb_frequency = m.analyze_bulk(
