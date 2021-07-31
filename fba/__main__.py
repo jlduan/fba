@@ -220,11 +220,12 @@ def main():
                         'only feature barcodes on reads 2 are analyzed')
             if not args.read2_coordinate:
                 logger.critical(
-                    'Please specify "--read2_coordinate" in bulk mode')
+                    'Please specify "-r2_c/--read2_coordinate" in bulk mode')
                 sys.exit(1)
 
             logger.info(
-                'Skipping arguments: "-1", "-w", "-cb_m", "--read1_coordinate"'
+                'Skipping arguments: "-w/--whitelist", '
+                '"-cb_m/--cb_mismatches", "-r1_c/--read1_coordinate"'
             )
 
             fb_frequency = m.analyze_bulk(

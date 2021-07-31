@@ -127,7 +127,7 @@ def add_extract_subparser(subparsers):
         dest='read2_coordinate',
         required=True,
         default=None,
-        type=coords, help='see \'--read1_coordinate\''
+        type=coords, help='see \'-r1_c/--read1_coordinate\''
     )
     parser.add_argument(
         '-cb_m',
@@ -716,8 +716,11 @@ def add_qc_subparser(subparsers):
         help=('specify fastq file for read 2. '
               'If only read 2 file is provided, '
               'bulk mode is enabled '
-              '(skipping arguments \'-1\', \' -w\', \'-cb_m\', '
-              '\'-r1_c\', must provide \'-r2_c\' and \'-fb_m\'). '
+              '(skipping arguments -w/--whitelist\', '
+              '\'-cb_m/--cb_mismatches\', '
+              '\'-r1_c/--read1_coordinate\', '
+              'must provide \'-r2_c/--read2_coordinate\' '
+              'and \'-fb_m/--fb_mismatches\'). '
               'In bulk mode, reads 2 will be searched against '
               'reference feature barcodes and '
               'read count for each feature barcode will be summarized')
@@ -757,7 +760,7 @@ def add_qc_subparser(subparsers):
         dest='read2_coordinate',
         required=False,
         default=None,
-        type=coords, help='see \'-r1_c\''
+        type=coords, help='see \'-r1_c/--read1_coordinate\''
     )
 
     parser.add_argument(
