@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: If you use this software, please cite the article from preferred-citation.
+title: FBA
+abstract: Tools for feature barcoding analysis
+authors:
+  - family-names: Duan
+    given-names: Jialei
+    orcid: "https://orcid.org/0000-0003-4086-7461"
+  - family-names: Hon
+    given-names: Gary
+    orcid: "https://orcid.org/0000-0002-1615-0391"
+version: 0.0.11
+date-released: 2021-05-17
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.4642814
+    description: This DOI represents all versions of FBA
+preferred-citation:
+  scope: If you use this software, please cite this publication.
+  authors:
+    - family-names: Duan
+      given-names: Jialei
+    - family-names: Hon
+      given-names: Gary
+  type: article
+  title: "FBA: feature barcoding analysis for single cell RNA-Seq"
+  year: 2021
+  journal: Bioinformatics
+  doi: 10.1093/bioinformatics/btab375
+license:
+  - MIT
+repository-code: "https://github.com/jlduan/fba"
