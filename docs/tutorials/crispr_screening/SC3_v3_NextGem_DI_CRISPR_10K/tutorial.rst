@@ -222,7 +222,7 @@ Result summary.
 Matrix generation
 -----------------
 
-Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use `-us` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
