@@ -663,7 +663,7 @@ def add_demultiplex_subparser(subparsers):
         type=str,
         default='kmedoids',
         choices=['kmedoids', 'hdbscan'],
-        help='specify inital clustering method. Default (kmedoids)'
+        help='specify initial clustering method. Default (kmedoids)'
     )
 
     parser.add_argument(
@@ -687,6 +687,16 @@ def add_demultiplex_subparser(subparsers):
               'visualization (works if \'-v\' is given). Default (tsne)')
     )
 
+    parser.add_argument(
+        '-nc',
+        '--num_cells',
+        dest='num_cells',
+        required=False,
+        type=int,
+        default=200,
+        help=('specify minimal number of positive cells required for a feature '
+              'to be included for demultiplexing. Default (200)')
+    )
 
 # qc
 def add_qc_subparser(subparsers):

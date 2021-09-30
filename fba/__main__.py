@@ -147,6 +147,7 @@ def main():
             initial_clustering_methold=args.clustering_method,
             visualization=args.visualization,
             embeding_method=args.visualization_method,
+            minimal_num_cells=args.num_cells,
             seed=42
         )
         logger.info('Done.')

@@ -354,6 +354,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
                                   initial_clustering_methold='kmedoids',
                                   visualization=True,
                                   embeding_method='tsne',
+                                  minimal_num_cells=200,
                                   seed=42):
     """."""
 
@@ -384,14 +385,40 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         for i in matrix_featurecount.index
     ]
 
-    matrix_featurecount = matrix_featurecount.loc[
-        (matrix_featurecount > 0).sum(axis=1) >= 200]
-
     logger.info(f'Number of cells: {matrix_featurecount.shape[1]:,}')
-    logger.info(f'Number of features: {matrix_featurecount.shape[0]:,}')
-    logger.info(f'Total UMIs: {matrix_featurecount.values.sum():,}')
-    logger.info('Median number of UMIs per cell: '
-                + f'{np.median(matrix_featurecount.sum(axis=0)):,}')
+    logger.info('Number of positive cells for a feature to be included: '
+                f'{minimal_num_cells:,}')
+
+    matrix_metrics_before_filtering = (
+        matrix_featurecount.shape[0],
+        matrix_featurecount.values.sum(),
+        np.median(matrix_featurecount.sum(axis=0))
+        # matrix_featurecount.index.values
+    )
+
+    matrix_featurecount = matrix_featurecount.loc[
+        (matrix_featurecount > 0).sum(axis=1) >= minimal_num_cells, :]
+
+    logger.info(
+        'Number of features: '
+        f'{matrix_featurecount.shape[0]:,} / '
+        f'{matrix_metrics_before_filtering[0]:,} '
+        '(after filtering / original in the matrix)')
+
+    logger.info(
+        'Features: '
+        f'{" ".join(matrix_featurecount.index.values)}'
+    )
+
+    logger.info(
+        'Total UMIs: '
+        f'{matrix_featurecount.values.sum():,} / '
+        f'{matrix_metrics_before_filtering[1]:,}')
+    logger.info(
+        'Median number of UMIs per cell: '
+        f'{np.median(matrix_featurecount.sum(axis=0)):,} / '
+        f'{matrix_metrics_before_filtering[2]:,}')
+
     logger.info('Demultiplexing ...')
 
     try:
@@ -428,7 +455,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
 
         fig, ax = plt.subplots(
             nrows=1, ncols=1,
-            figsize=(6, max(2, len(matrix_featurecount.index) * 0.25))
+            figsize=(6, max(1.5, len(matrix_featurecount.index) * 0.3))
         )
         plot_heatmap_features_selected(heatmat_matrix=matrix_heatmap,
                                        ax=ax,
