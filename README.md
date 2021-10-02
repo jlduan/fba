@@ -14,11 +14,8 @@
 Tools for feature barcoding analysis
 
 
-
-
-
-
 <br>
+
 
 ## Installation
 
@@ -36,6 +33,27 @@ $ conda install -c bioconda fba
 
 
 <br>
+
+
+## Workflow example
+
+- CRISPR screening
+    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k)
+- Cell surface protein labeling
+    - [CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html#tutorial-cell-surface-protein-labeling-prjna393315)
+    - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html#tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k)
+- CellPlex
+    - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](https://fba.readthedocs.io/en/latest/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html#tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex)
+- Cell hashing
+    - [Peripheral blood mononuclear cells with 8 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_hashing/PRJNA423077/tutorial.html#tutorial-cell-hashing-prjna423077)
+- Targeted transcript enrichment
+    - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://fba.readthedocs.io/en/latest/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html#tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature)
+- Bulk
+    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
+
+
+<br>
+
 
 ## Usage
 
@@ -62,7 +80,9 @@ functions:
                     quantification
 ```
 
+
 <br>
+
 
 - __extract__: extract cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.
 - __map__: quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest.  BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).
@@ -72,28 +92,15 @@ functions:
 - __qc__: generate diagnostic information. If `-1` is omitted, bulk mode is enabled and only read 2 will be analyzed.
 - __kallisto_wrapper__: deploy kallisto/bustools for feature barcoding quantification (just a wrapper) (Bray, N.L., et al. 2016).
 
-<br>
-
-## Workflow example
-
-- CRISPR screening
-    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k)
-- Cell surface protein labeling
-    - [CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html#tutorial-cell-surface-protein-labeling-prjna393315)
-    - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html#tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k)
-- Cell hashing
-    - [Peripheral blood mononuclear cells with 8 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_hashing/PRJNA423077/tutorial.html#tutorial-cell-hashing-prjna423077)
-- Targeted transcript enrichment
-    - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://fba.readthedocs.io/en/latest/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html#tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature)
-- Bulk
-    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
 
 <br>
+
 
 ## Citation
 
 If you find this package useful in your research, please consider citing:
 
 > Jialei Duan, Gary Hon. FBA: feature barcoding analysis for single cell RNA-Seq. Bioinformatics. 2021 May 17:btab375. doi: [10.1093/bioinformatics/btab375](https://doi.org/10.1093/bioinformatics/btab375). Epub ahead of print. PMID: 33999185.
+
 
 <br>
