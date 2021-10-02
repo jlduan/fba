@@ -454,7 +454,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         if demultiplexing_method == 1:
             cells_demultiplexed, m_identity = demultiplex_nb(
                 m=matrix_featurecount,
-                normalization_method='clr',
+                normalization_method=normalization_method,
                 clustering_method=initial_clustering_methold,
                 q1=99,
                 q2=q,
