@@ -18,7 +18,7 @@ from datetime import datetime
 # -- Project information -----------------------------------------------------
 
 project = 'fba'
-author = 'JD'
+author = 'Jialei Duan'
 copyright = '2020-{}, {}'.format(datetime.today().year, author)
 
 # The full version, including alpha/beta/rc tags
@@ -30,8 +30,7 @@ release = '0.0.11'
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
-]
+extensions = []
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -50,7 +49,16 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 # html_theme = 'alabaster'
 html_theme = 'furo'
 
+# Theme options are theme-specific and customize the look and feel of a theme
+# further.  For a list of options available for each theme, see the
+# documentation.
+html_theme_options = {
+    'sidebar_hide_name': True,
+    'navigation_with_keys': True,
+}
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+html_favicon = html_logo = 'logo.svg'
