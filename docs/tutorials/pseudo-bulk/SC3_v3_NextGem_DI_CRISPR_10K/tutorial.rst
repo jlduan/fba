@@ -1,4 +1,4 @@
-.. _tutorial_bulk_SC3_v3_NextGem_DI_CRISPR_10K:
+.. _tutorial_pseudo-bulk_SC3_v3_NextGem_DI_CRISPR_10K:
 
 
 fba tutorial
@@ -6,7 +6,7 @@ fba tutorial
 
 Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed
 
-The detailed description of this dataset can be found at here_.
+The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K
 
@@ -14,7 +14,7 @@ The detailed description of this dataset can be found at here_.
 Preparation
 -----------
 
-Fastq files and feature barcodes are prepared as described at :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>`.
+Fastq files and feature barcodes are prepared as described :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>`.
 
 
 QC
@@ -48,7 +48,7 @@ The content of ``qc/feature_barcode_frequency.csv``.
 
 Result summary.
 
-58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes.
+58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See the :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>` for more details.
 
 .. code-block::
 
@@ -82,6 +82,9 @@ Result summary.
     2021-02-17 16:49:27,663 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 84,973,062
     2021-02-17 16:49:27,664 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
     2021-02-17 16:49:27,689 - fba.__main__ - INFO - Done.
+
+
+|
 
 
 Threshold: two mismatches
@@ -144,3 +147,5 @@ Result summary.
     2021-02-17 20:05:15,666 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 100,307,853
     2021-02-17 20:05:15,667 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
     2021-02-17 20:05:15,701 - fba.__main__ - INFO - Done.
+
+|

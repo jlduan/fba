@@ -75,9 +75,10 @@ Targeted transcript enrichment
 * :ref:`Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel <tutorial_targeted_transcript_enrichment_Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature>`
 
 
-Bulk
+Pseudo-bulk
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-* :ref:`10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed <tutorial_bulk_SC3_v3_NextGem_DI_CRISPR_10K>`
+* :ref:`10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed <tutorial_pseudo-bulk_SC3_v3_NextGem_DI_CRISPR_10K>`
+* :ref:`10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs <tutorial_pseudo-bulk_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>`
 
 |

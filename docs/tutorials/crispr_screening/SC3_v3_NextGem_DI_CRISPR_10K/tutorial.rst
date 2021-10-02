@@ -6,7 +6,7 @@ fba tutorial
 
 Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed
 
-The detailed description of this dataset can be found at here_.
+The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K
 

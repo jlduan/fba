@@ -6,7 +6,7 @@ fba tutorial
 
 Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs
 
-The detailed description of this dataset can be found at `here`_.
+The detailed description of this dataset can be found `here`_.
 
 .. _`here`: https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0
 
@@ -104,7 +104,7 @@ This library was constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit
    :width: 350px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we can almost read the bases (``GCTCACCTATTAGCGGCTAAGG``). They are actually `Capture Sequence 2`_. The next 12 bases are UMIs, and followed by 16-base cell barcodes. Bases 37-54 are actually reverse complement of the read 1 base content. The length of the CellPlex library is relatively small, read 2 has also sequenced part of the Nextera Read 1 sequencing primer (constant, bases 55-79).
+As for read 2, based on the per base content, it suggests that bases 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we can almost read the bases (``GCTCACCTATTAGCGGCTAAGG``). They are actually `Capture Sequence 2`_. The next 12 bases are UMIs, and followed by 16-base cell barcodes. Bases 37-54 are reverse complement of the read 1 base content. The size of the CellPlex library is relatively small, read 2 has also sequenced through part of the Nextera Read 1 sequencing primer (constant, bases 55-79). Actually, read 1 is not needed, read 2 has cell barcodes, UMIs and CMOs, all the info we needed for demultiplexing. Theoretically, we could utilize the cell barcodes and UMIs on both reads to account for PCR, sequencing errors to further improve demultiplexing accuracy.
 
 .. _`Capture Sequence 2`: https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf
 
@@ -141,7 +141,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 Barcode extraction
 ------------------
 
-The lengths of cell and feature barcodes (hashtags) are all identical (16 and 15, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
+The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
 .. code-block::
 
