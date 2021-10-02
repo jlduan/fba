@@ -104,7 +104,7 @@ This library was constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit
    :width: 350px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we can almost read the bases (``GCTCACCTATTAGCGGCTAAGG``). They are actually `Capture Sequence 2`_. The next 12 bases are UMIs, and followed by 16-base cell barcodes. Bases 37-54 are reverse complement of the read 1 base content. The size of the CellPlex library is relatively small, read 2 has also sequenced through part of the Nextera Read 1 sequencing primer (constant, bases 55-79). Actually, read 1 is not needed, read 2 has cell barcodes, UMIs and CMOs, all the info we needed for demultiplexing. Theoretically, we could utilize the cell barcodes and UMIs on both reads to account for PCR, sequencing errors to further improve demultiplexing accuracy.
+As for read 2, based on the per base content, it suggests that bases 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we can almost read the bases (``GCTCACCTATTAGCGGCTAAGG``). They are actually `Capture Sequence 2`_. The next 12 bases are UMIs, and followed by 16-base cell barcodes. Bases 37-54 are reverse complement to the read 1. The size of the CellPlex library is relatively small, read 2 has also sequenced through part of the Nextera Read 1 sequencing primer (constant, bases 55-79). Actually, Read 1 is not needed, read 2 has cell barcodes, UMIs and CMOs, all the info we needed for demultiplexing. Theoretically, we could utilize the cell barcodes and UMIs on both reads to account for PCR, sequencing errors to further improve demultiplexing accuracy.
 
 .. _`Capture Sequence 2`: https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf
 
@@ -307,7 +307,7 @@ CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. T
     m.to_csv(path_or_buf='matrix_featurecount_filtered.csv.gz',
              compression='infer')
 
-Cells are classified based on feature count matrix (CMOs abundance). The method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics' website`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
+Cells are classified based on feature count matrix (CMOs abundance). The demultiplexing method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics' website`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -378,6 +378,6 @@ Heatmap of relative abundance of features (CMOs) across all cells. Each column r
 UMAP embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
-   :alt: t-SNE embedding
+   :alt: UMAP embedding
    :width: 500px
    :align: center

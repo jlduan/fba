@@ -6,7 +6,7 @@ fba tutorial
 
 Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed
 
-The detailed description of this dataset can be found at here_.
+The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K
 
