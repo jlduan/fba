@@ -48,7 +48,7 @@ The content of ``qc/feature_barcode_frequency.csv``.
 
 Result summary.
 
-58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See the :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>` for more details.
+58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>` for more details.
 
 .. code-block::
 

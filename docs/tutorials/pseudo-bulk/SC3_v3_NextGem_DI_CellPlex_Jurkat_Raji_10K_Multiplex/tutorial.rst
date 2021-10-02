@@ -69,7 +69,7 @@ The content of ``qc/feature_barcode_frequency.csv``.
 
 Result summary.
 
-98.3% (212,402,382 / 216,070,514) of reads have valid feature barcodes. CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG are the most abundant CMOs. They account for all most all of the valid reads. Although the valid read ratio is 1.663171 (132,435,325 / 79,628,216), cells labeled with them separately are mixed at 1: 1 ratio. See the :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>` for more details.
+98.3% (212,402,382 / 216,070,514) of reads have valid feature barcodes. CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG are the most abundant CMOs. They account for all most all of the valid reads. Although the valid read ratio is 1.663171 (132,435,325 / 79,628,216), cells labeled with them separately are mixed at 1: 1 ratio. See :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>` for more details.
 
 
 .. code-block::
