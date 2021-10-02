@@ -461,6 +461,11 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
                 seed=seed
             )
             cells_demultiplexed.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_FILE)
+
+            m_identity = pd.DataFrame(m_identity,
+                                      index=matrix_featurecount.index,
+                                      columns=matrix_featurecount.columns)
+
         elif demultiplexing_method == 2:
             pass
 
@@ -471,9 +476,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         )
         sys.exit(1)
 
-    m_identity = pd.DataFrame(m_identity,
-                              index=matrix_featurecount.index,
-                              columns=matrix_featurecount.columns)
+
     m_identity.to_csv(path_or_buf=MATRIX_CELL_IDENTITY, compression='infer')
 
     if visualization:
