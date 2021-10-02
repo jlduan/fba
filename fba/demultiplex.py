@@ -46,12 +46,15 @@ def get_cell_identity(x, barcodes):
     return cell_identity
 
 
-def cluster_kmedoids(m, seed=42):
+def cluster_kmedoids(m, normalization_method='clr', seed=42):
     """."""
 
-    np.random.seed(seed=seed)
+    if normalization_method == 'clr':
+        m = m.apply(normalize_clr, axis=1)
+    elif normalization_method == 'log':
+        m = np.log10(m + 1)
 
-    m = m.apply(normalize_clr, axis=1)
+    np.random.seed(seed=seed)
     kmedoids_instance = kmedoids(
         data=m.T.values,
         initial_index_medoids=np.random.randint(
@@ -68,11 +71,17 @@ def cluster_kmedoids(m, seed=42):
     return clusters
 
 
-def cluster_hdbscan(m, min_cluster_size=30, seed=42):
+def cluster_hdbscan(m,
+                    normalization_method='clr',
+                    min_cluster_size=30,
+                    seed=42):
+
+    if normalization_method == 'clr':
+        m = m.apply(normalize_clr, axis=1)
+    elif normalization_method == 'log':
+        m = np.log10(m + 1)
 
     np.random.seed(seed=seed)
-
-    m = m.apply(normalize_clr, axis=1)
     m = StandardScaler(
         copy=True,
         with_mean=True,
@@ -103,15 +112,24 @@ def cluster_hdbscan(m, min_cluster_size=30, seed=42):
     return clusters
 
 
-def demultiplex(m, q1=99.5, q2=0.9999, method='kmedoids', seed=42):
+def demultiplex_nb(m,
+                   normalization_method='clr',
+                   clustering_method='kmedoids',
+                   q1=99.5,
+                   q2=0.9999,
+                   seed=42):
     """."""
 
     m_identity = np.zeros_like(m)
 
-    if method == 'kmedoids':
-        c = cluster_kmedoids(m, seed=seed)
-    elif method == 'hdbscan':
-        c = cluster_hdbscan(m, seed=seed)
+    if clustering_method == 'kmedoids':
+        c = cluster_kmedoids(m,
+                             normalization_method=normalization_method,
+                             seed=seed)
+    elif clustering_method == 'hdbscan':
+        c = cluster_hdbscan(m,
+                            normalization_method=normalization_method,
+                            seed=seed)
 
     m_feature_avg = pd.DataFrame(
         data=np.zeros(
@@ -134,10 +152,10 @@ def demultiplex(m, q1=99.5, q2=0.9999, method='kmedoids', seed=42):
             cells_selected_counts < np.percentile(a=cells_selected_counts,
                                                   q=q1)]
 
-        mod_nbin = sm.NegativeBinomial(endog=cells_selected_counts,
-                                       exog=np.ones(
-                                           len(cells_selected_counts)),
-                                       loglike_method='nb2')
+        mod_nbin = sm.NegativeBinomial(
+            endog=cells_selected_counts,
+            exog=np.ones(len(cells_selected_counts)),
+            loglike_method='nb2')
         res_nbin = mod_nbin.fit(disp=False)
 
         mu, alpha = res_nbin.params
@@ -350,6 +368,8 @@ def plot_embedding(embedding,
 
 def demultiplex_feature_barcoding(matrix_featurecount_file,
                                   output_directory='demultiplexed',
+                                  demultiplexing_method=1,
+                                  normalization_method='clr',
                                   q=0.9999,
                                   initial_clustering_methold='kmedoids',
                                   visualization=True,
@@ -373,6 +393,15 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         'Pyplot_embedding_cells_demultiplexed.pdf'
 
     logger.info(f'Output directory: {output_directory}')
+    logger.info(f'Demultiplexing method: {demultiplexing_method}')
+    logger.info(f'UMI normalization method: {normalization_method}')
+
+    if visualization:
+        logger.info('Visualization: On')
+        logger.info(f'Visualization method: {embeding_method}')
+    else:
+        logger.info('visualization: Off')
+
     logger.info(
         f'Loading feature count matrix: {matrix_featurecount_file} ...')
 
@@ -422,14 +451,19 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
     logger.info('Demultiplexing ...')
 
     try:
-        cells_demultiplexed, m_identity = demultiplex(
-            m=matrix_featurecount,
-            q1=99,
-            q2=q,
-            method=initial_clustering_methold,
-            seed=seed
-        )
-        cells_demultiplexed.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_FILE)
+        if demultiplexing_method == 1:
+            cells_demultiplexed, m_identity = demultiplex_nb(
+                m=matrix_featurecount,
+                normalization_method='clr',
+                clustering_method=initial_clustering_methold,
+                q1=99,
+                q2=q,
+                seed=seed
+            )
+            cells_demultiplexed.to_csv(path_or_buf=CELLS_DEMULTIPLEXED_FILE)
+        elif demultiplexing_method == 2:
+            pass
+
     except ValueError as err:
         logger.critical(
             'This demultiplexing method '

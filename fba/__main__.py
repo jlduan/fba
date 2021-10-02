@@ -137,12 +137,14 @@ def main():
         logger.info('Done.')
 
     elif (args.command == 'demultiplex'):
-        logger.info('Using demultiplex subcommand ...')
+        logger.info(f'Using {args.command} subcommand ...')
         m = importlib.import_module(name=f'fba.{args.command}')
 
         _ = m.demultiplex_feature_barcoding(
             matrix_featurecount_file=args.input,
             output_directory=args.output_directory,
+            demultiplexing_method=args.demultiplexing_method,
+            normalization_method=args.normalization_method,
             q=args.quantile,
             initial_clustering_methold=args.clustering_method,
             visualization=args.visualization,

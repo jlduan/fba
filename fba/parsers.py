@@ -634,8 +634,8 @@ def add_demultiplex_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-m',
-        dest='method',
+        '-dm',
+        dest='demultiplexing_method',
         required=False,
         type=int,
         default=1,
@@ -645,13 +645,27 @@ def add_demultiplex_subparser(subparsers):
     )
 
     parser.add_argument(
+        '-nm',
+        dest='normalization_method',
+        required=False,
+        type=str,
+        default='clr',
+        choices=['clr', 'log'],
+        help=('specify normalization method. '
+              '\'clr\': centred log-ratio transformation. '
+              '\'log\': log10 transformation. '
+              'Default (clr)')
+    )
+
+    parser.add_argument(
         '-q',
         '--quantile',
         dest='quantile',
         required=False,
         type=float,
         default=0.9999,
-        help=('specify quantile cutoff for the probability mass function. '
+        help=('specify quantile cutoff for the probability mass function '
+              'for demultiplexing method 1. '
               'Default (0.9999)')
     )
 
@@ -663,7 +677,8 @@ def add_demultiplex_subparser(subparsers):
         type=str,
         default='kmedoids',
         choices=['kmedoids', 'hdbscan'],
-        help='specify initial clustering method. Default (kmedoids)'
+        help='specify initial clustering method for demultiplexing method 1. '
+             'Default (kmedoids)'
     )
 
     parser.add_argument(
