@@ -43,6 +43,12 @@ Tutorial
 --------
 
 
+CRISPR screening
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* :ref:`10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>`
+
+
 Cell surface protein labeling
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -50,26 +56,27 @@ Cell surface protein labeling
 * :ref:`1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed <tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K>`
 
 
+
+CellPlex
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+* :ref:`10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>`
+
+
 Cell hashing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`Peripheral blood mononuclear cells with 8 antibodies <tutorial_cell_hashing_PRJNA423077>`
 
 
-CRISPR screening
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-* :ref:`10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>`
-
-
 Targeted transcript enrichment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel <tutorial_targeted_transcript_enrichment_Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature>`
 
 
 Bulk
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 * :ref:`10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed <tutorial_bulk_SC3_v3_NextGem_DI_CRISPR_10K>`
 

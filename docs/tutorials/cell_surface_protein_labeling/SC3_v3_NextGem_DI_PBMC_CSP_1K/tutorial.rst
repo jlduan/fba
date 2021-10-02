@@ -22,6 +22,7 @@ Download fastq files.
 
     $ tar xvf SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_fastqs.tar
 
+
 Combine reads of different lanes.
 
 .. code-block::
@@ -30,6 +31,7 @@ Combine reads of different lanes.
 
     $ cat SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_L00?_R2_001.fastq.gz > SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2.fastq.gz
 
+
 Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.
 
 .. code-block::
@@ -37,6 +39,7 @@ Download cell barcode info. These are the cell-associated barcodes in this singl
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
 
     $ tar zxvf SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
+
 
 Inspect cell barcodes.
 
@@ -55,11 +58,13 @@ Inspect cell barcodes.
     AAAGTCCGTCGCGTTG-1
     AAAGTCCTCCTTATCA-1
 
+
 Prepare feature barcodes.
 
 .. code-block::
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+
 
 Inspect feature barcode info.
 
@@ -78,12 +83,14 @@ Inspect feature barcode info.
     CD19,CD19,R2,^NNNNNNNNNN(BC)NNNNNNNNN,CTGGGCAATTACTCG,Antibody Capture
     CD20,CD20,R2,^NNNNNNNNNN(BC)NNNNNNNNN,TTCTGGGTCCCTAGA,Antibody Capture
 
+
 Clean up.
 
 .. code-block::
 
     $ wc -l SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
     33 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+
 
 .. code-block::
 
@@ -118,6 +125,7 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
         --output_directory qc \
         -n 20000
 
+
 This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
@@ -130,6 +138,7 @@ As for read 2, based on the per base content, it suggests that bases 0-9, 25-33,
 .. image:: Pyplot_read2_per_base_seq_content.png
    :width: 800px
    :align: center
+
 |
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
@@ -177,6 +186,7 @@ The lengths of cell and feature barcodes are all identical (16 and 15, respectiv
         -cb_m 2 \
         -fb_m 2
 
+
 Preview of result.
 
 .. code-block::
@@ -193,6 +203,7 @@ Preview of result.
     ATTCCATGTCTCTCGTcgtctaactccc    ATTCCATCACTCTCGT        2       atgcagagtgCTCATTGTAACTCCTccgtttgacgctttaaggccggtcctagcaagggagttagacgacgagagacatggaatctgtct    CD3_CTCATTGTAACTCCT      0
     GGCAGTCGTAAGGTTAtgcaccacacga    GGCAGTCCAAAGGTTA        2       gcaacatggtTCTCAGACCTCCGTAgcatgttaggctttaaggccggtcctagcaatcgtgtggtgcataaccttacgactgccctgtct    CD14_TCTCAGACCTCCGTA     0
     GATGGAGGTGAGCTAGaaatgccaagtt    GATGGAGCAGAGCTAG        2       acacaatgaaTGTTCCCGCTCAACTtaccggggtgctttaaggccggtcctagcaaaacttggcatttctagctcacctccatcctgtct    CD4_TGTTCCCGCTCAACT      0
+
 
 Result summary.
 
@@ -240,6 +251,7 @@ The generated feature count matrix can be easily imported into well-established 
         -ul 12 \
         -um 1 \
         -ud directional
+
 
 Result summary.
 

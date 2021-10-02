@@ -76,13 +76,13 @@ functions:
 
 ## Workflow example
 
+- CRISPR screening
+    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k)
 - Cell surface protein labeling
     - [CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html#tutorial-cell-surface-protein-labeling-prjna393315)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html#tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k)
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_hashing/PRJNA423077/tutorial.html#tutorial-cell-hashing-prjna423077)
-- CRISPR screening
-    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://fba.readthedocs.io/en/latest/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html#tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature)
 - Bulk

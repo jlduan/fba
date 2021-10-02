@@ -9,6 +9,12 @@ Cell surface protein labeling
 - :ref:`1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexe <tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K>`
 
 
+CellPlex
+-------------------------------
+
+- :ref:`10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>`
+
+
 Cell hashing
 -------------------------------
 

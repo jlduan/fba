@@ -27,7 +27,7 @@ Download fastq files `NCBI GEO`_.
 
 Download cell barcode info.
 
-These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of transcriptomic UMIs caputured per barcode).
+These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of transcriptomic UMIs captured per barcode).
 
 .. code-block::
 
@@ -261,14 +261,14 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
         --output_directory demultiplexed \
         -v
 
-Heatmap of relative expressions of features across all cells. Each column represents a single cell.
+Heatmap of relative abundance of features across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding based on the abundance of features.
+t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
    :alt: t-SNE embedding
