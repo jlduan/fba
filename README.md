@@ -48,8 +48,9 @@ $ conda install -c bioconda fba
     - [Peripheral blood mononuclear cells with 8 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_hashing/PRJNA423077/tutorial.html#tutorial-cell-hashing-prjna423077)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://fba.readthedocs.io/en/latest/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html#tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature)
-- Bulk
-    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
+- Pseudo-bulk
+    - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-bulk-sc3-v3-nextgem-di-crispr-10k)
+    - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](https://fba.readthedocs.io/en/latest/tutorials/pseudo-bulk/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html#tutorial-pseudo-bulk-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex)
 
 
 <br>
