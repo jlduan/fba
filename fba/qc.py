@@ -70,6 +70,14 @@ def plot_sequence_content(read_composition, title,
     ax.xaxis.set_ticks(range(0, read_composition.shape[0], 2))
 
     ax.set_yticks(ax.get_yticks())
+
+    limits_y = list(ax.get_ylim())
+    if limits_y[0] < 0:
+        limits_y[0] = 0
+    if limits_y[1] > 1:
+        limits_y[1] = 1
+    ax.set_ylim(limits_y[0], limits_y[1])
+
     ax.set_yticklabels(labels=[f'{i:3,.1%}' for i in ax.get_yticks()])
 
     for i in ['top', 'bottom', 'left', 'right']:
@@ -77,6 +85,11 @@ def plot_sequence_content(read_composition, title,
         ax.spines[i].set_color(c='#333333')
 
     ax.set_xbound(lower=-1, upper=read_composition.shape[0] + 1)
+
+    a = (limits_y[1] - limits_y[0]) * 0.025
+    ax.set_ybound(
+        lower=limits_y[0] - a,
+        upper=limits_y[1] + a)
 
     return ax
 
