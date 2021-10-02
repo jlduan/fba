@@ -114,6 +114,7 @@ As for read 2, based on the per base content, it suggests that bases 0-14 are fe
    :align: center
 
 |
+
 Most of the reads have the correct structure.
 
 .. image:: Pyplot_read2_barcodes_starting_ending.png
