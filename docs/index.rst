@@ -7,7 +7,7 @@ Welcome to ``fba``'s documentation!
 ===================================
 
 
-``fba``: Tools for feature barcoding analysis
+``fba``: a flexible and streamlined package for feature barcoding assays.
 
 
 .. image:: https://img.shields.io/pypi/v/fba.svg?logo=pypi
