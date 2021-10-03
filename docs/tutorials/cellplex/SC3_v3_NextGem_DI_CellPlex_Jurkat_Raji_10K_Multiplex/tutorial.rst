@@ -181,7 +181,7 @@ Result summary.
 
 .. code-block:: console
 
-    2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.12
+    2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.13
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Initiating logging ...
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Python version: 3.7
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Using extract subcommand ...
@@ -250,7 +250,7 @@ Result summary.
 
 .. code-block:: console
 
-    2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.12
+    2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.13
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Initiating logging ...
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Python version: 3.7
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Using count subcommand ...
@@ -320,7 +320,7 @@ Cells are classified based on feature count matrix (CMOs abundance). The demulti
 
 .. code-block:: console
 
-    2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.12
+    2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.13
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Initiating logging ...
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Python version: 3.7
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Using demultiplex subcommand ...

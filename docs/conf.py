@@ -15,8 +15,8 @@
 # sys.path.insert(0, os.path.abspath('.'))
 import os
 import sys
-from datetime import datetime
 sys.path.insert(0, os.path.abspath('../fba'))
+from datetime import datetime
 from __init__ import __version__
 
 # -- Project information -----------------------------------------------------
@@ -47,7 +47,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 # from pygments.styles import STYLE_MAP; print(sorted(STYLE_MAP.keys()))
-pygments_style = 'sphinx'
+pygments_style = 'tango'
 
 # -- Options for HTML output -------------------------------------------------
 
