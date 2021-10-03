@@ -100,13 +100,19 @@ Jialei Duan, Gary Hon. FBA: feature barcoding analysis for single cell RNA-Seq. 
 
    <span class="__dimensions_badge_embed__" data-doi="10.1093/bioinformatics/btab375" data-hide-zero-citations="true" data-style="small_rectangle"></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
 
-Contents
---------
-
-.. :caption: Contents
 
 .. toctree::
    :maxdepth: 3
+   :hidden:
 
    installation
    user_guide
+   tutorials/index
+
+
+.. toctree::
+   :caption: Development
+   :hidden:
+
+   changelog
+   GitHub Repository <https://github.com/jlduan/fba>
