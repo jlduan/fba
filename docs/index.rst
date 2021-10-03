@@ -58,14 +58,14 @@ Quickstart
 Installation
 ^^^^^^^^^^^^
 
-.. code-block::
+.. code-block:: console
 
    $ pip install fba
 
 Usage
 ^^^^^
 
-.. code-block::
+.. code-block:: console
 
    $ fba
 

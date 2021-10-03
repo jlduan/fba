@@ -27,11 +27,11 @@ In the ``qc`` subcommand, if ``-1`` (read 1) is omitted, bulk mode is enabled. T
 
 Use ``-2`` to specify read 2, and ``-f`` to specify feature barcodes. Search range on reads 2 can be controlled by ``-r2_c``. In this example, only one mismatch is allowed for feature barcode matching (set by ``-fb_m``). Use ``-n`` to specify the number of reads to analyze (``None`` is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in ``qc/feature_barcode_frequency.csv``.
 
-.. code-block::
+.. code-block:: console
 
-    fba qc \
+    $ fba qc \
         -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
-        -f $FEATURE_REF \
+        -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv \
         -r2_c 0,15 \
         -fb_m 1 \
         -n None
@@ -72,7 +72,7 @@ Result summary.
 98.3% (212,402,382 / 216,070,514) of reads have valid feature barcodes. CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG are the most abundant CMOs. They account for all most all of the valid reads. Although the valid read ratio is 1.663171 (132,435,325 / 79,628,216), cells labeled with them separately are mixed at 1: 1 ratio. See :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>` for more details.
 
 
-.. code-block::
+.. code-block:: console
 
     2021-10-02 02:02:31,092 - fba.__main__ - INFO - fba version: 0.0.11
     2021-10-02 02:02:31,092 - fba.__main__ - INFO - Initiating logging ...
@@ -121,11 +121,11 @@ Threshold: two mismatches
 
 Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by ``-fb_m``).
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
-        -f $FEATURE_REF \
+        -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv \
         -r2_c 0,15 \
         -fb_m 2 \
         -n None
@@ -166,7 +166,7 @@ Result summary.
 
 99.33% (214,622,807 / 216,070,514) of reads have valid feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     2021-10-02 02:02:31,268 - fba.__main__ - INFO - fba version: 0.0.11
     2021-10-02 02:02:31,268 - fba.__main__ - INFO - Initiating logging ...
@@ -205,3 +205,5 @@ Result summary.
     2021-10-02 06:01:48,424 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 214,622,807
     2021-10-02 06:01:48,425 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
     2021-10-02 06:01:48,442 - fba.__main__ - INFO - Done.
+
+|

@@ -27,7 +27,7 @@ In the ``qc`` subcommand, if ``-1`` (read 1) is omitted, bulk mode is enabled. T
 
 Use ``-2`` to specify read 2, and ``-f`` to specify feature barcodes. Search range on reads 2 can be controlled by ``-r2_c``. In this example, only one mismatch is allowed for feature barcode matching (set by ``-fb_m``). Use ``-n`` to specify the number of reads to analyze (``None`` is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in ``qc/feature_barcode_frequency.csv``.
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz \
@@ -50,7 +50,7 @@ Result summary.
 
 58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>` for more details.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 16:12:35,393 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 16:12:35,393 - fba.__main__ - INFO - Initiating logging ...
@@ -92,7 +92,7 @@ Threshold: two mismatches
 
 Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by ``-fb_m``).
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz \
@@ -115,7 +115,7 @@ Result summary.
 
 69.16% (100,307,853 / 145,032,428) of reads have valid feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 16:12:00,407 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 16:12:00,407 - fba.__main__ - INFO - Initiating logging ...

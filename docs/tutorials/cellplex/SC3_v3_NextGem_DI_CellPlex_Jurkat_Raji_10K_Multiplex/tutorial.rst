@@ -16,7 +16,7 @@ Preparation
 
 Download fastq files.
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
 
@@ -24,7 +24,7 @@ Download fastq files.
 
 Combine reads of different lanes.
 
-.. code-block::
+.. code-block:: console
 
     $ cat SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R1_001.fastq.gz > SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz
 
@@ -32,7 +32,7 @@ Combine reads of different lanes.
 
 Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of transcriptomic UMIs captured per barcode).
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv
 
@@ -40,7 +40,7 @@ Download cell barcode info. These are the cell-associated barcodes in this singl
 
 Inspect cell barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ head cell_barcodes.txt
 
@@ -58,7 +58,7 @@ Inspect cell barcodes.
 
 Prepare feature barcodes (cell multiplexing oligos, CMOs).
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv
 
@@ -66,7 +66,7 @@ Prepare feature barcodes (cell multiplexing oligos, CMOs).
 
 Inspect feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ cat feature_barcodes.tsv
 
@@ -88,7 +88,7 @@ QC
 
 Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz \
@@ -123,7 +123,7 @@ Most of the reads have the correct structure.
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
 
@@ -143,7 +143,7 @@ Barcode extraction
 
 The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
-.. code-block::
+.. code-block:: console
 
     $ fba extract \
         -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz \
@@ -160,9 +160,9 @@ The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, re
 
 Preview of result.
 
-.. code-block::
+.. code-block:: console
 
-    gzip -dc feature_barcoding_output.tsv.gz | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     AAGCGTTAGAGTCTTTggtatttttatt    AAGCGTTTCAGTCTTT        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggaataaaactaccaaagactctaacgcttctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0
@@ -179,7 +179,7 @@ Result summary.
 
 63.98% (138,246,914 out of 216,070,514) of total read pairs have valid cell and feature barcodes. Majority of the fragments in this library have the correct structure.
 
-.. code-block::
+.. code-block:: console
 
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.12
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Initiating logging ...
@@ -234,7 +234,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 .. _Scanpy: https://scanpy.readthedocs.io/en/stable
 
-.. code-block::
+.. code-block:: console
 
     $ fba count \
         -i feature_barcoding_output.tsv.gz \
@@ -248,7 +248,7 @@ Result summary.
 
 88.00% (121,661,177 out of 138,246,914) of read pairs with valid cell and feature barcodes are unique fragments. 56.31% (121,661,177 out of 216,070,514) of total sequenced read pairs contribute to the final matrix.
 
-.. code-block::
+.. code-block:: console
 
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.12
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Initiating logging ...
@@ -273,16 +273,14 @@ Demultiplexing
 
 Inspect feature count matrix.
 
-.. code-block:: python
-    :linenos:
+.. code-block:: ipython
 
-    import pandas as pd
+    In [1]: import pandas as pd
 
-    m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
-    m.sum(axis=1)
+    In [2]: m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
 
-.. code-block::
-
+    In [3]: m.sum(axis=1)
+    Out[3]:
     CMO301_ATGAGGAATTCCTGC    81595732
     CMO302_CATGCCAATAGAGCG    39999656
     CMO303_CCGTCGTCCAAGCAT        1719
@@ -297,21 +295,19 @@ Inspect feature count matrix.
     CMO312_ACATGGTCAACGCTG         703
     dtype: int64
 
+    In [4]: m = m.loc[['CMO301_ATGAGGAATTCCTGC', 'CMO302_CATGCCAATAGAGCG'], :]
+
+    In [5]: m.to_csv(path_or_buf='matrix_featurecount_filtered.csv.gz', compression='infer')
+
+
 CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
-.. code-block:: python
-    :linenos:
-
-    m = m.loc[['CMO301_ATGAGGAATTCCTGC', 'CMO302_CATGCCAATAGAGCG'], :]
-
-    m.to_csv(path_or_buf='matrix_featurecount_filtered.csv.gz',
-             compression='infer')
 
 Cells are classified based on feature count matrix (CMOs abundance). The demultiplexing method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics' website`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
-.. code-block::
+.. code-block:: console
 
     $ fba demultiplex \
         -i matrix_featurecount_filtered.csv.gz \
@@ -322,7 +318,7 @@ Cells are classified based on feature count matrix (CMOs abundance). The demulti
         -v \
         -vm umap
 
-.. code-block::
+.. code-block:: console
 
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.12
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Initiating logging ...

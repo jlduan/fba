@@ -1,3 +1,4 @@
 furo
 myst_parser
 sphinxext-opengraph
+sphinx-copybutton

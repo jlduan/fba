@@ -14,16 +14,16 @@
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
 from datetime import datetime
+import fba
 
 # -- Project information -----------------------------------------------------
 
-project = 'fba'
-author = 'Jialei Duan'
-copyright = '2020-{}, {}'.format(datetime.today().year, author)
+project = u'fba'
+author = u'Jialei Duan'
+copyright = f'2020-{datetime.today().year}, {author}'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.11'
-
+release = fba.__version__
 
 # -- General configuration ---------------------------------------------------
 
@@ -31,7 +31,8 @@ release = '0.0.11'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = ['myst_parser',
-              'sphinxext.opengraph']
+              'sphinxext.opengraph',
+              'sphinx_copybutton']
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -41,6 +42,9 @@ templates_path = ['_templates']
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
+# The name of the Pygments (syntax highlighting) style to use.
+# from pygments.styles import STYLE_MAP; print(sorted(STYLE_MAP.keys()))
+pygments_style = 'tango'
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -49,7 +53,6 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 #
 # html_theme = 'alabaster'
 html_theme = 'furo'
-html_title = 'FBA'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -59,8 +62,46 @@ html_theme_options = {
     'navigation_with_keys': True,
 }
 
+# The name for this set of Sphinx documents.
+# "<project> v<release> documentation" by default.
+#
+# html_title = u'test vtest'
+html_title = 'FBA'
+
+# The name of an image file (relative to this directory) to place at the top
+# of the sidebar.
+#
+# html_logo = None
+
+# The name of an image file (relative to this directory) to use as a favicon of
+# the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
+# pixels large.
+#
+# html_favicon = None
+html_favicon = html_logo = 'logo.svg'
+
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-html_favicon = html_logo = 'logo.svg'
+
+# If not None, a 'Last updated on:' timestamp is inserted at every page
+# bottom, using the given strftime format.
+# The empty string is equivalent to '%b %d, %Y'.
+#
+# html_last_updated_fmt = None
+
+# If true, links to the reST sources are added to the pages.
+#
+html_show_sourcelink = False
+
+# If true, "Created using Sphinx" is shown in the HTML footer. Default is True.
+#
+html_show_sphinx = False
+
+# Strip and configure input prompts for code cells
+# https://sphinx-copybutton.readthedocs.io/en/latest/
+copybutton_prompt_text = '$'
+copybutton_prompt_text = r'\$ |>>> |\.\.\. |In \[\d*\]: | {2,5}\.\.\.: '
+copybutton_prompt_is_regexp = True
+copybutton_line_continuation_character = '\\'

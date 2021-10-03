@@ -6,7 +6,7 @@ User Guide
 Usage
 -----
 
-.. code-block::
+.. code-block:: console
 
    $ fba
 

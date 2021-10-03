@@ -19,9 +19,10 @@ Download fastq files `NCBI GEO`_.
 .. _`NCBI GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2895283
 
 
-.. code-block::
+.. code-block:: console
 
     $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
+
     $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
 
 
@@ -29,7 +30,7 @@ Download cell barcode info.
 
 These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of transcriptomic UMIs captured per barcode).
 
-.. code-block::
+.. code-block:: console
 
     $ curl -O https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2895nnn/GSM2895283/suppl/GSM2895283_Hashtag-HTO-count.csv.gz
 
@@ -38,7 +39,7 @@ These are the cell-associated barcodes in this single cell RNA-Seq library (dete
 
 Inspect cell barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ head cell_barcodes.txt
 
@@ -55,13 +56,13 @@ Inspect cell barcodes.
 
 Prepare feature barcodes (hashtag-oligos, HTO).
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc GSM2895283_Hashtag-HTO-count.csv.gz | cut -d ',' -f1 | grep Batch | gsed 's/-/\t/g' > feature_barcodes.tsv
 
 Inspect feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ cat feature_barcodes.tsv
 
@@ -80,7 +81,7 @@ QC
 
 Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -1 SRR8281307_1.fastq.gz \
@@ -116,7 +117,7 @@ As for read 2, based on the per base content, it suggests that bases 0-11 are re
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
 
@@ -137,7 +138,7 @@ Barcode extraction
 
 The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,12`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
-.. code-block::
+.. code-block:: console
 
     $ fba extract \
         -1 SRR8281307_1.fastq.gz \
@@ -154,7 +155,7 @@ The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12
 
 Preview of result.
 
-.. code-block::
+.. code-block:: console
 
     gzip -dc feature_barcoding_output.tsv.gz | head
 
@@ -171,9 +172,9 @@ Preview of result.
 
 Result summary.
 
-91.5 % (67,916,430 out of 74,219,921) of total read pairs have valid cell and feature barcodes. Majority of the fragments in this library have the correct structure.
+91.5% (67,916,430 out of 74,219,921) of total read pairs have valid cell and feature barcodes. Majority of the fragments in this library have the correct structure.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 16:16:13,003 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 16:16:13,003 - fba.__main__ - INFO - Initiating logging ...
@@ -227,7 +228,7 @@ Result summary.
 
 25.1% (17,022,091 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,125 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 17:44:43,315 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 17:44:43,315 - fba.__main__ - INFO - Initiating logging ...
@@ -254,7 +255,7 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
-.. code-block::
+.. code-block:: console
 
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \

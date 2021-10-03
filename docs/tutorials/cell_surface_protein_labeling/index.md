@@ -1,4 +1,4 @@
-# CRISPR screening
+# Cell surface protein labeling
 
 
 ```{toctree}

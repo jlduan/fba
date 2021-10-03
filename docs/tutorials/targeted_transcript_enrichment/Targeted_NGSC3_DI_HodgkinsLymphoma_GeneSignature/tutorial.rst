@@ -16,7 +16,7 @@ Preparation
 
 Download fastq files.
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
 
@@ -28,7 +28,7 @@ These are the cell-associated barcodes determined in the parent `Hodgkin's Lymph
 
 .. _`Hodgkin's Lymphoma, Dissociated Tumor: Whole Transcriptome Analysis`: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma/Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
 
@@ -36,7 +36,7 @@ These are the cell-associated barcodes determined in the parent `Hodgkin's Lymph
 
 Inspect cell barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz | head
 
@@ -61,13 +61,13 @@ In this tutorial, this 10x Genomics 'Targeted Gene Expression' library is used a
 
 Read 1 contains cell barcodes and UMIs. Read 2 is expected captured transcribed regions. For feature references, they should only contain transcribed parts (non-overlapping and no introns for endogenous genes).
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
 
 Inspect feature reference info.
 
-.. code-block::
+.. code-block:: console
 
     $ head Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
 
@@ -84,7 +84,7 @@ Inspect feature reference info.
 
 Re-format.
 
-.. code-block::
+.. code-block:: console
 
     $ grep -v '#' Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv | wc -l
     53720
@@ -124,7 +124,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 .. _Scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. code-block::
+.. code-block:: console
 
     $ fba map \
         -1 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R1_001.fastq.gz \
@@ -146,7 +146,7 @@ Result summary.
 
 7.67% of total read pairs (2,405,998 of 31,372,024) contribute to the final expression matrix after UMI deduplication. Sequenced quite deep.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 23:33:59,615 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 23:33:59,615 - fba.__main__ - INFO - Initiating logging ...

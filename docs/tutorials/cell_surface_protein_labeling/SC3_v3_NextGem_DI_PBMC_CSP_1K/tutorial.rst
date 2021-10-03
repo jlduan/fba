@@ -16,7 +16,7 @@ Preparation
 
 Download fastq files.
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_fastqs.tar
 
@@ -25,7 +25,7 @@ Download fastq files.
 
 Combine reads of different lanes.
 
-.. code-block::
+.. code-block:: console
 
     $ cat SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_L00?_R1_001.fastq.gz > SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1.fastq.gz
 
@@ -34,7 +34,7 @@ Combine reads of different lanes.
 
 Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
 
@@ -43,7 +43,7 @@ Download cell barcode info. These are the cell-associated barcodes in this singl
 
 Inspect cell barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz | head
 
@@ -61,14 +61,14 @@ Inspect cell barcodes.
 
 Prepare feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
 
 
 Inspect feature barcode info.
 
-.. code-block::
+.. code-block:: console
 
     $ head SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
 
@@ -86,13 +86,14 @@ Inspect feature barcode info.
 
 Clean up.
 
-.. code-block::
+.. code-block:: console
 
     $ wc -l SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+
     33 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
 
 
-.. code-block::
+.. code-block:: console
 
     $ cut -d',' -f1,5 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv | tail -32 | sed 's/,/\t/g' > feature_barcode_ref.tsv
 
@@ -115,7 +116,7 @@ QC
 
 Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
-.. code-block::
+.. code-block:: console
 
     $ fba qc \
         -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz \
@@ -153,7 +154,7 @@ The fragment structure in this feature barcoding library inferred from ``qc`` re
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
 
@@ -168,12 +169,13 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     TGATCTTAGAACACGTCAGGGTCCTGAA    TGATCTTTCAACACGT        0:16    2:0:0   GGGGGGGGGGGGGGGGAGGGGGCCGGAAAAGAACCCCGAGAGGCCAGCGCCAAACAAAAAAGAACAAAAAAGAGGAAAAAAAAAAAAAAA      no_match        NA      NA
     GGGCTACAGGACGCTGGTTTCATTTTTT    CTGGTCTTCATTGTTC        13:28   2:0:1   CCTTAATCAACTCATTGTAACTCCTGTTCCCACAGCTTTAAGGCCGGTCCTAGCAAAAAAAATGAAACCAGCGTCCTGTAGCCCCTGTCT      CD3_CTCATTGTAACTCCT     10:25   0:0:0
 
+
 Barcode extraction
 ------------------
 
 The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``10,25`` on read 2. Two mismatches for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
-.. code-block::
+.. code-block:: console
 
     $ fba extract \
         -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz \
@@ -189,7 +191,7 @@ The lengths of cell and feature barcodes are all identical (16 and 15, respectiv
 
 Preview of result.
 
-.. code-block::
+.. code-block:: console
 
     $ gzip -dc feature_barcoding_output.tsv.gz | head
 
@@ -207,9 +209,9 @@ Preview of result.
 
 Result summary.
 
-59.8 % (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.
+59.8% (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 23:37:41,353 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 23:37:41,353 - fba.__main__ - INFO - Initiating logging ...
@@ -242,7 +244,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 .. _Scanpy: https://scanpy.readthedocs.io/en/stable
 
-.. code-block::
+.. code-block:: console
 
     $ fba count \
         -i feature_barcoding_output.tsv.gz \
@@ -257,7 +259,7 @@ Result summary.
 
 69.8% (3,214,503 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,503 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.
 
-.. code-block::
+.. code-block:: console
 
     2021-02-17 23:53:36,024 - fba.__main__ - INFO - fba version: 0.0.7
     2021-02-17 23:53:36,024 - fba.__main__ - INFO - Initiating logging ...
