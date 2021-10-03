@@ -13,8 +13,11 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
 from datetime import datetime
-import fba
+sys.path.insert(0, os.path.abspath('../fba'))
+from __init__ import __version__
 
 # -- Project information -----------------------------------------------------
 
@@ -23,7 +26,7 @@ author = u'Jialei Duan'
 copyright = f'2020-{datetime.today().year}, {author}'
 
 # The full version, including alpha/beta/rc tags
-release = fba.__version__
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 
