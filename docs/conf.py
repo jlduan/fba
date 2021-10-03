@@ -47,7 +47,7 @@ exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 # from pygments.styles import STYLE_MAP; print(sorted(STYLE_MAP.keys()))
-pygments_style = 'tango'
+pygments_style = 'sphinx'
 
 # -- Options for HTML output -------------------------------------------------
 

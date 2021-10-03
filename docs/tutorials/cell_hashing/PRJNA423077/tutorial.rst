@@ -214,7 +214,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 .. _Scanpy: https://scanpy.readthedocs.io/en/stable
 
-.. code-block::
+.. code-block:: console
 
     $ fba count \
         -i feature_barcoding_output.tsv.gz \
