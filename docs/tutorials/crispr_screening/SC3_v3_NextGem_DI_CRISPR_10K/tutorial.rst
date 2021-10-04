@@ -269,7 +269,10 @@ Result summary.
 Demultiplexing
 --------------
 
-Cells are classified based on feature count matrix. The method 1 is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
+Negative binomial
+^^^^^^^^^^^^^^^^^
+
+Cells are classified based on feature count matrix. The demultiplexing method 1 (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -278,7 +281,7 @@ Cells are classified based on feature count matrix. The method 1 is implemented 
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \
         --output_directory demultiplexed \
-        -m 1 \
+        -dm 1 \
         -q 0.75 \
         -v
 
@@ -292,6 +295,59 @@ Heatmap of relative abundance of feature across all cells. Each column represent
 t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+Gaussian mixture
+^^^^^^^^^^^^^^^^^
+
+The demultiplexing method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics’ website`_ with some modifications. Use ``-p`` to set the probability threshold for demulitplexing (default, 0.9).
+
+.. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        --output_directory demultiplexed \
+        -dm 2 \
+        -v
+
+.. code-block:: console
+
+    2021-10-04 14:14:15,659 - fba.__main__ - INFO - fba version: 0.0.13
+    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Initiating logging ...
+    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Python version: 3.8
+    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2021-10-04 14:14:36,166 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
+    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Demultiplexing method: 2
+    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - UMI normalization method: clr
+    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization: On
+    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization method: tsne
+    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of cells: 11,758
+    2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
+    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
+    2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
+    2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Demultiplexing ...
+    2021-10-04 14:14:38,418 - fba.demultiplex - INFO - Generating heatmap ...
+    2021-10-04 14:14:42,078 - fba.demultiplex - INFO - Embedding ...
+    2021-10-04 14:15:24,288 - fba.__main__ - INFO - Done.
+
+Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
    :alt: t-SNE embedding
    :width: 500px
    :align: center

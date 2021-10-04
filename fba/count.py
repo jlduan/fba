@@ -57,12 +57,13 @@ def generate_matrix(matching_file,
                 )
             else:
                 logger.critical(
-                    'Need to specify UMI starting position on read 1: -us'
+                    'Need to specify UMI starting position on read 1: '
+                    '\"-us/--umi_start\"'
                 )
                 raise ValueError('need to specify UMI starting position')
         else:
             logger.info('UMI start position on read 1 auto-detected, '
-                        'overriding -us')
+                        'overriding \"-us/--umi_start\"')
         logger.info(f'UMI length: {umi_length}')
         logger.info('UMI-tools deduplication threshold: '
                     f'{umi_deduplication_threshold}')
@@ -107,6 +108,7 @@ def generate_matrix(matching_file,
     )
     logger.info(f'Number of cell barcodes detected: {len(cell_barcodes):,}')
     logger.info(f'Number of features detected: {len(feature_barcodes):,}')
+    logger.info('UMI deduplicating ...')
 
     clusterer = UMIClusterer(cluster_method=umi_deduplication_method)
     for i in matrix_featurecount:
