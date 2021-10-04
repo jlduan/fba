@@ -273,7 +273,7 @@ Demultiplexing
 
 Inspect feature count matrix.
 
-.. code-block:: ipython
+.. code-block:: python
 
     In [1]: import pandas as pd
 
