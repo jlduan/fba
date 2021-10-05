@@ -14,7 +14,7 @@
 <br>
 
 
-<a href="https://doi.org/10.1093/bioinformatics/btab375">
+<a href="https://fba.readthedocs.io">
     <img src="docs/logo.svg" align="right" width='200'/>
 </a>
 
