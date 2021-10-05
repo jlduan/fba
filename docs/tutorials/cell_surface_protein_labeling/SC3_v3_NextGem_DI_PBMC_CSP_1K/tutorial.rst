@@ -127,7 +127,7 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
         -n 20000
 
 
-This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
+This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
    :width: 350px

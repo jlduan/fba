@@ -10,6 +10,7 @@ The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K
 
+|
 
 Preparation
 -----------
@@ -82,6 +83,7 @@ Clean up.
     RAB1A-2 GCCGGCGAACCAGGAAATA
     NON_TARGET-1    AACGTGCTGACGATGCGGGC
 
+|
 
 QC
 --
@@ -98,7 +100,7 @@ Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t
         -r1_c 0,16 \
         -n 20000
 
-This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kit v3.1. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
+This library is built using the Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for CRISPR Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
    :width: 350px
@@ -135,6 +137,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     ANCAACCAGTATCGTTgaaatcctggta    AACAACCTCTATCGTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGAACGTGCTGACGATGCGGGCGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAA    NON_TARGET-1_AACGTGCTGACGATGCGGGC       31:51   0:0:0
     GNAGCCCGTACCACATgggcccagtatg    GAAGCCCCAACCACAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
 
+|
 
 Barcode extraction
 ------------------
@@ -218,6 +221,7 @@ Result summary.
     2021-02-15 08:44:47,038 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 93,795,979
     2021-02-15 08:44:47,153 - fba.__main__ - INFO - Done.
 
+|
 
 Matrix generation
 -----------------
@@ -244,35 +248,36 @@ The generated feature count matrix can be easily imported into well-established 
 
 Result summary.
 
-7.6% (7,143,943 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,143,943 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.
+7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,143,943 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.
 
 .. code-block:: console
 
-    2021-02-15 08:45:01,748 - fba.__main__ - INFO - fba version: 0.0.7
-    2021-02-15 08:45:01,748 - fba.__main__ - INFO - Initiating logging ...
-    2021-02-15 08:45:01,748 - fba.__main__ - INFO - Python version: 3.7
-    2021-02-15 08:45:01,749 - fba.__main__ - INFO - Using count subcommand ...
-    2021-02-15 08:45:01,749 - fba.count - INFO - UMI-tools version: 1.0.0
-    2021-02-15 08:45:01,752 - fba.count - INFO - UMI starting position on read 1: 16
-    2021-02-15 08:45:01,752 - fba.count - INFO - UMI length: 12
-    2021-02-15 08:45:01,752 - fba.count - INFO - UMI-tools deduplication threshold: 1
-    2021-02-15 08:45:01,752 - fba.count - INFO - UMI-tools deduplication method: directional
-    2021-02-15 08:45:01,752 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-    2021-02-15 08:49:36,776 - fba.count - INFO - Number of lines processed: 93,795,979
-    2021-02-15 08:49:36,784 - fba.count - INFO - Number of cell barcodes detected: 11,756
-    2021-02-15 08:49:36,784 - fba.count - INFO - Number of features detected: 2
-    2021-02-15 08:59:40,056 - fba.count - INFO - Total UMIs after deduplication: 7,143,943
-    2021-02-15 08:59:40,078 - fba.count - INFO - Median number of UMIs per cell: 478.0
-    2021-02-15 08:59:40,194 - fba.__main__ - INFO - Done.
+    2020-10-20 04:47:32,738 - fba.__main__ - INFO - fba version: 0.0.7
+    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Initiating logging ...
+    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Python version: 3.7
+    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Using count subcommand ...
+    2020-10-20 04:47:32,738 - fba.count - INFO - UMI-tools version: 1.0.1
+    2020-10-20 04:47:32,795 - fba.count - INFO - UMI starting position on read 1: 16
+    2020-10-20 04:47:32,795 - fba.count - INFO - UMI length: 12
+    2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication method: directional
+    2020-10-20 04:47:32,795 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2020-10-20 04:51:50,886 - fba.count - INFO - Number of lines processed: 93,795,979
+    2020-10-20 04:51:50,893 - fba.count - INFO - Number of cell barcodes detected: 11,758
+    2020-10-20 04:51:50,894 - fba.count - INFO - Number of features detected: 2
+    2020-10-20 05:00:42,298 - fba.count - INFO - Total UMIs after deduplication: 7,145,799
+    2020-10-20 05:00:42,320 - fba.count - INFO - Median number of UMIs per cell: 477.0
+    2020-10-20 05:00:42,434 - fba.__main__ - INFO - Done.
 
+|
 
 Demultiplexing
 --------------
 
-Negative binomial
-^^^^^^^^^^^^^^^^^
+Negative binomial distribution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on feature count matrix. The demultiplexing method 1 (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
+Cells are classified based on feature count matrix. Demultiplexing method 1 (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -299,10 +304,10 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
    :width: 500px
    :align: center
 
-Gaussian mixture
-^^^^^^^^^^^^^^^^^
+Gaussian mixture model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The demultiplexing method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics’ website`_ with some modifications. Use ``-p`` to set the probability threshold for demulitplexing (default, 0.9).
+The implementation of demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, 0.9).
 
 .. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -351,3 +356,5 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
    :alt: t-SNE embedding
    :width: 500px
    :align: center
+
+|

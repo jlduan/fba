@@ -303,7 +303,7 @@ Inspect feature count matrix.
 CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
 
-Cells are classified based on feature count matrix (CMOs abundance). The demultiplexing method 2 (set by ``-dm``) is implemented based on the method described on `10x Genomics' website`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
+Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 

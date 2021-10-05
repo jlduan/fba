@@ -251,7 +251,7 @@ Result summary.
 Demultiplexing
 --------------
 
-Cells are classified based on feature count matrix. The method 1 is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
+Cells are classified based on feature count matrix. Demultiplexing method 1 is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
