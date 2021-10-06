@@ -87,7 +87,7 @@ Cells are classified based on feature count matrix (CMOs abundance). Demultiplex
     2021-10-05 20:45:58,069 - fba.__main__ - INFO - Python version: 3.8
     2021-10-05 20:45:58,069 - fba.__main__ - INFO - Using demultiplex subcommand ...
     2021-10-05 20:46:17,903 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
-    2021-10-05 20:46:17,903 - fba.demultiplex - INFO - Output directory: demultiplexed_0.999
+    2021-10-05 20:46:17,903 - fba.demultiplex - INFO - Output directory: demultiplexed
     2021-10-05 20:46:17,903 - fba.demultiplex - INFO - Demultiplexing method: 2
     2021-10-05 20:46:17,903 - fba.demultiplex - INFO - UMI normalization method: clr
     2021-10-05 20:46:17,903 - fba.demultiplex - INFO - Visualization: On
