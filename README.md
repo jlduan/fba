@@ -57,6 +57,7 @@ $ conda install -c bioconda fba
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://fba.readthedocs.io/en/latest/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html)
 - CellPlex
     - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](https://fba.readthedocs.io/en/latest/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html)
+    - [30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs](https://fba.readthedocs.io/en/latest/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html)
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](https://fba.readthedocs.io/en/latest/tutorials/cell_hashing/PRJNA423077/tutorial.html)
 - Targeted transcript enrichment

@@ -19,6 +19,7 @@ Pseudo-bulk <pseudo-bulk/index>
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](./cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.rst)
 - CellPlex
     - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](./cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.rst)
+    - [30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs](cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.rst)
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](./cell_hashing/PRJNA423077/tutorial.rst)
 - Targeted transcript enrichment
