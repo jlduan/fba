@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="fba tutorial" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="tutorials/pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html" />
+  <meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here. Preparation: Fastq files and feature barcodes a..." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="fba tutorial" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" /><link rel="prev" title="Pseudo-bulk" href="../index.html" />
+
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
+        <title>fba tutorial - FBA</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">FBA</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cellplex/index.html">CellPlex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral blood mononuclear cells with 8 antibodies</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html">Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Pseudo-bulk</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="fba-tutorial">
+<span id="tutorial-pseudo-bulk-sc3-v3-nextgem-di-crispr-10k"></span><h1>fba tutorial<a class="headerlink" href="#fba-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</p>
+<p>The detailed description of this dataset can be found <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K">here</a>.</p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Fastq files and feature barcodes are prepared as described <a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k"><span class="std std-ref">here</span></a>.</p>
+</div>
+<div class="section" id="qc">
+<h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="threshold-one-mismatch">
+<h3>Threshold: one mismatch<a class="headerlink" href="#threshold-one-mismatch" title="Permalink to this headline">¶</a></h3>
+<p>In the <code class="docutils literal notranslate"><span class="pre">qc</span></code> subcommand, if <code class="docutils literal notranslate"><span class="pre">-1</span></code> (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.</p>
+<p>Use <code class="docutils literal notranslate"><span class="pre">-2</span></code> to specify read 2, and <code class="docutils literal notranslate"><span class="pre">-f</span></code> to specify feature barcodes. Search range on reads 2 can be controlled by <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>. In this example, only one mismatch is allowed for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze (<code class="docutils literal notranslate"><span class="pre">None</span></code> is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv <span class="se">\</span>
+    -r2_c <span class="m">31</span>,51 <span class="se">\</span>
+    -fb_m <span class="m">1</span> <span class="se">\</span>
+    -n None
+</pre></div>
+</div>
+<p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 52%"/>
+<col style="width: 18%"/>
+<col style="width: 30%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>feature barcode</p></td>
+<td><p>num_reads</p></td>
+<td><p>percentage</p></td>
+</tr>
+<tr class="row-even"><td><p>NON_TARGET-1_AACGTGCTGACGATGCGGGC</p></td>
+<td><p>59,310,228</p></td>
+<td><p>0.6979885931379053</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAB1A-2_GCCGGCGAACCAGGAAATAG</p></td>
+<td><p>25,662,834</p></td>
+<td><p>0.3020114068620947</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>Result summary.</p>
+<p>58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See <a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k"><span class="std std-ref">here</span></a> for more details.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - fba version: 0.0.7</span>
+<span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - Using qc subcommand ...</span>
+<span class="go">2021-02-17 16:12:35,394 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed</span>
+<span class="go">2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: "-w/--whitelist", "-cb_m/--cb_mismatches", "-r1_c/--read1_coordinate"</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 maximum number of N allowed: inf</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Number of read pairs to analyze: all</span>
+<span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Matching ...</span>
+<span class="go">2021-02-17 16:15:07,684 - fba.qc - INFO - Reads processed: 10,000,000</span>
+<span class="go">2021-02-17 16:17:39,083 - fba.qc - INFO - Reads processed: 20,000,000</span>
+<span class="go">2021-02-17 16:20:09,116 - fba.qc - INFO - Reads processed: 30,000,000</span>
+<span class="go">2021-02-17 16:22:38,981 - fba.qc - INFO - Reads processed: 40,000,000</span>
+<span class="go">2021-02-17 16:25:11,671 - fba.qc - INFO - Reads processed: 50,000,000</span>
+<span class="go">2021-02-17 16:27:44,790 - fba.qc - INFO - Reads processed: 60,000,000</span>
+<span class="go">2021-02-17 16:30:18,110 - fba.qc - INFO - Reads processed: 70,000,000</span>
+<span class="go">2021-02-17 16:32:51,391 - fba.qc - INFO - Reads processed: 80,000,000</span>
+<span class="go">2021-02-17 16:35:24,625 - fba.qc - INFO - Reads processed: 90,000,000</span>
+<span class="go">2021-02-17 16:37:57,678 - fba.qc - INFO - Reads processed: 100,000,000</span>
+<span class="go">2021-02-17 16:40:30,706 - fba.qc - INFO - Reads processed: 110,000,000</span>
+<span class="go">2021-02-17 16:43:03,867 - fba.qc - INFO - Reads processed: 120,000,000</span>
+<span class="go">2021-02-17 16:45:37,197 - fba.qc - INFO - Reads processed: 130,000,000</span>
+<span class="go">2021-02-17 16:48:10,511 - fba.qc - INFO - Reads processed: 140,000,000</span>
+<span class="go">2021-02-17 16:49:27,662 - fba.qc - INFO - Number of reads processed: 145,032,428</span>
+<span class="go">2021-02-17 16:49:27,663 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 84,973,062</span>
+<span class="go">2021-02-17 16:49:27,664 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv</span>
+<span class="go">2021-02-17 16:49:27,689 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</div>
+<div class="section" id="threshold-two-mismatches">
+<h3>Threshold: two mismatches<a class="headerlink" href="#threshold-two-mismatches" title="Permalink to this headline">¶</a></h3>
+<p>Let’s relax the threshold to allow 2 mismatches for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv <span class="se">\</span>
+    -r2_c <span class="m">31</span>,51 <span class="se">\</span>
+    -fb_m <span class="m">2</span> <span class="se">\</span>
+    -n None
+</pre></div>
+</div>
+<p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
+<div class="table-wrapper"><table class="docutils align-default">
+<colgroup>
+<col style="width: 52%"/>
+<col style="width: 18%"/>
+<col style="width: 30%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>feature barcode</p></td>
+<td><p>num_reads</p></td>
+<td><p>percentage</p></td>
+</tr>
+<tr class="row-even"><td><p>NON_TARGET-1_AACGTGCTGACGATGCGGGC</p></td>
+<td><p>66,334,740</p></td>
+<td><p>0.6613115326075217</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAB1A-2_GCCGGCGAACCAGGAAATAG</p></td>
+<td><p>33,973,113</p></td>
+<td><p>0.3386884673924782</p></td>
+</tr>
+</tbody>
+</table></div>
+<p>Result summary.</p>
+<p>69.16% (100,307,853 / 145,032,428) of reads have valid feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 16:12:00,407 - fba.__main__ - INFO - fba version: 0.0.7</span>
+<span class="go">2021-02-17 16:12:00,407 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Using qc subcommand ...</span>
+<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed</span>
+<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-w/--whitelist", "-cb_m/--cb_mismatches", "-r1_c/--read1_coordinate"</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 maximum number of N allowed: inf</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Number of read pairs to analyze: all</span>
+<span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Matching ...</span>
+<span class="go">2021-02-17 16:28:02,710 - fba.qc - INFO - Reads processed: 10,000,000</span>
+<span class="go">2021-02-17 16:44:07,554 - fba.qc - INFO - Reads processed: 20,000,000</span>
+<span class="go">2021-02-17 17:00:13,431 - fba.qc - INFO - Reads processed: 30,000,000</span>
+<span class="go">2021-02-17 17:16:17,034 - fba.qc - INFO - Reads processed: 40,000,000</span>
+<span class="go">2021-02-17 17:32:21,635 - fba.qc - INFO - Reads processed: 50,000,000</span>
+<span class="go">2021-02-17 17:48:26,948 - fba.qc - INFO - Reads processed: 60,000,000</span>
+<span class="go">2021-02-17 18:04:31,050 - fba.qc - INFO - Reads processed: 70,000,000</span>
+<span class="go">2021-02-17 18:20:34,413 - fba.qc - INFO - Reads processed: 80,000,000</span>
+<span class="go">2021-02-17 18:36:38,778 - fba.qc - INFO - Reads processed: 90,000,000</span>
+<span class="go">2021-02-17 18:52:44,033 - fba.qc - INFO - Reads processed: 100,000,000</span>
+<span class="go">2021-02-17 19:08:49,500 - fba.qc - INFO - Reads processed: 110,000,000</span>
+<span class="go">2021-02-17 19:24:56,356 - fba.qc - INFO - Reads processed: 120,000,000</span>
+<span class="go">2021-02-17 19:41:02,072 - fba.qc - INFO - Reads processed: 130,000,000</span>
+<span class="go">2021-02-17 19:57:09,967 - fba.qc - INFO - Reads processed: 140,000,000</span>
+<span class="go">2021-02-17 20:05:15,665 - fba.qc - INFO - Number of reads processed: 145,032,428</span>
+<span class="go">2021-02-17 20:05:15,666 - fba.qc - INFO - Number of reads w/ valid feature barcodes: 100,307,853</span>
+<span class="go">2021-02-17 20:05:15,667 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv</span>
+<span class="go">2021-02-17 20:05:15,701 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</div>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">fba tutorial</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Pseudo-bulk</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020-2021, Jialei Duan
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fba tutorial</a><ul>
+<li><a class="reference internal" href="#preparation">Preparation</a></li>
+<li><a class="reference internal" href="#qc">QC</a><ul>
+<li><a class="reference internal" href="#threshold-one-mismatch">Threshold: one mismatch</a></li>
+<li><a class="reference internal" href="#threshold-two-mismatches">Threshold: two mismatches</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>
