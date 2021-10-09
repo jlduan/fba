@@ -1,0 +1,502 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="fba tutorial" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" />
+  <meta property="og:description" content="Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed The detailed description of this dataset can be found here. Preparation: Download fastq files.$ wget https://cf.1..." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CellPlex" href="../../cellplex/index.html" /><link rel="prev" title="fba tutorial" href="../PRJNA393315/tutorial.html" />
+
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
+        <title>fba tutorial - FBA</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">FBA</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Cell surface protein labeling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../PRJNA393315/tutorial.html">CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cellplex/index.html">CellPlex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral blood mononuclear cells with 8 antibodies</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html">Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pseudo-bulk/index.html">Pseudo-bulk</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="fba-tutorial">
+<span id="tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k"></span><h1>fba tutorial<a class="headerlink" href="#fba-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</p>
+<p>The detailed description of this dataset can be found <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K">here</a>.</p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Download fastq files.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_fastqs.tar
+
+<span class="gp">$ </span>tar xvf SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_fastqs.tar
+</pre></div>
+</div>
+<p>Combine reads of different lanes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_L00?_R1_001.fastq.gz &gt; SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1.fastq.gz
+
+<span class="gp">$ </span>cat SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_L00?_R2_001.fastq.gz &gt; SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2.fastq.gz
+</pre></div>
+</div>
+<p>Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
+
+<span class="gp">$ </span>tar zxvf SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
+</pre></div>
+</div>
+<p>Inspect cell barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz <span class="p">|</span> head
+
+<span class="go">AAACCCAGTACCAGAG-1</span>
+<span class="go">AAACGCTTCGGTCTGG-1</span>
+<span class="go">AAACGCTTCGTTGCCT-1</span>
+<span class="go">AAAGAACAGGAACTCG-1</span>
+<span class="go">AAAGGATAGGTCGAGT-1</span>
+<span class="go">AAAGGGCCAAGACGGT-1</span>
+<span class="go">AAAGGGCCATCCTCAC-1</span>
+<span class="go">AAAGGTATCGTGGACC-1</span>
+<span class="go">AAAGTCCGTCGCGTTG-1</span>
+<span class="go">AAAGTCCTCCTTATCA-1</span>
+</pre></div>
+</div>
+<p>Prepare feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+</pre></div>
+</div>
+<p>Inspect feature barcode info.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+
+<span class="go">id,name,read,pattern,sequence,feature_type</span>
+<span class="go">CD3,CD3,R2,^NNNNNNNNNN(BC)NNNNNNNNN,CTCATTGTAACTCCT,Antibody Capture</span>
+<span class="go">CD4,CD4,R2,^NNNNNNNNNN(BC)NNNNNNNNN,TGTTCCCGCTCAACT,Antibody Capture</span>
+<span class="go">CD8a,CD8a,R2,^NNNNNNNNNN(BC)NNNNNNNNN,GCTGCGCTTTCCATT,Antibody Capture</span>
+<span class="go">CD11b,CD11b,R2,^NNNNNNNNNN(BC)NNNNNNNNN,GACAAGTGATCTGCA,Antibody Capture</span>
+<span class="go">CD14,CD14,R2,^NNNNNNNNNN(BC)NNNNNNNNN,TCTCAGACCTCCGTA,Antibody Capture</span>
+<span class="go">CD15,CD15,R2,^NNNNNNNNNN(BC)NNNNNNNNN,TCACCAGTACCTAGT,Antibody Capture</span>
+<span class="go">CD16,CD16,R2,^NNNNNNNNNN(BC)NNNNNNNNN,AAGTTCACTCTTTGC,Antibody Capture</span>
+<span class="go">CD19,CD19,R2,^NNNNNNNNNN(BC)NNNNNNNNN,CTGGGCAATTACTCG,Antibody Capture</span>
+<span class="go">CD20,CD20,R2,^NNNNNNNNNN(BC)NNNNNNNNN,TTCTGGGTCCCTAGA,Antibody Capture</span>
+</pre></div>
+</div>
+<p>Clean up.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wc -l SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
+
+<span class="go">33 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cut -d<span class="s1">','</span> -f1,5 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv <span class="p">|</span> tail -32 <span class="p">|</span> sed <span class="s1">'s/,/\t/g'</span> &gt; feature_barcode_ref.tsv
+
+<span class="gp">$ </span>head feature_barcode_ref.tsv
+
+<span class="go">CD3     CTCATTGTAACTCCT</span>
+<span class="go">CD4     TGTTCCCGCTCAACT</span>
+<span class="go">CD8a    GCTGCGCTTTCCATT</span>
+<span class="go">CD11b   GACAAGTGATCTGCA</span>
+<span class="go">CD14    TCTCAGACCTCCGTA</span>
+<span class="go">CD15    TCACCAGTACCTAGT</span>
+<span class="go">CD16    AAGTTCACTCTTTGC</span>
+<span class="go">CD19    CTGGGCAATTACTCG</span>
+<span class="go">CD20    TTCTGGGTCCCTAGA</span>
+<span class="go">CD25    TTTGTCCTGTACGCC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="qc">
+<h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
+<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -w filtered_feature_bc_matrix/barcodes.tsv.gz <span class="se">\</span>
+    -f SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.tsv <span class="se">\</span>
+    --output_directory qc <span class="se">\</span>
+    -n <span class="m">20000</span>
+</pre></div>
+</div>
+<p>This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content2.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content2.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content2.png" style="width: 350px;"/></a>
+<p>As for read 2, based on the per base content, it suggests that bases 0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled, which could mean that their sequences are random at library-level. While bases 34-55 and 84-89 are constant sequences and we can almost read the bases. Bases 10-24 are less random but also not constant. They are actually our feature barcodes (See the distribution of matched barcode positions on read 2).</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content2.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content2.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content2.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending2.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" style="width: 800px;"/></a>
+<p>The fragment structure in this feature barcoding library inferred from <code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (<a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called ‘Capture Sequence 1’ on beads.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
+<span class="go">GNAGGTTTCGTCGACACGGGTATGGCCA    GTAGGTTAGGTCGACA        0:16    3:0:0   GGAACGACGATCTCAGACCTCCGTAACGAACGTAGCTTTAAGGCCGGTCCTAGCAATGGCCATACCCGTGTCGACGAAACCTACCTGTCT      CD14_TCTCAGACCTCCGTA    10:25   0:0:0</span>
+<span class="go">TCGTGGGCAAGATTGAGTAAAAATTCAG    TCGTGGGCAAACTAGA        0:16    3:0:0   CAATCTACCGCTGGGCAATTACTCGCCCGATGTGGCTTTAAGGCCGGTCCTAGCAACTGAATTTTTACTCAATCTTGCCCACGACTGTCT      CD19_CTGGGCAATTACTCG    10:25   0:0:0</span>
+<span class="go">TCCGGGATCGTGGCTATGTGTTCGAGGG    no_match        NA      NA      TGGGTCAATTCTCATTGTAACTCCTTCCCTCAAAGCTTTAAGGCCGGTCCTAGCAACCCTCGAACACATAGCCACGATCCCGGACTGTCT      NA      NA      NA</span>
+<span class="go">GATTGGTGTGTCTCTCGGTGCCCAAAAT    no_match        NA      NA      TACACTGACAGCCGGACGACATTAAACGGAAGCCGCTTTAAGGCCGGTCCTAGCAAATTTTGGGCACCGAGAGACACACCAATCCTGTCT      NA      NA      NA</span>
+<span class="go">TGCTCGTAGTACAGGTAAGCGTGAAGCA    CATCGTCGTACAGGTG        2:17    2:0:1   GCCCACAACACTCCGAATCATGTTGACGGGGTTCGCTTTAAGGCCGGTCCTAGCAATGCTTCACGCTTACCTGTACTACGAGCACTGTCG      CD45RO_CTCCGAATCATGTTG  10:25   0:0:0</span>
+<span class="go">AGATGAAAGGGAGTAGGGTGCGGGTTAT    AGGGAGTAGGAGGGTG        7:22    2:0:1   TGCGTTTCTTCACCAGTACCTAGTCACACGTCAGCTTTAAGGCCGGCCCTAGCAAATAACCCGCACCCTACTCCCTTTCATCTCTGTCTC      CD15_TCACCAGTACCTAGT    9:24    0:0:0</span>
+<span class="go">CCTCCTCAGCTCTGCATATGAGCGAATT    no_match        NA      NA      AAGCAATGCTTCACCAGTACCTAGTCGTTCGTGTGCTTAAGGCCGGTCCTAGCAAAATTCGCTCATATGCAGAGCTGAGGAGGCTGTCTC      NA      NA      NA</span>
+<span class="go">TGATCTTAGAACACGTCAGGGTCCTGAA    TGATCTTTCAACACGT        0:16    2:0:0   GGGGGGGGGGGGGGGGAGGGGGCCGGAAAAGAACCCCGAGAGGCCAGCGCCAAACAAAAAAGAACAAAAAAGAGGAAAAAAAAAAAAAAA      no_match        NA      NA</span>
+<span class="go">GGGCTACAGGACGCTGGTTTCATTTTTT    CTGGTCTTCATTGTTC        13:28   2:0:1   CCTTAATCAACTCATTGTAACTCCTGTTCCCACAGCTTTAAGGCCGGTCCTAGCAAAAAAAATGAAACCAGCGTCCTGTAGCCCCTGTCT      CD3_CTCATTGTAACTCCT     10:25   0:0:0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="barcode-extraction">
+<h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
+<p>The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">10,25</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -w filtered_feature_bc_matrix/barcodes.tsv.gz <span class="se">\</span>
+    -f SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.tsv <span class="se">\</span>
+    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">10</span>,25 <span class="se">\</span>
+    -cb_m <span class="m">2</span> <span class="se">\</span>
+    -fb_m <span class="m">2</span>
+</pre></div>
+</div>
+<p>Preview of result.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">TCGTGGGCAAGATTGAgtaaaaattcag    TCGTGGGGTAGATTGA        2       caatctaccgCTGGGCAATTACTCGcccgatgtggctttaaggccggtcctagcaactgaatttttactcaatcttgcccacgactgtct    CD19_CTGGGCAATTACTCG     0</span>
+<span class="go">TGTCCACTCTAGGGTCcagaaatcgcag    TGTCCACAGTAGGGTC        2       gtggccgtgtTCAATCCTTCCGCTTcgtcgttctgctttaaggccggtcctagcaagctgcgatttctggaccctagagtggacactgtc    CD45RA_TCAATCCTTCCGCTT   0</span>
+<span class="go">TTTCGATAGTGTCAGAtttacttatggt    TTTCGATTCTGTCAGA        2       caaagtcctaTCTCAGACCTCCGTAaagcatgtggctttaaggccggtcctagcaaaccataagtaaatctgacactatcgaaactgtct    CD14_TCTCAGACCTCCGTA     0</span>
+<span class="go">ACCATTTCAGAGTAGCaaaaccgttggg    ACCATTTGTGAGTAGC        2       acacgtggcgTGTTCCCGCTCAACTgtgcttcaagctttaaggccggtcctagcaacccaacggttttgctactctgaaatggtctgtct    CD4_TGTTCCCGCTCAACT      0</span>
+<span class="go">CATGCGGAGCACAGCGctagttacaaac    CATGCGGTCCACAGCG        2       ctgagcaggaTCTCAGACCTCCGTAatgggttaagctttaaggccggtcctagcaagtttgtaactagcgctgtgctccgcatgctgtct    CD14_TCTCAGACCTCCGTA     0</span>
+<span class="go">TGCCGAGCAACGTAGGgcgtaattagcg    TGCCGAGGTACGTAGG        2       aggagacccgTCTCAGACCTCCGTAagtacccgagctttaaggccggtcctagcaacgctaattacgccctacgttgctcggcactgtct    CD14_TCTCAGACCTCCGTA     0</span>
+<span class="go">ATTCCATGTCTCTCGTcgtctaactccc    ATTCCATCACTCTCGT        2       atgcagagtgCTCATTGTAACTCCTccgtttgacgctttaaggccggtcctagcaagggagttagacgacgagagacatggaatctgtct    CD3_CTCATTGTAACTCCT      0</span>
+<span class="go">GGCAGTCGTAAGGTTAtgcaccacacga    GGCAGTCCAAAGGTTA        2       gcaacatggtTCTCAGACCTCCGTAgcatgttaggctttaaggccggtcctagcaatcgtgtggtgcataaccttacgactgccctgtct    CD14_TCTCAGACCTCCGTA     0</span>
+<span class="go">GATGGAGGTGAGCTAGaaatgccaagtt    GATGGAGCAGAGCTAG        2       acacaatgaaTGTTCCCGCTCAACTtaccggggtgctttaaggccggtcctagcaaaacttggcatttctagctcacctccatcctgtct    CD4_TGTTCCCGCTCAACT      0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>59.8% (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - fba version: 0.0.7</span>
+<span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Number of reference cell barcodes: 1,200</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Number of reference feature barcodes: 32</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Read 2 coordinates to search: [10, 25)</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 2</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2021-02-17 23:37:41,356 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2021-02-17 23:37:41,634 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2021-02-17 23:53:22,264 - fba.levenshtein - INFO - Number of read pairs processed: 7,704,799</span>
+<span class="go">2021-02-17 23:53:22,264 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,607,787</span>
+<span class="go">2021-02-17 23:53:22,279 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="matrix-generation">
+<h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
+<p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length. Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code>.</p>
+<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
+    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -o matrix_featurecount.csv.gz <span class="se">\</span>
+    -us <span class="m">16</span> <span class="se">\</span>
+    -ul <span class="m">12</span> <span class="se">\</span>
+    -um <span class="m">1</span> <span class="se">\</span>
+    -ud directional
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>69.8% (3,214,503 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,503 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - fba version: 0.0.7</span>
+<span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2021-02-17 23:53:36,024 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2021-02-17 23:53:36,027 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2021-02-17 23:53:36,027 - fba.count - INFO - UMI length: 12</span>
+<span class="go">2021-02-17 23:53:36,027 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2021-02-17 23:53:36,027 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2021-02-17 23:53:36,027 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2021-02-17 23:53:49,419 - fba.count - INFO - Number of lines processed: 4,607,787</span>
+<span class="go">2021-02-17 23:53:49,422 - fba.count - INFO - Number of cell barcodes detected: 1,199</span>
+<span class="go">2021-02-17 23:53:49,422 - fba.count - INFO - Number of features detected: 30</span>
+<span class="go">2021-02-17 23:55:18,907 - fba.count - INFO - Total UMIs after deduplication: 3,214,503</span>
+<span class="go">2021-02-17 23:55:18,910 - fba.count - INFO - Median number of UMIs per cell: 2,564.0</span>
+<span class="go">2021-02-17 23:55:18,944 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../cellplex/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">CellPlex</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../PRJNA393315/tutorial.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">fba tutorial</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020-2021, Jialei Duan
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fba tutorial</a><ul>
+<li><a class="reference internal" href="#preparation">Preparation</a></li>
+<li><a class="reference internal" href="#qc">QC</a></li>
+<li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a></li>
+<li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>

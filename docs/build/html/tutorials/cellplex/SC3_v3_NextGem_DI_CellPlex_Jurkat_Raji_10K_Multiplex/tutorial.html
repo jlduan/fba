@@ -1,0 +1,598 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark">
+  <meta property="og:title" content="fba tutorial" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" />
+  <meta property="og:description" content="Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs The detailed description of this dataset can be found here. Preparation: Download fastq files.$ wget https://s3-us-west-2.amazo..." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="fba tutorial" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html" /><link rel="prev" title="CellPlex" href="../index.html" />
+
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
+        <title>fba tutorial - FBA</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style></head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">FBA</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">CellPlex</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral blood mononuclear cells with 8 antibodies</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html">Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pseudo-bulk/index.html">Pseudo-bulk</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <div class="section" id="fba-tutorial">
+<span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex"></span><h1>fba tutorial<a class="headerlink" href="#fba-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</p>
+<p>The detailed description of this dataset can be found <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0">here</a>.</p>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Download fastq files.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
+
+<span class="gp">$ </span>tar xvf SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
+</pre></div>
+</div>
+<p>Combine reads of different lanes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R1_001.fastq.gz &gt; SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz
+
+<span class="gp">$ </span>cat SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R2_001.fastq.gz &gt; SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz
+</pre></div>
+</div>
+<p>Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library (determined by the number of transcriptomic UMIs captured per barcode).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv
+
+<span class="gp">$ </span>cut -d <span class="s1">','</span> -f4 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv <span class="p">|</span> sed <span class="s1">'s/-1//g'</span> &gt; cell_barcodes.txt
+</pre></div>
+</div>
+<p>Inspect cell barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head cell_barcodes.txt
+
+<span class="go">AAACCCAAGAGTGTGC</span>
+<span class="go">AAACCCAAGATGCTTC</span>
+<span class="go">AAACCCAAGGTACAGC</span>
+<span class="go">AAACCCAAGTAGCTCT</span>
+<span class="go">AAACCCACACGGATCC</span>
+<span class="go">AAACCCACAGACCCGT</span>
+<span class="go">AAACCCACATTCCTAT</span>
+<span class="go">AAACCCAGTACTCCGG</span>
+<span class="go">AAACCCATCATGCGGC</span>
+<span class="go">AAACCCATCGACGCTG</span>
+</pre></div>
+</div>
+<p>Prepare feature barcodes (cell multiplexing oligos, CMOs).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv
+
+<span class="gp">$ </span>cut -d<span class="s1">','</span> -f1,5 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv <span class="p">|</span> sed <span class="s1">'s/,/\t/g'</span> <span class="p">|</span> grep ^C &gt; feature_barcodes.txt
+</pre></div>
+</div>
+<p>Inspect feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes.tsv
+
+<span class="go">CMO301  ATGAGGAATTCCTGC</span>
+<span class="go">CMO302  CATGCCAATAGAGCG</span>
+<span class="go">CMO303  CCGTCGTCCAAGCAT</span>
+<span class="go">CMO304  AACGTTAATCACTCA</span>
+<span class="go">CMO305  CGCGATATGGTCGGA</span>
+<span class="go">CMO306  AAGATGAGGTCTGTG</span>
+<span class="go">CMO307  AAGCTCGTTGGAAGA</span>
+<span class="go">CMO308  CGGATTCCACATCAT</span>
+<span class="go">CMO309  GTTGATCTATAACAG</span>
+<span class="go">CMO310  GCAGGAGGTATCAAT</span>
+<span class="go">CMO311  GAATCGTGATTCTTC</span>
+<span class="go">CMO312  ACATGGTCAACGCTG</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="qc">
+<h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
+<p>Sample the first 100,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_coords</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_coords</span></code> to limit the search range.  Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
+    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes.tsv <span class="se">\</span>
+    --output_directory qc <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16
+</pre></div>
+</div>
+<p>This library was constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell Multiplexing and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content3.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content3.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content3.png" style="width: 350px;"/></a>
+<p>As for read 2, based on the per base content, it suggests that bases 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we can almost read the bases (<code class="docutils literal notranslate"><span class="pre">GCTCACCTATTAGCGGCTAAGG</span></code>). They are actually <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf">Capture Sequence 2</a>. The next 12 bases are UMIs, and followed by 16-base cell barcodes. Bases 37-54 are reverse complement to the read 1. The size of the CellPlex library is relatively small, read 2 has also sequenced through part of the Nextera Read 1 sequencing primer (constant, bases 55-79). Actually, Read 1 is not needed, read 2 has cell barcodes, UMIs and CMOs, all the info we needed for demultiplexing. Theoretically, we could utilize the cell barcodes and UMIs on both reads to account for PCR, sequencing errors to further improve demultiplexing accuracy.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content3.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content3.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content3.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<p>Most of the reads have the correct structure.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending3.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending3.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending3.png" style="width: 800px;"/></a>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
+<span class="go">AAGCGTTAGAGTCTTTggtatttttatt    AAGCGTTAGAAGCCTG        0:15    2:0:1   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAATAAAACTACCAAAGACTCTAACGCTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
+<span class="go">ATCTCTACAACCCACGctttattgttta    ATCTCTAGTACCCACG        0:16    2:0:0   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGTAAACAATAAAGCGTGGGTTGTAGAGATCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
+<span class="go">TGCTTCGAGCATGATGttctgagccggt    TGCTTCGAGATTGAGT        0:15    2:0:1   CATGCCAATAGAGCGGCTCACCTATTAGCGGCTAAGGACCGGCTCAGAACATCATGCTCGAAGCACTGTCTCTTATACACATCTGACGCT      CMO302_CATGCCAATAGAGCG     0:15    0:0:0</span>
+<span class="go">CGGGACTGTAGTATAGacctaattttcc    CGGGACTGTAAGCAAT        0:14    1:0:2   CATGCCAATAGAGCGGCTCACCTATTAGCGGCTAAGGGGAAAATTAGGTCTATACTACAGTCCCGCTGTCTCTTATACACATCTGACGCT      CMO302_CATGCCAATAGAGCG     0:15    0:0:0</span>
+<span class="go">TCACTCGCAATTTCGGaacatggacatc    TCACTCGCACCATTCC        0:14    1:0:2   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGGAAGTCCATGTTCCGAAATTGCGAGTGACTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
+<span class="go">AGTTAGCAGACGTAGTgccttaatttgg    AGTTAGCAGAGCATTA        0:14    1:0:2   CATGCCAATAGAGCGGCTCACCTATTAGCGGCTAAGGCCAAATTAAGGCACTACGTCTGCTAACTCTGTCTCTTATACACATCTGACGCT      CMO302_CATGCCAATAGAGCG     0:15    0:0:0</span>
+<span class="go">GTCCCATTCTAAACGTtgagtacgagcg    CATCCCATCCTAAACG        0:15    2:0:1   CATGCCAATAGAGCGGCTCACCTATTAGCGGCTAAGGCGCTCGTACTCAACGTTTAGAATGGGACCTGTCTCTTATACACATCTGACGCT      CMO302_CATGCCAATAGAGCG     0:15    0:0:0</span>
+<span class="go">CAGAGCCCAATAGGGCcaccctcttaac    CAGAGCCGTATAGGGC        0:16    2:0:0   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGGTTAAGAGGGTGGCCCTATTGGGCTCTGCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
+<span class="go">AACCCAATCAGTTGTAggatattcacct    AACCCAACAGCATTGT        0:15    0:1:2   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAGGTGAATATCCTACAACTGATTGGGTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="barcode-extraction">
+<h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
+<p>The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,15</span></code> on read 2. Two mismatches for cell and one mismatch for feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
+    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes.tsv <span class="se">\</span>
+    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">0</span>,15 <span class="se">\</span>
+    -cb_m <span class="m">2</span> <span class="se">\</span>
+    -fb_m <span class="m">1</span> <span class="se">\</span>
+    -cb_n <span class="m">3</span> <span class="se">\</span>
+    -fb_n <span class="m">3</span>
+</pre></div>
+</div>
+<p>Preview of result.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">AAGCGTTAGAGTCTTTggtatttttatt    AAGCGTTTCAGTCTTT        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggaataaaactaccaaagactctaacgcttctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">ATCTCTACAACCCACGctttattgttta    ATCTCTAGTACCCACG        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggtaaacaataaagcgtgggttgtagagatctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">TCACTCGCAATTTCGGaacatggacatc    TCACTCGCAGTTTCAG        2       ATGAGGAATTCCTGCgctcacctattagcggctaagggaagtccatgttccgaaattgcgagtgactgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">CAGAGCCCAATAGGGCcaccctcttaac    CAGAGCCGTATAGGGC        2       ATGAGGAATTCCTGCgctcacctattagcggctaagggttaagagggtggccctattgggctctgctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">TGAGGGACATGCCAATcattttgaattt    TGAGGGAGTTGCCAAT        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggaaattcaaaatgattggcatgtccctcactgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">CAGGGCTGTGCATGCCgcttaaacagca    CAGGGCTCAGCATGCC        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggtgctgtttaagcggcatgcacagccctgctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">TCGGGTGTCCGACATGactctagtacat    TCGGGTGAGCGACATG        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggatgtactagagtcatgtcggacacccgactgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">TCGAAGTGTCAAAGTAgtaaaaggtacc    TCGAAGTCACAAAGTA        2       ATGAGGAATTCCTGCgctcacctattagcggctaagggagaagtcccaatactttgacgctcacctattagcggctaaggggtacctttt      CMO301_ATGAGGAATTCCTGC  0</span>
+<span class="go">GTCATCCAGTGAGAGGtcagtgacacct    GTCATCCAGAGAGCGG        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggaggtgtcactgacctctcactggatgacctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>63.98% (138,246,914 out of 216,070,514) of total read pairs have valid cell and feature barcodes. Majority of the fragments in this library have the correct structure.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.13</span>
+<span class="go">2021-09-30 02:00:26,049 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-09-30 02:00:26,049 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-09-30 02:00:26,049 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Number of reference cell barcodes: 13,615</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Number of reference feature barcodes: 12</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 15)</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2021-09-30 02:00:26,075 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2021-09-30 02:00:29,258 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2021-09-30 02:16:48,398 - fba.levenshtein - INFO - Read pairs processed: 10,000,000</span>
+<span class="go">2021-09-30 02:33:07,679 - fba.levenshtein - INFO - Read pairs processed: 20,000,000</span>
+<span class="go">2021-09-30 02:49:32,978 - fba.levenshtein - INFO - Read pairs processed: 30,000,000</span>
+<span class="go">2021-09-30 03:05:53,492 - fba.levenshtein - INFO - Read pairs processed: 40,000,000</span>
+<span class="go">2021-09-30 03:22:08,512 - fba.levenshtein - INFO - Read pairs processed: 50,000,000</span>
+<span class="go">2021-09-30 03:38:20,583 - fba.levenshtein - INFO - Read pairs processed: 60,000,000</span>
+<span class="go">2021-09-30 03:54:33,108 - fba.levenshtein - INFO - Read pairs processed: 70,000,000</span>
+<span class="go">2021-09-30 04:10:45,824 - fba.levenshtein - INFO - Read pairs processed: 80,000,000</span>
+<span class="go">2021-09-30 04:26:57,385 - fba.levenshtein - INFO - Read pairs processed: 90,000,000</span>
+<span class="go">2021-09-30 04:43:13,387 - fba.levenshtein - INFO - Read pairs processed: 100,000,000</span>
+<span class="go">2021-09-30 04:59:37,730 - fba.levenshtein - INFO - Read pairs processed: 110,000,000</span>
+<span class="go">2021-09-30 05:15:57,226 - fba.levenshtein - INFO - Read pairs processed: 120,000,000</span>
+<span class="go">2021-09-30 05:32:16,897 - fba.levenshtein - INFO - Read pairs processed: 130,000,000</span>
+<span class="go">2021-09-30 05:48:34,670 - fba.levenshtein - INFO - Read pairs processed: 140,000,000</span>
+<span class="go">2021-09-30 06:04:55,040 - fba.levenshtein - INFO - Read pairs processed: 150,000,000</span>
+<span class="go">2021-09-30 06:21:12,282 - fba.levenshtein - INFO - Read pairs processed: 160,000,000</span>
+<span class="go">2021-09-30 06:37:28,322 - fba.levenshtein - INFO - Read pairs processed: 170,000,000</span>
+<span class="go">2021-09-30 06:53:47,355 - fba.levenshtein - INFO - Read pairs processed: 180,000,000</span>
+<span class="go">2021-09-30 07:10:10,017 - fba.levenshtein - INFO - Read pairs processed: 190,000,000</span>
+<span class="go">2021-09-30 07:26:29,370 - fba.levenshtein - INFO - Read pairs processed: 200,000,000</span>
+<span class="go">2021-09-30 07:42:51,320 - fba.levenshtein - INFO - Read pairs processed: 210,000,000</span>
+<span class="go">2021-09-30 07:52:47,851 - fba.levenshtein - INFO - Number of read pairs processed: 216,070,514</span>
+<span class="go">2021-09-30 07:52:47,851 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 138,246,914</span>
+<span class="go">2021-09-30 07:52:47,970 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="matrix-generation">
+<h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
+<p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length. Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code>.</p>
+<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
+    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -o matrix_featurecount.csv.gz <span class="se">\</span>
+    -us <span class="m">16</span> <span class="se">\</span>
+    -ul <span class="m">12</span> <span class="se">\</span>
+    -um <span class="m">1</span> <span class="se">\</span>
+    -ud directional
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>88.00% (121,661,177 out of 138,246,914) of read pairs with valid cell and feature barcodes are unique fragments. 56.31% (121,661,177 out of 216,070,514) of total sequenced read pairs contribute to the final matrix.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.13</span>
+<span class="go">2021-09-30 07:52:48,076 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-09-30 07:52:48,076 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-09-30 07:52:48,076 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2021-09-30 07:52:49,463 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2021-09-30 07:52:49,466 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2021-09-30 07:52:49,466 - fba.count - INFO - UMI length: 12</span>
+<span class="go">2021-09-30 07:52:49,467 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2021-09-30 07:52:49,467 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2021-09-30 07:52:49,467 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2021-09-30 07:58:54,696 - fba.count - INFO - Number of lines processed: 138,246,914</span>
+<span class="go">2021-09-30 07:58:54,707 - fba.count - INFO - Number of cell barcodes detected: 13,612</span>
+<span class="go">2021-09-30 07:58:54,707 - fba.count - INFO - Number of features detected: 12</span>
+<span class="go">2021-09-30 18:31:30,172 - fba.count - INFO - Total UMIs after deduplication: 121,661,177</span>
+<span class="go">2021-09-30 18:31:30,208 - fba.count - INFO - Median number of UMIs per cell: 7,663.5</span>
+<span class="go">2021-09-30 18:31:30,457 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="demultiplexing">
+<h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
+<p>Inspect feature count matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'matrix_featurecount.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">CMO301_ATGAGGAATTCCTGC</span>    <span class="mi">81595732</span>
+<span class="n">CMO302_CATGCCAATAGAGCG</span>    <span class="mi">39999656</span>
+<span class="n">CMO303_CCGTCGTCCAAGCAT</span>        <span class="mi">1719</span>
+<span class="n">CMO304_AACGTTAATCACTCA</span>         <span class="mi">973</span>
+<span class="n">CMO305_CGCGATATGGTCGGA</span>         <span class="mi">167</span>
+<span class="n">CMO306_AAGATGAGGTCTGTG</span>         <span class="mi">563</span>
+<span class="n">CMO307_AAGCTCGTTGGAAGA</span>         <span class="mi">757</span>
+<span class="n">CMO308_CGGATTCCACATCAT</span>       <span class="mi">57738</span>
+<span class="n">CMO309_GTTGATCTATAACAG</span>        <span class="mi">2767</span>
+<span class="n">CMO310_GCAGGAGGTATCAAT</span>         <span class="mi">236</span>
+<span class="n">CMO311_GAATCGTGATTCTTC</span>         <span class="mi">166</span>
+<span class="n">CMO312_ACATGGTCAACGCTG</span>         <span class="mi">703</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[[</span><span class="s1">'CMO301_ATGAGGAATTCCTGC'</span><span class="p">,</span> <span class="s1">'CMO302_CATGCCAATAGAGCG'</span><span class="p">],</span> <span class="p">:]</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="s1">'matrix_featurecount_filtered.csv.gz'</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">'infer'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. They are the CMOs acutally used in this experiment.</p>
+<p>Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method 2 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex">10x Genomics’ website</a>. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-nm</span></code> to set normalization method (default <code class="docutils literal notranslate"><span class="pre">clr</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots. Use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> to set visualization method.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount_filtered.csv.gz <span class="se">\</span>
+    --output_directory demultiplexed <span class="se">\</span>
+    -dm <span class="m">2</span> <span class="se">\</span>
+    -nm clr <span class="se">\</span>
+    -p <span class="m">0</span>.9 <span class="se">\</span>
+    -v <span class="se">\</span>
+    -vm umap
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.13</span>
+<span class="go">2021-10-01 23:07:30,925 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-10-01 23:07:30,925 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-10-01 23:07:30,925 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2021-10-01 23:07:45,559 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - Demultiplexing method: 2</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - Visualization method: umap</span>
+<span class="go">2021-10-01 23:07:45,560 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_filtered.csv.gz ...</span>
+<span class="go">2021-10-01 23:07:46,353 - fba.demultiplex - INFO - Number of cells: 13,612</span>
+<span class="go">2021-10-01 23:07:46,353 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2021-10-01 23:07:46,400 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)</span>
+<span class="go">2021-10-01 23:07:46,400 - fba.demultiplex - INFO - Features: CMO301 CMO302</span>
+<span class="go">2021-10-01 23:07:46,401 - fba.demultiplex - INFO - Total UMIs: 121,595,388 / 121,595,388</span>
+<span class="go">2021-10-01 23:07:46,423 - fba.demultiplex - INFO - Median number of UMIs per cell: 7,659.0 / 7,659.0</span>
+<span class="go">2021-10-01 23:07:46,423 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2021-10-01 23:07:47,160 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2021-10-01 23:07:52,192 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">UMAP(dens_frac=0.0, dens_lambda=0.0, n_neighbors=10, random_state=42,</span>
+<span class="go">    verbose=True)</span>
+<span class="go">Construct fuzzy simplicial set</span>
+<span class="go">Fri Oct  1 23:07:52 2021 Finding Nearest Neighbors</span>
+<span class="go">Fri Oct  1 23:07:52 2021 Building RP forest with 10 trees</span>
+<span class="go">Fri Oct  1 23:07:53 2021 NN descent for 14 iterations</span>
+<span class="go">        1  /  14</span>
+<span class="go">        2  /  14</span>
+<span class="go">        Stopping threshold met -- exiting after 2 iterations</span>
+<span class="go">Fri Oct  1 23:08:08 2021 Finished Nearest Neighbor Search</span>
+<span class="go">Fri Oct  1 23:08:10 2021 Construct embedding</span>
+<span class="go">        completed  0  /  200 epochs</span>
+<span class="go">        completed  20  /  200 epochs</span>
+<span class="go">        completed  40  /  200 epochs</span>
+<span class="go">        completed  60  /  200 epochs</span>
+<span class="go">        completed  80  /  200 epochs</span>
+<span class="go">        completed  100  /  200 epochs</span>
+<span class="go">        completed  120  /  200 epochs</span>
+<span class="go">        completed  140  /  200 epochs</span>
+<span class="go">        completed  160  /  200 epochs</span>
+<span class="go">        completed  180  /  200 epochs</span>
+<span class="go">Fri Oct  1 23:08:21 2021 Finished embedding</span>
+<span class="go">2021-10-01 23:08:22,267 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of relative abundance of features (CMOs) across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png" style="width: 700px;"/></a>
+<p>UMAP embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed1.png"><img alt="UMAP embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed1.png" style="width: 500px;"/></a>
+</div>
+</div>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">fba tutorial</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">CellPlex</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020-2021, Jialei Duan
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">fba tutorial</a><ul>
+<li><a class="reference internal" href="#preparation">Preparation</a></li>
+<li><a class="reference internal" href="#qc">QC</a></li>
+<li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a></li>
+<li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
+<li><a class="reference internal" href="#demultiplexing">Demultiplexing</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>
