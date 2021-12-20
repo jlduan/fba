@@ -1,7 +1,7 @@
 .. _tutorial_targeted_transcript_enrichment_Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature:
 
 
-fba tutorial
+3K Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 ============
 
 Dataset: Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel

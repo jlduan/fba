@@ -2,17 +2,18 @@
 <html class="no-js">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-  <meta property="og:title" content="fba tutorial" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta property="og:title" content="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" />
-  <meta property="og:description" content="Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs The detailed description of this dataset can be found here. Preparation: Download fastq files.$ wget https://s3-us-west-2.amazo..." />
-  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="fba tutorial" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html" /><link rel="prev" title="CellPlex" href="../index.html" />
+  <meta property="og:description" content="Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs The detailed description of this dataset can be found here. Preparation: Download fastq files. Combine reads of different lanes..." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html" /><link rel="prev" title="CellPlex" href="../index.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.2.0, furo 2021.09.22"/>
-        <title>fba tutorial - FBA</title>
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
+        <title>10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=150e365fa939648e89c22f6d7d13c72a1657915a" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
     
@@ -238,11 +239,11 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="fba-tutorial">
-<span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex"></span><h1>fba tutorial<a class="headerlink" href="#fba-tutorial" title="Permalink to this headline">¶</a></h1>
+          <section id="k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed">
+<span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex"></span><h1>10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed<a class="headerlink" href="#k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed" title="Permalink to this headline">¶</a></h1>
 <p>Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0">here</a>.</p>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
@@ -300,8 +301,8 @@
 <span class="go">CMO312  ACATGGTCAACGCTG</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
 <p>Sample the first 100,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_coords</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_coords</span></code> to limit the search range.  Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
@@ -337,8 +338,8 @@
 <span class="go">AACCCAATCAGTTGTAggatattcacct    AACCCAACAGCATTGT        0:15    0:1:2   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAGGTGAATATCCTACAACTGATTGGGTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
 <p>The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,15</span></code> on read 2. Two mismatches for cell and one mismatch for feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
@@ -411,8 +412,8 @@
 <span class="go">2021-09-30 07:52:47,970 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
 <p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length. Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code>.</p>
 <p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
@@ -445,8 +446,8 @@
 <span class="go">2021-09-30 18:31:30,457 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
 <p>Inspect feature count matrix.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -535,8 +536,8 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png" style="width: 700px;"/></a>
 <p>UMAP embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed1.png"><img alt="UMAP embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed1.png" style="width: 500px;"/></a>
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>
@@ -548,7 +549,7 @@
                 <div class="context">
                   <span>Next</span>
                 </div>
-                <div class="title">fba tutorial</div>
+                <div class="title">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed</div>
               </div>
               <svg><use href="#svg-arrow-right"></use></svg>
             </a>
@@ -583,7 +584,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">fba tutorial</a><ul>
+<li><a class="reference internal" href="#">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed</a><ul>
 <li><a class="reference internal" href="#preparation">Preparation</a></li>
 <li><a class="reference internal" href="#qc">QC</a></li>
 <li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a></li>

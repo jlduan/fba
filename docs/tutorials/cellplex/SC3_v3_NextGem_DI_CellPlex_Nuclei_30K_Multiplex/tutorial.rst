@@ -1,7 +1,7 @@
 .. _tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex:
 
 
-fba tutorial
+30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed
 ============
 
 Dataset: 30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs

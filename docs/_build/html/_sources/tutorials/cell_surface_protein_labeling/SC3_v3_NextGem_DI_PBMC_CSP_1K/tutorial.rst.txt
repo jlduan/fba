@@ -1,7 +1,7 @@
 .. _tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K:
 
 
-fba tutorial
+1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies
 ============
 
 Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed

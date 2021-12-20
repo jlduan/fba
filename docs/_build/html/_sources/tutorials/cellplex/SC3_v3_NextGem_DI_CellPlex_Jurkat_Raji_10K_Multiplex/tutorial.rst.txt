@@ -1,7 +1,7 @@
 .. _tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex:
 
 
-fba tutorial
+10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed
 ============
 
 Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs

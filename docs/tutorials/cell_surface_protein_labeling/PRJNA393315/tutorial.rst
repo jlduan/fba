@@ -1,7 +1,7 @@
 .. _tutorial_cell_surface_protein_labeling_PRJNA393315:
 
 
-fba tutorial
+CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies
 ============
 
 Dataset: CITE-Seq

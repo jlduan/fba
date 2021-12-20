@@ -102,6 +102,10 @@ html_show_sourcelink = False
 #
 html_show_sphinx = False
 
+# If true, "(C) Copyright ..." is shown in the HTML footer. Default is True.
+#
+html_show_copyright = True
+
 # Strip and configure input prompts for code cells
 # https://sphinx-copybutton.readthedocs.io/en/latest/
 copybutton_prompt_text = '$'

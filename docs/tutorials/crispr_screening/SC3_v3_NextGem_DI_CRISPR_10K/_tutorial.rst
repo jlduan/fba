@@ -1,7 +1,7 @@
 .. _tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K:
 
 
-10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA
+fba tutorial
 ============
 
 Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed
@@ -274,7 +274,6 @@ Result summary.
 Demultiplexing
 --------------
 
-
 Negative binomial distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -305,7 +304,6 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
    :width: 500px
    :align: center
 
-
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -323,7 +321,7 @@ The implementation of demultiplexing method 2 (set by ``-dm``) is inspired by th
 
 .. code-block:: console
 
-    2021-10-04 14:14:15,659 - fba.__main__ - INFO - fba version: 0.0.x
+    2021-10-04 14:14:15,659 - fba.__main__ - INFO - fba version: 0.0.13
     2021-10-04 14:14:15,659 - fba.__main__ - INFO - Initiating logging ...
     2021-10-04 14:14:15,659 - fba.__main__ - INFO - Python version: 3.8
     2021-10-04 14:14:15,659 - fba.__main__ - INFO - Using demultiplex subcommand ...
@@ -357,75 +355,6 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
 .. image:: Pyplot_embedding_cells_demultiplexed_gm.png
    :alt: t-SNE embedding
    :width: 500px
-   :align: center
-
-UMI distribution and model fitting threshold:
-
-.. image:: Pyplot_feature_umi_distribution_gm.png
-   :alt: UMI distribution
-   :width: 800px
-   :align: center
-
-
-Poisson-Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-The implementation of demultiplexing method 3 (set by ``-dm``) is inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the probability threshold for demulitplexing (default, 0.5).
-
-.. _`Replogle, M., et al. (2021)`: https://www.biorxiv.org/content/10.1101/2021.12.16.473013
-
-.. code-block:: console
-
-    $ fba demultiplex \
-        -i matrix_featurecount.csv.gz \
-        --output_directory demultiplexed \
-        -dm 3 \
-        -v
-
-.. code-block:: console
-
-    2021-12-20 00:13:17,443 - fba.__main__ - INFO - fba version: 0.0.x
-    2021-12-20 00:13:17,443 - fba.__main__ - INFO - Initiating logging ...
-    2021-12-20 00:13:17,443 - fba.__main__ - INFO - Python version: 3.9
-    2021-12-20 00:13:17,443 - fba.__main__ - INFO - Using demultiplex subcommand ...
-    2021-12-20 00:13:19,774 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Output directory: demultiplexed
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Demultiplexing method: 3
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - UMI normalization method: clr
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Visualization: On
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Visualization method: tsne
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Loading feature count matrix: raw/m2_2020-10-20/matrix_featurecount.csv.gz ...
-    2021-12-20 00:13:20,479 - fba.demultiplex - INFO - Number of cells: 11,758
-    2021-12-20 00:13:20,479 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
-    2021-12-20 00:13:20,497 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
-    2021-12-20 00:13:20,497 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
-    2021-12-20 00:13:20,497 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
-    2021-12-20 00:13:20,506 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
-    2021-12-20 00:13:20,506 - fba.demultiplex - INFO - Demultiplexing ...
-    2021-12-20 00:13:21,930 - fba.demultiplex - INFO - Generating heatmap ...
-    2021-12-20 00:13:23,070 - fba.demultiplex - INFO - Embedding ...
-    2021-12-20 00:13:41,271 - fba.__main__ - INFO - Done.
-
-
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
-
-.. image:: Pyplot_heatmap_cells_demultiplexed_pgm.png
-   :alt: Heatmap
-   :width: 700px
-   :align: center
-
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
-
-.. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
-   :alt: t-SNE embedding
-   :width: 500px
-   :align: center
-
-UMI distribution and model fitting threshold:
-
-.. image:: Pyplot_feature_umi_distribution_pgm.png
-   :alt: UMI distribution
-   :width: 800px
    :align: center
 
 |
