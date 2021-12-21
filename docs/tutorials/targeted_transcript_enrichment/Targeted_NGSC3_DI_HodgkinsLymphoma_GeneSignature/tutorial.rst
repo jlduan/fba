@@ -1,14 +1,14 @@
 .. _tutorial_targeted_transcript_enrichment_Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature:
 
 
-3K Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
+Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 ============
 
 Dataset: Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 
 The detailed description of this dataset can be found here_.
 
-.. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K
+.. _here: https://www.10xgenomics.com/resources/datasets/hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel-3-1-standard-4-0-0
 
 
 Preparation

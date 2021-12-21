@@ -8,6 +8,7 @@ CRISPR screening <crispr_screening/index>
 Cell surface protein labeling <cell_surface_protein_labeling/index>
 CellPlex <cellplex/index>
 Cell hashing <cell_hashing/index>
+MULTI-seq <multi-seq/index>
 Targeted transcript enrichment <targeted_transcript_enrichment/index>
 Pseudo-bulk <pseudo-bulk/index>
 ```
@@ -22,6 +23,8 @@ Pseudo-bulk <pseudo-bulk/index>
     - [30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs](cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.rst)
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](./cell_hashing/PRJNA423077/tutorial.rst)
+- MULTI-seq
+    - [15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices](./multi-seq/PRJNA531855/tutorial.rst)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](./targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.rst)
 - Pseudo-bulk
