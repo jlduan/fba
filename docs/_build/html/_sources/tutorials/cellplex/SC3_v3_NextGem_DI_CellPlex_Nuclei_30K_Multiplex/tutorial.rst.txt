@@ -30,7 +30,6 @@ Inspect feature count matrix.
     In [1]: import pandas as pd
 
     In [2]: m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
-    m.shape
 
     In [3]: m.shape
     Out[3]: (12, 59342)

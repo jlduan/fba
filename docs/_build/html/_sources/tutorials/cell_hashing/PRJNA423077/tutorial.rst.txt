@@ -1,7 +1,7 @@
 .. _tutorial_cell_hashing_PRJNA423077:
 
 
-20K Peripheral blood mononuclear cells with 8 antibodies
+Peripheral blood mononuclear cells with 8 antibodies
 ============
 
 Dataset: Cell hashing

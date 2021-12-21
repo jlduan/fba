@@ -1,0 +1,535 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta property="og:title" content="15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="tutorials/multi-seq/PRJNA531855/tutorial.html" />
+  <meta property="og:description" content="Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., M..." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Targeted transcript enrichment" href="../../targeted_transcript_enrichment/index.html" /><link rel="prev" title="MULTI-seq" href="../index.html" />
+
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
+        <title>15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices - FBA</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X0MEL2T23M');
+</script>
+
+</head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">FBA</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cellplex/index.html">CellPlex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral blood mononuclear cells with 8 antibodies</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">MULTI-seq</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html">Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pseudo-bulk/index.html">Pseudo-bulk</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices">
+<span id="tutorial-multi-seq-prjna531855"></span><h1>15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices<a class="headerlink" href="#k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices" title="Permalink to this headline">¶</a></h1>
+<p>Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</p>
+<p>McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</a>. Nat. Methods 16, 619–626.</p>
+<section id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Download pre-processed feature count matrix files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578">NCBI GEO</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE129nnn/GSE129578/suppl/GSE129578_processed_data_files.csv.tar.gz
+
+<span class="gp">$ </span>tar zxvf GSE129578_processed_data_files.csv.tar.gz
+
+<span class="gp">$ </span>ls
+
+<span class="go">GSE129578_processed_data_files.csv.tar.gz  PDX_MULTI_matrix.csv</span>
+<span class="go">HMEC_orig_MULTI_matrix.csv                 POC_MULTI_matrix.csv</span>
+<span class="go">HMEC_techrep_MULTI_matrix.csv              POC_nuc_MULTI_matrix.csv</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+<section id="k-human-embryonic-kidney-293-cells-hek293">
+<h2>15K human embryonic kidney 293 cells (HEK293)<a class="headerlink" href="#k-human-embryonic-kidney-293-cells-hek293" title="Permalink to this headline">¶</a></h2>
+<section id="pre-processing">
+<h3>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this headline">¶</a></h3>
+<p>Inspect feature count matrix.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head POC_MULTI_matrix.csv
+
+<span class="go">CellID,LaneID,Bar1,Bar2,Bar3,nUMI_Bar</span>
+<span class="go">AAACCTGAGAAGGTTT-1,LMO,1,35,0,36</span>
+<span class="go">AAACCTGAGATGTTAG-1,LMO,3,1,4,8</span>
+<span class="go">AAACCTGAGGAATGGA-1,LMO,257,0,0,257</span>
+<span class="go">AAACCTGAGGGATCTG-1,LMO,2,0,1,3</span>
+<span class="go">AAACCTGAGGTAAACT-1,LMO,98,0,0,98</span>
+<span class="go">AAACCTGAGTGTTAGA-1,LMO,87,0,0,87</span>
+<span class="go">AAACCTGCACACAGAG-1,LMO,114,1,2,117</span>
+<span class="go">AAACCTGCACAGCCCA-1,LMO,1,1,25,27</span>
+<span class="go">AAACCTGCATCCAACA-1,LMO,4,8,0,12</span>
+</pre></div>
+</div>
+<p>Pre-process feature count matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="o">=</span><span class="s1">'POC_MULTI_matrix.csv'</span><span class="p">,</span>
+                        <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span>
+                    <span class="n">Bar1</span>  <span class="n">Bar2</span>  <span class="n">Bar3</span>  <span class="n">nUMI_Bar</span>
+<span class="n">CellID</span>
+<span class="n">AAACCTGAGATGTTAG</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">3</span>     <span class="mi">1</span>     <span class="mi">4</span>         <span class="mi">8</span>
+<span class="n">AAACCTGAGGAATGGA</span><span class="o">-</span><span class="mi">1</span>   <span class="mi">257</span>     <span class="mi">0</span>     <span class="mi">0</span>       <span class="mi">257</span>
+<span class="n">AAACCTGAGGGATCTG</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">2</span>     <span class="mi">0</span>     <span class="mi">1</span>         <span class="mi">3</span>
+<span class="n">AAACCTGAGGTAAACT</span><span class="o">-</span><span class="mi">1</span>    <span class="mi">98</span>     <span class="mi">0</span>     <span class="mi">0</span>        <span class="mi">98</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'LaneID'</span><span class="p">,</span> <span class="s1">'nUMI_Bar'</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="s1">'matrix_featurecount_POC_MULTI.csv.gz'</span><span class="p">,</span>
+                 <span class="n">compression</span><span class="o">=</span><span class="s1">'infer'</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span>
+<span class="n">CellID</span>
+<span class="n">AAACCTGAGAAGGTTT</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">36</span>
+<span class="n">AAACCTGAGATGTTAG</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">8</span>
+<span class="n">AAACCTGAGGAATGGA</span><span class="o">-</span><span class="mi">1</span>    <span class="mi">257</span>
+<span class="n">AAACCTGAGGGATCTG</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">3</span>
+<span class="n">AAACCTGAGGTAAACT</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">98</span>
+                    <span class="o">...</span>
+<span class="n">TTTGTCACAAGCCTAT</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">0</span>
+<span class="n">TTTGTCAGTATAGTAG</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">0</span>
+<span class="n">TTTGTCAGTCTGATCA</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">0</span>
+<span class="n">TTTGTCAGTGCGCTTG</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">0</span>
+<span class="n">TTTGTCAGTGGTCCGT</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">0</span>
+<span class="n">Length</span><span class="p">:</span> <span class="mi">15482</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="nb">object</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="mf">20.0</span>
+</pre></div>
+</div>
+</section>
+<section id="demultiplexing">
+<h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h3>
+<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm <span class="m">4</span>
+
+<span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2021-12-20 14:54:45,249 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - Demultiplexing method: 4</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2021-12-20 14:54:47,474 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_POC_MULTI.csv.gz ...</span>
+<span class="go">2021-12-20 14:54:48,677 - fba.demultiplex - INFO - Number of cells: 15,482</span>
+<span class="go">2021-12-20 14:54:48,677 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2021-12-20 14:54:48,701 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)</span>
+<span class="go">2021-12-20 14:54:48,701 - fba.demultiplex - INFO - Features: Bar1 Bar2 Bar3</span>
+<span class="go">2021-12-20 14:54:48,701 - fba.demultiplex - INFO - Total UMIs: 705,913 / 705,913</span>
+<span class="go">2021-12-20 14:54:48,713 - fba.demultiplex - INFO - Median number of UMIs per cell: 20.0 / 20.0</span>
+<span class="go">2021-12-20 14:54:48,713 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2021-12-20 14:54:52,347 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2021-12-20 14:54:54,168 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2021-12-20 14:55:12,277 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png" style="width: 700px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+<section id="k-primary-human-mammary-epithelial-cells-hmecs">
+<h2>40K primary human mammary epithelial cells (HMECs)<a class="headerlink" href="#k-primary-human-mammary-epithelial-cells-hmecs" title="Permalink to this headline">¶</a></h2>
+<section id="id1">
+<h3>Pre-processing<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Inspect feature count matrix.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head HMEC_orig_MULTI_matrix.csv
+
+<span class="go">CellID,Bar1,Bar2,Bar3,Bar4,Bar5,Bar6,Bar7,Bar8,Bar9,Bar10,Bar11,Bar13,Bar15,Bar18,Bar20,Bar22,Bar23,Bar24,Bar25,Bar27,Bar28,Bar29,Bar31,Bar32,Bar33,Bar34,Bar35,Bar36,Bar37,Bar39,Bar40,Bar41,Bar42,Bar43,Bar44,Bar45,Bar46,Bar47,Bar48,Bar49,Bar51,Bar53,Bar54,Bar55,Bar58,Bar59,Bar60,Bar61,Bar63,Bar65,Bar66,Bar67,Bar69,Bar70,Bar71,Bar72,Bar73,Bar75,Bar76,Bar77,Bar78,Bar80,Bar81,Bar82,Bar83,Bar84,Bar85,Bar88,Bar89,Bar90,Bar91,Bar92,Bar93,Bar94,Bar95,Bar96,nUMI_Bar</span>
+<span class="go">AAACCTGAGAAACGAG-1,1,3,5,23,1,3,0,1,6,11,4,4655,7,2,1,3,6,4,0,1,4,4,0,2,3,3,2,0,2,6,4,3,1,0,2,3,5,5,4,0,3,2,1,0,0,2,1,1,1,0,2,0,7,7,2,2,3,2,15,35,0,0,3,9,4,1,3,3,1,1,0,0,2,0,2,0,4907</span>
+<span class="go">AAACCTGAGAATGTGT-1,1,1,2,12,3,4,0,0,6,6,7,2,5,2,0,4,198,2,4,9,11,6,0,1,2,4,2,0,1,0,4,0,0,0,0,2,6,0,2,1,8,2,0,0,0,0,0,1,0,89,14,0,2,41,1,2,2,3,6,3,4,0,3,3,1,1,0,3,0,0,1,0,1,8,1,2,539</span>
+<span class="go">AAACCTGAGACCCACC-1,0,0,4,6,2,2,8,0,2,5,1,0,6,1,0,4,492,2,0,1,2,3,1,1,2,0,3,0,1,0,2,2,0,1,1,1,3,2,1,0,1,1,0,0,0,2,0,2,0,0,1,0,0,0,1,2,0,0,1,1,0,0,2,3,0,1,0,0,76,0,1,1,0,1,3,3,671</span>
+<span class="go">AAACCTGAGGAACTGC-1,1,0,3,7,4,5,2,0,5,5,5,1,2,1,2,2550,3,4,0,4,5,62,1,4,6,2,4,1,2,0,6,37,8,0,2,1,34,2,1,0,3,1,0,0,0,1,1,0,2,4,3,0,3,0,5,0,3,12,4,3,3,0,4,5,4,0,2,1,2,11,1,0,3,0,2,0,2866</span>
+<span class="go">AAACCTGCAACTGGCC-1,0,1,3,3,4,5,0,1,1,11,4,1,6,1,3,25,8,1,1,8,6,9,2,6,2,3,2,1,1,4,3,1,4,1,6,1,29,4,9,0,7,21,1,0,0,2,1,1,3,1,1,2,2,5,5,26,6,3,13,15,4,2,3,4,18,1,0,2,1,3,0,1,4,20,1,0,372</span>
+<span class="go">AAACCTGCAGATTGCT-1,1,0,2,5,2,4,1,1,8,6,4,0,4,0,1,7,2,4,0,2,1,8,0,0,15,3,2,4,1,2,3,3,1,2,0,3,3,14,3,0,2,3,0,0,0,0,2,515,0,2,2,0,1,1,2,2,3,3,5,0,1,2,1,3,11,0,3,3,0,0,0,1,1,0,4,3,715</span>
+<span class="go">AAACCTGCAGGGCATA-1,0,4,11,10,3,4,4,2,4,23,4,2,11,3,1,17,6,4,8,7,6,16,2,3,23,4,6,5,3,8,4,4,5,2,10,7,29,3,3,0,4,2,3,0,0,1,0,7,0,3,2,2,1,6,6,0,0,9,12,7,2398,3,6,6,9,6,1,8,9,4,1,758,4,8,7,0,3570</span>
+<span class="go">AAACCTGCATACGCCG-1,0,2,2,11,1,2,1,0,6,7,1,0,3,1655,1,3,1,3,2,10,7,5,0,0,1,1,2,0,1,1,4,1,10,0,0,2,4,2,0,0,0,0,2,1,1,1,1,0,0,5,0,2,4,0,7,1,4,1,4,2,3,2,1,2,3,1,2,6,2,2,0,1,1,59,3,0,1910</span>
+<span class="go">AAACCTGCATCACAAC-1,0,1,10,4,1,7,0,0,3,5,0,1,2,1,207,10,5,2,3,3,8,3,1,1,3,1,4,2,4,0,1,1,5,0,1,0,5,3,12,0,3,0,1,1,2,1,1,3,2,2,0,0,0,1,0,1,2,3,6,2,4,0,1,6,2,1,3,1,4,0,1,1,6,4,2,0,390</span>
+</pre></div>
+</div>
+<p>Pre-process feature count matrix.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filepath_or_buffer</span><span class="o">=</span><span class="s1">'HMEC_orig_MULTI_matrix.csv'</span><span class="p">,</span>
+                        <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="o">.</span><span class="n">drop</span><span class="p">([</span><span class="s1">'nUMI_Bar'</span><span class="p">])</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="s1">'matrix_featurecount_HMEC_MULTI.csv.gz'</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s1">'infer'</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span>
+<span class="n">CellID</span>
+<span class="n">AAACCTGAGAAACGAG</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">4905</span>
+<span class="n">AAACCTGAGAATGTGT</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">512</span>
+<span class="n">AAACCTGAGACCCACC</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">665</span>
+<span class="n">AAACCTGAGGAACTGC</span><span class="o">-</span><span class="mi">1</span>     <span class="mi">2865</span>
+<span class="n">AAACCTGCAACTGGCC</span><span class="o">-</span><span class="mi">1</span>      <span class="mi">360</span>
+                    <span class="o">...</span>
+<span class="n">TTTGTCATCGAATGGG</span><span class="o">-</span><span class="mi">3</span>     <span class="mi">3436</span>
+<span class="n">TTTGTCATCGGAGCAA</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">662</span>
+<span class="n">TTTGTCATCGGATGTT</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">152</span>
+<span class="n">TTTGTCATCTGATTCT</span><span class="o">-</span><span class="mi">3</span>    <span class="mi">27223</span>
+<span class="n">TTTGTCATCTGCCAGG</span><span class="o">-</span><span class="mi">3</span>      <span class="mi">256</span>
+<span class="n">Length</span><span class="p">:</span> <span class="mi">40009</span><span class="p">,</span> <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="mf">1241.0</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">8</span><span class="p">]:</span> <span class="p">(</span><span class="mi">76</span><span class="p">,</span> <span class="mi">40009</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Demultiplexing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm <span class="m">4</span>
+
+<span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - Demultiplexing method: 4</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2021-12-20 16:31:15,503 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_HMEC_MULTI.csv.gz ...</span>
+<span class="go">2021-12-20 16:31:23,363 - fba.demultiplex - INFO - Number of cells: 40,009</span>
+<span class="go">2021-12-20 16:31:23,363 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2021-12-20 16:31:23,430 - fba.demultiplex - INFO - Number of features: 76 / 76 (after filtering / original in the matrix)</span>
+<span class="go">2021-12-20 16:31:23,430 - fba.demultiplex - INFO - Features: Bar1 Bar2 Bar3 Bar4 Bar5 Bar6 Bar7 Bar8 Bar9 Bar10 Bar11 Bar13 Bar15 Bar18 Bar20 Bar22 Bar23 Bar24 Bar25 Bar27 Bar28 Bar29 Bar31 Bar32 Bar33 Bar34 Bar35 Bar36 Bar37 Bar39 Bar40 Bar41 Bar42 Bar43 Bar44 Bar45 Bar46 Bar47 Bar48 Bar49 Bar51 Bar53 Bar54 Bar55 Bar58 Bar59 Bar60 Bar61 Bar63 Bar65 Bar66 Bar67 Bar69 Bar70 Bar71 Bar72 Bar73 Bar75 Bar76 Bar77 Bar78 Bar80 Bar81 Bar82 Bar83 Bar84 Bar85 Bar88 Bar89 Bar90 Bar91 Bar92 Bar93 Bar94 Bar95 Bar96</span>
+<span class="go">2021-12-20 16:31:23,432 - fba.demultiplex - INFO - Total UMIs: 154,135,306 / 154,135,306</span>
+<span class="go">2021-12-20 16:31:23,462 - fba.demultiplex - INFO - Median number of UMIs per cell: 1,241.0 / 1,241.0</span>
+<span class="go">2021-12-20 16:31:23,462 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2021-12-20 16:33:51,278 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2021-12-20 16:35:49,956 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2021-12-20 16:36:58,791 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png" style="width: 700px;"/></a>
+<p>t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of Fig. 2a in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png" style="width: 500px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../targeted_transcript_enrichment/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Targeted transcript enrichment</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">MULTI-seq</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020-2021, Jialei Duan
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices</a><ul>
+<li><a class="reference internal" href="#preparation">Preparation</a></li>
+<li><a class="reference internal" href="#k-human-embryonic-kidney-293-cells-hek293">15K human embryonic kidney 293 cells (HEK293)</a><ul>
+<li><a class="reference internal" href="#pre-processing">Pre-processing</a></li>
+<li><a class="reference internal" href="#demultiplexing">Demultiplexing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#k-primary-human-mammary-epithelial-cells-hmecs">40K primary human mammary epithelial cells (HMECs)</a><ul>
+<li><a class="reference internal" href="#id1">Pre-processing</a></li>
+<li><a class="reference internal" href="#id2">Demultiplexing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>
