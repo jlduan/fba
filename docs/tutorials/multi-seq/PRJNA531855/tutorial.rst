@@ -1,6 +1,6 @@
 .. _tutorial_multi-seq_PRJNA531855:
 
-15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices
+15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices
 ============
 
 Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices
@@ -32,7 +32,7 @@ Download pre-processed feature count matrix files from `NCBI GEO`_.
 
 |
 
-15K human embryonic kidney 293 cells (HEK293)
+15k human embryonic kidney 293 cells (HEK293)
 --------------------------------------------
 
 Pre-processing
@@ -143,7 +143,7 @@ Heatmap of relative abundance of features across all cells. Each column represen
 
 |
 
-40K primary human mammary epithelial cells (HMECs)
+40k primary human mammary epithelial cells (HMECs)
 --------------------------------------------
 
 Pre-processing
