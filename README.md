@@ -60,6 +60,8 @@ $ conda install -c bioconda fba
     - [30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs](https://jlduan.github.io/fba/_build/html/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html)
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_hashing/PRJNA423077/tutorial.html)
+- MULTI-seq
+    - [15K HEK293 and 40K HMECs multiplexed by lipid and cholesterol-tagged indices](https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://jlduan.github.io/fba/_build/html/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html)
 - Pseudo-bulk
