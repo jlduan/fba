@@ -4,14 +4,14 @@
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-  <meta property="og:title" content="15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices" />
+  <meta property="og:title" content="15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="tutorials/multi-seq/PRJNA531855/tutorial.html" />
   <meta property="og:description" content="Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., M..." />
   <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Targeted transcript enrichment" href="../../targeted_transcript_enrichment/index.html" /><link rel="prev" title="MULTI-seq" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
-        <title>15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices - FBA</title>
+        <title>15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
@@ -198,7 +198,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">MULTI-seq</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -244,7 +244,7 @@
         </div>
         <article role="main">
           <section id="k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices">
-<span id="tutorial-multi-seq-prjna531855"></span><h1>15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices<a class="headerlink" href="#k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices" title="Permalink to this headline">¶</a></h1>
+<span id="tutorial-multi-seq-prjna531855"></span><h1>15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices<a class="headerlink" href="#k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices" title="Permalink to this headline">¶</a></h1>
 <p>Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</p>
 <p>McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</a>. Nat. Methods 16, 619–626.</p>
 <section id="preparation">
@@ -330,7 +330,7 @@
 <section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h3>
 <p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm <span class="m">4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - Initiating logging ...</span>
@@ -420,7 +420,7 @@
 <section id="id2">
 <h3>Demultiplexing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm <span class="m">4</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - Initiating logging ...</span>
@@ -501,7 +501,7 @@
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices</a><ul>
+<li><a class="reference internal" href="#">15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices</a><ul>
 <li><a class="reference internal" href="#preparation">Preparation</a></li>
 <li><a class="reference internal" href="#k-human-embryonic-kidney-293-cells-hek293">15k human embryonic kidney 293 cells (HEK293)</a><ul>
 <li><a class="reference internal" href="#pre-processing">Pre-processing</a></li>

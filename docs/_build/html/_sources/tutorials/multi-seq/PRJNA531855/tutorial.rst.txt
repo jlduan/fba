@@ -1,7 +1,7 @@
 .. _tutorial_multi-seq_PRJNA531855:
 
-15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices
-============
+15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices
+=============================================================================
 
 Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices
 
@@ -33,10 +33,10 @@ Download pre-processed feature count matrix files from `NCBI GEO`_.
 |
 
 15k human embryonic kidney 293 cells (HEK293)
---------------------------------------------
+---------------------------------------------
 
 Pre-processing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 Inspect feature count matrix.
 
@@ -100,7 +100,7 @@ Pre-process feature count matrix.
     Out[8]: 20.0
 
 Demultiplexing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to enable generating visualization plots.
 
@@ -109,7 +109,7 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
 
 .. code-block:: console
 
-    $ fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm 4
+    $ fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm 4 -v
 
     2021-12-20 14:54:45,248 - fba.__main__ - INFO - fba version: 0.0.x
     2021-12-20 14:54:45,248 - fba.__main__ - INFO - Initiating logging ...
@@ -144,10 +144,10 @@ Heatmap of relative abundance of features across all cells. Each column represen
 |
 
 40k primary human mammary epithelial cells (HMECs)
---------------------------------------------
+--------------------------------------------------
 
 Pre-processing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 Inspect feature count matrix.
 
@@ -205,7 +205,7 @@ Pre-process feature count matrix.
     Out[8]: (76, 40009)
 
 Demultiplexing
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 
 Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to enable generating visualization plots.
 
@@ -214,7 +214,7 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
 
 .. code-block:: console
 
-    $ fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm 4
+    $ fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm 4 -v
 
     2021-12-20 16:31:12,889 - fba.__main__ - INFO - fba version: 0.0.x
     2021-12-20 16:31:12,889 - fba.__main__ - INFO - Initiating logging ...

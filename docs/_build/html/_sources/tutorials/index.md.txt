@@ -24,7 +24,7 @@ Pseudo-bulk <pseudo-bulk/index>
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](./cell_hashing/PRJNA423077/tutorial.rst)
 - MULTI-seq
-    - [15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices](./multi-seq/PRJNA531855/tutorial.rst)
+    - [15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices](./multi-seq/PRJNA531855/tutorial.rst)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](./targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.rst)
 - Pseudo-bulk
