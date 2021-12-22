@@ -24,6 +24,11 @@ preferred-citation:
       given-names: Gary
   type: article
   title: "FBA: feature barcoding analysis for single cell RNA-Seq"
+  volume: 37
+  issue: 22
+  issue-date: 2021-11-15
+  start: 4266
+  end: 4268
   year: 2021
   journal: Bioinformatics
   doi: 10.1093/bioinformatics/btab375

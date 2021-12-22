@@ -61,7 +61,7 @@ $ conda install -c bioconda fba
 - Cell hashing
     - [Peripheral blood mononuclear cells with 8 antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_hashing/PRJNA423077/tutorial.html)
 - MULTI-seq
-    - [15k HEK293 and 40k HMECs multiplexed by lipid and cholesterol-tagged indices](https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html)
+    - [15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices](https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://jlduan.github.io/fba/_build/html/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html)
 - Pseudo-bulk
