@@ -394,7 +394,7 @@ The implementation of demultiplexing method 3 (set by ``-dm``) is inspired by `R
     2021-12-20 00:13:19,774 - fba.demultiplex - INFO - UMI normalization method: clr
     2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Visualization: On
     2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Visualization method: tsne
-    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Loading feature count matrix: raw/m2_2020-10-20/matrix_featurecount.csv.gz ...
+    2021-12-20 00:13:19,774 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
     2021-12-20 00:13:20,479 - fba.demultiplex - INFO - Number of cells: 11,758
     2021-12-20 00:13:20,479 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
     2021-12-20 00:13:20,497 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
@@ -424,6 +424,68 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
 UMI distribution and model fitting threshold:
 
 .. image:: Pyplot_feature_umi_distribution_pgm.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+
+Kernel density estimation
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to enable generating visualization plots.
+
+.. _`McGinnis, C., et al. (2019)`: https://doi.org/10.1038/s41592-019-0433-8
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 4 \
+        -v
+
+.. code-block:: console
+
+    2021-12-26 18:11:16,685 - fba.__main__ - INFO - fba version: 0.0.x
+    2021-12-26 18:11:16,685 - fba.__main__ - INFO - Initiating logging ...
+    2021-12-26 18:11:16,686 - fba.__main__ - INFO - Python version: 3.9
+    2021-12-26 18:11:16,686 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2021-12-26 18:11:19,633 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - Demultiplexing method: 4
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - UMI normalization method: clr
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - Visualization: On
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - Visualization method: tsne
+    2021-12-26 18:11:19,633 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2021-12-26 18:11:19,745 - fba.demultiplex - INFO - Number of cells: 11,758
+    2021-12-26 18:11:19,745 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2021-12-26 18:11:19,762 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2021-12-26 18:11:19,762 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
+    2021-12-26 18:11:19,762 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
+    2021-12-26 18:11:19,771 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
+    2021-12-26 18:11:19,771 - fba.demultiplex - INFO - Demultiplexing ...
+    2021-12-26 18:11:22,049 - fba.demultiplex - INFO - Quantile cutoff: 18
+    2021-12-26 18:11:23,703 - fba.demultiplex - INFO - Generating heatmap ...
+    2021-12-26 18:11:24,911 - fba.demultiplex - INFO - Embedding ...
+    2021-12-26 18:11:44,219 - fba.__main__ - INFO - Done.
+
+
+Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_kde.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_kde.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and model fitting threshold:
+
+.. image:: Pyplot_feature_umi_distribution_kde.png
    :alt: UMI distribution
    :width: 800px
    :align: center
