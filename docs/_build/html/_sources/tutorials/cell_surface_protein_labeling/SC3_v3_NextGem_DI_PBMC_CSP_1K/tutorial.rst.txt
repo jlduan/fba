@@ -58,13 +58,11 @@ Inspect cell barcodes.
     AAAGTCCGTCGCGTTG-1
     AAAGTCCTCCTTATCA-1
 
-
 Prepare feature barcodes.
 
 .. code-block:: console
 
     $ wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
-
 
 Inspect feature barcode info.
 
@@ -91,7 +89,6 @@ Clean up.
     $ wc -l SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
 
     33 SC3_v3_NextGem_DI_PBMC_CSP_1K_feature_ref.csv
-
 
 .. code-block:: console
 
@@ -135,7 +132,6 @@ This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kits
 
 As for read 2, based on the per base content, it suggests that bases 0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled, which could mean that their sequences are random at library-level. While bases 34-55 and 84-89 are constant sequences and we can almost read the bases. Bases 10-24 are less random but also not constant. They are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
 
-
 .. image:: Pyplot_read2_per_base_seq_content.png
    :width: 800px
    :align: center
@@ -146,11 +142,9 @@ As for read 2, based on the per base content, it suggests that bases 0-9, 25-33,
    :width: 800px
    :align: center
 
-
-The fragment structure in this feature barcoding library inferred from ``qc`` results matches the design (`Table 1`_. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called 'Capture Sequence 1' on beads.
+The fragment structure in this feature barcoding library inferred from ``qc`` results matches the design (Page 3, `Table 1`_. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called 'Capture Sequence 1' on beads.
 
 .. _`Table 1`: https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf
-
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
@@ -188,7 +182,6 @@ The lengths of cell and feature barcodes are all identical (16 and 15, respectiv
         -cb_m 2 \
         -fb_m 2
 
-
 Preview of result.
 
 .. code-block:: console
@@ -205,7 +198,6 @@ Preview of result.
     ATTCCATGTCTCTCGTcgtctaactccc    ATTCCATCACTCTCGT        2       atgcagagtgCTCATTGTAACTCCTccgtttgacgctttaaggccggtcctagcaagggagttagacgacgagagacatggaatctgtct    CD3_CTCATTGTAACTCCT      0
     GGCAGTCGTAAGGTTAtgcaccacacga    GGCAGTCCAAAGGTTA        2       gcaacatggtTCTCAGACCTCCGTAgcatgttaggctttaaggccggtcctagcaatcgtgtggtgcataaccttacgactgccctgtct    CD14_TCTCAGACCTCCGTA     0
     GATGGAGGTGAGCTAGaaatgccaagtt    GATGGAGCAGAGCTAG        2       acacaatgaaTGTTCCCGCTCAACTtaccggggtgctttaaggccggtcctagcaaaacttggcatttctagctcacctccatcctgtct    CD4_TGTTCCCGCTCAACT      0
-
 
 Result summary.
 
@@ -234,7 +226,7 @@ Result summary.
 Matrix generation
 -----------------
 
-Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default, ``16``). Use ``-ul`` to set the UMI length (default, ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default, ``1``). UMI deduplication method is set by ``-ud`` (default, ``directional``).
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -253,7 +245,6 @@ The generated feature count matrix can be easily imported into well-established 
         -ul 12 \
         -um 1 \
         -ud directional
-
 
 Result summary.
 
@@ -277,3 +268,5 @@ Result summary.
     2021-02-17 23:55:18,907 - fba.count - INFO - Total UMIs after deduplication: 3,214,503
     2021-02-17 23:55:18,910 - fba.count - INFO - Median number of UMIs per cell: 2,564.0
     2021-02-17 23:55:18,944 - fba.__main__ - INFO - Done.
+
+|

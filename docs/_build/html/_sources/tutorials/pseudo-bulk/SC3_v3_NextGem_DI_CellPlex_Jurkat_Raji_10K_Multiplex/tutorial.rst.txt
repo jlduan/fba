@@ -30,7 +30,7 @@ Use ``-2`` to specify read 2, and ``-f`` to specify feature barcodes. Search ran
 .. code-block:: console
 
     $ fba qc \
-        -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
+        -2 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv \
         -r2_c 0,15 \
         -fb_m 1 \
@@ -112,9 +112,7 @@ Result summary.
     2021-10-02 02:41:42,629 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
     2021-10-02 02:41:42,645 - fba.__main__ - INFO - Done.
 
-
 |
-
 
 Threshold: two mismatches
 +++++++++++++++++++++++++
@@ -124,12 +122,11 @@ Let's relax the threshold to allow 2 mismatches for feature barcode matching (se
 .. code-block:: console
 
     $ fba qc \
-        -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
+        -2 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz \
         -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv \
         -r2_c 0,15 \
         -fb_m 2 \
         -n None
-
 
 The content of ``qc/feature_barcode_frequency.csv``.
 

@@ -83,9 +83,7 @@ Result summary.
     2021-02-17 16:49:27,664 - fba.__main__ - INFO - Output file: qc/feature_barcode_frequency.csv
     2021-02-17 16:49:27,689 - fba.__main__ - INFO - Done.
 
-
 |
-
 
 Threshold: two mismatches
 +++++++++++++++++++++++++

@@ -258,7 +258,7 @@
 <p>In the <code class="docutils literal notranslate"><span class="pre">qc</span></code> subcommand, if <code class="docutils literal notranslate"><span class="pre">-1</span></code> (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">-2</span></code> to specify read 2, and <code class="docutils literal notranslate"><span class="pre">-f</span></code> to specify feature barcodes. Search range on reads 2 can be controlled by <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>. In this example, only one mismatch is allowed for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze (<code class="docutils literal notranslate"><span class="pre">None</span></code> is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
     -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv <span class="se">\</span>
     -r2_c <span class="m">0</span>,15 <span class="se">\</span>
     -fb_m <span class="m">1</span> <span class="se">\</span>
@@ -376,7 +376,7 @@
 <h3>Threshold: two mismatches<a class="headerlink" href="#threshold-two-mismatches" title="Permalink to this headline">¶</a></h3>
 <p>Let’s relax the threshold to allow 2 mismatches for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
+    -2 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
     -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref.tsv <span class="se">\</span>
     -r2_c <span class="m">0</span>,15 <span class="se">\</span>
     -fb_m <span class="m">2</span> <span class="se">\</span>

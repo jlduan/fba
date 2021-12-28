@@ -5,7 +5,7 @@
 
 Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices
 
-McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). `MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`_. Nat. Methods 16, 619–626.
+McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). `MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`_. Nat. Methods *16*, 619–626.
 
 .. _`MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`: https://doi.org/10.1038/s41592-019-0433-8
 
@@ -13,9 +13,9 @@ McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivasta
 Preparation
 -----------
 
-Download pre-processed feature count matrix files from `NCBI GEO`_.
+Download pre-processed feature count matrix files from `GEO`_.
 
-.. _`NCBI GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578
+.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578
 
 
 .. code-block:: console
@@ -24,11 +24,14 @@ Download pre-processed feature count matrix files from `NCBI GEO`_.
 
     $ tar zxvf GSE129578_processed_data_files.csv.tar.gz
 
-    $ ls
+    $ ls -1
 
-    GSE129578_processed_data_files.csv.tar.gz  PDX_MULTI_matrix.csv
-    HMEC_orig_MULTI_matrix.csv                 POC_MULTI_matrix.csv
-    HMEC_techrep_MULTI_matrix.csv              POC_nuc_MULTI_matrix.csv
+    GSE129578_processed_data_files.csv.tar.gz
+    HMEC_orig_MULTI_matrix.csv
+    HMEC_techrep_MULTI_matrix.csv
+    PDX_MULTI_matrix.csv
+    POC_MULTI_matrix.csv
+    POC_nuc_MULTI_matrix.csv
 
 |
 
@@ -102,10 +105,9 @@ Pre-process feature count matrix.
 Demultiplexing
 ^^^^^^^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to enable generating visualization plots.
+Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 
 .. _`McGinnis, C., et al. (2019)`: https://doi.org/10.1038/s41592-019-0433-8
-
 
 .. code-block:: console
 
@@ -141,6 +143,27 @@ Heatmap of relative abundance of features across all cells. Each column represen
    :width: 700px
    :align: center
 
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+
+.. code-block:: python
+
+    In [1]:  import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    Bar1    5909
+    Bar2    2016
+    Bar3    2083
+    dtype: int64
+
+    In [4]: sum(m.sum(axis=0) > 1)
+    Out[4]: 875
+
+    In [5]: sum(m.sum(axis=0) == 0)
+    Out[5]: 4599
+
 |
 
 40k primary human mammary epithelial cells (HMECs)
@@ -165,7 +188,6 @@ Inspect feature count matrix.
     AAACCTGCAGGGCATA-1,0,4,11,10,3,4,4,2,4,23,4,2,11,3,1,17,6,4,8,7,6,16,2,3,23,4,6,5,3,8,4,4,5,2,10,7,29,3,3,0,4,2,3,0,0,1,0,7,0,3,2,2,1,6,6,0,0,9,12,7,2398,3,6,6,9,6,1,8,9,4,1,758,4,8,7,0,3570
     AAACCTGCATACGCCG-1,0,2,2,11,1,2,1,0,6,7,1,0,3,1655,1,3,1,3,2,10,7,5,0,0,1,1,2,0,1,1,4,1,10,0,0,2,4,2,0,0,0,0,2,1,1,1,1,0,0,5,0,2,4,0,7,1,4,1,4,2,3,2,1,2,3,1,2,6,2,2,0,1,1,59,3,0,1910
     AAACCTGCATCACAAC-1,0,1,10,4,1,7,0,0,3,5,0,1,2,1,207,10,5,2,3,3,8,3,1,1,3,1,4,2,4,0,1,1,5,0,1,0,5,3,12,0,3,0,1,1,2,1,1,3,2,2,0,0,0,1,0,1,2,3,6,2,4,0,1,6,2,1,3,1,4,0,1,1,6,4,2,0,390
-
 
 Pre-process feature count matrix.
 
@@ -207,10 +229,9 @@ Pre-process feature count matrix.
 Demultiplexing
 ^^^^^^^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to enable generating visualization plots.
+Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 
 .. _`McGinnis, C., et al. (2019)`: https://doi.org/10.1038/s41592-019-0433-8
-
 
 .. code-block:: console
 
@@ -245,11 +266,47 @@ Heatmap of relative abundance of features across all cells. Each column represen
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of Fig. 2a in `McGinnis, C., et al. (2019)`_.
+t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of `Fig. 2a`_ in `McGinnis, C., et al. (2019)`_.
+
+.. _`Fig. 2a`: https://www.nature.com/articles/s41592-019-0433-8/figures/2
 
 .. image:: Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png
    :alt: t-SNE embedding
    :width: 500px
    :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+
+.. code-block:: python
+
+    In [1]:  import numpy as np
+
+    In [2]:  import pandas as pd
+
+    In [3]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [4]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[4]:
+    Bar1     121
+    Bar2     201
+    Bar3     745
+    Bar4     681
+    Bar5     257
+            ...
+    Bar92    259
+    Bar93    452
+    Bar94    354
+    Bar95    366
+    Bar96    255
+    Length: 76, dtype: int64
+
+    In [5]: np.median(m.loc[:, m.sum(axis=0) == 1].sum(axis=1))
+    Out[5]: 276.0
+
+    In [6]: sum(m.sum(axis=0) > 1)
+    Out[6]: 3597
+
+    In [7]: sum(m.sum(axis=0) == 0)
+    Out[7]: 13448
 
 |

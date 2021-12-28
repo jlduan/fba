@@ -181,7 +181,7 @@ Result summary.
 
 .. code-block:: console
 
-    2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.13
+    2021-09-30 02:00:26,049 - fba.__main__ - INFO - fba version: 0.0.x
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Initiating logging ...
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Python version: 3.7
     2021-09-30 02:00:26,049 - fba.__main__ - INFO - Using extract subcommand ...
@@ -250,7 +250,7 @@ Result summary.
 
 .. code-block:: console
 
-    2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.13
+    2021-09-30 07:52:48,076 - fba.__main__ - INFO - fba version: 0.0.x
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Initiating logging ...
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Python version: 3.7
     2021-09-30 07:52:48,076 - fba.__main__ - INFO - Using count subcommand ...
@@ -303,7 +303,7 @@ Inspect feature count matrix.
 CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
 
-Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to enable generating visualization plots. Use ``-vm`` to set visualization method.
+Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default, ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default, ``tsne``).
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -313,14 +313,12 @@ Cells are classified based on feature count matrix (CMOs abundance). Demultiplex
         -i matrix_featurecount_filtered.csv.gz \
         --output_directory demultiplexed \
         -dm 2 \
-        -nm clr \
-        -p 0.9 \
         -v \
         -vm umap
 
 .. code-block:: console
 
-    2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.13
+    2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.x
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Initiating logging ...
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Python version: 3.7
     2021-10-01 23:07:30,925 - fba.__main__ - INFO - Using demultiplex subcommand ...
@@ -377,3 +375,22 @@ UMAP embedding of cells based on the abundance of features  (CMOs, no transcript
    :alt: UMAP embedding
    :width: 500px
    :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    CMO301    5614
+    CMO302    4712
+    dtype: int64
+
+    In [4]: [sum(m.sum(axis=0) == i) for i in (2, 0)]
+    Out[4]: [1505, 1781]
+
+|

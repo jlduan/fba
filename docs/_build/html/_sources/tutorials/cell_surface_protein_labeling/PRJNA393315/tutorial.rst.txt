@@ -6,7 +6,7 @@ CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies
 
 Dataset: CITE-Seq
 
-Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). `Simultaneous epitope and transcriptome measurement in single cells`_. Nat. Methods 14, 865–868.
+Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). `Simultaneous epitope and transcriptome measurement in single cells`_. Nat. Methods *14*, 865–868.
 
 .. _`Simultaneous epitope and transcriptome measurement in single cells`: https://doi.org/10.1038/nmeth.4380
 
@@ -14,7 +14,9 @@ Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay,
 Preparation
 -----------
 
-Download fastq files.
+Download fastq files from `GEO`_.
+
+.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
 
 .. code-block:: console
 
@@ -121,7 +123,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 Barcode extraction
 ------------------
 
-The lengths of cell and feature barcodes are all identical (16 and 6, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,6`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (``-cb_n``, ``-cf_n``) are allowed.
+The lengths of cell and feature barcodes are all identical (16 and 6, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,6`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (``-cb_n``, ``-cf_n``) are allowed.
 
 .. code-block:: console
 
@@ -202,7 +204,7 @@ Result summary.
 Matrix generation
 -----------------
 
-Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default, ``16``). Use ``-ul`` to set the UMI length (default, ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default, ``1``). UMI deduplication method is set by ``-ud`` (default, ``directional``).
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -244,3 +246,5 @@ Result summary.
     2021-02-18 08:12:46,216 - fba.count - INFO - Total UMIs after deduplication: 34,574,243
     2021-02-18 08:12:46,244 - fba.count - INFO - Median number of UMIs per cell: 3,816.0
     2021-02-18 08:12:46,435 - fba.__main__ - INFO - Done.
+
+|

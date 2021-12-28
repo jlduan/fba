@@ -426,7 +426,7 @@
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
-<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length. Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code>.</p>
+<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default, <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default, <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default, <code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch threshold (default, <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
@@ -465,7 +465,7 @@
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
 <section id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h3>
-<p>Cells are classified based on feature count matrix. Demultiplexing method 1 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
+<p>Cells are classified based on feature count matrix. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -481,7 +481,7 @@
 </section>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
-<p>The implementation of demultiplexing method 2 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default, 0.9).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default, <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -513,15 +513,15 @@
 </pre></div>
 </div>
 <p>Heatmap of relative abundance of feature across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png" style="width: 500px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_gm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_gm.png" style="width: 800px;"/></a>
 </section>
 <section id="poisson-gaussian-mixture-model">
 <h3>Poisson-Gaussian mixture model<a class="headerlink" href="#poisson-gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
-<p>The implementation of demultiplexing method 3 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default, 0.5).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default, <code class="docutils literal notranslate"><span class="pre">0.5</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -561,7 +561,7 @@
 </section>
 <section id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h3>
-<p>CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
+<p>CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">4</span> <span class="se">\</span>
@@ -593,9 +593,9 @@
 </pre></div>
 </div>
 <p>Heatmap of relative abundance of feature across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde1.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_kde.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_kde.png" style="width: 500px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_kde.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_kde.png" style="width: 800px;"/></a>
 <div class="line-block">

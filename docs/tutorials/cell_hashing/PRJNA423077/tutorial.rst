@@ -6,7 +6,7 @@ Peripheral blood mononuclear cells with 8 antibodies
 
 Dataset: Cell hashing
 
-Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). `Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`_. Genome Biol. 19, 224.
+Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). `Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`_. Genome Biol. *19*, 224.
 
 .. _`Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -14,9 +14,9 @@ Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3
 Preparation
 -----------
 
-Download fastq files `NCBI GEO`_.
+Download fastq files from `European Nucleotide Archive`_.
 
-.. _`NCBI GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2895283
+.. _`European Nucleotide Archive`: https://www.ebi.ac.uk/ena/browser/view/PRJNA423077
 
 
 .. code-block:: console
@@ -79,7 +79,7 @@ Inspect feature barcodes.
 QC
 --
 
-Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 read pairs for quality control (set by ``-n``). Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
 
 .. code-block:: console
 
@@ -157,7 +157,7 @@ Preview of result.
 
 .. code-block:: console
 
-    gzip -dc feature_barcoding_output.tsv.gz | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     NTCCGAACATATGAGAgcaatagtcgttt   ATCCGAACATATGAGA        1       NCATGTTACCGTgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacagcaattgtcacttataggaggagaagaagggaagggggggggggggggaaa    BatchB_ACATGTTACCGT     1
@@ -226,7 +226,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 Result summary.
 
-25.1% (17,022,091 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,125 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.
+25.1% (17,022,991 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,991 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.
 
 .. code-block:: console
 
@@ -234,7 +234,7 @@ Result summary.
     2021-02-17 17:44:43,315 - fba.__main__ - INFO - Initiating logging ...
     2021-02-17 17:44:43,315 - fba.__main__ - INFO - Python version: 3.7
     2021-02-17 17:44:43,315 - fba.__main__ - INFO - Using count subcommand ...
-    2021-02-17 17:44:43,315 - fba.count - INFO - UMI-tools version: 1.0.0
+    2021-02-17 17:44:43,315 - fba.count - INFO - UMI-tools version: 1.1.1
     2021-02-17 17:44:43,318 - fba.count - INFO - UMI starting position on read 1: 16
     2021-02-17 17:44:43,318 - fba.count - INFO - UMI length: 10
     2021-02-17 17:44:43,318 - fba.count - INFO - UMI-tools deduplication threshold: 1
@@ -243,7 +243,7 @@ Result summary.
     2021-02-17 17:48:32,866 - fba.count - INFO - Number of lines processed: 67,916,430
     2021-02-17 17:48:33,127 - fba.count - INFO - Number of cell barcodes detected: 64,998
     2021-02-17 17:48:33,127 - fba.count - INFO - Number of features detected: 8
-    2021-02-17 18:01:15,176 - fba.count - INFO - Total UMIs after deduplication: 17,022,091
+    2021-02-17 18:01:15,176 - fba.count - INFO - Total UMIs after deduplication: 17,022,991
     2021-02-17 18:01:15,298 - fba.count - INFO - Median number of UMIs per cell: 63.0
     2021-02-17 18:01:16,924 - fba.__main__ - INFO - Done.
 
@@ -251,7 +251,10 @@ Result summary.
 Demultiplexing
 --------------
 
-Cells are classified based on feature count matrix. Demultiplexing method 1 is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to enable generating visualization plots.
+Negative binomial distribution
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method 1 (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``; default, ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -260,18 +263,135 @@ Cells are classified based on feature count matrix. Demultiplexing method 1 is i
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \
         --output_directory demultiplexed \
+        -dm 1 \
         -v
 
-Heatmap of relative abundance of features across all cells. Each column represents a single cell.
+.. code-block:: console
+
+    2021-02-18 01:27:19,172 - fba.__main__ - INFO - fba version: 0.0.7
+    2021-02-18 01:27:19,173 - fba.__main__ - INFO - Initiating logging ...
+    2021-02-18 01:27:19,173 - fba.__main__ - INFO - Python version: 3.7
+    2021-02-18 01:27:19,173 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2021-02-18 01:27:19,177 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2021-02-18 01:27:19,177 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Number of cells: 64,998
+    2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Number of features: 8
+    2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Total UMIs: 17,021,991
+    2021-02-18 01:27:23,029 - fba.demultiplex - INFO - Median number of UMIs per cell: 63.0
+    2021-02-18 01:27:23,029 - fba.demultiplex - INFO - Demultiplexing ...
+    2021-02-18 03:19:27,245 - fba.demultiplex - INFO - Generating heatmap ...
+    2021-02-18 03:20:37,827 - fba.demultiplex - INFO - Embedding ...
+    2021-02-18 03:21:21,120 - fba.__main__ - INFO - Done.
+
+
+Heatmap of relative abundance of features across all cells. Each column represents a single cell. This is a re-creation of `Fig. 1c`_ in `Stoeckius, M., et al. (2018)`_.
+
+.. _`Fig. 1c`: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (HTOs, no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA. This is a re-creation of `Fig. 1d`_ in `Stoeckius, M., et al. (2018)`_.
+
+.. _`Fig. 1d`: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
    :alt: t-SNE embedding
    :width: 500px
    :align: center
+
+Preview the demultiplexing result: the numbers of singlets. The result in `Stoeckius, M., et al. (2018)`_ can be found in `Additional file 3`_.
+
+.. _`Additional file 3`: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1#Sec26
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    BatchA    2637
+    BatchB    3019
+    BatchC    2666
+    BatchD    2441
+    BatchE    2242
+    BatchF    2234
+    BatchG    2747
+    BatchH    2719
+    dtype: int64
+
+Gaussian mixture model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.9``).
+
+.. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 2 \
+        -v
+
+.. code-block:: console
+
+    2021-12-27 11:37:31,026 - fba.__main__ - INFO - fba version: 0.0.x
+    2021-12-27 11:37:31,026 - fba.__main__ - INFO - Initiating logging ...
+    2021-12-27 11:37:31,026 - fba.__main__ - INFO - Python version: 3.9
+    2021-12-27 11:37:31,026 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2021-12-27 11:37:33,496 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Demultiplexing method: 2
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - UMI normalization method: clr
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Visualization: On
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Visualization method: tsne
+    2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2021-12-27 11:37:34,111 - fba.demultiplex - INFO - Number of cells: 64,998
+    2021-12-27 11:37:34,111 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2021-12-27 11:37:34,205 - fba.demultiplex - INFO - Number of features: 8 / 8 (after filtering / original in the matrix)
+    2021-12-27 11:37:34,205 - fba.demultiplex - INFO - Features: BatchA BatchB BatchC BatchD BatchE BatchF BatchG BatchH
+    2021-12-27 11:37:34,206 - fba.demultiplex - INFO - Total UMIs: 17,021,991 / 17,021,991
+    2021-12-27 11:37:34,254 - fba.demultiplex - INFO - Median number of UMIs per cell: 63.0 / 63.0
+    2021-12-27 11:37:34,254 - fba.demultiplex - INFO - Demultiplexing ...
+    2021-12-27 11:37:48,810 - fba.demultiplex - INFO - Generating heatmap ...
+    2021-12-27 11:38:10,642 - fba.demultiplex - INFO - Embedding ...
+    2021-12-27 11:38:54,942 - fba.__main__ - INFO - Done.
+
+Heatmap of relative abundance of features across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features (HTOs, no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    BatchA    2618
+    BatchB    2979
+    BatchC    2648
+    BatchD    2368
+    BatchE    2198
+    BatchF    2201
+    BatchG    2810
+    BatchH    2721
+    dtype: int64

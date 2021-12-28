@@ -87,6 +87,7 @@ Re-format.
 .. code-block:: console
 
     $ grep -v '#' Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv | wc -l
+
     53720
 
     $ cut -d',' -f1,2 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv | gsed 's/,/\t/g' | grep -v '#' | head -53719 > Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
@@ -108,9 +109,7 @@ Re-format.
 Matrix generation
 -----------------
 
-
-
-First, all read 1 are searched against reference cell-associated barcodes. Use ``-r1_c`` to set the search range, ``-cb_m`` to set the mismatching threshold. Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, `Li, H. (2013). arXiv:1303.3997.`_ or  bowtie2, `Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`_). The default aligner is bwa. Only alignments passed mapping quality threshold (set by ``--mapq``) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (`Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+First, all read 1 are searched against reference cell-associated barcodes. Use ``-r1_c`` to set the search range, ``-cb_m`` to set the mismatching threshold. Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, `Li, H. (2013). arXiv:1303.3997.`_ or  bowtie2, `Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`_). The default aligner is ``bwa``. Only alignments passed mapping quality threshold (set by ``--mapq``; default, ``10``) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (`Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default, ``16``). Use ``-ul`` to set the UMI length (default, ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default, ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default, ``1``).
 
 .. _`Li, H. (2013). arXiv:1303.3997.`: https://arxiv.org/abs/1303.3997
 
@@ -191,3 +190,5 @@ Result summary.
     2021-02-17 23:54:06,704 - fba.map - INFO - Total UMIs after deduplication: 2,405,998
     2021-02-17 23:54:06,713 - fba.map - INFO - Median number of UMIs per cell: 507.0
     2021-02-17 23:54:11,085 - fba.__main__ - INFO - Done.
+
+|

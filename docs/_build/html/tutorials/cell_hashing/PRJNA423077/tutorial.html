@@ -246,10 +246,10 @@
           <section id="peripheral-blood-mononuclear-cells-with-8-antibodies">
 <span id="tutorial-cell-hashing-prjna423077"></span><h1>Peripheral blood mononuclear cells with 8 antibodies<a class="headerlink" href="#peripheral-blood-mononuclear-cells-with-8-antibodies" title="Permalink to this headline">¶</a></h1>
 <p>Dataset: Cell hashing</p>
-<p>Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics</a>. Genome Biol. 19, 224.</p>
+<p>Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics</a>. Genome Biol. <em>19</em>, 224.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
-<p>Download fastq files <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2895283">NCBI GEO</a>.</p>
+<p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA423077">European Nucleotide Archive</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
 
 <span class="gp">$ </span>wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
@@ -297,7 +297,7 @@
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
-<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_coords</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_coords</span></code> to limit the search range.  Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
+<p>Sample the first 20,000 read pairs for quality control (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_coords</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_coords</span></code> to limit the search range.  Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR8281307_1.fastq.gz <span class="se">\</span>
     -2 SRR8281307_2.fastq.gz <span class="se">\</span>
@@ -353,7 +353,7 @@
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gzip -dc feature_barcoding_output.tsv.gz | head</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">NTCCGAACATATGAGAgcaatagtcgttt   ATCCGAACATATGAGA        1       NCATGTTACCGTgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacagcaattgtcacttataggaggagaagaagggaagggggggggggggggaaa    BatchB_ACATGTTACCGT     1</span>
@@ -409,12 +409,12 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>25.1% (17,022,091 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,125 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.</p>
+<p>25.1% (17,022,991 out of 67,916,430) of read pairs with valid cell and feature barcodes are unique fragments. 22.9% (17,022,991 out of 74,219,921) of total sequenced read pairs contribute to the final matrix.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 17:44:43,315 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2021-02-17 17:44:43,315 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2021-02-17 17:44:43,315 - fba.__main__ - INFO - Python version: 3.7</span>
 <span class="go">2021-02-17 17:44:43,315 - fba.__main__ - INFO - Using count subcommand ...</span>
-<span class="go">2021-02-17 17:44:43,315 - fba.count - INFO - UMI-tools version: 1.0.0</span>
+<span class="go">2021-02-17 17:44:43,315 - fba.count - INFO - UMI-tools version: 1.1.1</span>
 <span class="go">2021-02-17 17:44:43,318 - fba.count - INFO - UMI starting position on read 1: 16</span>
 <span class="go">2021-02-17 17:44:43,318 - fba.count - INFO - UMI length: 10</span>
 <span class="go">2021-02-17 17:44:43,318 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
@@ -423,7 +423,7 @@
 <span class="go">2021-02-17 17:48:32,866 - fba.count - INFO - Number of lines processed: 67,916,430</span>
 <span class="go">2021-02-17 17:48:33,127 - fba.count - INFO - Number of cell barcodes detected: 64,998</span>
 <span class="go">2021-02-17 17:48:33,127 - fba.count - INFO - Number of features detected: 8</span>
-<span class="go">2021-02-17 18:01:15,176 - fba.count - INFO - Total UMIs after deduplication: 17,022,091</span>
+<span class="go">2021-02-17 18:01:15,176 - fba.count - INFO - Total UMIs after deduplication: 17,022,991</span>
 <span class="go">2021-02-17 18:01:15,298 - fba.count - INFO - Median number of UMIs per cell: 63.0</span>
 <span class="go">2021-02-17 18:01:16,924 - fba.__main__ - INFO - Done.</span>
 </pre></div>
@@ -431,17 +431,110 @@
 </section>
 <section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
-<p>Cells are classified based on feature count matrix. Demultiplexing method 1 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to enable generating visualization plots.</p>
+<section id="negative-binomial-distribution">
+<h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method 1 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>; default, <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
+    -dm <span class="m">1</span> <span class="se">\</span>
     -v
 </pre></div>
 </div>
-<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-18 01:27:19,172 - fba.__main__ - INFO - fba version: 0.0.7</span>
+<span class="go">2021-02-18 01:27:19,173 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-02-18 01:27:19,173 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2021-02-18 01:27:19,173 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2021-02-18 01:27:19,177 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2021-02-18 01:27:19,177 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
+<span class="go">2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Number of cells: 64,998</span>
+<span class="go">2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Number of features: 8</span>
+<span class="go">2021-02-18 01:27:22,932 - fba.demultiplex - INFO - Total UMIs: 17,021,991</span>
+<span class="go">2021-02-18 01:27:23,029 - fba.demultiplex - INFO - Median number of UMIs per cell: 63.0</span>
+<span class="go">2021-02-18 01:27:23,029 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2021-02-18 03:19:27,245 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2021-02-18 03:20:37,827 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2021-02-18 03:21:21,120 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1">Fig. 1c</a> in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed.png" style="width: 700px;"/></a>
-<p>t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (HTOs, no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1">Fig. 1d</a> in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed.png" style="width: 500px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets. The result in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> can be found in <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1#Sec26">Additional file 3</a>.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'demultiplexed/matrix_cell_identity.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">BatchA</span>    <span class="mi">2637</span>
+<span class="n">BatchB</span>    <span class="mi">3019</span>
+<span class="n">BatchC</span>    <span class="mi">2666</span>
+<span class="n">BatchD</span>    <span class="mi">2441</span>
+<span class="n">BatchE</span>    <span class="mi">2242</span>
+<span class="n">BatchF</span>    <span class="mi">2234</span>
+<span class="n">BatchG</span>    <span class="mi">2747</span>
+<span class="n">BatchH</span>    <span class="mi">2719</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</pre></div>
+</div>
+</section>
+<section id="gaussian-mixture-model">
+<h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
+<p>Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method 2 (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default, <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount.csv.gz <span class="se">\</span>
+    -dm <span class="m">2</span> <span class="se">\</span>
+    -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-12-27 11:37:31,026 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2021-12-27 11:37:31,026 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2021-12-27 11:37:31,026 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2021-12-27 11:37:31,026 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Demultiplexing method: 2</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2021-12-27 11:37:33,496 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
+<span class="go">2021-12-27 11:37:34,111 - fba.demultiplex - INFO - Number of cells: 64,998</span>
+<span class="go">2021-12-27 11:37:34,111 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2021-12-27 11:37:34,205 - fba.demultiplex - INFO - Number of features: 8 / 8 (after filtering / original in the matrix)</span>
+<span class="go">2021-12-27 11:37:34,205 - fba.demultiplex - INFO - Features: BatchA BatchB BatchC BatchD BatchE BatchF BatchG BatchH</span>
+<span class="go">2021-12-27 11:37:34,206 - fba.demultiplex - INFO - Total UMIs: 17,021,991 / 17,021,991</span>
+<span class="go">2021-12-27 11:37:34,254 - fba.demultiplex - INFO - Median number of UMIs per cell: 63.0 / 63.0</span>
+<span class="go">2021-12-27 11:37:34,254 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2021-12-27 11:37:48,810 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2021-12-27 11:38:10,642 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2021-12-27 11:38:54,942 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png" style="width: 700px;"/></a>
+<p>t-SNE embedding of cells based on the abundance of features (HTOs, no transcriptome information used). Colors indicate the HTO status for each cell, as called by FBA.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png" style="width: 500px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'demultiplexed/matrix_cell_identity.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">BatchA</span>    <span class="mi">2618</span>
+<span class="n">BatchB</span>    <span class="mi">2979</span>
+<span class="n">BatchC</span>    <span class="mi">2648</span>
+<span class="n">BatchD</span>    <span class="mi">2368</span>
+<span class="n">BatchE</span>    <span class="mi">2198</span>
+<span class="n">BatchF</span>    <span class="mi">2201</span>
+<span class="n">BatchG</span>    <span class="mi">2810</span>
+<span class="n">BatchH</span>    <span class="mi">2721</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -495,7 +588,11 @@
 <li><a class="reference internal" href="#qc">QC</a></li>
 <li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a></li>
 <li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
-<li><a class="reference internal" href="#demultiplexing">Demultiplexing</a></li>
+<li><a class="reference internal" href="#demultiplexing">Demultiplexing</a><ul>
+<li><a class="reference internal" href="#negative-binomial-distribution">Negative binomial distribution</a></li>
+<li><a class="reference internal" href="#gaussian-mixture-model">Gaussian mixture model</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
