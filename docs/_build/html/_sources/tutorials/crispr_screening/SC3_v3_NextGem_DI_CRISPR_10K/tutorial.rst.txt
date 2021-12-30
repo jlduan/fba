@@ -406,7 +406,6 @@ The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired b
     2021-12-20 00:13:23,070 - fba.demultiplex - INFO - Embedding ...
     2021-12-20 00:13:41,271 - fba.__main__ - INFO - Done.
 
-
 Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_pgm.png
@@ -468,7 +467,6 @@ CRISPR perturbatons are demultiplexed based on the abundance of features. Demult
     2021-12-26 18:11:24,911 - fba.demultiplex - INFO - Embedding ...
     2021-12-26 18:11:44,219 - fba.__main__ - INFO - Done.
 
-
 Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_kde.png
@@ -486,6 +484,66 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
 UMI distribution and model fitting threshold:
 
 .. image:: Pyplot_feature_umi_distribution_kde.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+
+Knee point
+^^^^^^^^^^
+
+CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI cumulative distribution. Comparing to our pervious derivative approach `Xie, S., et al. (2019)`_, this implementation is trying to find the local maxima on the difference curve.
+
+.. _`Xie, S., et al. (2019)`: https://doi.org/10.1016/j.celrep.2019.10.073
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 5 \
+        -v
+
+.. code-block:: console
+
+    2021-12-29 22:55:34,303 - fba.__main__ - INFO - fba version: 0.0.x
+    2021-12-29 22:55:34,303 - fba.__main__ - INFO - Initiating logging ...
+    2021-12-29 22:55:34,303 - fba.__main__ - INFO - Python version: 3.9
+    2021-12-29 22:55:34,303 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2021-12-29 22:55:36,774 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - Demultiplexing method: 5
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - UMI normalization method: clr
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - Visualization: On
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - Visualization method: tsne
+    2021-12-29 22:55:36,774 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2021-12-29 22:55:36,886 - fba.demultiplex - INFO - Number of cells: 11,758
+    2021-12-29 22:55:36,886 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2021-12-29 22:55:36,904 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2021-12-29 22:55:36,904 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
+    2021-12-29 22:55:36,904 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
+    2021-12-29 22:55:36,913 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
+    2021-12-29 22:55:36,913 - fba.demultiplex - INFO - Demultiplexing ...
+    2021-12-29 22:55:37,415 - fba.demultiplex - INFO - Generating heatmap ...
+    2021-12-29 22:55:38,576 - fba.demultiplex - INFO - Embedding ...
+    2021-12-29 22:55:57,485 - fba.__main__ - INFO - Done.
+
+Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_knee.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee.png
    :alt: UMI distribution
    :width: 800px
    :align: center

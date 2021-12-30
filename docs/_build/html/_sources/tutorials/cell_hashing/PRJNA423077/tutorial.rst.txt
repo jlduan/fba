@@ -254,7 +254,7 @@ Demultiplexing
 Negative binomial distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method 1 (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``; default, ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
+Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``; default, ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -327,7 +327,7 @@ Preview the demultiplexing result: the numbers of singlets. The result in `Stoec
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.9``).
+Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.9``).
 
 .. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 

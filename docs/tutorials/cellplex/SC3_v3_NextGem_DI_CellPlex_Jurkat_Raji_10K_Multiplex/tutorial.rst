@@ -220,7 +220,6 @@ Result summary.
     2021-09-30 07:52:47,970 - fba.__main__ - INFO - Done.
 
 
-
 Matrix generation
 -----------------
 
@@ -267,6 +266,7 @@ Result summary.
     2021-09-30 18:31:30,208 - fba.count - INFO - Median number of UMIs per cell: 7,663.5
     2021-09-30 18:31:30,457 - fba.__main__ - INFO - Done.
 
+
 Demultiplexing
 --------------
 
@@ -299,11 +299,13 @@ Inspect feature count matrix.
 
     In [5]: m.to_csv(path_or_buf='matrix_featurecount_filtered.csv.gz', compression='infer')
 
+``CMO301_ATGAGGAATTCCTGC`` and ``CMO302_CATGCCAATAGAGCG`` have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
-CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
+Gaussian mixture model
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method 2 (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default, ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default, ``tsne``).
+Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default, ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default, ``tsne``).
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -392,5 +394,56 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [4]: [sum(m.sum(axis=0) == i) for i in (2, 0)]
     Out[4]: [1505, 1781]
+
+
+Knee point
+^^^^^^^^^^
+
+Cells are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI cumulative distribution.
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 5 \
+        -v
+
+Heatmap of relative abundance of features (CMOs) across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_knee.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    CMO301    5396
+    CMO302    4726
+    dtype: int64
+
+    In [4]: [sum(m.sum(axis=0) == i) for i in (2, 0)]
+    Out[4]: [1178, 2312]
 
 |
