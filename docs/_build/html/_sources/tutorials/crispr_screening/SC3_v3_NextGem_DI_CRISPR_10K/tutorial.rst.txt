@@ -12,6 +12,7 @@ The detailed description of this dataset can be found here_.
 
 |
 
+
 Preparation
 -----------
 
@@ -85,10 +86,11 @@ Clean up.
 
 |
 
+
 QC
 --
 
-Sample the first 20,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
 .. code-block:: console
 
@@ -138,6 +140,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     GNAGCCCGTACCACATgggcccagtatg    GAAGCCCCAACCACAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
 
 |
+
 
 Barcode extraction
 ------------------
@@ -223,10 +226,11 @@ Result summary.
 
 |
 
+
 Matrix generation
 -----------------
 
-Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default, ``16``). Use ``-ul`` to set the UMI length (default, ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default, ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default, ``1``).
+Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default ``1``).
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -271,6 +275,7 @@ Result summary.
 
 |
 
+
 Demultiplexing
 --------------
 
@@ -278,7 +283,7 @@ Demultiplexing
 Negative binomial distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on feature count matrix. Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
+Cells are classified based on the feature count matrix. Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -291,14 +296,14 @@ Cells are classified based on feature count matrix. Demultiplexing method ``1`` 
         -q 0.75 \
         -v
 
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
    :alt: t-SNE embedding
@@ -309,7 +314,7 @@ t-SNE embedding of cells based on the abundance of features  (no transcriptome i
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.9``).
+The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
 
 .. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -317,7 +322,6 @@ The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired b
 
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \
-        --output_directory demultiplexed \
         -dm 2 \
         -v
 
@@ -345,14 +349,14 @@ The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired b
     2021-10-04 14:14:42,078 - fba.demultiplex - INFO - Embedding ...
     2021-10-04 14:15:24,288 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_gm.png
    :alt: t-SNE embedding
@@ -370,7 +374,7 @@ UMI distribution and model fitting threshold:
 Poisson-Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.5``).
+The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.5``).
 
 .. _`Replogle, M., et al. (2021)`: https://www.biorxiv.org/content/10.1101/2021.12.16.473013
 
@@ -378,7 +382,6 @@ The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired b
 
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \
-        --output_directory demultiplexed \
         -dm 3 \
         -v
 
@@ -406,14 +409,14 @@ The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired b
     2021-12-20 00:13:23,070 - fba.demultiplex - INFO - Embedding ...
     2021-12-20 00:13:41,271 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_pgm.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
    :alt: t-SNE embedding
@@ -467,14 +470,14 @@ CRISPR perturbatons are demultiplexed based on the abundance of features. Demult
     2021-12-26 18:11:24,911 - fba.demultiplex - INFO - Embedding ...
     2021-12-26 18:11:44,219 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_kde.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_kde.png
    :alt: t-SNE embedding
@@ -527,14 +530,14 @@ CRISPR perturbatons are demultiplexed based on the abundance of features. Demult
     2021-12-29 22:55:38,576 - fba.demultiplex - INFO - Embedding ...
     2021-12-29 22:55:57,485 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of feature across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_knee.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_knee.png
    :alt: t-SNE embedding

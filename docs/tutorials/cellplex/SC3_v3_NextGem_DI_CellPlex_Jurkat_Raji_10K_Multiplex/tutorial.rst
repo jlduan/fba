@@ -86,7 +86,7 @@ Inspect feature barcodes.
 QC
 --
 
-Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 100,000 (default, set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. Use ``--output_directory`` to set the output directory (default ``qc``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
 .. code-block:: console
 
@@ -141,7 +141,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 Barcode extraction
 ------------------
 
-The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
+The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (set by ``-cb_m``, ``-cf_m``) are allowed. By default, three ambiguous nucleotides (Ns) for read 1 and read2 (set by ``-cb_n``, ``-cf_n``) are allowed.
 
 .. code-block:: console
 
@@ -223,7 +223,7 @@ Result summary.
 Matrix generation
 -----------------
 
-Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -270,7 +270,6 @@ Result summary.
 Demultiplexing
 --------------
 
-
 Inspect feature count matrix.
 
 .. code-block:: python
@@ -305,7 +304,7 @@ Inspect feature count matrix.
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on feature count matrix (CMOs abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default, ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default, ``tsne``).
+Cells are classified based on the feature count matrix (CMO abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Set ``-v`` to create visualization plots. Use ``-vm`` to set the visualization method (default ``tsne``).
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -364,14 +363,14 @@ Cells are classified based on feature count matrix (CMOs abundance). Demultiplex
     Fri Oct  1 23:08:21 2021 Finished embedding
     2021-10-01 23:08:22,267 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of features (CMOs) across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-UMAP embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
+UMAP embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
    :alt: UMAP embedding
@@ -408,14 +407,14 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
         -dm 5 \
         -v
 
-Heatmap of relative abundance of features (CMOs) across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_knee.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_knee.png
    :alt: t-SNE embedding

@@ -20,6 +20,7 @@ Fastq files and feature barcodes are prepared as described :ref:`here <tutorial_
 QC
 --
 
+
 Threshold: one mismatch
 +++++++++++++++++++++++
 
@@ -84,6 +85,7 @@ Result summary.
     2021-02-17 16:49:27,689 - fba.__main__ - INFO - Done.
 
 |
+
 
 Threshold: two mismatches
 +++++++++++++++++++++++++

@@ -14,11 +14,13 @@ The detailed description of this dataset can be found `here`_.
 Preparation
 -----------
 
+
 Fastq files and feature barcodes are prepared as described :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>`.
 
 
 QC
 --
+
 
 Threshold: one mismatch
 +++++++++++++++++++++++
@@ -65,7 +67,6 @@ The content of ``qc/feature_barcode_frequency.csv``.
 +------------------------+-----------+------------+
 | CMO305_CGCGATATGGTCGGA | 472       | 2.22E-06   |
 +------------------------+-----------+------------+
-
 
 Result summary.
 
@@ -114,6 +115,7 @@ Result summary.
 
 |
 
+
 Threshold: two mismatches
 +++++++++++++++++++++++++
 
@@ -157,7 +159,6 @@ The content of ``qc/feature_barcode_frequency.csv``.
 +------------------------+-----------+-------------+
 | CMO305_CGCGATATGGTCGGA | 477       | 2.22E-06    |
 +------------------------+-----------+-------------+
-
 
 Result summary.
 

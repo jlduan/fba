@@ -332,7 +332,7 @@
 </section>
 <section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h3>
-<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -358,7 +358,7 @@
 <span class="go">2021-12-20 14:55:12,277 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features across all cells. Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png" style="width: 700px;"/></a>
 <p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -441,7 +441,7 @@
 </section>
 <section id="id2">
 <h3>Demultiplexing<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -467,9 +467,9 @@
 <span class="go">2021-12-20 16:36:58,791 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of relative abundance of features across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features across all cells. Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png" style="width: 700px;"/></a>
-<p>t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0433-8/figures/2">Fig. 2a</a> in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
+<p>t-SNE embedding of cells based on the abundance of features (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0433-8/figures/2">Fig. 2a</a> in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png" style="width: 500px;"/></a>
 <p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -538,7 +538,7 @@
         </div>
 
         <div class="related-information">
-              Copyright &#169; 2020-2021, Jialei Duan
+              Copyright &#169; 2020-2022, Jialei Duan
         </div>
         
       </footer>

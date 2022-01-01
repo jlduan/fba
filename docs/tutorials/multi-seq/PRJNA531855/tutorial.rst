@@ -105,7 +105,7 @@ Pre-process feature count matrix.
 Demultiplexing
 ^^^^^^^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
+Cells are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 
 .. _`McGinnis, C., et al. (2019)`: https://doi.org/10.1038/s41592-019-0433-8
 
@@ -135,8 +135,7 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
     2021-12-20 14:54:54,168 - fba.demultiplex - INFO - Embedding ...
     2021-12-20 14:55:12,277 - fba.__main__ - INFO - Done.
 
-
-Heatmap of relative abundance of features across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png
    :alt: Heatmap
@@ -165,6 +164,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
     Out[5]: 4599
 
 |
+
 
 40k primary human mammary epithelial cells (HMECs)
 --------------------------------------------------
@@ -226,10 +226,11 @@ Pre-process feature count matrix.
     In [8]: m.shape
     Out[8]: (76, 40009)
 
+
 Demultiplexing
 ^^^^^^^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method 4 is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
+Cells are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 
 .. _`McGinnis, C., et al. (2019)`: https://doi.org/10.1038/s41592-019-0433-8
 
@@ -259,14 +260,14 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
     2021-12-20 16:35:49,956 - fba.demultiplex - INFO - Embedding ...
     2021-12-20 16:36:58,791 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of features across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of `Fig. 2a`_ in `McGinnis, C., et al. (2019)`_.
+t-SNE embedding of cells based on the abundance of features (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of `Fig. 2a`_ in `McGinnis, C., et al. (2019)`_.
 
 .. _`Fig. 2a`: https://www.nature.com/articles/s41592-019-0433-8/figures/2
 

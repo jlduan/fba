@@ -18,7 +18,7 @@ The detailed description of this dataset can be found `here`_.
 Demultiplexing
 --------------
 
-In summary, 799,808,703 of total 1,238,424,843 read pairs have the valid structure (``-cb_m 2``; ``-fb_m 1``). The average UMIs per cell is 22,962.0 for this feature barcode library.
+In summary, 799,808,703 of total 1,238,424,843 read pairs have the valid structure (``-cb_m 2``, ``-fb_m 1``). The average UMIs per cell is 22,962.0 for this feature barcode library.
 
 Inspect feature count matrix.
 
@@ -67,7 +67,7 @@ Inspect feature count matrix.
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are demultiplexed based on the feature count matrix (CMOs abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing. Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method.
+Cells are demultiplexed based on the feature count matrix (CMO abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive (set by ``--output_directory``, default ``demultiplexed``). Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default ``tsne``).
 
 .. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -107,14 +107,14 @@ According to the description of this dataset:
 
     The four E18 mouse nuclei samples were multiplexed at equal proportions with 3 CMOs per nuclei sample, resulting in a pooled sample labeled with 12 CMOs. Nuclei from the non-multiplexed sample were used as one of the four sample types composing the multiplexed sample.
 
-Heatmap of relative abundance of features (CMOs) across all cells. Each column represents a single cell. Multiplets have more than one CMOs.
+Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell. Multiplets have more than one CMOs.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA. Twelve singlet clusters and cross-oligo multiplet clusters are clearly present.
+t-SNE embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA. Twelve singlet clusters and cross-oligo multiplet clusters are clearly present.
 
 .. image:: Pyplot_embedding_cells_demultiplexed.png
    :alt: t-SNE embedding
@@ -192,7 +192,7 @@ Heatmap of relative abundance of feature across all cells. Each column represent
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features  (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+t-SNE embedding of cells based on the abundance of features (no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
 
 .. image:: Pyplot_embedding_cells_demultiplexed_kde.png
    :alt: t-SNE embedding

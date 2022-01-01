@@ -79,7 +79,7 @@ Inspect feature barcodes.
 QC
 --
 
-Sample the first 20,000 read pairs for quality control (set by ``-n``). Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range.  Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching.
+Sample the first 20,000 read pairs for quality control (set by ``-n``, default ``100,000``). Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
 .. code-block:: console
 
@@ -136,7 +136,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 Barcode extraction
 ------------------
 
-The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform.  Search ranges are set to ``0,16`` on read 1 and ``0,12`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
+The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,12`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. By default, three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
 .. code-block:: console
 
@@ -204,7 +204,7 @@ Result summary.
 Matrix generation
 -----------------
 
-Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1. Use ``-ul`` to set the UMI length. Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold. UMI deduplication method is set by ``-ud``.
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 
 .. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -254,7 +254,7 @@ Demultiplexing
 Negative binomial distribution
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``; default, ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
+Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -283,8 +283,7 @@ Cells are classified based on the abundance of features (HTOs, no transcriptome 
     2021-02-18 03:20:37,827 - fba.demultiplex - INFO - Embedding ...
     2021-02-18 03:21:21,120 - fba.__main__ - INFO - Done.
 
-
-Heatmap of relative abundance of features across all cells. Each column represents a single cell. This is a re-creation of `Fig. 1c`_ in `Stoeckius, M., et al. (2018)`_.
+Heatmap of the relative abundance of features (HTOs) across all cells. Each column represents a single cell. This is a re-creation of `Fig. 1c`_ in `Stoeckius, M., et al. (2018)`_.
 
 .. _`Fig. 1c`: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1
 
@@ -327,7 +326,7 @@ Preview the demultiplexing result: the numbers of singlets. The result in `Stoec
 Gaussian mixture model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default, ``0.9``).
+Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
 
 .. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -362,7 +361,7 @@ Alternatively, cells can be demultiplexed using gaussian mixture model. The impl
     2021-12-27 11:38:10,642 - fba.demultiplex - INFO - Embedding ...
     2021-12-27 11:38:54,942 - fba.__main__ - INFO - Done.
 
-Heatmap of relative abundance of features across all cells. Each column represents a single cell.
+Heatmap of the relative abundance of features (HTOs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
    :alt: Heatmap
