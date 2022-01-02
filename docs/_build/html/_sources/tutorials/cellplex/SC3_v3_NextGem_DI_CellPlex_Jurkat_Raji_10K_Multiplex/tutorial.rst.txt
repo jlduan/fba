@@ -1,6 +1,7 @@
 .. _tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex:
 
 
+====================================================
 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed
 ====================================================
 
@@ -12,7 +13,7 @@ The detailed description of this dataset can be found `here`_.
 
 
 Preparation
------------
+===========
 
 Download fastq files.
 
@@ -55,7 +56,6 @@ Inspect cell barcodes.
     AAACCCATCATGCGGC
     AAACCCATCGACGCTG
 
-
 Prepare feature barcodes (cell multiplexing oligos, CMOs).
 
 .. code-block:: console
@@ -83,8 +83,9 @@ Inspect feature barcodes.
     CMO311  GAATCGTGATTCTTC
     CMO312  ACATGGTCAACGCTG
 
+
 QC
---
+==
 
 Sample the first 100,000 (default, set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. Use ``--output_directory`` to set the output directory (default ``qc``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
@@ -138,8 +139,9 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     CAGAGCCCAATAGGGCcaccctcttaac    CAGAGCCGTATAGGGC        0:16    2:0:0   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGGTTAAGAGGGTGGCCCTATTGGGCTCTGCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0
     AACCCAATCAGTTGTAggatattcacct    AACCCAACAGCATTGT        0:15    0:1:2   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAGGTGAATATCCTACAACTGATTGGGTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0
 
+
 Barcode extraction
-------------------
+==================
 
 The lengths of cell and feature barcodes (CMOs) are all identical (16 and 15, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,15`` on read 2. Two mismatches for cell and one mismatch for feature barcodes (set by ``-cb_m``, ``-cf_m``) are allowed. By default, three ambiguous nucleotides (Ns) for read 1 and read2 (set by ``-cb_n``, ``-cf_n``) are allowed.
 
@@ -221,7 +223,7 @@ Result summary.
 
 
 Matrix generation
------------------
+=================
 
 Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 
@@ -268,7 +270,7 @@ Result summary.
 
 
 Demultiplexing
---------------
+==============
 
 Inspect feature count matrix.
 
@@ -302,7 +304,7 @@ Inspect feature count matrix.
 
 
 Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 Cells are classified based on the feature count matrix (CMO abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Set ``-v`` to create visualization plots. Use ``-vm`` to set the visualization method (default ``tsne``).
 
@@ -396,9 +398,92 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
 
 Knee point
-^^^^^^^^^^
+----------
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI cumulative distribution.
+
+Method 1
+^^^^^^^^
+
+Cells are demultiplexed based on the abundance of features (CMOs). Demultiplexing method ``5-2019`` is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (`Xie, S., et al. (2019)`_).
+
+.. _`Xie, S., et al. (2019)`: https://doi.org/10.1016/j.celrep.2019.10.073
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 5-2019 \
+        -v
+
+.. code-block:: console
+
+    2022-01-02 13:52:10,698 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-02 13:52:10,698 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-02 13:52:10,698 - fba.__main__ - INFO - Python version: 3.9
+    2022-01-02 13:52:10,698 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-01-02 13:52:13,179 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Demultiplexing method: 5-2019
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Visualization: On
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_filtered.csv.gz ...
+    2022-01-02 13:52:13,308 - fba.demultiplex - INFO - Number of cells: 13,612
+    2022-01-02 13:52:13,308 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Features: CMO301 CMO302
+    2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Total UMIs: 121,595,388 / 121,595,388
+    2022-01-02 13:52:13,338 - fba.demultiplex - INFO - Median number of UMIs per cell: 7,659.0 / 7,659.0
+    2022-01-02 13:52:13,338 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-01-02 13:52:14,446 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-01-02 13:52:15,784 - fba.demultiplex - INFO - Embedding ...
+    2022-01-02 13:52:32,821 - fba.__main__ - INFO - Done.
+
+Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee_2019.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_knee_2019.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_2019.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    CMO301    4824
+    CMO302    4147
+    dtype: int64
+
+    In [4]: [sum(m.sum(axis=0) == i) for i in (2, 0)]
+    Out[4]: [716, 3925]
+
+|
+
+
+Method 2
+^^^^^^^^
+
+Cells are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.
 
 .. code-block:: console
 
@@ -406,6 +491,30 @@ Cells are demultiplexed based on the abundance of features. Demultiplexing metho
         -i matrix_featurecount.csv.gz \
         -dm 5 \
         -v
+
+.. code-block:: console
+
+    2022-01-02 13:53:33,250 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-02 13:53:33,250 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-02 13:53:33,250 - fba.__main__ - INFO - Python version: 3.9
+    2022-01-02 13:53:33,250 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-01-02 13:53:35,723 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Demultiplexing method: 5
+    2022-01-02 13:53:35,723 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Visualization: On
+    2022-01-02 13:53:35,724 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-01-02 13:53:35,724 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_filtered.csv.gz ...
+    2022-01-02 13:53:35,852 - fba.demultiplex - INFO - Number of cells: 13,612
+    2022-01-02 13:53:35,852 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Features: CMO301 CMO302
+    2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Total UMIs: 121,595,388 / 121,595,388
+    2022-01-02 13:53:35,883 - fba.demultiplex - INFO - Median number of UMIs per cell: 7,659.0 / 7,659.0
+    2022-01-02 13:53:35,883 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-01-02 13:53:36,435 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-01-02 13:53:37,779 - fba.demultiplex - INFO - Embedding ...
+    2022-01-02 13:53:56,162 - fba.__main__ - INFO - Done.
 
 Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.
 

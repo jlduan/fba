@@ -558,11 +558,93 @@
 </section>
 <section id="knee-point">
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this headline">¶</a></h3>
-<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented based on the detection of the knee point of UMI cumulative distribution.</p>
+<section id="method-1">
+<h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this headline">¶</a></h4>
+<p>Cells are demultiplexed based on the abundance of features (CMOs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount.csv.gz <span class="se">\</span>
+    -dm <span class="m">5</span>-2019 <span class="se">\</span>
+    -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-02 13:52:10,698 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-02 13:52:10,698 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-02 13:52:10,698 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-01-02 13:52:10,698 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Demultiplexing method: 5-2019</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-01-02 13:52:13,179 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_filtered.csv.gz ...</span>
+<span class="go">2022-01-02 13:52:13,308 - fba.demultiplex - INFO - Number of cells: 13,612</span>
+<span class="go">2022-01-02 13:52:13,308 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)</span>
+<span class="go">2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Features: CMO301 CMO302</span>
+<span class="go">2022-01-02 13:52:13,328 - fba.demultiplex - INFO - Total UMIs: 121,595,388 / 121,595,388</span>
+<span class="go">2022-01-02 13:52:13,338 - fba.demultiplex - INFO - Median number of UMIs per cell: 7,659.0 / 7,659.0</span>
+<span class="go">2022-01-02 13:52:13,338 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-01-02 13:52:14,446 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-01-02 13:52:15,784 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-01-02 13:52:32,821 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_2019.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_2019.png" style="width: 700px;"/></a>
+<p>t-SNE embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_2019.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_2019.png" style="width: 500px;"/></a>
+<p>UMI distribution and knee point detection:</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_2019.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_2019.png" style="width: 800px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'demultiplexed/matrix_cell_identity.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">CMO301</span>    <span class="mi">4824</span>
+<span class="n">CMO302</span>    <span class="mi">4147</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="mi">716</span><span class="p">,</span> <span class="mi">3925</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+<section id="method-2">
+<h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this headline">¶</a></h4>
+<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span> <span class="se">\</span>
     -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-02 13:53:33,250 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-02 13:53:33,250 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-02 13:53:33,250 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-01-02 13:53:33,250 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-01-02 13:53:35,723 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"</span>
+<span class="go">2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Demultiplexing method: 5</span>
+<span class="go">2022-01-02 13:53:35,723 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-01-02 13:53:35,723 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-01-02 13:53:35,724 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-01-02 13:53:35,724 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount_filtered.csv.gz ...</span>
+<span class="go">2022-01-02 13:53:35,852 - fba.demultiplex - INFO - Number of cells: 13,612</span>
+<span class="go">2022-01-02 13:53:35,852 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)</span>
+<span class="go">2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Features: CMO301 CMO302</span>
+<span class="go">2022-01-02 13:53:35,872 - fba.demultiplex - INFO - Total UMIs: 121,595,388 / 121,595,388</span>
+<span class="go">2022-01-02 13:53:35,883 - fba.demultiplex - INFO - Median number of UMIs per cell: 7,659.0 / 7,659.0</span>
+<span class="go">2022-01-02 13:53:35,883 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-01-02 13:53:36,435 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-01-02 13:53:37,779 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-01-02 13:53:56,162 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
 <p>Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell.</p>
@@ -589,6 +671,7 @@
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -645,7 +728,11 @@
 <li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
 <li><a class="reference internal" href="#demultiplexing">Demultiplexing</a><ul>
 <li><a class="reference internal" href="#gaussian-mixture-model">Gaussian mixture model</a></li>
-<li><a class="reference internal" href="#knee-point">Knee point</a></li>
+<li><a class="reference internal" href="#knee-point">Knee point</a><ul>
+<li><a class="reference internal" href="#method-1">Method 1</a></li>
+<li><a class="reference internal" href="#method-2">Method 2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

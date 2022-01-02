@@ -1,6 +1,7 @@
 .. _tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K:
 
 
+==================================================================
 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA
 ==================================================================
 
@@ -14,7 +15,7 @@ The detailed description of this dataset can be found here_.
 
 
 Preparation
------------
+===========
 
 Download fastq files.
 
@@ -88,7 +89,7 @@ Clean up.
 
 
 QC
---
+==
 
 Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
@@ -143,7 +144,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 
 Barcode extraction
-------------------
+==================
 
 Although the lengths of the two feature barcodes are one base different, they all start at the same position on read 2. For the purpose of feature barcode identification, let's include one extra downstream base (G) for the RAB1A-2 feature barcode to make their lengths equal.
 
@@ -186,7 +187,6 @@ Preview of result.
     TGCACGGAGGATAACCcgtgcacgtaca    TGCACGGTCGATAACC        2       aagcagtggtatcaacgcagagtacatggggGCCGGCGAACCAGGAAATAGtttaagagctaagctggaaacagcatagcaagtttaaat    RAB1A-2_GCCGGCGAACCAGGAAATAG     0
     CGTAGTAGTAACACGGaagagggaactg    CGTAGTAGTAACGCGA        2       aagcagtggtatcaacgcagagtacatggggAACGTGCTGACGATGCGGGCgtttaagagctaagctggaaacagcatagcaagtttaaa    NON_TARGET-1_AACGTGCTGACGATGCGGGC        0
 
-
 Result summary.
 
 64.7% (93,795,979 out of 145,032,428) of total read pairs have valid cell and feature barcodes. Majority of fragments in this library have correct structure.
@@ -228,7 +228,7 @@ Result summary.
 
 
 Matrix generation
------------------
+=================
 
 Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default ``1``).
 
@@ -277,11 +277,11 @@ Result summary.
 
 
 Demultiplexing
---------------
+==============
 
 
 Negative binomial distribution
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 Cells are classified based on the feature count matrix. Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described by `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
 
@@ -310,9 +310,10 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcri
    :width: 500px
    :align: center
 
+|
 
 Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
 
@@ -370,9 +371,11 @@ UMI distribution and model fitting threshold:
    :width: 800px
    :align: center
 
+|
+
 
 Poisson-Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
 The implementation of demultiplexing method ``3`` (set by ``-dm``) is inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.5``).
 
@@ -430,9 +433,11 @@ UMI distribution and model fitting threshold:
    :width: 800px
    :align: center
 
+|
+
 
 Kernel density estimation
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications.
 
@@ -491,13 +496,79 @@ UMI distribution and model fitting threshold:
    :width: 800px
    :align: center
 
+|
+
 
 Knee point
-^^^^^^^^^^
+----------
 
-CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI cumulative distribution. Comparing to our pervious derivative approach `Xie, S., et al. (2019)`_, this implementation is trying to find the local maxima on the difference curve.
+
+Method 1
+^^^^^^^^
+
+Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method ``5-2019`` is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (`Xie, S., et al. (2019)`_).
 
 .. _`Xie, S., et al. (2019)`: https://doi.org/10.1016/j.celrep.2019.10.073
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 5-2019 \
+        -v
+
+.. code-block:: console
+
+    2022-01-02 13:57:51,792 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-02 13:57:51,792 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-02 13:57:51,792 - fba.__main__ - INFO - Python version: 3.9
+    2022-01-02 13:57:51,792 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-01-02 13:57:54,328 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Demultiplexing method: 5-2019
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Visualization: On
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Loading feature count matrix: raw/m2_2020-10-20/matrix_featurecount.csv.gz ...
+    2022-01-02 13:57:54,444 - fba.demultiplex - INFO - Number of cells: 11,758
+    2022-01-02 13:57:54,444 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
+    2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
+    2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
+    2022-01-02 13:57:54,474 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
+    2022-01-02 13:57:54,474 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-01-02 13:57:55,509 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-01-02 13:57:56,717 - fba.demultiplex - INFO - Embedding ...
+    2022-01-02 13:58:12,014 - fba.__main__ - INFO - Done.
+
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee_2019.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_knee_2019.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_2019.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+|
+
+
+Method 2
+^^^^^^^^
+
+Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.
 
 .. code-block:: console
 

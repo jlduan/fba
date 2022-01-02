@@ -1,6 +1,7 @@
 .. _tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex:
 
 
+=====================================================================================
 30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed
 =====================================================================================
 
@@ -16,7 +17,7 @@ The detailed description of this dataset can be found `here`_.
 
 
 Demultiplexing
---------------
+==============
 
 In summary, 799,808,703 of total 1,238,424,843 read pairs have the valid structure (``-cb_m 2``, ``-fb_m 1``). The average UMIs per cell is 22,962.0 for this feature barcode library.
 
@@ -65,7 +66,7 @@ Inspect feature count matrix.
 
 
 Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 Cells are demultiplexed based on the feature count matrix (CMO abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive (set by ``--output_directory``, default ``demultiplexed``). Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Set ``-v`` to create visualization plots. Use ``-vm`` to set visualization method (default ``tsne``).
 
@@ -147,7 +148,7 @@ Preview the demultiplexing result: the numbers of singlets.
 
 
 Kernel density estimation
-^^^^^^^^^^^^^^^^^^^^^^^^^
+-------------------------
 
 Cells are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 

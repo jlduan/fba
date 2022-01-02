@@ -1,6 +1,7 @@
 .. _tutorial_pseudo-bulk_SC3_v3_NextGem_DI_CRISPR_10K:
 
 
+==================================================================
 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA
 ==================================================================
 
@@ -10,19 +11,23 @@ The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K
 
+|
+
 
 Preparation
------------
+===========
 
 Fastq files and feature barcodes are prepared as described :ref:`here <tutorial_crispr_screening_SC3_v3_NextGem_DI_CRISPR_10K>`.
 
+|
+
 
 QC
---
+==
 
 
 Threshold: one mismatch
-+++++++++++++++++++++++
+-----------------------
 
 In the ``qc`` subcommand, if ``-1`` (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.
 
@@ -88,7 +93,7 @@ Result summary.
 
 
 Threshold: two mismatches
-+++++++++++++++++++++++++
+-------------------------
 
 Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by ``-fb_m``).
 

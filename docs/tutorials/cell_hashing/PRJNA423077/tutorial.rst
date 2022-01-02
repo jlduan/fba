@@ -1,6 +1,7 @@
 .. _tutorial_cell_hashing_PRJNA423077:
 
 
+====================================================
 Peripheral blood mononuclear cells with 8 antibodies
 ====================================================
 
@@ -10,21 +11,21 @@ Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3
 
 .. _`Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`: https://doi.org/10.1186/s13059-018-1603-1
 
+|
+
 
 Preparation
------------
+===========
 
 Download fastq files from `European Nucleotide Archive`_.
 
 .. _`European Nucleotide Archive`: https://www.ebi.ac.uk/ena/browser/view/PRJNA423077
-
 
 .. code-block:: console
 
     $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
 
     $ wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
-
 
 Download cell barcode info.
 
@@ -35,7 +36,6 @@ These are the cell-associated barcodes in this single cell RNA-Seq library (dete
     $ curl -O https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2895nnn/GSM2895283/suppl/GSM2895283_Hashtag-HTO-count.csv.gz
 
     $ gzip -dc GSM2895283_Hashtag-HTO-count.csv.gz | head -1 | sed 's/,/\n/g' | grep -v '^$' > cell_barcodes.txt
-
 
 Inspect cell barcodes.
 
@@ -75,9 +75,11 @@ Inspect feature barcodes.
     BatchG  ACTGTCTAACGG
     BatchH  TATCACATCGGT
 
+|
+
 
 QC
---
+==
 
 Sample the first 20,000 read pairs for quality control (set by ``-n``, default ``100,000``). Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
@@ -132,9 +134,11 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     NGAGAAGTCTCGATGAATCTAGCCGCTTT   CGATTGAAGCTAGCCC        10:25   2:0:1   NNNNNNNNNCTNCAAANNAAAAAAAAAAAAAAATAAAAAAAACGGGCTGATCCCAAGCAGACGTCACAAAGAAGCGAGAGAGTGGGATTGAGAAAAAGA     no_match        NA      NA
     NCACGGAGTTCCCTTGCCAATGTAGTTTT   AGGGAGTTCGTTTGCC        2:18    3:0:0   NGCTTACTATCCTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATATGGGGGGGGGGAATCGGGGGGGAGGGGAAAGGGGGGGTGGGGGAAAAAAGA     BatchC_AGCTTACTATCC     0:12    1:0:0
 
+|
+
 
 Barcode extraction
-------------------
+==================
 
 The lengths of cell and feature barcodes (hashtags) are all identical (16 and 12, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,12`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. By default, three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
@@ -200,9 +204,11 @@ Result summary.
     2021-02-17 17:44:36,162 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 67,916,430
     2021-02-17 17:44:36,264 - fba.__main__ - INFO - Done.
 
+|
+
 
 Matrix generation
------------------
+=================
 
 Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 
@@ -247,14 +253,17 @@ Result summary.
     2021-02-17 18:01:15,298 - fba.count - INFO - Median number of UMIs per cell: 63.0
     2021-02-17 18:01:16,924 - fba.__main__ - INFO - Done.
 
+|
+
 
 Demultiplexing
---------------
+==============
+
 
 Negative binomial distribution
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------
 
-Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing. Set ``-v`` to create visualization plots.
+Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing (Default ``0.9999``). Set ``-v`` to create visualization plots.
 
 .. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
 
@@ -323,8 +332,11 @@ Preview the demultiplexing result: the numbers of singlets. The result in `Stoec
     BatchH    2719
     dtype: int64
 
+|
+
+
 Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 Alternatively, cells can be demultiplexed using gaussian mixture model. The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
 
@@ -394,3 +406,5 @@ Preview the demultiplexing result: the numbers of singlets.
     BatchG    2810
     BatchH    2721
     dtype: int64
+
+|

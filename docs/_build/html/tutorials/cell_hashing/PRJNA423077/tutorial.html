@@ -247,6 +247,9 @@
 <span id="tutorial-cell-hashing-prjna423077"></span><h1>Peripheral blood mononuclear cells with 8 antibodies<a class="headerlink" href="#peripheral-blood-mononuclear-cells-with-8-antibodies" title="Permalink to this headline">¶</a></h1>
 <p>Dataset: Cell hashing</p>
 <p>Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics</a>. Genome Biol. <em>19</em>, 224.</p>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA423077">European Nucleotide Archive</a>.</p>
@@ -294,6 +297,9 @@
 <span class="go">BatchH  TATCACATCGGT</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
@@ -333,6 +339,9 @@
 <span class="go">NGAGAAGTCTCGATGAATCTAGCCGCTTT   CGATTGAAGCTAGCCC        10:25   2:0:1   NNNNNNNNNCTNCAAANNAAAAAAAAAAAAAAATAAAAAAAACGGGCTGATCCCAAGCAGACGTCACAAAGAAGCGAGAGAGTGGGATTGAGAAAAAGA     no_match        NA      NA</span>
 <span class="go">NCACGGAGTTCCCTTGCCAATGTAGTTTT   AGGGAGTTCGTTTGCC        2:18    3:0:0   NGCTTACTATCCTAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATATGGGGGGGGGGAATCGGGGGGGAGGGGAAAGGGGGGGTGGGGGAAAAAAGA     BatchC_AGCTTACTATCC     0:12    1:0:0</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 </section>
 <section id="barcode-extraction">
@@ -394,6 +403,9 @@
 <span class="go">2021-02-17 17:44:36,264 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
@@ -428,12 +440,15 @@
 <span class="go">2021-02-17 18:01:16,924 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
 <section id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h3>
-<p>Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are classified based on the abundance of features (HTOs, no transcriptome information used). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing (Default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -478,6 +493,9 @@
 <span class="n">BatchH</span>    <span class="mi">2719</span>
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 </section>
 <section id="gaussian-mixture-model">
@@ -533,6 +551,9 @@
 <span class="n">BatchH</span>    <span class="mi">2721</span>
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 </section>
 </section>

@@ -1,6 +1,7 @@
 .. _tutorial_targeted_transcript_enrichment_Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature:
 
 
+=====================================================================
 Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 =====================================================================
 
@@ -10,9 +11,11 @@ The detailed description of this dataset can be found here_.
 
 .. _here: https://www.10xgenomics.com/resources/datasets/hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel-3-1-standard-4-0-0
 
+|
+
 
 Preparation
------------
+===========
 
 Download fastq files.
 
@@ -105,9 +108,11 @@ Re-format.
     ENSG00000000003 ACCAAAAAACTACACCAGTAGGTTGATTCAATCAAGATGTATGTAGACCTAAAACTACACCAATAGGCTGATTCAATCAAGATCCGTGCTCGCAGTGGGCTGATTCAATCAAGATGTATG
     ENSG00000000003 TTTGCTATGTTCTAAGTCCACCTTCTATCCCATTCATGTTAGATCGTTGAAACCCTGTATCCCTCTGAAACACTGGAAGAGCTAGTAAATTGTAAATGAAGTAATACTGTGTTCCTCTTG
 
+|
+
 
 Matrix generation
------------------
+=================
 
 First, all read 1 are searched against reference cell-associated barcodes. Use ``-r1_c`` to set the search range (default ``0,16``), ``-cb_m`` to set the mismatching threshold (default ``1``). Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, `Li, H. (2013). arXiv:1303.3997.`_ or  bowtie2, `Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`_). The default aligner is ``bwa`` (set by ``-al``). Only alignments passed mapping quality threshold (set by ``--mapq``, default ``10``) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (`Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default ``1``).
 

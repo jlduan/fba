@@ -1,6 +1,7 @@
 .. _tutorial_pseudo-bulk_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex:
 
 
+====================================================
 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed
 ====================================================
 
@@ -10,20 +11,23 @@ The detailed description of this dataset can be found `here`_.
 
 .. _`here`: https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0
 
+|
+
 
 Preparation
------------
-
+===========
 
 Fastq files and feature barcodes are prepared as described :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>`.
 
+|
+
 
 QC
---
+==
 
 
 Threshold: one mismatch
-+++++++++++++++++++++++
+-----------------------
 
 In the ``qc`` subcommand, if ``-1`` (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.
 
@@ -72,7 +76,6 @@ Result summary.
 
 98.3% (212,402,382 / 216,070,514) of reads have valid feature barcodes. CMO301_ATGAGGAATTCCTGC and CMO302_CATGCCAATAGAGCG are the most abundant CMOs. They account for all most all of the valid reads. Although the valid read ratio is 1.663171 (132,435,325 / 79,628,216), cells labeled with them separately are mixed at 1: 1 ratio. See :ref:`here <tutorial_cellplex_SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex>` for more details.
 
-
 .. code-block:: console
 
     2021-10-02 02:02:31,092 - fba.__main__ - INFO - fba version: 0.0.11
@@ -117,7 +120,7 @@ Result summary.
 
 
 Threshold: two mismatches
-+++++++++++++++++++++++++
+-------------------------
 
 Let's relax the threshold to allow 2 mismatches for feature barcode matching (set by ``-fb_m``).
 

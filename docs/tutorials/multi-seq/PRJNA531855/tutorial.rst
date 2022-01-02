@@ -1,5 +1,6 @@
 .. _tutorial_multi-seq_PRJNA531855:
 
+=============================================================================
 15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices
 =============================================================================
 
@@ -9,9 +10,11 @@ McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivasta
 
 .. _`MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`: https://doi.org/10.1038/s41592-019-0433-8
 
+|
+
 
 Preparation
------------
+===========
 
 Download pre-processed feature count matrix files from `GEO`_.
 
@@ -35,11 +38,13 @@ Download pre-processed feature count matrix files from `GEO`_.
 
 |
 
+
 15k human embryonic kidney 293 cells (HEK293)
----------------------------------------------
+=============================================
+
 
 Pre-processing
-^^^^^^^^^^^^^^
+--------------
 
 Inspect feature count matrix.
 
@@ -102,8 +107,11 @@ Pre-process feature count matrix.
     In [8]: np.median(m.sum(axis=0))
     Out[8]: 20.0
 
+|
+
+
 Demultiplexing
-^^^^^^^^^^^^^^
+--------------
 
 Cells are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 
@@ -167,10 +175,11 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
 
 40k primary human mammary epithelial cells (HMECs)
---------------------------------------------------
+==================================================
+
 
 Pre-processing
-^^^^^^^^^^^^^^
+--------------
 
 Inspect feature count matrix.
 
@@ -226,9 +235,11 @@ Pre-process feature count matrix.
     In [8]: m.shape
     Out[8]: (76, 40009)
 
+|
+
 
 Demultiplexing
-^^^^^^^^^^^^^^
+--------------
 
 Cells are demultiplexed based on the abundance of features. Demultiplexing method ``4`` is implemented based on the method described in `McGinnis, C., et al. (2019)`_ with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set ``-v`` to create visualization plots.
 

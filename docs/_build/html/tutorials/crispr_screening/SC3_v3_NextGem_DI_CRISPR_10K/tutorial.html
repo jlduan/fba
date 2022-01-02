@@ -478,6 +478,9 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed3.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed3.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed3.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed3.png" style="width: 500px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
@@ -517,6 +520,9 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_gm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_gm.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="poisson-gaussian-mixture-model">
 <h3>Poisson-Gaussian mixture model<a class="headerlink" href="#poisson-gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
@@ -556,6 +562,9 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_pgm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_pgm.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this headline">¶</a></h3>
@@ -596,10 +605,57 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_kde.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_kde.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="knee-point">
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this headline">¶</a></h3>
-<p>CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented based on the detection of the knee point of UMI cumulative distribution. Comparing to our pervious derivative approach <a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>, this implementation is trying to find the local maxima on the difference curve.</p>
+<section id="method-1">
+<h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this headline">¶</a></h4>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount.csv.gz <span class="se">\</span>
+    -dm <span class="m">5</span>-2019 <span class="se">\</span>
+    -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-02 13:57:51,792 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-02 13:57:51,792 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-02 13:57:51,792 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-01-02 13:57:51,792 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-01-02 13:57:54,328 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Demultiplexing method: 5-2019</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-01-02 13:57:54,329 - fba.demultiplex - INFO - Loading feature count matrix: raw/m2_2020-10-20/matrix_featurecount.csv.gz ...</span>
+<span class="go">2022-01-02 13:57:54,444 - fba.demultiplex - INFO - Number of cells: 11,758</span>
+<span class="go">2022-01-02 13:57:54,444 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)</span>
+<span class="go">2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2</span>
+<span class="go">2022-01-02 13:57:54,464 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799</span>
+<span class="go">2022-01-02 13:57:54,474 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0</span>
+<span class="go">2022-01-02 13:57:54,474 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-01-02 13:57:55,509 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-01-02 13:57:56,717 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-01-02 13:58:12,014 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_20191.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_20191.png" style="width: 700px;"/></a>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_20191.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_20191.png" style="width: 500px;"/></a>
+<p>UMI distribution and knee point detection:</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_20191.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_20191.png" style="width: 800px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+<section id="method-2">
+<h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this headline">¶</a></h4>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span> <span class="se">\</span>
@@ -638,6 +694,7 @@
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
+</section>
 </section>
 </section>
 </section>
@@ -697,7 +754,11 @@
 <li><a class="reference internal" href="#gaussian-mixture-model">Gaussian mixture model</a></li>
 <li><a class="reference internal" href="#poisson-gaussian-mixture-model">Poisson-Gaussian mixture model</a></li>
 <li><a class="reference internal" href="#kernel-density-estimation">Kernel density estimation</a></li>
-<li><a class="reference internal" href="#knee-point">Knee point</a></li>
+<li><a class="reference internal" href="#knee-point">Knee point</a><ul>
+<li><a class="reference internal" href="#method-1">Method 1</a></li>
+<li><a class="reference internal" href="#method-2">Method 2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
