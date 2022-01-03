@@ -613,7 +613,7 @@
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this headline">¶</a></h3>
 <section id="method-1">
 <h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this headline">¶</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which tries to determine perturbations in the cells through the detection of inflection point on the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span>-2019 <span class="se">\</span>
@@ -655,7 +655,7 @@
 </section>
 <section id="method-2">
 <h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this headline">¶</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.</p>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on the difference curve to detemine the knee point on the UMI saturation curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span> <span class="se">\</span>

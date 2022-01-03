@@ -404,7 +404,7 @@ Knee point
 Method 1
 ^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features (CMOs). Demultiplexing method ``5-2019`` is our previous implementation, which trys to detect the inflection point of the UMI saturation curve (`Xie, S., et al. (2019)`_).
+Cells are demultiplexed based on the abundance of features (CMOs). Demultiplexing method ``5-2019`` is our previous implementation, which tries to determine perturbations in the cells through the detection of inflection point on the feature UMI saturation curve (`Xie, S., et al. (2019)`_).
 
 .. _`Xie, S., et al. (2019)`: https://doi.org/10.1016/j.celrep.2019.10.073
 
@@ -483,7 +483,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 Method 2
 ^^^^^^^^
 
-Cells are demultiplexed based on the abundance of features. Demultiplexing method ``5`` is implemented based on the detection of the knee point of UMI saturation curve. This implementation is trying to detect the local maxima on the difference curve.
+Cells are demultiplexed based on the abundance of features (CMOs). Demultiplexing method ``5`` is implemented to use the local maxima on the difference curve to detemine the knee point on the UMI saturation curve.
 
 .. code-block:: console
 
