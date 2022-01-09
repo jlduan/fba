@@ -2,7 +2,7 @@
 
 
 ====================================================
-Peripheral blood mononuclear cells with 8 antibodies
+Peripheral Blood Mononuclear Cells with 8 Antibodies
 ====================================================
 
 Dataset: Cell hashing

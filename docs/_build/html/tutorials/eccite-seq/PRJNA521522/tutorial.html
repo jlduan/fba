@@ -194,7 +194,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral blood mononuclear cells with 8 antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral Blood Mononuclear cells with 8 Antibodies</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../multi-seq/index.html">MULTI-seq</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -373,7 +373,7 @@
 <span class="go">2022-01-08 16:35:05,431 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>For read 1, the first 16 bases are cell barcodes and the following 10 bases are UMIs (Read 1 length is 25). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<p>For read 1, the first 16 bases are cell barcodes and the following 10 bases are UMIs (Read 1 length is 26). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.png" style="width: 390px;"/></a>
 <p>As for read 2, based on the per base content, it suggests that bases 0-12 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.png" style="width: 400px;"/></a>
@@ -608,6 +608,37 @@
 <span class="go">2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
+<p>As for read 2, based on the per base content, it suggests that bases 0-12 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.png" style="width: 400px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.png" style="width: 400px;"/></a>
+<p>The detailed qc results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code> format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head -20
+
+<span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
+<span class="go">NAGCCGATCACGCGGTCTGGTGGGCA      CAGCCGATCACGCGGT        0:16    1:0:0   AATTCCGTCAGATGACCCATATAAGAAATGCCCACCAGA no_match        NA      NA</span>
+<span class="go">NACACAAGTCTCCCTAGGCCTGTGAC      CAAGATCTCCCTTGTG        4:18    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTCACAGGCCT no_match        NA      NA</span>
+<span class="go">TGTATTCAGGAGTCTGAATTGTAATA      CTCGAGGAGATCTGAA        4:18    1:0:2   AATTCCGTCAGATGACCCATATAAGAAATATTACAATTC no_match        NA      NA</span>
+<span class="go">NCGTCAAGTGCCTGGTGCTCCTGTAT      ACGTCAAGTGCCTGGT        0:16    1:0:0   CGAAGACCAAGACCCATATAAGAAAATACAGGAGCACCA mCD29_CGAAGACCAAGA      0:12    0:0:0</span>
+<span class="go">CTAGAGTAGATCGATACGCGGATGGT      CTAGAGTAGATCTGAA        0:15    1:0:1   CGAAGACCAAGACCCATATAAGAAAACCATCCGCGTATC mCD29_CGAAGACCAAGA      0:12    0:0:0</span>
+<span class="go">NATCGGGGTCGAACAGGGAGCGTCAG      AACCGCGAGCGTCAAG        11:26   2:0:1   AATTCCGTCAGATGACCCATATAAGAAACTGACGCTCCC no_match        NA      NA</span>
+<span class="go">AAAGCAAAGACAAGCCAGTATTTACG      ACACCAAGTCCAGTAT        7:21    1:0:2   AATTCCGTCAGATGACCCATATAAGAAACGTAAATACTG no_match        NA      NA</span>
+<span class="go">AAGCCGCGTCTCAACAACAGACTACG      AAGCCGCGTCTCAACA        0:16    0:0:0   AATTCCGTCAGATGACCCATATAAGAAACGTAGTCTGTT no_match        NA      NA</span>
+<span class="go">ACGGAGAAGCGCCTCACTCTATCTTC      ATCCGAAAGCGCCTCA        0:16    1:1:1   AATTCCGTCAGATGACCCATATAAGAAAGAAGATAGAGT no_match        NA      NA</span>
+<span class="go">TCGTACCCACCATCCTACACCGGCAC      CGGAGTCCACCATCCT        1:16    2:0:1   AATTCCGTCAGATGACCCATATAAGAAAAGTGCCGGTGT no_match        NA      NA</span>
+<span class="go">ACAGCTACAGTATGCTTAAAAACAGG      ACAGCTAAGTACTTGC        0:15    0:1:2   AATTCCGTCAGATGACCCATATAAGAAACCTGTTTTTAA no_match        NA      NA</span>
+<span class="go">NTAAGACGTCTAAACCGAGCTGGCAC      CAGCAGCGTCTAAACC        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTGCCAGCTCG no_match        NA      NA</span>
+<span class="go">TCTCTAATCCAGTATGCCTCTCTTGA      AATCCAGTCCGCATCT        5:21    3:0:0   AATTCCGTCAGATGACCCATATAAGAAATCAAGAGAGGC mCD29_CGAAGACCAAGA      23:34   2:0:1</span>
+<span class="go">GACAGAGTCGCATGATTAAAAATCAA      ACAGCTATCGCATGAT        1:16    2:0:1   AATTCCGTCAGATGACCCATATAAGAAATTGATTTTTAA no_match        NA      NA</span>
+<span class="go">NTGAGGGTCTCCAACCGCTTTCTAAT      GATCGCGTCTCCAACC        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAATTAGAAAGCG no_match        NA      NA</span>
+<span class="go">NAGCTGGTCGCCAAATACGTATAACT      GCCAAATTCGATAGAA        9:24    2:0:1   AATTCCGTCAGATGACCCATATAAGAAAAGTTATACGTA no_match        NA      NA</span>
+<span class="go">GTGCGGTAGTGTTGAAGGTTTATAAT      AGTAGTCAGAAGGTTT        7:21    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAATTATAAACCT no_match        NA      NA</span>
+<span class="go">NGAGCACGTGCCTGTGCTACTAGTAC      ACGCCAGGTGCCTGTG        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTACTAGTAGC no_match        NA      NA</span>
+<span class="go">CGGGTCAAGACACTAAAAAACCTGCT      ACACTGACAAACTGCT        9:26    2:1:0   AATTCCGTCAGATGACCCATATAAGAAAAGCAGGTTTTT no_match        NA      NA</span>
+</pre></div>
+</div>
 </section>
 <section id="id4">
 <h3>Barcode extraction<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
@@ -622,6 +653,23 @@
     -cb_m <span class="m">2</span>
 </pre></div>
 </div>
+<p>Preview of result.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">NCGTCAAGTGCCTGGTgctcctgtat      ACGTCAAGTGCCTGGT        1       CGAAGACCAAGAcccatataagaaaatacaggagcacca mCD29_CGAAGACCAAGA      0</span>
+<span class="go">CTAGAGTAGATCGATAcgcggatggt      CTAGAGTAGATCTGAA        2       CGAAGACCAAGAcccatataagaaaaccatccgcgtatc mCD29_CGAAGACCAAGA      0</span>
+<span class="go">GGAAAGCCAATCCGATatcccgtatc      GGAAAGCCAATCCGAT        0       CGAAGACCAAGAcccatataagaaagatacgggatatcg mCD29_CGAAGACCAAGA      0</span>
+<span class="go">GCAAACTCAAACAACAaaccttaagg      GCAAACTCAAACAACA        0       CGAAGACCAAGAcccatataagaaaccttaaggtttgtt mCD29_CGAAGACCAAGA      0</span>
+<span class="go">GTTACAGGTCTCCACTaatagaaggg      GTTACAGGTCTCCACT        0       AATAGCGGAGCCcccatataagaaacccttctattagtg hCD29_AATAGCGGAGCC      0</span>
+<span class="go">CGGACACAGGGCTTCCaaagttttag      CGGACACAGGGCTTCC        0       AATAGCGGAGCCcccatataagaaactaaaactttggaa hCD29_AATAGCGGAGCC      0</span>
+<span class="go">TACGGATTCACCACCTcaccctcttg      TACGGATTCACCACCT        0       CGAAGACCAAGAcccatataagaaacaagagggtgaggt mCD29_CGAAGACCAAGA      0</span>
+<span class="go">GCTTCCAGTTCCCTTGcagacaagag      GCTTCCAGTTCCCTTG        0       CGAAGACCAAGAcccatataagaaactcttgtctgcaag mCD29_CGAAGACCAAGA      0</span>
+<span class="go">CTGCCTAGTGAAATCAatggggaggc      CTGCCTAGTGAAATCA        0       CGAAGACCAAGAcccatataagaaagcctccccattgat mCD29_CGAAGACCAAGA      0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>5.9% (256,759 out of 4,372,604) of total read pairs have valid cell and feature barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -652,6 +700,8 @@
     -ud directional
 </pre></div>
 </div>
+<p>Result summary.</p>
+<p>96.2% (246,996 out of 256,759) of read pairs with valid cell and feature barcodes are unique fragments. 5.6% (246,996 out of 4,372,604) of total sequenced read pairs contribute to the final matrix with an average of 29 UMIs per cell.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -733,6 +783,27 @@
 <span class="go">2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
+<p>As for read 2, based on the per base content, it suggests that bases 15-34 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.png" style="width: 400px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.png" style="width: 400px;"/></a>
+<p>The detailed qc results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code> format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
+<span class="go">NTAAGAGGTCTGCAATCTATATGCAA      AGCGGTCCATGCAATC        3:17    1:0:2   TTCTAGCTCTAAAACCCCGTAGACGGTCGAACAATCCCC mNT7_CCCGTAGACGGTCGAACAA        15:34   0:0:0</span>
+<span class="go">ATCCACCGTCATATCGACATGCCACA      ATCCACCGTCATATCG        0:16    0:0:0   TTCTAGCTCTAAAACCCCGTAGACGGTCGAACAATCCCC mNT7_CCCGTAGACGGTCGAACAA        15:34   0:0:0</span>
+<span class="go">TGCCAAACACTGAAGGATGTCGCCAC      ACACTGAAGGATGTAT        6:22    2:0:0   TTCTAGCTCTAAAACGACATTTAGTACCCGGAGTCCCCA mNT5_GACATTTAGTACCCGGAGT        15:34   0:0:0</span>
+<span class="go">NTCGAAGAGGGTATCGTGAAGTGCTT      AGGGATGGTGAAGGCT        7:25    1:2:0   TTCTAGCTCTAAAACCCATATCGCACCCGATGGGTCCCC mNT8_CCATATCGCACCCGATGGG        15:34   0:0:0</span>
+<span class="go">CCTTACGAGTGGACGTGCAGTCAGGT      CCTTACGAGTGGACGT        0:16    0:0:0   TTCTAGCTCTAAAACCTCGTTCCCTAACGGCGCGGCCCA mNT6_CTCGTTCCCTAACGGCGCG        15:34   0:0:0</span>
+<span class="go">GGTACAGGATCGCAAACGCGCAAATT      ACACTGATCGCAAACT        3:18    2:0:1   AATTCCGTCAGATGACCCATATAAGAAATTTGCGCGTTT no_match        NA      NA</span>
+<span class="go">NAAATGATCCAAACTGTAAGGGAAGC      AAACCTGTCCAAACTG        1:16    0:1:2   TTCTAGCTCTAAAACGACATTTAGTACCCGGAGTCCCCA mNT5_GACATTTAGTACCCGGAGT        15:34   0:0:0</span>
+<span class="go">NCACATAAGGAGTTGCGCAACCGCGA      CACATAGAGTTCGCGC        1:18    0:2:1   TTCTAGCTCTAAAACCCATATCGCACCCGATGGGTCCCC mNT8_CCATATCGCACCCGATGGG        15:34   0:0:0</span>
+<span class="go">AGGGTGAAGCGCTTATTAATCGAAGG      AGGGTGAAGCGATGAC        0:16    3:0:0   AATTCCGTCAGATGACCCATATAAGAAACCTTCGATTAA no_match        NA      NA</span>
+</pre></div>
+</div>
 </section>
 <section id="id8">
 <h3>Barcode extraction<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
@@ -747,6 +818,8 @@
     -cb_m <span class="m">2</span>
 </pre></div>
 </div>
+<p>Result summary.</p>
+<p>63.4% (24,425,023 out of 38,537,829) of total read pairs have valid cell and feature barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -780,6 +853,8 @@
     -ud directional
 </pre></div>
 </div>
+<p>Result summary.</p>
+<p>4.3% (1,050,888 out of 24,425,023) of read pairs with valid cell and feature barcodes are unique fragments. 2.7% (1,050,888 out of 38,537,829) of total sequenced read pairs contribute to the final matrix with an average of 102 UMIs per cell.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - Python version: 3.7</span>

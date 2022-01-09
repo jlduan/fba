@@ -158,8 +158,7 @@ Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-
     2022-01-08 16:35:04,179 - fba.qc - INFO - Output directory: qc
     2022-01-08 16:35:05,431 - fba.__main__ - INFO - Done.
 
-
-For read 1, the first 16 bases are cell barcodes and the following 10 bases are UMIs (Read 1 length is 25). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
+For read 1, the first 16 bases are cell barcodes and the following 10 bases are UMIs (Read 1 length is 26). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content_hashtag.png
    :width: 390px
@@ -214,7 +213,6 @@ The lengths of cell and feature barcodes are all identical (16 and 12, respectiv
         -fb_m 1 \
         -cb_n 3 \
         -fb_n 3
-
 
 Preview of result.
 
@@ -453,6 +451,45 @@ QC
     2022-01-08 12:33:13,341 - fba.qc - INFO - Output directory: qc
     2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.
 
+As for read 2, based on the per base content, it suggests that bases 0-12 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
+
+.. image:: Pyplot_read2_per_base_seq_content_protein-tag.png
+   :width: 400px
+   :align: center
+
+|
+
+.. image:: Pyplot_read2_barcodes_starting_ending_protein-tag.png
+   :width: 400px
+   :align: center
+
+The detailed qc results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in ``substitutions:insertions:deletions`` format.
+
+.. code-block:: console
+
+    $ gzip -dc feature_barcoding_output.tsv.gz | head -20
+
+    read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
+    NAGCCGATCACGCGGTCTGGTGGGCA      CAGCCGATCACGCGGT        0:16    1:0:0   AATTCCGTCAGATGACCCATATAAGAAATGCCCACCAGA no_match        NA      NA
+    NACACAAGTCTCCCTAGGCCTGTGAC      CAAGATCTCCCTTGTG        4:18    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTCACAGGCCT no_match        NA      NA
+    TGTATTCAGGAGTCTGAATTGTAATA      CTCGAGGAGATCTGAA        4:18    1:0:2   AATTCCGTCAGATGACCCATATAAGAAATATTACAATTC no_match        NA      NA
+    NCGTCAAGTGCCTGGTGCTCCTGTAT      ACGTCAAGTGCCTGGT        0:16    1:0:0   CGAAGACCAAGACCCATATAAGAAAATACAGGAGCACCA mCD29_CGAAGACCAAGA      0:12    0:0:0
+    CTAGAGTAGATCGATACGCGGATGGT      CTAGAGTAGATCTGAA        0:15    1:0:1   CGAAGACCAAGACCCATATAAGAAAACCATCCGCGTATC mCD29_CGAAGACCAAGA      0:12    0:0:0
+    NATCGGGGTCGAACAGGGAGCGTCAG      AACCGCGAGCGTCAAG        11:26   2:0:1   AATTCCGTCAGATGACCCATATAAGAAACTGACGCTCCC no_match        NA      NA
+    AAAGCAAAGACAAGCCAGTATTTACG      ACACCAAGTCCAGTAT        7:21    1:0:2   AATTCCGTCAGATGACCCATATAAGAAACGTAAATACTG no_match        NA      NA
+    AAGCCGCGTCTCAACAACAGACTACG      AAGCCGCGTCTCAACA        0:16    0:0:0   AATTCCGTCAGATGACCCATATAAGAAACGTAGTCTGTT no_match        NA      NA
+    ACGGAGAAGCGCCTCACTCTATCTTC      ATCCGAAAGCGCCTCA        0:16    1:1:1   AATTCCGTCAGATGACCCATATAAGAAAGAAGATAGAGT no_match        NA      NA
+    TCGTACCCACCATCCTACACCGGCAC      CGGAGTCCACCATCCT        1:16    2:0:1   AATTCCGTCAGATGACCCATATAAGAAAAGTGCCGGTGT no_match        NA      NA
+    ACAGCTACAGTATGCTTAAAAACAGG      ACAGCTAAGTACTTGC        0:15    0:1:2   AATTCCGTCAGATGACCCATATAAGAAACCTGTTTTTAA no_match        NA      NA
+    NTAAGACGTCTAAACCGAGCTGGCAC      CAGCAGCGTCTAAACC        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTGCCAGCTCG no_match        NA      NA
+    TCTCTAATCCAGTATGCCTCTCTTGA      AATCCAGTCCGCATCT        5:21    3:0:0   AATTCCGTCAGATGACCCATATAAGAAATCAAGAGAGGC mCD29_CGAAGACCAAGA      23:34   2:0:1
+    GACAGAGTCGCATGATTAAAAATCAA      ACAGCTATCGCATGAT        1:16    2:0:1   AATTCCGTCAGATGACCCATATAAGAAATTGATTTTTAA no_match        NA      NA
+    NTGAGGGTCTCCAACCGCTTTCTAAT      GATCGCGTCTCCAACC        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAATTAGAAAGCG no_match        NA      NA
+    NAGCTGGTCGCCAAATACGTATAACT      GCCAAATTCGATAGAA        9:24    2:0:1   AATTCCGTCAGATGACCCATATAAGAAAAGTTATACGTA no_match        NA      NA
+    GTGCGGTAGTGTTGAAGGTTTATAAT      AGTAGTCAGAAGGTTT        7:21    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAATTATAAACCT no_match        NA      NA
+    NGAGCACGTGCCTGTGCTACTAGTAC      ACGCCAGGTGCCTGTG        2:16    1:0:2   AATTCCGTCAGATGACCCATATAAGAAAGTACTAGTAGC no_match        NA      NA
+    CGGGTCAAGACACTAAAAAACCTGCT      ACACTGACAAACTGCT        9:26    2:1:0   AATTCCGTCAGATGACCCATATAAGAAAAGCAGGTTTTT no_match        NA      NA
+
 
 Barcode extraction
 ------------------
@@ -468,6 +505,27 @@ Barcode extraction
         -r1_c 0,16 \
         -r2_c 0,12 \
         -cb_m 2
+
+Preview of result.
+
+.. code-block:: console
+
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
+
+    read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
+    NCGTCAAGTGCCTGGTgctcctgtat      ACGTCAAGTGCCTGGT        1       CGAAGACCAAGAcccatataagaaaatacaggagcacca mCD29_CGAAGACCAAGA      0
+    CTAGAGTAGATCGATAcgcggatggt      CTAGAGTAGATCTGAA        2       CGAAGACCAAGAcccatataagaaaaccatccgcgtatc mCD29_CGAAGACCAAGA      0
+    GGAAAGCCAATCCGATatcccgtatc      GGAAAGCCAATCCGAT        0       CGAAGACCAAGAcccatataagaaagatacgggatatcg mCD29_CGAAGACCAAGA      0
+    GCAAACTCAAACAACAaaccttaagg      GCAAACTCAAACAACA        0       CGAAGACCAAGAcccatataagaaaccttaaggtttgtt mCD29_CGAAGACCAAGA      0
+    GTTACAGGTCTCCACTaatagaaggg      GTTACAGGTCTCCACT        0       AATAGCGGAGCCcccatataagaaacccttctattagtg hCD29_AATAGCGGAGCC      0
+    CGGACACAGGGCTTCCaaagttttag      CGGACACAGGGCTTCC        0       AATAGCGGAGCCcccatataagaaactaaaactttggaa hCD29_AATAGCGGAGCC      0
+    TACGGATTCACCACCTcaccctcttg      TACGGATTCACCACCT        0       CGAAGACCAAGAcccatataagaaacaagagggtgaggt mCD29_CGAAGACCAAGA      0
+    GCTTCCAGTTCCCTTGcagacaagag      GCTTCCAGTTCCCTTG        0       CGAAGACCAAGAcccatataagaaactcttgtctgcaag mCD29_CGAAGACCAAGA      0
+    CTGCCTAGTGAAATCAatggggaggc      CTGCCTAGTGAAATCA        0       CGAAGACCAAGAcccatataagaaagcctccccattgat mCD29_CGAAGACCAAGA      0
+
+Result summary.
+
+5.9% (256,759 out of 4,372,604) of total read pairs have valid cell and feature barcodes.
 
 .. code-block:: console
 
@@ -501,6 +559,10 @@ Matrix generation
         -ul 10 \
         -um 1 \
         -ud directional
+
+Result summary.
+
+96.2% (246,996 out of 256,759) of read pairs with valid cell and feature barcodes are unique fragments. 5.6% (246,996 out of 4,372,604) of total sequenced read pairs contribute to the final matrix with an average of 29 UMIs per cell.
 
 .. code-block:: console
 
@@ -599,6 +661,35 @@ QC
     2022-01-08 14:41:51,366 - fba.qc - INFO - Output directory: qc
     2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.
 
+As for read 2, based on the per base content, it suggests that bases 15-34 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
+
+.. image:: Pyplot_read2_per_base_seq_content_guide-tag.png
+   :width: 400px
+   :align: center
+
+|
+
+.. image:: Pyplot_read2_barcodes_starting_ending_guide-tag.png
+   :width: 400px
+   :align: center
+
+The detailed qc results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in ``substitutions:insertions:deletions`` format.
+
+.. code-block:: console
+
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
+
+    read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
+    NTAAGAGGTCTGCAATCTATATGCAA      AGCGGTCCATGCAATC        3:17    1:0:2   TTCTAGCTCTAAAACCCCGTAGACGGTCGAACAATCCCC mNT7_CCCGTAGACGGTCGAACAA        15:34   0:0:0
+    ATCCACCGTCATATCGACATGCCACA      ATCCACCGTCATATCG        0:16    0:0:0   TTCTAGCTCTAAAACCCCGTAGACGGTCGAACAATCCCC mNT7_CCCGTAGACGGTCGAACAA        15:34   0:0:0
+    TGCCAAACACTGAAGGATGTCGCCAC      ACACTGAAGGATGTAT        6:22    2:0:0   TTCTAGCTCTAAAACGACATTTAGTACCCGGAGTCCCCA mNT5_GACATTTAGTACCCGGAGT        15:34   0:0:0
+    NTCGAAGAGGGTATCGTGAAGTGCTT      AGGGATGGTGAAGGCT        7:25    1:2:0   TTCTAGCTCTAAAACCCATATCGCACCCGATGGGTCCCC mNT8_CCATATCGCACCCGATGGG        15:34   0:0:0
+    CCTTACGAGTGGACGTGCAGTCAGGT      CCTTACGAGTGGACGT        0:16    0:0:0   TTCTAGCTCTAAAACCTCGTTCCCTAACGGCGCGGCCCA mNT6_CTCGTTCCCTAACGGCGCG        15:34   0:0:0
+    GGTACAGGATCGCAAACGCGCAAATT      ACACTGATCGCAAACT        3:18    2:0:1   AATTCCGTCAGATGACCCATATAAGAAATTTGCGCGTTT no_match        NA      NA
+    NAAATGATCCAAACTGTAAGGGAAGC      AAACCTGTCCAAACTG        1:16    0:1:2   TTCTAGCTCTAAAACGACATTTAGTACCCGGAGTCCCCA mNT5_GACATTTAGTACCCGGAGT        15:34   0:0:0
+    NCACATAAGGAGTTGCGCAACCGCGA      CACATAGAGTTCGCGC        1:18    0:2:1   TTCTAGCTCTAAAACCCATATCGCACCCGATGGGTCCCC mNT8_CCATATCGCACCCGATGGG        15:34   0:0:0
+    AGGGTGAAGCGCTTATTAATCGAAGG      AGGGTGAAGCGATGAC        0:16    3:0:0   AATTCCGTCAGATGACCCATATAAGAAACCTTCGATTAA no_match        NA      NA
+
 
 Barcode extraction
 ------------------
@@ -614,6 +705,10 @@ Barcode extraction
         -r1_c 0,16 \
         -r2_c 15,34 \
         -cb_m 2
+
+Result summary.
+
+63.4% (24,425,023 out of 38,537,829) of total read pairs have valid cell and feature barcodes.
 
 .. code-block:: console
 
@@ -651,6 +746,10 @@ Matrix generation
         -um 1 \
         -ud directional
 
+Result summary.
+
+4.3% (1,050,888 out of 24,425,023) of read pairs with valid cell and feature barcodes are unique fragments. 2.7% (1,050,888 out of 38,537,829) of total sequenced read pairs contribute to the final matrix with an average of 102 UMIs per cell.
+
 .. code-block:: console
 
     2022-01-08 15:30:09,447 - fba.__main__ - INFO - fba version: 0.0.x
@@ -669,7 +768,6 @@ Matrix generation
     2022-01-08 15:31:18,853 - fba.count - INFO - Total UMIs after deduplication: 1,050,888
     2022-01-08 15:31:18,862 - fba.count - INFO - Median number of UMIs per cell: 102.0
     2022-01-08 15:31:19,003 - fba.__main__ - INFO - Done.
-
 
 t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the guide tag abundance for each cell, as caculated by FBA. This is a re-creation of `Fig. 1c (iv)`_  in `Mimitou, E.P., et al. (2019)`_ (The embedding is based on hashtags, not the transcriptomes).
 
