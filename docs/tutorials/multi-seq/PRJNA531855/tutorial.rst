@@ -291,9 +291,9 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
 .. code-block:: python
 
-    In [1]:  import numpy as np
+    In [1]: import numpy as np
 
-    In [2]:  import pandas as pd
+    In [2]: import pandas as pd
 
     In [3]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
 

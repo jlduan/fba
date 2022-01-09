@@ -1,0 +1,414 @@
+.. _tutorial_eccite-seq_PRJNA521522:
+
+
+==================================================================================================================
+6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs
+==================================================================================================================
+
+Dataset: ECCITE-Seq
+
+Mimitou, E.P., Cheng, A., Montalbano, A., Hao, S., Stoeckius, M., Legut, M., Roush, T., Herrera, A., Papalexi, E., Ouyang, Z., et al. (2019). `Multiplexed detection of proteins, transcriptomes, clonotypes and CRISPR perturbations in single cells`_. Nat. Methods *16*, 409–412.
+
+.. _`Multiplexed detection of proteins, transcriptomes, clonotypes and CRISPR perturbations in single cells`: https://doi.org/10.1038/s41592-019-0392-0
+
+|
+
+
+Preparation
+===========
+
+Download fastq files from `European Nucleotide Archive`_.
+
+.. _`European Nucleotide Archive`: https://www.ebi.ac.uk/ena/browser/view/PRJNA521522?show=reads
+
+Hashtag (Cell hashing):
+
+.. code-block:: console
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_1.fastq.gz
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_2.fastq.gz
+
+Protein-tag (Cite-Seq):
+
+.. code-block:: console
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_1.fastq.gz
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_2.fastq.gz
+
+guide-tag (sgRNAs):
+
+.. code-block:: console
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_1.fastq.gz
+
+    $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_2.fastq.gz
+
+Download preprocessed transcriptome matrix from `GEO`_. We will need the cell-associated barcodes, which are determined by the transcriptomes.
+
+.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3596084
+
+.. code-block:: console
+
+    $ wget https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3596nnn/GSM3596084/suppl/GSM3596084_mx-cDNA.txt.gz
+
+Inspect cell barcodes:
+
+.. code-block:: console
+
+    $ gzip -dc GSM3596084_mx-cDNA.txt.gz | head -1 | sed 's/"//g' | sed 's/ /\n/g' | sort | grep -B1 1
+
+    CAGATCACACGTAAGG
+    CAGATCACACGTAAGG.1
+    --
+    CGCTATCAGCCGCCTA
+    CGCTATCAGCCGCCTA.1
+    --
+    TTTGCGCCAGTTCATG
+    TTTGCGCCAGTTCATG.1
+
+It seems there are 3 colliding barcodes. We will use the first ones.
+
+.. code-block:: console
+
+    $ gzip -dc GSM3596084_mx-cDNA.txt.gz | head -1 | sed 's/"//g' | sed 's/ /\n/g' | sort | grep -v 1 > cell_barcodes.txt
+
+    $ head cell_barcodes.txt
+
+    AAACCTGAGTGGTAGC
+    AAACCTGAGTGTTTGC
+    AAACCTGAGTTAGGTA
+    AAACCTGCAAGTTGTC
+    AAACCTGCAATTCCTT
+    AAACCTGCACAGACTT
+    AAACCTGCACATCCGG
+    AAACCTGCACGGTAAG
+    AAACCTGCAGACACTT
+    AAACCTGCATCCGCGA
+
+|
+
+
+Hashtag
+=======
+
+
+Preparation
+-----------
+
+Prepare feature barcodes (hashtag-oligo sequences, from Supplementary Table 4 and 5, legend of Supplementary Figure 1):
+
+    NIH-3T3 cells were split into 7 tubes and stained with 7 barcoded hashing antibodies (Hashtag-A to Hashtag-G), followed by washing and pooling. MyLa, Sez4 and PBMCs were stained with Hashtag_1, Hashtag_2 and Hashtag_3 respectively.
+
+.. code-block:: console
+
+    $ cat feature_barcodes_hashtag.tsv
+
+    Hashtag_1       ACATGTTACCGT
+    Hashtag_2       AGCTTACTATCC
+    Hashtag_3       TATCACATCGGT
+    Hashtag_A       AGGACCATCCAA
+    Hashtag_B       TCGATAATGCGA
+    Hashtag_C       GAGGCTGAGCTA
+    Hashtag_D       GTGTGACGTATT
+    Hashtag_E       ACTGTCTAACGG
+    Hashtag_F       CACATAATGACG
+    Hashtag_G       TAACGACGTGGT
+
+
+QC
+--
+
+Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``, default ``qc``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
+
+.. code-block:: console
+
+    $ fba qc \
+        -1 SRR8550947_1.fastq.gz \
+        -2 SRR8550947_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_hashtag.tsv \
+        --output_directory qc
+
+.. code-block:: console
+
+    2022-01-08 16:32:43,465 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 16:32:43,465 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 16:32:43,465 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 16:32:43,465 - fba.__main__ - INFO - Using qc subcommand ...
+    2022-01-08 16:32:44,108 - fba.qc - INFO - Summarizing per base read content ...
+    2022-01-08 16:32:44,108 - fba.qc - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 16:32:44,108 - fba.qc - INFO - Output directory: qc
+    2022-01-08 16:32:44,429 - fba.qc - INFO - Number of reads processed: 100,000
+    2022-01-08 16:32:47,187 - fba.regex - INFO - regex version: 2.5.91
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Number of reference feature barcodes: 10
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Cell barcode maximum number of mismatches: 3
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Feature barcode maximum number of mismatches: 3
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Read 1 maximum number of N allowed: inf
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Read 2 maximum number of N allowed: inf
+    2022-01-08 16:32:47,192 - fba.regex - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 16:32:48,448 - fba.regex - INFO - Number of threads: 72
+    2022-01-08 16:32:48,448 - fba.regex - INFO - Chunk size: 50,000
+    2022-01-08 16:32:48,449 - fba.regex - INFO - Matching ...
+    2022-01-08 16:33:55,391 - fba.regex - INFO - Read pairs processed: 50,000
+    2022-01-08 16:35:02,689 - fba.regex - INFO - Read pairs processed: 100,000
+    2022-01-08 16:35:04,179 - fba.qc - INFO - Summarizing barcode coordinates ...
+    2022-01-08 16:35:04,179 - fba.qc - INFO - Output directory: qc
+    2022-01-08 16:35:05,431 - fba.__main__ - INFO - Done.
+
+
+For read 1, the first 16 bases are cell barcodes and the following 10 bases are UMIs (Read 1 length is 25). Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
+
+.. image:: Pyplot_read1_per_base_seq_content_hashtag.png
+   :width: 390px
+   :align: center
+
+As for read 2, based on the per base content, it suggests that bases 0-12 are actually our feature barcodes (See the distribution of matched barcode positions on read 2).
+
+.. image:: Pyplot_read2_per_base_seq_content_hashtag.png
+   :width: 400px
+   :align: center
+
+|
+
+.. image:: Pyplot_read2_barcodes_starting_ending_hashtag.png
+   :width: 400px
+   :align: center
+
+The detailed qc results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in ``substitutions:insertions:deletions`` format.
+
+.. code-block:: console
+
+    $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
+
+    read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
+    NGACGGCGTGTGACGAACGCGCGCCT      GACGCGTGTGCGAAAC        1:18    0:2:1   ACATGTTACCGTCCCATATAAGAAAAGGCGCGCGTTCGT Hashtag_1_ACATGTTACCGT  0:12    0:0:0
+    NCTACACCACGGTAGAGACCTAGGTC      CACCACTGTGAGTGAC        4:19    2:0:1   AGGACCATCCAACCCATATAAGAAAGACCTAGGTCTCTA Hashtag_A_AGGACCATCCAA  0:12    0:0:0
+    GCAAACTAGATGGCGTCGACGCTTAG      GCAAACTAGATGGCGT        0:16    0:0:0   AGCTTACTATCCCCCATATAGAAGCTAAGCGTCGACGCC Hashtag_2_AGCTTACTATCC  0:12    0:0:0
+    CCTTCGAAGTGCCATTCTTTCACTGG      CCTTCGAAGTGCCATT        0:16    0:0:0   TATCACATCGGTCCCATATAAGAAACCAGTGAAAGAATG Hashtag_3_TATCACATCGGT  0:12    0:0:0
+    NGATCTGGTATGAAACGATCAGGTCA      AGATCTGGTATGAAAC        0:16    1:0:0   AGCTTACTATCCCCCATATAAGAAATGACCTGATCGTTT Hashtag_2_AGCTTACTATCC  0:12    0:0:0
+    NTCGGGATCTGTGCAAATCGGGTAGT      CTCGGGATCTGTGCAA        0:16    1:0:0   AGCTTACTATCCCCCATATAAGAAACTACCCGATTTGCA Hashtag_2_AGCTTACTATCC  0:12    0:0:0
+    GCGCGATGTACTTAGCTGCGTAGGTG      GCGCGATGTACTTAGC        0:16    0:0:0   TATCACATCGGTCCCATATAAGAAACACCTACGCAGCTA Hashtag_3_TATCACATCGGT  0:12    0:0:0
+    AACCGCGCACACAGAGCGTTTGGCCG      AACCGCGCACACAGAG        0:16    0:0:0   ACATGTTACCGTCCCATATAAGAAACGGCCAAACGCTCT Hashtag_1_ACATGTTACCGT  0:12    0:0:0
+    NAATGAACATGCGCACACGATAGTTT      no_match        NA      NA      TATCACATCGGTCCCATATAAGAAAAAACTATCGTGTGC NA      NA      NA
+
+
+Barcode extraction
+------------------
+
+The lengths of cell and feature barcodes are all identical (16 and 12, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,12`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (``-cb_n``, ``-cf_n``) are allowed.
+
+.. code-block:: console
+
+    $ fba extract \
+        -1 SRR8550947_1.fastq.gz \
+        -2 SRR8550947_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_hashtag.tsv \
+        -o feature_barcoding_output.tsv.gz \
+        -r1_c 0,16 \
+        -r2_c 0,12 \
+        -cb_m 1 \
+        -fb_m 1 \
+        -cb_n 3 \
+        -fb_n 3
+
+
+Preview of result.
+
+.. code-block:: console
+
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
+
+    read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
+    NGACGGCGTGTGACGAacgcgcgcct      TGACGGCGTGTGACGA        1       ACATGTTACCGTcccatataagaaaaggcgcgcgttcgt Hashtag_1_ACATGTTACCGT  0
+    NCTACACCACGGTAGAgacctaggtc      CCTACACCACGGTAGA        1       AGGACCATCCAAcccatataagaaagacctaggtctcta Hashtag_A_AGGACCATCCAA  0
+    GCAAACTAGATGGCGTcgacgcttag      GCAAACTAGATGGCGT        0       AGCTTACTATCCcccatatagaagctaagcgtcgacgcc Hashtag_2_AGCTTACTATCC  0
+    CCTTCGAAGTGCCATTctttcactgg      CCTTCGAAGTGCCATT        0       TATCACATCGGTcccatataagaaaccagtgaaagaatg Hashtag_3_TATCACATCGGT  0
+    NGATCTGGTATGAAACgatcaggtca      AGATCTGGTATGAAAC        1       AGCTTACTATCCcccatataagaaatgacctgatcgttt Hashtag_2_AGCTTACTATCC  0
+    NTCGGGATCTGTGCAAatcgggtagt      CTCGGGATCTGTGCAA        1       AGCTTACTATCCcccatataagaaactacccgatttgca Hashtag_2_AGCTTACTATCC  0
+    GCGCGATGTACTTAGCtgcgtaggtg      GCGCGATGTACTTAGC        0       TATCACATCGGTcccatataagaaacacctacgcagcta Hashtag_3_TATCACATCGGT  0
+    AACCGCGCACACAGAGcgtttggccg      AACCGCGCACACAGAG        0       ACATGTTACCGTcccatataagaaacggccaaacgctct Hashtag_1_ACATGTTACCGT  0
+    TCAGATGAGAATGTTGgtggggcttc      TCAGATGAGAATGTTG        0       TATCACATCGGTcccatataagaaagaagccccaccaac Hashtag_3_TATCACATCGGT  0
+
+Result summary.
+
+57.0% (4,897,995 out of 8,591,807) of total read pairs have valid cell and feature barcodes.
+
+.. code-block:: console
+
+    2022-01-08 16:35:05,778 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 16:35:05,778 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 16:35:05,778 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 16:35:05,778 - fba.__main__ - INFO - Using extract subcommand ...
+    2022-01-08 16:35:05,791 - fba.levenshtein - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 16:35:05,791 - fba.levenshtein - INFO - Number of reference feature barcodes: 10
+    2022-01-08 16:35:05,791 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)
+    2022-01-08 16:35:05,791 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12)
+    2022-01-08 16:35:05,791 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 1
+    2022-01-08 16:35:05,792 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1
+    2022-01-08 16:35:05,792 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+    2022-01-08 16:35:05,792 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+    2022-01-08 16:35:05,984 - fba.levenshtein - INFO - Matching ...
+    2022-01-08 16:38:39,570 - fba.levenshtein - INFO - Number of read pairs processed: 8,591,807
+    2022-01-08 16:38:39,572 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,897,995
+    2022-01-08 16:38:39,582 - fba.__main__ - INFO - Done.
+
+
+
+Matrix generation
+-----------------
+
+Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
+
+.. _`Smith, T., et al. 2017. Genome Res. 27, 491–499.`: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
+
+The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
+
+.. _Seruat: https://satijalab.org/seurat/
+
+.. _Scanpy: https://scanpy.readthedocs.io/en/stable
+
+.. code-block:: console
+
+    $ fba count \
+        -i feature_barcoding_output.tsv.gz \
+        -o matrix_featurecount.csv.gz \
+        -us 16 \
+        -ul 10 \
+        -um 1 \
+        -ud directional
+
+Result summary.
+
+31.3% (1,531,088 out of 4,897,995) of read pairs with valid cell and feature barcodes are unique fragments. 17.8% (1,531,088 out of 8,591,807) of total sequenced read pairs contribute to the final matrix with an average of 55 UMIs per cell.
+
+.. code-block:: console
+
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-01-08 16:42:01,202 - fba.__main__ - INFO - Skipping arguments: "-p/--prob"
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Demultiplexing method: 1
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Visualization: On
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2022-01-08 16:42:01,479 - fba.demultiplex - INFO - Number of cells: 6,871
+    2022-01-08 16:42:01,479 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-01-08 16:42:01,498 - fba.demultiplex - INFO - Number of features: 10 / 10 (after filtering / original in the matrix)
+    2022-01-08 16:42:01,498 - fba.demultiplex - INFO - Features: Hashtag_1 Hashtag_2 Hashtag_3 Hashtag_A Hashtag_B Hashtag_C Hashtag_D Hashtag_E Hashtag_F Hashtag_G
+    2022-01-08 16:42:01,499 - fba.demultiplex - INFO - Total UMIs: 1,531,088 / 1,531,088
+    2022-01-08 16:42:01,507 - fba.demultiplex - INFO - Median number of UMIs per cell: 55.0 / 55.0
+    2022-01-08 16:42:01,507 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-01-08 16:44:11,296 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-01-08 16:44:17,314 - fba.demultiplex - INFO - Embedding ...
+    2022-01-08 16:44:28,444 - fba.__main__ - INFO - Done.
+
+
+Demultiplexing
+--------------
+
+Cells are classified based on the abundance of features (hashtags, no transcriptome information used). Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the method described in `Stoeckius, M., et al. (2018)`_ with some modifications. A cell identity matrix is generated in the output directory (set by ``--output_directory``, default ``demultiplexed``): 0 means negative, 1 means positive. Use ``-q`` to set the quantile threshold for demulitplexing (Default ``0.9999``). Set ``-v`` to create visualization plots.
+
+.. _`Stoeckius, M., et al. (2018)`: https://doi.org/10.1186/s13059-018-1603-1
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        --output_directory demultiplexed \
+        -dm 1 \
+        -v
+
+.. code-block:: console
+
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 16:41:49,871 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-01-08 16:42:01,202 - fba.__main__ - INFO - Skipping arguments: "-p/--prob"
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Demultiplexing method: 1
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Visualization: On
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-01-08 16:42:01,203 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2022-01-08 16:42:01,479 - fba.demultiplex - INFO - Number of cells: 6,871
+    2022-01-08 16:42:01,479 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-01-08 16:42:01,498 - fba.demultiplex - INFO - Number of features: 10 / 10 (after filtering / original in the matrix)
+    2022-01-08 16:42:01,498 - fba.demultiplex - INFO - Features: Hashtag_1 Hashtag_2 Hashtag_3 Hashtag_A Hashtag_B Hashtag_C Hashtag_D Hashtag_E Hashtag_F Hashtag_G
+    2022-01-08 16:42:01,499 - fba.demultiplex - INFO - Total UMIs: 1,531,088 / 1,531,088
+    2022-01-08 16:42:01,507 - fba.demultiplex - INFO - Median number of UMIs per cell: 55.0 / 55.0
+    2022-01-08 16:42:01,507 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-01-08 16:44:11,296 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-01-08 16:44:17,314 - fba.demultiplex - INFO - Embedding ...
+    2022-01-08 16:44:28,444 - fba.__main__ - INFO - Done.
+
+
+Heatmap of the relative abundance of features (hashtags) across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_hashtag.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_hashtag.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells. In summary, the numbers of MyLa, Sez4, PBMCs and NIH-3T3 cells demultiplexed are 324, 283, 914 and 4518 respectively.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    Hashtag_1    324
+    Hashtag_2    283
+    Hashtag_3    914
+    Hashtag_A    673
+    Hashtag_B    771
+    Hashtag_C    709
+    Hashtag_D    603
+    Hashtag_E    707
+    Hashtag_F    764
+    Hashtag_G    291
+    dtype: int64
+
+    In [4]: sum(m.sum(axis=0) > 1)
+    Out[4]: 341
+
+    In [5]: sum(m.sum(axis=0) == 0)
+    Out[5]: 491
+
+|
+
+
+Protein-tag
+===========
+
+
+Preparation
+-----------
+
+Prepare feature barcodes (protein-tag sequences, from Supplementary Table 3, legend of Supplementary Figure 1):
+
+    All cells were stained with a mix of anti-human CD29 and anti-mouse CD29 antibodies.
+
+.. code-block:: console
+
+    $ cat feature_barcodes_CD29.tsv
+
+    hCD29   AATAGCGGAGCC
+    mCD29   CGAAGACCAAGA
