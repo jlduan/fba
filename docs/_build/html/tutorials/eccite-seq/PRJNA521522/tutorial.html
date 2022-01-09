@@ -184,7 +184,7 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-Seq; 8k cord blood mononuclear cells with 13 antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
 </ul>
 </li>
@@ -269,7 +269,7 @@
 <span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_2.fastq.gz
 </pre></div>
 </div>
-<p>guide-tag (sgRNAs):</p>
+<p>Guide-tag (sgRNAs):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_1.fastq.gz
 
 <span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_2.fastq.gz
@@ -572,6 +572,238 @@
 </pre></div>
 </div>
 </section>
+<section id="id3">
+<h3>QC<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -1 SRR8550946_1.fastq.gz <span class="se">\</span>
+    -2 SRR8550946_2.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes_CD29.tsv <span class="se">\</span>
+    --output_directory qc
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:29:00,323 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 12:29:00,323 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 12:29:00,323 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 12:29:00,323 - fba.__main__ - INFO - Using qc subcommand ...</span>
+<span class="go">2022-01-08 12:29:00,896 - fba.qc - INFO - Summarizing per base read content ...</span>
+<span class="go">2022-01-08 12:29:00,896 - fba.qc - INFO - Number of read pairs to analyze: 100,000</span>
+<span class="go">2022-01-08 12:29:00,896 - fba.qc - INFO - Output directory: qc</span>
+<span class="go">2022-01-08 12:29:01,119 - fba.qc - INFO - Number of reads processed: 100,000</span>
+<span class="go">2022-01-08 12:29:03,848 - fba.regex - INFO - regex version: 2.5.91</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Number of reference cell barcodes: 6,871</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Cell barcode maximum number of mismatches: 3</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Feature barcode maximum number of mismatches: 3</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Read 1 maximum number of N allowed: inf</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Read 2 maximum number of N allowed: inf</span>
+<span class="go">2022-01-08 12:29:03,852 - fba.regex - INFO - Number of read pairs to analyze: 100,000</span>
+<span class="go">2022-01-08 12:29:05,062 - fba.regex - INFO - Number of threads: 72</span>
+<span class="go">2022-01-08 12:29:05,062 - fba.regex - INFO - Chunk size: 50,000</span>
+<span class="go">2022-01-08 12:29:05,062 - fba.regex - INFO - Matching ...</span>
+<span class="go">2022-01-08 12:31:07,626 - fba.regex - INFO - Read pairs processed: 50,000</span>
+<span class="go">2022-01-08 12:33:11,971 - fba.regex - INFO - Read pairs processed: 100,000</span>
+<span class="go">2022-01-08 12:33:13,341 - fba.qc - INFO - Summarizing barcode coordinates ...</span>
+<span class="go">2022-01-08 12:33:13,341 - fba.qc - INFO - Output directory: qc</span>
+<span class="go">2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Barcode extraction<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 SRR8550946_1.fastq.gz <span class="se">\</span>
+    -2 SRR8550946_2.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes_CD29.tsv <span class="se">\</span>
+    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">0</span>,12 <span class="se">\</span>
+    -cb_m <span class="m">2</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 12:33:14,547 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Number of reference cell barcodes: 6,871</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12)</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2022-01-08 12:33:15,856 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2022-01-08 12:37:37,930 - fba.levenshtein - INFO - Number of read pairs processed: 4,372,604</span>
+<span class="go">2022-01-08 12:37:37,931 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 256,759</span>
+<span class="go">2022-01-08 12:37:37,985 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>Matrix generation<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
+    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -o matrix_featurecount.csv.gz <span class="se">\</span>
+    -us <span class="m">16</span> <span class="se">\</span>
+    -ul <span class="m">10</span> <span class="se">\</span>
+    -um <span class="m">1</span> <span class="se">\</span>
+    -ud directional
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 12:37:38,233 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2022-01-08 12:37:39,087 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2022-01-08 12:37:39,090 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2022-01-08 12:37:39,090 - fba.count - INFO - UMI length: 10</span>
+<span class="go">2022-01-08 12:37:39,090 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2022-01-08 12:37:39,090 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2022-01-08 12:37:39,090 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2022-01-08 12:37:39,587 - fba.count - INFO - Number of lines processed: 256,759</span>
+<span class="go">2022-01-08 12:37:39,590 - fba.count - INFO - Number of cell barcodes detected: 6,871</span>
+<span class="go">2022-01-08 12:37:39,590 - fba.count - INFO - Number of features detected: 2</span>
+<span class="go">2022-01-08 12:37:40,917 - fba.count - INFO - Total UMIs after deduplication: 246,996</span>
+<span class="go">2022-01-08 12:37:40,926 - fba.count - INFO - Median number of UMIs per cell: 29.0</span>
+<span class="go">2022-01-08 12:37:40,983 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA, and the abundance of protein tags. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0/figures/1">Fig. 1c</a> in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0392-0">Mimitou, E.P., et al. (2019)</a> (The embedding is based on hashtags, not the transcriptomes).</p>
+<a class="reference internal image-reference" href="../../../_images/Rplot_embedding_protein-tag_vertical.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Rplot_embedding_protein-tag_vertical.png" style="width: 350px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+<section id="guide-tag">
+<h2>Guide-tag<a class="headerlink" href="#guide-tag" title="Permalink to this headline">¶</a></h2>
+<section id="id6">
+<h3>Preparation<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Prepare feature barcodes (guide-tag sequences, from Supplementary Table 2, Supplementary Figure 1c).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_guide-tag.tsv
+
+<span class="go">mNT1    CGCGGAGCCGAATACCTCG</span>
+<span class="go">mNT2    CGTCGAACCTCCGTGAAAG</span>
+<span class="go">mNT3    ATCGAGCCGAACTGCAACT</span>
+<span class="go">mNT4    AAGGCGTTCGCCTTACACG</span>
+<span class="go">mNT5    GACATTTAGTACCCGGAGT</span>
+<span class="go">mNT6    CTCGTTCCCTAACGGCGCG</span>
+<span class="go">mNT7    CCCGTAGACGGTCGAACAA</span>
+<span class="go">mNT8    CCATATCGCACCCGATGGG</span>
+<span class="go">mNT9    TTACTAGCAGGTGACGCCC</span>
+<span class="go">mNT10   AATACGTTGCGAGTAGAAG</span>
+</pre></div>
+</div>
+</section>
+<section id="id7">
+<h3>QC<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
+    -1 SRR8550948_1.fastq.gz <span class="se">\</span>
+    -2 SRR8550948_2.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes_guide-tag.tsv <span class="se">\</span>
+    --output_directory qc
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 14:39:46,616 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 14:39:46,616 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 14:39:46,617 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 14:39:46,617 - fba.__main__ - INFO - Using qc subcommand ...</span>
+<span class="go">2022-01-08 14:39:47,209 - fba.qc - INFO - Summarizing per base read content ...</span>
+<span class="go">2022-01-08 14:39:47,209 - fba.qc - INFO - Number of read pairs to analyze: 100,000</span>
+<span class="go">2022-01-08 14:39:47,209 - fba.qc - INFO - Output directory: qc</span>
+<span class="go">2022-01-08 14:39:47,428 - fba.qc - INFO - Number of reads processed: 100,000</span>
+<span class="go">2022-01-08 14:39:50,099 - fba.regex - INFO - regex version: 2.5.91</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Number of reference cell barcodes: 6,871</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Number of reference feature barcodes: 10</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Cell barcode maximum number of mismatches: 3</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Feature barcode maximum number of mismatches: 3</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Read 1 maximum number of N allowed: inf</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Read 2 maximum number of N allowed: inf</span>
+<span class="go">2022-01-08 14:39:50,103 - fba.regex - INFO - Number of read pairs to analyze: 100,000</span>
+<span class="go">2022-01-08 14:39:51,295 - fba.regex - INFO - Number of threads: 72</span>
+<span class="go">2022-01-08 14:39:51,296 - fba.regex - INFO - Chunk size: 50,000</span>
+<span class="go">2022-01-08 14:39:51,296 - fba.regex - INFO - Matching ...</span>
+<span class="go">2022-01-08 14:40:49,770 - fba.regex - INFO - Read pairs processed: 50,000</span>
+<span class="go">2022-01-08 14:41:50,088 - fba.regex - INFO - Read pairs processed: 100,000</span>
+<span class="go">2022-01-08 14:41:51,366 - fba.qc - INFO - Summarizing barcode coordinates ...</span>
+<span class="go">2022-01-08 14:41:51,366 - fba.qc - INFO - Output directory: qc</span>
+<span class="go">2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>Barcode extraction<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 SRR8550948_1.fastq.gz <span class="se">\</span>
+    -2 SRR8550948_2.fastq.gz <span class="se">\</span>
+    -w cell_barcodes.txt <span class="se">\</span>
+    -f feature_barcodes_guide-tag.tsv <span class="se">\</span>
+    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">15</span>,34 <span class="se">\</span>
+    -cb_m <span class="m">2</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 14:41:52,877 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2022-01-08 14:41:52,894 - fba.levenshtein - INFO - Number of reference cell barcodes: 6,871</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Number of reference feature barcodes: 10</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 2 coordinates to search: [15, 34)</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2022-01-08 14:41:54,222 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2022-01-08 14:54:23,469 - fba.levenshtein - INFO - Read pairs processed: 10,000,000</span>
+<span class="go">2022-01-08 15:06:57,696 - fba.levenshtein - INFO - Read pairs processed: 20,000,000</span>
+<span class="go">2022-01-08 15:19:24,990 - fba.levenshtein - INFO - Read pairs processed: 30,000,000</span>
+<span class="go">2022-01-08 15:30:09,131 - fba.levenshtein - INFO - Number of read pairs processed: 38,537,829</span>
+<span class="go">2022-01-08 15:30:09,131 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 24,425,023</span>
+<span class="go">2022-01-08 15:30:09,188 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>Matrix generation<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
+    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
+    -o matrix_featurecount.csv.gz <span class="se">\</span>
+    -us <span class="m">16</span> <span class="se">\</span>
+    -ul <span class="m">10</span> <span class="se">\</span>
+    -um <span class="m">1</span> <span class="se">\</span>
+    -ud directional
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - Python version: 3.7</span>
+<span class="go">2022-01-08 15:30:09,447 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2022-01-08 15:30:10,313 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2022-01-08 15:30:10,316 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2022-01-08 15:30:10,316 - fba.count - INFO - UMI length: 10</span>
+<span class="go">2022-01-08 15:30:10,316 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2022-01-08 15:30:10,316 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2022-01-08 15:30:10,316 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2022-01-08 15:30:53,780 - fba.count - INFO - Number of lines processed: 24,425,023</span>
+<span class="go">2022-01-08 15:30:53,785 - fba.count - INFO - Number of cell barcodes detected: 6,867</span>
+<span class="go">2022-01-08 15:30:53,785 - fba.count - INFO - Number of features detected: 10</span>
+<span class="go">2022-01-08 15:31:18,853 - fba.count - INFO - Total UMIs after deduplication: 1,050,888</span>
+<span class="go">2022-01-08 15:31:18,862 - fba.count - INFO - Median number of UMIs per cell: 102.0</span>
+<span class="go">2022-01-08 15:31:19,003 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the guide tag abundance for each cell, as caculated by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0/figures/1">Fig. 1c (iv)</a>  in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0392-0">Mimitou, E.P., et al. (2019)</a> (The embedding is based on hashtags, not the transcriptomes).</p>
+<a class="reference internal image-reference" href="../../../_images/Rplot_embedding_guide.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Rplot_embedding_guide.png" style="width: 350px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -632,6 +864,16 @@
 </li>
 <li><a class="reference internal" href="#protein-tag">Protein-tag</a><ul>
 <li><a class="reference internal" href="#id2">Preparation</a></li>
+<li><a class="reference internal" href="#id3">QC</a></li>
+<li><a class="reference internal" href="#id4">Barcode extraction</a></li>
+<li><a class="reference internal" href="#id5">Matrix generation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#guide-tag">Guide-tag</a><ul>
+<li><a class="reference internal" href="#id6">Preparation</a></li>
+<li><a class="reference internal" href="#id7">QC</a></li>
+<li><a class="reference internal" href="#id8">Barcode extraction</a></li>
+<li><a class="reference internal" href="#id9">Matrix generation</a></li>
 </ul>
 </li>
 </ul>

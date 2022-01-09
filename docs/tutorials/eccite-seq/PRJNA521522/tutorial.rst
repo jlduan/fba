@@ -37,7 +37,7 @@ Protein-tag (Cite-Seq):
 
     $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_2.fastq.gz
 
-guide-tag (sgRNAs):
+Guide-tag (sgRNAs):
 
 .. code-block:: console
 
@@ -412,3 +412,274 @@ Prepare feature barcodes (protein-tag sequences, from Supplementary Table 3, leg
 
     hCD29   AATAGCGGAGCC
     mCD29   CGAAGACCAAGA
+
+
+QC
+--
+
+.. code-block:: console
+
+    $ fba qc \
+        -1 SRR8550946_1.fastq.gz \
+        -2 SRR8550946_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_CD29.tsv \
+        --output_directory qc
+
+.. code-block:: console
+
+    2022-01-08 12:29:00,323 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 12:29:00,323 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 12:29:00,323 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 12:29:00,323 - fba.__main__ - INFO - Using qc subcommand ...
+    2022-01-08 12:29:00,896 - fba.qc - INFO - Summarizing per base read content ...
+    2022-01-08 12:29:00,896 - fba.qc - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 12:29:00,896 - fba.qc - INFO - Output directory: qc
+    2022-01-08 12:29:01,119 - fba.qc - INFO - Number of reads processed: 100,000
+    2022-01-08 12:29:03,848 - fba.regex - INFO - regex version: 2.5.91
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Number of reference feature barcodes: 2
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Cell barcode maximum number of mismatches: 3
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Feature barcode maximum number of mismatches: 3
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Read 1 maximum number of N allowed: inf
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Read 2 maximum number of N allowed: inf
+    2022-01-08 12:29:03,852 - fba.regex - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 12:29:05,062 - fba.regex - INFO - Number of threads: 72
+    2022-01-08 12:29:05,062 - fba.regex - INFO - Chunk size: 50,000
+    2022-01-08 12:29:05,062 - fba.regex - INFO - Matching ...
+    2022-01-08 12:31:07,626 - fba.regex - INFO - Read pairs processed: 50,000
+    2022-01-08 12:33:11,971 - fba.regex - INFO - Read pairs processed: 100,000
+    2022-01-08 12:33:13,341 - fba.qc - INFO - Summarizing barcode coordinates ...
+    2022-01-08 12:33:13,341 - fba.qc - INFO - Output directory: qc
+    2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.
+
+
+Barcode extraction
+------------------
+
+.. code-block:: console
+
+    $ fba extract \
+        -1 SRR8550946_1.fastq.gz \
+        -2 SRR8550946_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_CD29.tsv \
+        -o feature_barcoding_output.tsv.gz \
+        -r1_c 0,16 \
+        -r2_c 0,12 \
+        -cb_m 2
+
+.. code-block:: console
+
+    2022-01-08 12:33:14,547 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 12:33:14,547 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 12:33:14,547 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 12:33:14,547 - fba.__main__ - INFO - Using extract subcommand ...
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Number of reference feature barcodes: 2
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12)
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+    2022-01-08 12:33:14,561 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+    2022-01-08 12:33:15,856 - fba.levenshtein - INFO - Matching ...
+    2022-01-08 12:37:37,930 - fba.levenshtein - INFO - Number of read pairs processed: 4,372,604
+    2022-01-08 12:37:37,931 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 256,759
+    2022-01-08 12:37:37,985 - fba.__main__ - INFO - Done.
+
+
+Matrix generation
+-----------------
+
+.. code-block:: console
+
+    $ fba count \
+        -i feature_barcoding_output.tsv.gz \
+        -o matrix_featurecount.csv.gz \
+        -us 16 \
+        -ul 10 \
+        -um 1 \
+        -ud directional
+
+.. code-block:: console
+
+    2022-01-08 12:37:38,233 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 12:37:38,233 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 12:37:38,233 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 12:37:38,233 - fba.__main__ - INFO - Using count subcommand ...
+    2022-01-08 12:37:39,087 - fba.count - INFO - UMI-tools version: 1.1.1
+    2022-01-08 12:37:39,090 - fba.count - INFO - UMI starting position on read 1: 16
+    2022-01-08 12:37:39,090 - fba.count - INFO - UMI length: 10
+    2022-01-08 12:37:39,090 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2022-01-08 12:37:39,090 - fba.count - INFO - UMI-tools deduplication method: directional
+    2022-01-08 12:37:39,090 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2022-01-08 12:37:39,587 - fba.count - INFO - Number of lines processed: 256,759
+    2022-01-08 12:37:39,590 - fba.count - INFO - Number of cell barcodes detected: 6,871
+    2022-01-08 12:37:39,590 - fba.count - INFO - Number of features detected: 2
+    2022-01-08 12:37:40,917 - fba.count - INFO - Total UMIs after deduplication: 246,996
+    2022-01-08 12:37:40,926 - fba.count - INFO - Median number of UMIs per cell: 29.0
+    2022-01-08 12:37:40,983 - fba.__main__ - INFO - Done.
+
+t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA, and the abundance of protein tags. This is a re-creation of `Fig. 1c`_ in `Mimitou, E.P., et al. (2019)`_ (The embedding is based on hashtags, not the transcriptomes).
+
+.. _`Fig. 1c`: https://www.nature.com/articles/s41592-019-0392-0/figures/1
+
+.. _`Mimitou, E.P., et al. (2019)`: https://doi.org/10.1038/s41592-019-0392-0
+
+.. image:: Rplot_embedding_protein-tag_vertical.png
+   :width: 350px
+   :alt: t-SNE embedding
+   :align: center
+
+|
+
+
+Guide-tag
+===========
+
+
+Preparation
+-----------
+
+Prepare feature barcodes (guide-tag sequences, from Supplementary Table 2, Supplementary Figure 1c).
+
+.. code-block:: console
+
+    $ cat feature_barcodes_guide-tag.tsv
+
+    mNT1    CGCGGAGCCGAATACCTCG
+    mNT2    CGTCGAACCTCCGTGAAAG
+    mNT3    ATCGAGCCGAACTGCAACT
+    mNT4    AAGGCGTTCGCCTTACACG
+    mNT5    GACATTTAGTACCCGGAGT
+    mNT6    CTCGTTCCCTAACGGCGCG
+    mNT7    CCCGTAGACGGTCGAACAA
+    mNT8    CCATATCGCACCCGATGGG
+    mNT9    TTACTAGCAGGTGACGCCC
+    mNT10   AATACGTTGCGAGTAGAAG
+
+
+QC
+--
+
+.. code-block:: console
+
+    $ fba qc \
+        -1 SRR8550948_1.fastq.gz \
+        -2 SRR8550948_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_guide-tag.tsv \
+        --output_directory qc
+
+.. code-block:: console
+
+    2022-01-08 14:39:46,616 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 14:39:46,616 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 14:39:46,617 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 14:39:46,617 - fba.__main__ - INFO - Using qc subcommand ...
+    2022-01-08 14:39:47,209 - fba.qc - INFO - Summarizing per base read content ...
+    2022-01-08 14:39:47,209 - fba.qc - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 14:39:47,209 - fba.qc - INFO - Output directory: qc
+    2022-01-08 14:39:47,428 - fba.qc - INFO - Number of reads processed: 100,000
+    2022-01-08 14:39:50,099 - fba.regex - INFO - regex version: 2.5.91
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Number of reference feature barcodes: 10
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Cell barcode maximum number of mismatches: 3
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Feature barcode maximum number of mismatches: 3
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Read 1 maximum number of N allowed: inf
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Read 2 maximum number of N allowed: inf
+    2022-01-08 14:39:50,103 - fba.regex - INFO - Number of read pairs to analyze: 100,000
+    2022-01-08 14:39:51,295 - fba.regex - INFO - Number of threads: 72
+    2022-01-08 14:39:51,296 - fba.regex - INFO - Chunk size: 50,000
+    2022-01-08 14:39:51,296 - fba.regex - INFO - Matching ...
+    2022-01-08 14:40:49,770 - fba.regex - INFO - Read pairs processed: 50,000
+    2022-01-08 14:41:50,088 - fba.regex - INFO - Read pairs processed: 100,000
+    2022-01-08 14:41:51,366 - fba.qc - INFO - Summarizing barcode coordinates ...
+    2022-01-08 14:41:51,366 - fba.qc - INFO - Output directory: qc
+    2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.
+
+
+Barcode extraction
+------------------
+
+.. code-block:: console
+
+    $ fba extract \
+        -1 SRR8550948_1.fastq.gz \
+        -2 SRR8550948_2.fastq.gz \
+        -w cell_barcodes.txt \
+        -f feature_barcodes_guide-tag.tsv \
+        -o feature_barcoding_output.tsv.gz \
+        -r1_c 0,16 \
+        -r2_c 15,34 \
+        -cb_m 2
+
+.. code-block:: console
+
+    2022-01-08 14:41:52,877 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 14:41:52,877 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 14:41:52,877 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 14:41:52,877 - fba.__main__ - INFO - Using extract subcommand ...
+    2022-01-08 14:41:52,894 - fba.levenshtein - INFO - Number of reference cell barcodes: 6,871
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Number of reference feature barcodes: 10
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 2 coordinates to search: [15, 34)
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 2
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3
+    2022-01-08 14:41:52,895 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3
+    2022-01-08 14:41:54,222 - fba.levenshtein - INFO - Matching ...
+    2022-01-08 14:54:23,469 - fba.levenshtein - INFO - Read pairs processed: 10,000,000
+    2022-01-08 15:06:57,696 - fba.levenshtein - INFO - Read pairs processed: 20,000,000
+    2022-01-08 15:19:24,990 - fba.levenshtein - INFO - Read pairs processed: 30,000,000
+    2022-01-08 15:30:09,131 - fba.levenshtein - INFO - Number of read pairs processed: 38,537,829
+    2022-01-08 15:30:09,131 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 24,425,023
+    2022-01-08 15:30:09,188 - fba.__main__ - INFO - Done.
+
+
+Matrix generation
+-----------------
+
+.. code-block:: console
+
+    $ fba count \
+        -i feature_barcoding_output.tsv.gz \
+        -o matrix_featurecount.csv.gz \
+        -us 16 \
+        -ul 10 \
+        -um 1 \
+        -ud directional
+
+.. code-block:: console
+
+    2022-01-08 15:30:09,447 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-01-08 15:30:09,447 - fba.__main__ - INFO - Initiating logging ...
+    2022-01-08 15:30:09,447 - fba.__main__ - INFO - Python version: 3.7
+    2022-01-08 15:30:09,447 - fba.__main__ - INFO - Using count subcommand ...
+    2022-01-08 15:30:10,313 - fba.count - INFO - UMI-tools version: 1.1.1
+    2022-01-08 15:30:10,316 - fba.count - INFO - UMI starting position on read 1: 16
+    2022-01-08 15:30:10,316 - fba.count - INFO - UMI length: 10
+    2022-01-08 15:30:10,316 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2022-01-08 15:30:10,316 - fba.count - INFO - UMI-tools deduplication method: directional
+    2022-01-08 15:30:10,316 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2022-01-08 15:30:53,780 - fba.count - INFO - Number of lines processed: 24,425,023
+    2022-01-08 15:30:53,785 - fba.count - INFO - Number of cell barcodes detected: 6,867
+    2022-01-08 15:30:53,785 - fba.count - INFO - Number of features detected: 10
+    2022-01-08 15:31:18,853 - fba.count - INFO - Total UMIs after deduplication: 1,050,888
+    2022-01-08 15:31:18,862 - fba.count - INFO - Median number of UMIs per cell: 102.0
+    2022-01-08 15:31:19,003 - fba.__main__ - INFO - Done.
+
+
+t-SNE embedding of cells based on the abundance of features (hashtags, no transcriptome information used). Colors indicate the guide tag abundance for each cell, as caculated by FBA. This is a re-creation of `Fig. 1c (iv)`_  in `Mimitou, E.P., et al. (2019)`_ (The embedding is based on hashtags, not the transcriptomes).
+
+.. _`Fig. 1c (iv)`: https://www.nature.com/articles/s41592-019-0392-0/figures/1
+
+.. _`Mimitou, E.P., et al. (2019)`: https://doi.org/10.1038/s41592-019-0392-0
+
+.. image:: Rplot_embedding_guide.png
+   :alt: t-SNE embedding
+   :width: 350px
+   :align: center
+
+|
