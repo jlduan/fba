@@ -1,7 +1,7 @@
 .. _tutorial_multi-seq_PRJNA531855:
 
 =============================================================================
-15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices
+15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices
 =============================================================================
 
 Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices

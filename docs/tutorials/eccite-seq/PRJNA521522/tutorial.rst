@@ -5,7 +5,7 @@
 6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs
 ==================================================================================================================
 
-Dataset: ECCITE-Seq
+Dataset: ECCITE-seq
 
 Mimitou, E.P., Cheng, A., Montalbano, A., Hao, S., Stoeckius, M., Legut, M., Roush, T., Herrera, A., Papalexi, E., Ouyang, Z., et al. (2019). `Multiplexed detection of proteins, transcriptomes, clonotypes and CRISPR perturbations in single cells`_. Nat. Methods *16*, 409–412.
 
@@ -29,7 +29,7 @@ Hashtag (Cell hashing):
 
     $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_2.fastq.gz
 
-Protein-tag (Cite-Seq):
+Protein-tag (Cite-seq):
 
 .. code-block:: console
 

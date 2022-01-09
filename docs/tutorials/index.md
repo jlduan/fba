@@ -9,7 +9,7 @@ Cell surface protein labeling <cell_surface_protein_labeling/index>
 CellPlex <cellplex/index>
 Cell hashing <cell_hashing/index>
 MULTI-seq <multi-seq/index>
-ECCITE-Seq <eccite-seq/index>
+ECCITE-seq <eccite-seq/index>
 Targeted transcript enrichment <targeted_transcript_enrichment/index>
 Pseudo-bulk <pseudo-bulk/index>
 ```

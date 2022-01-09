@@ -1,6 +1,7 @@
 .. _tutorial_cell_surface_protein_labeling_PRJNA393315:
 
 
+============================================================
 CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies
 ============================================================
 
@@ -12,11 +13,11 @@ Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay,
 
 
 Preparation
------------
+===========
 
-Download fastq files from `GEO`_.
+Download fastq files from `European Nucleotide Archive`_.
 
-.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
+.. _`European Nucleotide Archive`: https://www.ebi.ac.uk/ena/browser/view/PRJNA393315
 
 .. code-block:: console
 
@@ -24,7 +25,9 @@ Download fastq files from `GEO`_.
 
     $ curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_2.fastq.gz
 
-Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.
+Download cell barcode info from `GEO`_. These are the cell-associated barcodes in this single cell RNA-Seq library.
+
+.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
 
 .. code-block:: console
 
@@ -71,7 +74,7 @@ Prepare feature barcodes (antibody-oligo sequences, from the online methods sect
 
 
 QC
---
+==
 
 Sample the first 100,000 (set by ``-n``) read pairs for quality control. Use ``-t`` to set the number of threads. The diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``, default ``qc``). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
@@ -121,7 +124,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 
 Barcode extraction
-------------------
+==================
 
 The lengths of cell and feature barcodes are all identical (16 and 6, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``0,6`` on read 2. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read 2 (``-cb_n``, ``-cf_n``) are allowed.
 
@@ -202,7 +205,7 @@ Result summary.
 
 
 Matrix generation
------------------
+=================
 
 Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 

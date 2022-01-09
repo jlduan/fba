@@ -184,7 +184,7 @@
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Cell surface protein labeling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</a></li>
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
 </ul>
 </li>
@@ -198,10 +198,10 @@
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../multi-seq/index.html">MULTI-seq</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../multi-seq/PRJNA531855/tutorial.html">15k HEK293 and 40k HMECs multiplexed by lipid- and cholesterol-tagged indices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../multi-seq/PRJNA531855/tutorial.html">15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices</a></li>
 </ul>
 </li>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../eccite-seq/index.html">ECCITE-Seq</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../eccite-seq/index.html">ECCITE-seq</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../eccite-seq/PRJNA521522/tutorial.html">6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs</a></li>
 </ul>
 </li>
@@ -253,13 +253,13 @@
 <p>Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). <a class="reference external" href="https://doi.org/10.1038/nmeth.4380">Simultaneous epitope and transcriptome measurement in single cells</a>. Nat. Methods <em>14</em>, 865–868.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
-<p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866">GEO</a>.</p>
+<p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA393315">European Nucleotide Archive</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_1.fastq.gz
 
 <span class="gp">$ </span>curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_2.fastq.gz
 </pre></div>
 </div>
-<p>Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
+<p>Download cell barcode info from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866">GEO</a>. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz
 
 <span class="gp">$ </span>gzip -dc GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz <span class="p">|</span> head -1 <span class="p">|</span> sed <span class="s1">'s/,/\n/g'</span> <span class="p">|</span> awk <span class="s1">'NF'</span> &gt; cell_barcodes.txt
