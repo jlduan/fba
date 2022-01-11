@@ -2,10 +2,10 @@
 
 
 ============================================================
-CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies
+CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies
 ============================================================
 
-Dataset: CITE-Seq
+Dataset: CITE-seq
 
 Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). `Simultaneous epitope and transcriptome measurement in single cells`_. Nat. Methods *14*, 865–868.
 
