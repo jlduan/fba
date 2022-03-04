@@ -6,9 +6,9 @@
 
   <meta property="og:title" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" />
+  <meta property="og:url" content="tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial_2021-12-20.html" />
   <meta property="og:description" content="Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed The detailed description of this dataset can be found here. Preparation: Download fastq files. Combine reads of d..." />
-  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CellPlex" href="../../cellplex/index.html" /><link rel="prev" title="CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies" href="../PRJNA393315/tutorial.html" />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
         <title>1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies - FBA</title>
@@ -175,18 +175,18 @@
   <input type="hidden" name="area" value="default">
 </form>
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
-  <ul class="current">
+  <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
-<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA358686/tutorial.html">CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a></li>
 </ul>
 </li>
-<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Cell surface protein labeling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../PRJNA393315/tutorial.html">CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</a></li>
-<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../cellplex/index.html">CellPlex</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -331,7 +331,7 @@
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
-<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -349,7 +349,7 @@
 <div class="line"><br/></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending2.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" style="width: 800px;"/></a>
-<p>The fragment structure in this feature barcoding library inferred from <code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (Page 3, <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called ‘Capture Sequence 1’ on beads.</p>
+<p>The fragment structure in this feature barcoding library inferred from <code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (<a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called ‘Capture Sequence 1’ on beads.</p>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
@@ -368,7 +368,7 @@
 </section>
 <section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
-<p>The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">10,25</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
+<p>The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">10,25</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -419,7 +419,7 @@
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
-<p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>).</p>
+<p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length. Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code>.</p>
 <p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
@@ -450,9 +450,6 @@
 <span class="go">2021-02-17 23:55:18,944 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 </section>
 </section>
 
@@ -461,26 +458,8 @@
       <footer>
         
         <div class="related-pages">
-          <a class="next-page" href="../../cellplex/index.html">
-              <div class="page-info">
-                <div class="context">
-                  <span>Next</span>
-                </div>
-                <div class="title">CellPlex</div>
-              </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
-            </a>
-          <a class="prev-page" href="../PRJNA393315/tutorial.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
-              <div class="page-info">
-                <div class="context">
-                  <span>Previous</span>
-                </div>
-                
-                <div class="title">CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</div>
-                
-              </div>
-            </a>
+          
+          
         </div>
 
         <div class="related-information">
