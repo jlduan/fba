@@ -129,6 +129,8 @@ The first 12 bases are cell barcodes and the following 8 bases are UMIs. Based o
    :width: 1200px
    :align: center
 
+|
+
 As for read 2, based on the per base content, after the first 12 bases, the reads are A enriched.
 
 .. image:: Pyplot_read2_per_base_seq_content.png
@@ -277,3 +279,88 @@ Preview the demultiplexing result: the numbers of singlets and multiplets. Note:
 
     In [4]: sum(m.sum(axis=0) > 1)
     Out[4]: 74
+
+|
+
+
+Knee point
+----------
+
+Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method ``5`` is implemented to use the local maxima on the difference curve to detemine the knee point on the UMI saturation curve.
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 5 \
+        -v \
+        -nc 0
+
+.. code-block:: console
+
+    2022-03-05 01:52:38,900 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-05 01:52:38,900 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-05 01:52:38,900 - fba.__main__ - INFO - Python version: 3.9
+    2022-03-05 01:52:38,900 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-03-05 01:52:41,396 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Demultiplexing method: 5
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Visualization: On
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2022-03-05 01:52:41,403 - fba.demultiplex - INFO - Number of cells: 523
+    2022-03-05 01:52:41,403 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 0
+    2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)
+    2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Features: DNMT3B MBD1 TET2
+    2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Total UMIs: 1,364 / 1,364
+    2022-03-05 01:52:41,405 - fba.demultiplex - INFO - Median number of UMIs per cell: 1.0 / 1.0
+    2022-03-05 01:52:41,405 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-03-05 01:52:41,810 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-03-05 01:52:41,979 - fba.demultiplex - INFO - Embedding ...
+    2022-03-05 01:52:44,840 - fba.__main__ - INFO - Done.
+
+
+Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    DNMT3B    141
+    MBD1      150
+    TET2      158
+    dtype: int64
+
+    In [4]: sum(m.sum(axis=0) > 1)
+    Out[4]: 74
+
+|
