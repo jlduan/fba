@@ -267,9 +267,58 @@
 <div class="line"><br/></div>
 </div>
 </section>
-<section id="clustering">
-<h2>Clustering<a class="headerlink" href="#clustering" title="Permalink to this headline">¶</a></h2>
-<p>This dataset is single-cell RNA-seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2. We need to re-process these raw reads to get cell-associated barcodes for downstream analysis. The platform of this dataset is Drop-Seq. The details about the original data processing can be found <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588">here</a>. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.</p>
+<section id="mapping">
+<h2>Mapping<a class="headerlink" href="#mapping" title="Permalink to this headline">¶</a></h2>
+<p>This dataset is single-cell RNA-Seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2 (<a class="reference external" href="https://www.nature.com/articles/nmeth.4177/figures/1">Fig. 1h</a>). The platform of this dataset is Drop-Seq. The details about the original data processing can be found <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588">here</a>. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.</p>
+<p>I re-processed these raw reads to get cell-associated barcodes for downstream analysis. Briefly, raw reads were trimmed using <a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/trim_galore">Trim Galore!</a> and mapped to the human reference genome <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A">refdata-gex-GRCh38-2020-A</a> using STAR v2.7.8a. Plasmid <a class="reference external" href="https://www.addgene.org/86708/">CROPseq-Guide-Puro</a> sequence was not included in the reference.</p>
+<div class="table-wrapper"><table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Mapping statistics</span><a class="headerlink" href="#id1" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col style="width: 78%"/>
+<col style="width: 22%"/>
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Number of Read Pairs</p></td>
+<td><p>227,621,653</p></td>
+</tr>
+<tr class="row-even"><td><p>Number of Read Pairs, After Trimming</p></td>
+<td><p>201,527,916</p></td>
+</tr>
+<tr class="row-odd"><td><p>Reads Mapped to Genome: Unique+Multiple</p></td>
+<td><p>0.7654</p></td>
+</tr>
+<tr class="row-even"><td><p>Reads Mapped to Genome: Unique</p></td>
+<td><p>0.696169</p></td>
+</tr>
+<tr class="row-odd"><td><p>Estimated Number of Cells</p></td>
+<td><p>1,199</p></td>
+</tr>
+<tr class="row-even"><td><p>Fraction of Reads in Cells</p></td>
+<td><p>0.479281</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Reads per Cell</p></td>
+<td><p>45,290</p></td>
+</tr>
+<tr class="row-even"><td><p>Median Reads per Cell</p></td>
+<td><p>16,329</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean UMI per Cell</p></td>
+<td><p>2,391</p></td>
+</tr>
+<tr class="row-even"><td><p>Median UMI per Cell</p></td>
+<td><p>1,118</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mean Genes per Cell</p></td>
+<td><p>1,042</p></td>
+</tr>
+<tr class="row-even"><td><p>Median Genes per Cell</p></td>
+<td><p>716</p></td>
+</tr>
+<tr class="row-odd"><td><p>Total Genes Detected</p></td>
+<td><p>16,068</p></td>
+</tr>
+</tbody>
+</table></div>
 <p>Inspect cell barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat cell_barcodes.txt
 
@@ -281,12 +330,11 @@
 <span class="go">AATAAATACAAC</span>
 <span class="go">AATAAATACAAG</span>
 <span class="go">AATAAATACAAT</span>
+<span class="go">AATCAATCGCAA</span>
 <span class="go">AATCAATCGCAC</span>
-<span class="go">AATCAATCGCAG</span>
 </pre></div>
 </div>
-<p>Prepare feature barcodes.</p>
-<p>gRNA sequences can be found in Supplementary Table 1.</p>
+<p>Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes.tsv
 
 <span class="go">DNMT3B  CAGGATTGGGGGCGAGTCGG</span>
@@ -300,15 +348,15 @@
 </section>
 <section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
-<p>The transcripts derived from CROPseq-Guide-Puro and captured by Drop-Seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-Seq library for gRNA enrichment. The transcripts derived from CROPseq-Guide-Puro are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.</p>
-<p><code class="docutils literal notranslate"><span class="pre">qc</span></code> mode is used for gRNA extraction. Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze, <code class="docutils literal notranslate"><span class="pre">None</span></code> means all the reads. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range for read 1 and read 2 respectively. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>The transcripts derived from <a class="reference external" href="https://www.addgene.org/86708/">CROPseq-Guide-Puro</a> and captured by Drop-Seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-Seq library for sgRNA enrichment. The transcripts derived from <a class="reference external" href="https://www.addgene.org/86708/">CROPseq-Guide-Puro</a> are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.</p>
+<p><code class="docutils literal notranslate"><span class="pre">qc</span></code> mode is used for sgRNA extraction. Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze, <code class="docutils literal notranslate"><span class="pre">None</span></code> means all the reads. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range for read 1 and read 2 respectively. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR5163029_1.fastq.gz <span class="se">\</span>
     -2 SRR5163029_2.fastq.gz <span class="se">\</span>
     -w cell_barcodes.txt <span class="se">\</span>
     -f feature_barcodes.tsv <span class="se">\</span>
-    -cb_m <span class="m">2</span> <span class="se">\</span>
-    -fb_m <span class="m">2</span> <span class="se">\</span>
+    -cb_m <span class="m">1</span> <span class="se">\</span>
+    -fb_m <span class="m">1</span> <span class="se">\</span>
     -cb_n <span class="m">15</span> <span class="se">\</span>
     -fb_n <span class="m">15</span> <span class="se">\</span>
     -r1_c <span class="m">0</span>,12 <span class="se">\</span>
@@ -332,26 +380,18 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
-<span class="go">GATATCGCACCGgggagggtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttctttctctattcataccttttctctccatacccaa no_match        NA      NA      AATTTGATGTACACAACATTAAAAGTACTGACACCTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAAAATCACATTATAACACAACAAAAAAA NA      NA      NA</span>
-<span class="go">TTTAGGATCGTTtgatgtattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttcttctttcttttttattctttacaacatcctaccataacata no_match        NA      NA      ATTAAAAATATTGTGGCAGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAATCAGCTATATAACCACTAATACTTCTA NA      NA      NA</span>
-<span class="go">GTCGAAACTCTTaacgggatttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt no_match        NA      NA      TTATAATGGTTACAAATAAAGCAATAGCATCACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA NA      NA      NA</span>
-<span class="go">GTTTACGTGTTCatgggcgattttttttttttttttttttttttttttttaaaaaagttaaaagggggcccgtggggggacaaatagaggggcctagagttccaccccccatcccacaaaaaaaaccctcaccgcacagggcctcgcccct GTTTACGTGTTC    0:12    0:0:0   GGAGTACGGAGAATTCTATAAGAGCTTGACCAATGACTGGGAAGATCACTTGGCAGTGAAGCATTTTTCAGTTGAAGGACAGTTGGAATTCAGAGCCCTTCTATTTGTCCCACGACGTGCTCCTTTTGATCTGTTTGAAAAAAAAAAAAAA no_match        NA      NA</span>
-<span class="go">CCGTCCTAGTTGgtgtatattttttttgtttttttttttttttcaccgggtcagagctgcccctaagtaccacgtcccgtcccacctttatcggacctcggccaccacaaattgcttatccagagtgcccccctccgcccatcccagactc CCGTCCTAGTTG    0:12    0:0:0   AATTAAGTCTCGTAAAGAACGAGAAGCTGAACTTGGACCTAGGGCAACCGACTTCACCAATGTTTACAGCGAGAATCTTGGTGACGACGTGGATGATGAGCGCCTTAAGGTTCTCTTTGGCAAGTTTGGGCCTGCCTTGAGTGTGCGACTT no_match        NA      NA</span>
-<span class="go">TAGCAAGCCCTTttgagcacttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttattttttcttttttttatcataaatat TAGCAAGCCCTT    0:12    0:0:0   CAAACGTTTTATACTAAATAAATATCAAACTACATTCTTCTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGACAAAAAAAAACAAAAAAAAA no_match        NA      NA</span>
-<span class="go">ATCCAAATCTAGgtatagggtttttttttttttttttttttttttttttttaattttttttttttttttttattttttctttttattgggtgtaactcctgcgtacaaaaacctaccctgggggggaaggggattttctcattatagctgg ATCCAAATCTAG    0:12    0:0:0   AAATCGACGGGGACAGGCTCGCCGACTTGCCCCTACTTTTCGATGGGCCATACCCAATAGGCAGATCAATGTTGGGGTGGGTGGTGATGGAGATGATATGGACATATTCATGGAGGAGATGAGAGAAATCAGAAGAAAACTTAGGGAGCTG no_match        NA      NA</span>
-<span class="go">TTAACCTTAGCGgactctttttttttttttttttttttttggaaacttaaaatccccaaaaaactgtttattatacaagggagttttgagtcacggagggcttaccggtaggagttctggttgggggcgcgggcaccagggcctccaaact TTACACCATTAG    0:10    0:0:2   TCCGTGTCCGTGTAAAGGGTGGTGGTCACGTGGCCCAGATTTATGCTATCCGTCAGTCCATCTCCAAAGCCCTGGTGGCCTATTACCAGAACTATGTGGCTGAGGCTTCCAAGAAGGAGATCAAAGACATCCTCATCCAGTATGACCGGAC no_match        NA      NA</span>
-<span class="go">ACGTGTCGTCCGgtgctattttttttttttttttttttttttttttttttttttttttttttattttttttttttttttctagttaacagtttgttacttcacaaaatgaaacagtaagagggtaaaaaaaaaatatttagaaaagaaaaa ACGTGATCGTCG    0:11    1:0:1   TTATCACATAGTGTTGTATTTGAAACATAGTTCATGGTTTTATCAAAGAACTGAAGATGAGAATACTGGTCATCTAACTTTGTAATTTGATTTGATTATACTGTAAAGTTTGACAGTCTCATTTTATCACTGCGTTTGTATCTATTACTAA no_match        NA      NA</span>
+<span class="go">TTTAGGATCGTTtgatgtattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttcttctttcttttttattctttacaacatcctaccataacata no_match        NA      NA      ATTAAAAATATTGTGGCAGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAATCAGCTATATAACCACTAATACTTCTA    NA      NA      NA</span>
+<span class="go">GTCGAAACTCTTaacgggatttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt no_match        NA      NA      TTATAATGGTTACAAATAAAGCAATAGCATCACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA    NA      NA      NA</span>
+<span class="go">GTTTACGTGTTCatgggcgattttttttttttttttttttttttttttttaaaaaagttaaaagggggcccgtggggggacaaatagaggggcctagagttccaccccccatcccacaaaaaaaaccctcaccgcacagggcctcgcccct GTTTACGTGTTC    0:12    0:0:0   GGAGTACGGAGAATTCTATAAGAGCTTGACCAATGACTGGGAAGATCACTTGGCAGTGAAGCATTTTTCAGTTGAAGGACAGTTGGAATTCAGAGCCCTTCTATTTGTCCCACGACGTGCTCCTTTTGATCTGTTTGAAAAAAAAAAAAAA    no_match        NA      NA</span>
+<span class="go">CCGTCCTAGTTGgtgtatattttttttgtttttttttttttttcaccgggtcagagctgcccctaagtaccacgtcccgtcccacctttatcggacctcggccaccacaaattgcttatccagagtgcccccctccgcccatcccagactc CCGTCCTAGTTG    0:12    0:0:0   AATTAAGTCTCGTAAAGAACGAGAAGCTGAACTTGGACCTAGGGCAACCGACTTCACCAATGTTTACAGCGAGAATCTTGGTGACGACGTGGATGATGAGCGCCTTAAGGTTCTCTTTGGCAAGTTTGGGCCTGCCTTGAGTGTGCGACTT    no_match        NA      NA</span>
 <span class="go">TTTCAGTATTGGggcgaattttttttttttttttttttttttttttttttttttttttttttttggctagtttttttgtggtttttgcttttggttctctcgtttgccctggagctcccaggtccctttcttgtcctaccataggtaaccc TTTCAGTATTGG    0:12    0:0:0   GGACGAAACACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTT MBD1_ATAGGTGTCTGAGCGTCCAC       13:33 0:0:0</span>
-<span class="go">AATCACCTACCTtccatcagtttttttttttttttttttttttttttattactctatgttatctttttttttgctttttttgttggttctctttttttcccgagagctcccctgctcccatctgggttaaccagagagacccactacaagc AATCACCTACCT    0:12    0:0:0   GGACTCACACGACTATTCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACCCTGCTTTTTGCTTGTACTGGGTC TET2_CAGGACTCACACGACTATTC       0:18  0:0:2</span>
-<span class="go">GCCTGTCTCATCacatccttttttttttttttttttttttttttttttttttttttttttttgttttttttttttgtttttttgtgtgttttctttgtttggccaggagtctccggcccgcatttgtgttttctcgcgaagacccagtcaa CCGTGTCTCCTC    1:12    1:0:1   GACTATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCGGGTCTCACACGACTATTCGTTTTAGAGCTAGTTATCGCATGTTCAAATAAGGCTAGTCCGTTATCAACTT TET2_CAGGACTCACACGACTATTC       79:99 2:0:0</span>
 <span class="go">CTAGGTACCACTagacagtttttttttttttttttttttttttttttttttttttttttttctctatgtgtgcttttttttggctttagtctgtgggtccctagttagccccggcgcccccacgcgcagaacgtgtcttaccacaagaacc CTAGGTACCACT    0:12    0:0:0   TTCTTGGGTAGTTTGCAGTTTTTAAAATTATGTTTTAAAATGGACTATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAACGGACGAAACACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGC MBD1_ATAGGTGTCTGAGCGTCCAC       121:1410:0:0</span>
 <span class="go">TCTTCCACTACCgtcccgtcttttttttttttttttttttttttttttttttttttttctttatgtcagttttttttgtgctttagtattgggttcccttgtttgcccgagggctcccaggcccagatttgggctaaccaaagggaccccg TCTTCCACTACC    0:12    0:0:0   ACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTAC MBD1_ATAGGTGTCTGAGCGTCCAC       4:24  0:0:0</span>
-<span class="go">GTGTCGCTCTGAcctatttttttttttttttttttttctttttacctttaacaatactgttctcatgttatatgctgttattaaatgtgccccccatgtctctagagatcctacccctgctgatcccgtcccaacaaaaaatactagtaca GTGTACCGCTCT    0:10    0:0:2   AAGGAAAAGACGAAACACCGATAGGAGTCTGAGCGTCCACAAATTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTTGTCCGTTAGCAACTTGAAACACTGGCACCGAGTCGGTCCTTTTTTAAGCTTGGCGTAACTGGATCTTGAGCCTC MBD1_ATAGGTGTCTGAGCGTCCAC       20:40 1:0:0</span>
 <span class="go">CTTAATTTGGTGggaagattttttttttttttttttttttttttttttaagtactttaagtaagctttttttaggctttagccgtgggttcccctgttagcccgggaggtccccgggcccaatctgggcctaacagagaggccccgtacaa CTTAATTTGGTG    0:12    0:0:0   CCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGACTCACACGACTCTTCGTTTTAGAGCTAGCAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGT TET2_CAGGACTCACACGACTATTC       63:83 1:0:0</span>
-<span class="go">GGCGGACAATACccctacgattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt GGCGGACAATAC    0:12    0:0:0   CCGCAGGACTCACACGACTATTCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTTCT TET2_CAGGACTCACACGACTATTC       3:23  0:0:0</span>
-<span class="go">TAAATGTTTAGGtgtccggattttttttttttttttttttttttttttttttttttttttttttttttttttttttctttttcttttttttttctgtttatcatgtggggttttgttttttccttagatttctcccactgtcgtcttgttt TAAATGTTTAGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTTGCTTTATATATCTTGTGGAAAGGACGAAACTCCGGTAGGTGTCTGAGCGTCCTCGTTTTTGAGCTTGAAATAGCCAGTTAAAATAAGGCTAGTCCGTTATCAACTTGACA MBD1_ATAGGTGTCTGAGCGTCCAC       75:95 2:0:0</span>
+<span class="go">TCGTACATACGGtggtttttttttttttttttttttttttttttttttttttttttttttttttttgtttttttttttttttgtttttttttttgtgtcctttgttttcactggggctcccaggtccatatccggtgttaccagagaaacc TCGTACATACGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGATTGGGGGCGAGTCGGGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAA DNMT3B_CAGGATTGGGGGCGAGTCGG     75:95 0:0:0</span>
 </pre></div>
 </div>
+<p>11,597 of 227,621,653 read pairs have valid cell and feature barcodes. Note: This is not a sgRNA enrichment library.</p>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
@@ -364,29 +404,27 @@
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
     -us <span class="m">12</span> <span class="se">\</span>
-    -ul <span class="m">8</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+    -ul <span class="m">8</span>
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,143,943 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - fba version: 0.0.7</span>
-<span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - Initiating logging ...</span>
-<span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - Python version: 3.7</span>
-<span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - Using count subcommand ...</span>
-<span class="go">2020-10-20 04:47:32,738 - fba.count - INFO - UMI-tools version: 1.0.1</span>
-<span class="go">2020-10-20 04:47:32,795 - fba.count - INFO - UMI starting position on read 1: 16</span>
-<span class="go">2020-10-20 04:47:32,795 - fba.count - INFO - UMI length: 12</span>
-<span class="go">2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
-<span class="go">2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication method: directional</span>
-<span class="go">2020-10-20 04:47:32,795 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
-<span class="go">2020-10-20 04:51:50,886 - fba.count - INFO - Number of lines processed: 93,795,979</span>
-<span class="go">2020-10-20 04:51:50,893 - fba.count - INFO - Number of cell barcodes detected: 11,758</span>
-<span class="go">2020-10-20 04:51:50,894 - fba.count - INFO - Number of features detected: 2</span>
-<span class="go">2020-10-20 05:00:42,298 - fba.count - INFO - Total UMIs after deduplication: 7,145,799</span>
-<span class="go">2020-10-20 05:00:42,320 - fba.count - INFO - Median number of UMIs per cell: 477.0</span>
-<span class="go">2020-10-20 05:00:42,434 - fba.__main__ - INFO - Done.</span>
+<p>11.76 % (1,364 out of 11,597) of read pairs with valid cell and feature barcodes are unique fragments.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-04 23:18:27,501 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-04 23:18:27,501 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-04 23:18:27,501 - fba.__main__ - INFO - Python version: 3.10</span>
+<span class="go">2022-03-04 23:18:27,501 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2022-03-04 23:18:31,494 - fba.count - INFO - UMI-tools version: 1.1.2</span>
+<span class="go">2022-03-04 23:18:31,495 - fba.count - INFO - UMI start position on read 1 auto-detected, overriding -us</span>
+<span class="go">2022-03-04 23:18:31,495 - fba.count - INFO - UMI length: 8</span>
+<span class="go">2022-03-04 23:18:31,496 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2022-03-04 23:18:31,496 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2022-03-04 23:18:31,496 - fba.count - INFO - Header line: read1_seq cell_barcode cb_matching_pos cb_matching_description read2_seq feature_barcode fb_matching_pos fb_matching_description</span>
+<span class="go">2022-03-04 23:18:31,581 - fba.count - INFO - Number of lines processed: 11,597</span>
+<span class="go">2022-03-04 23:18:31,581 - fba.count - INFO - Number of cell barcodes detected: 523</span>
+<span class="go">2022-03-04 23:18:31,582 - fba.count - INFO - Number of features detected: 3</span>
+<span class="go">2022-03-04 23:18:31,608 - fba.count - INFO - Total UMIs after deduplication: 1,364</span>
+<span class="go">2022-03-04 23:18:31,609 - fba.count - INFO - Median number of UMIs per cell: 1.0</span>
+<span class="go">2022-03-04 23:18:31,615 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -397,42 +435,55 @@
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
-<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> to set the number of positive cells for a feature to be included for demultiplexing (default <code class="docutils literal notranslate"><span class="pre">200</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">2</span> <span class="se">\</span>
-    -v
+    -v <span class="se">\</span>
+    -nc <span class="m">0</span>
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-10-04 14:14:15,659 - fba.__main__ - INFO - fba version: 0.0.x</span>
-<span class="go">2021-10-04 14:14:15,659 - fba.__main__ - INFO - Initiating logging ...</span>
-<span class="go">2021-10-04 14:14:15,659 - fba.__main__ - INFO - Python version: 3.8</span>
-<span class="go">2021-10-04 14:14:15,659 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
-<span class="go">2021-10-04 14:14:36,166 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"</span>
-<span class="go">2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
-<span class="go">2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Demultiplexing method: 2</span>
-<span class="go">2021-10-04 14:14:36,166 - fba.demultiplex - INFO - UMI normalization method: clr</span>
-<span class="go">2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization: On</span>
-<span class="go">2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization method: tsne</span>
-<span class="go">2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
-<span class="go">2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of cells: 11,758</span>
-<span class="go">2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
-<span class="go">2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)</span>
-<span class="go">2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2</span>
-<span class="go">2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799</span>
-<span class="go">2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0</span>
-<span class="go">2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Demultiplexing ...</span>
-<span class="go">2021-10-04 14:14:38,418 - fba.demultiplex - INFO - Generating heatmap ...</span>
-<span class="go">2021-10-04 14:14:42,078 - fba.demultiplex - INFO - Embedding ...</span>
-<span class="go">2021-10-04 14:15:24,288 - fba.__main__ - INFO - Done.</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-04 23:19:05,218 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-04 23:19:05,219 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-04 23:19:05,219 - fba.__main__ - INFO - Python version: 3.10</span>
+<span class="go">2022-03-04 23:19:05,219 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-03-04 23:19:15,199 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"</span>
+<span class="go">2022-03-04 23:19:15,200 - fba.demultiplex - INFO - Output directory: demultiplexed</span>
+<span class="go">2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Demultiplexing method: 2</span>
+<span class="go">2022-03-04 23:19:15,201 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
+<span class="go">2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of cells: 523</span>
+<span class="go">2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 0</span>
+<span class="go">2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)</span>
+<span class="go">2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Features: DNMT3B MBD1 TET2</span>
+<span class="go">2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Total UMIs: 1,364 / 1,364</span>
+<span class="go">2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Median number of UMIs per cell: 1.0 / 1.0</span>
+<span class="go">2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-03-04 23:19:17,319 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-03-04 23:19:17,784 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-03-04 23:19:32,256 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="tutorials/crispr_screening/PRJNA358686/Pyplot_heatmap_cells_demultiplexed_gm.png"><img alt="Heatmap" class="align-center" src="tutorials/crispr_screening/PRJNA358686/Pyplot_heatmap_cells_demultiplexed_gm.png" style="width: 700px;"/></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="tutorials/crispr_screening/PRJNA358686/Pyplot_embedding_cells_demultiplexed_gm.png"><img alt="t-SNE embedding" class="align-center" src="tutorials/crispr_screening/PRJNA358686/Pyplot_embedding_cells_demultiplexed_gm.png" style="width: 500px;"/></a>
-<p>UMI distribution and model fitting threshold:</p>
-<a class="reference internal image-reference" href="tutorials/crispr_screening/PRJNA358686/Pyplot_feature_umi_distribution_gm.png"><img alt="UMI distribution" class="align-center" src="tutorials/crispr_screening/PRJNA358686/Pyplot_feature_umi_distribution_gm.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm2.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm2.png" style="width: 700px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"demultiplexed/matrix_cell_identity.csv.gz"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">DNMT3B</span>    <span class="mi">141</span>
+<span class="n">MBD1</span>      <span class="mi">150</span>
+<span class="n">TET2</span>      <span class="mi">158</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">74</span>
+</pre></div>
+</div>
 </section>
 </section>
 </section>
@@ -484,7 +535,7 @@
             <ul>
 <li><a class="reference internal" href="#">CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a><ul>
 <li><a class="reference internal" href="#preparation">Preparation</a></li>
-<li><a class="reference internal" href="#clustering">Clustering</a></li>
+<li><a class="reference internal" href="#mapping">Mapping</a></li>
 <li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a></li>
 <li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
 <li><a class="reference internal" href="#demultiplexing">Demultiplexing</a><ul>

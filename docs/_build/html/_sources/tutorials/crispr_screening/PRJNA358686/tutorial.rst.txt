@@ -30,12 +30,40 @@ Download fastq files from `European Nucleotide Archive`_.
 |
 
 
-Clustering
-==========
+Mapping
+=======
 
-This dataset is single-cell RNA-seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2. We need to re-process these raw reads to get cell-associated barcodes for downstream analysis. The platform of this dataset is Drop-Seq. The details about the original data processing can be found here_. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.
+This dataset is single-cell RNA-Seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2 (`Fig. 1h`_). The platform of this dataset is Drop-Seq. The details about the original data processing can be found here_. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.
+
+.. _`Fig. 1h`: https://www.nature.com/articles/nmeth.4177/figures/1
 
 .. _here: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588
+
+I re-processed these raw reads to get cell-associated barcodes for downstream analysis. Briefly, raw reads were trimmed using `Trim Galore!`_ and mapped to the human reference genome `refdata-gex-GRCh38-2020-A`_ using STAR v2.7.8a. Plasmid `CROPseq-Guide-Puro`_ sequence was not included in the reference.
+
+.. _`Trim Galore!`: https://www.bioinformatics.babraham.ac.uk/projects/trim_galore
+
+.. _`refdata-gex-GRCh38-2020-A`: https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A
+
+.. _`CROPseq-Guide-Puro`: https://www.addgene.org/86708/
+
+.. csv-table:: Mapping statistics
+   :widths: 70, 20
+   :header-rows: 0
+
+    "Number of Read Pairs","227,621,653"
+    "Number of Read Pairs, After Trimming","201,527,916"
+    "Reads Mapped to Genome: Unique+Multiple","0.7654"
+    "Reads Mapped to Genome: Unique","0.696169"
+    "Estimated Number of Cells","1,199"
+    "Fraction of Reads in Cells","0.479281"
+    "Mean Reads per Cell","45,290"
+    "Median Reads per Cell","16,329"
+    "Mean UMI per Cell","2,391"
+    "Median UMI per Cell","1,118"
+    "Mean Genes per Cell","1,042"
+    "Median Genes per Cell","716"
+    "Total Genes Detected","16,068"
 
 Inspect cell barcodes.
 
@@ -51,12 +79,10 @@ Inspect cell barcodes.
     AATAAATACAAC
     AATAAATACAAG
     AATAAATACAAT
+    AATCAATCGCAA
     AATCAATCGCAC
-    AATCAATCGCAG
 
-Prepare feature barcodes.
-
-gRNA sequences can be found in Supplementary Table 1.
+Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.
 
 .. code-block:: console
 
@@ -72,9 +98,9 @@ gRNA sequences can be found in Supplementary Table 1.
 Barcode extraction
 ==================
 
-The transcripts derived from CROPseq-Guide-Puro and captured by Drop-Seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-Seq library for gRNA enrichment. The transcripts derived from CROPseq-Guide-Puro are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.
+The transcripts derived from `CROPseq-Guide-Puro`_ and captured by Drop-Seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-Seq library for sgRNA enrichment. The transcripts derived from `CROPseq-Guide-Puro`_ are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.
 
-``qc`` mode is used for gRNA extraction. Use ``-n`` to specify the number of reads to analyze, ``None`` means all the reads. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range for read 1 and read 2 respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
+``qc`` mode is used for sgRNA extraction. Use ``-n`` to specify the number of reads to analyze, ``None`` means all the reads. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range for read 1 and read 2 respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
 .. code-block:: console
 
@@ -83,8 +109,8 @@ The transcripts derived from CROPseq-Guide-Puro and captured by Drop-Seq beads c
         -2 SRR5163029_2.fastq.gz \
         -w cell_barcodes.txt \
         -f feature_barcodes.tsv \
-        -cb_m 2 \
-        -fb_m 2 \
+        -cb_m 1 \
+        -fb_m 1 \
         -cb_n 15 \
         -fb_n 15 \
         -r1_c 0,12 \
@@ -122,24 +148,17 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
-    GATATCGCACCGgggagggtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttctttctctattcataccttttctctccatacccaa no_match        NA      NA      AATTTGATGTACACAACATTAAAAGTACTGACACCTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACACAAAAAAAAAATCACATTATAACACAACAAAAAAA NA      NA      NA
-    TTTAGGATCGTTtgatgtattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttcttctttcttttttattctttacaacatcctaccataacata no_match        NA      NA      ATTAAAAATATTGTGGCAGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAATCAGCTATATAACCACTAATACTTCTA NA      NA      NA
-    GTCGAAACTCTTaacgggatttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt no_match        NA      NA      TTATAATGGTTACAAATAAAGCAATAGCATCACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA NA      NA      NA
-    GTTTACGTGTTCatgggcgattttttttttttttttttttttttttttttaaaaaagttaaaagggggcccgtggggggacaaatagaggggcctagagttccaccccccatcccacaaaaaaaaccctcaccgcacagggcctcgcccct GTTTACGTGTTC    0:12    0:0:0   GGAGTACGGAGAATTCTATAAGAGCTTGACCAATGACTGGGAAGATCACTTGGCAGTGAAGCATTTTTCAGTTGAAGGACAGTTGGAATTCAGAGCCCTTCTATTTGTCCCACGACGTGCTCCTTTTGATCTGTTTGAAAAAAAAAAAAAA no_match        NA      NA
-    CCGTCCTAGTTGgtgtatattttttttgtttttttttttttttcaccgggtcagagctgcccctaagtaccacgtcccgtcccacctttatcggacctcggccaccacaaattgcttatccagagtgcccccctccgcccatcccagactc CCGTCCTAGTTG    0:12    0:0:0   AATTAAGTCTCGTAAAGAACGAGAAGCTGAACTTGGACCTAGGGCAACCGACTTCACCAATGTTTACAGCGAGAATCTTGGTGACGACGTGGATGATGAGCGCCTTAAGGTTCTCTTTGGCAAGTTTGGGCCTGCCTTGAGTGTGCGACTT no_match        NA      NA
-    TAGCAAGCCCTTttgagcacttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttattttttcttttttttatcataaatat TAGCAAGCCCTT    0:12    0:0:0   CAAACGTTTTATACTAAATAAATATCAAACTACATTCTTCTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGACAAAAAAAAACAAAAAAAAA no_match        NA      NA
-    ATCCAAATCTAGgtatagggtttttttttttttttttttttttttttttttaattttttttttttttttttattttttctttttattgggtgtaactcctgcgtacaaaaacctaccctgggggggaaggggattttctcattatagctgg ATCCAAATCTAG    0:12    0:0:0   AAATCGACGGGGACAGGCTCGCCGACTTGCCCCTACTTTTCGATGGGCCATACCCAATAGGCAGATCAATGTTGGGGTGGGTGGTGATGGAGATGATATGGACATATTCATGGAGGAGATGAGAGAAATCAGAAGAAAACTTAGGGAGCTG no_match        NA      NA
-    TTAACCTTAGCGgactctttttttttttttttttttttttggaaacttaaaatccccaaaaaactgtttattatacaagggagttttgagtcacggagggcttaccggtaggagttctggttgggggcgcgggcaccagggcctccaaact TTACACCATTAG    0:10    0:0:2   TCCGTGTCCGTGTAAAGGGTGGTGGTCACGTGGCCCAGATTTATGCTATCCGTCAGTCCATCTCCAAAGCCCTGGTGGCCTATTACCAGAACTATGTGGCTGAGGCTTCCAAGAAGGAGATCAAAGACATCCTCATCCAGTATGACCGGAC no_match        NA      NA
-    ACGTGTCGTCCGgtgctattttttttttttttttttttttttttttttttttttttttttttattttttttttttttttctagttaacagtttgttacttcacaaaatgaaacagtaagagggtaaaaaaaaaatatttagaaaagaaaaa ACGTGATCGTCG    0:11    1:0:1   TTATCACATAGTGTTGTATTTGAAACATAGTTCATGGTTTTATCAAAGAACTGAAGATGAGAATACTGGTCATCTAACTTTGTAATTTGATTTGATTATACTGTAAAGTTTGACAGTCTCATTTTATCACTGCGTTTGTATCTATTACTAA no_match        NA      NA
+    TTTAGGATCGTTtgatgtattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttcttctttcttttttattctttacaacatcctaccataacata no_match        NA      NA      ATTAAAAATATTGTGGCAGGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAACAAAAAAAAATCAGCTATATAACCACTAATACTTCTA    NA      NA      NA
+    GTCGAAACTCTTaacgggatttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt no_match        NA      NA      TTATAATGGTTACAAATAAAGCAATAGCATCACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA    NA      NA      NA
+    GTTTACGTGTTCatgggcgattttttttttttttttttttttttttttttaaaaaagttaaaagggggcccgtggggggacaaatagaggggcctagagttccaccccccatcccacaaaaaaaaccctcaccgcacagggcctcgcccct GTTTACGTGTTC    0:12    0:0:0   GGAGTACGGAGAATTCTATAAGAGCTTGACCAATGACTGGGAAGATCACTTGGCAGTGAAGCATTTTTCAGTTGAAGGACAGTTGGAATTCAGAGCCCTTCTATTTGTCCCACGACGTGCTCCTTTTGATCTGTTTGAAAAAAAAAAAAAA    no_match        NA      NA
+    CCGTCCTAGTTGgtgtatattttttttgtttttttttttttttcaccgggtcagagctgcccctaagtaccacgtcccgtcccacctttatcggacctcggccaccacaaattgcttatccagagtgcccccctccgcccatcccagactc CCGTCCTAGTTG    0:12    0:0:0   AATTAAGTCTCGTAAAGAACGAGAAGCTGAACTTGGACCTAGGGCAACCGACTTCACCAATGTTTACAGCGAGAATCTTGGTGACGACGTGGATGATGAGCGCCTTAAGGTTCTCTTTGGCAAGTTTGGGCCTGCCTTGAGTGTGCGACTT    no_match        NA      NA
     TTTCAGTATTGGggcgaattttttttttttttttttttttttttttttttttttttttttttttggctagtttttttgtggtttttgcttttggttctctcgtttgccctggagctcccaggtccctttcttgtcctaccataggtaaccc TTTCAGTATTGG    0:12    0:0:0   GGACGAAACACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTT MBD1_ATAGGTGTCTGAGCGTCCAC       13:33 0:0:0
-    AATCACCTACCTtccatcagtttttttttttttttttttttttttttattactctatgttatctttttttttgctttttttgttggttctctttttttcccgagagctcccctgctcccatctgggttaaccagagagacccactacaagc AATCACCTACCT    0:12    0:0:0   GGACTCACACGACTATTCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACCCTGCTTTTTGCTTGTACTGGGTC TET2_CAGGACTCACACGACTATTC       0:18  0:0:2
-    GCCTGTCTCATCacatccttttttttttttttttttttttttttttttttttttttttttttgttttttttttttgtttttttgtgtgttttctttgtttggccaggagtctccggcccgcatttgtgttttctcgcgaagacccagtcaa CCGTGTCTCCTC    1:12    1:0:1   GACTATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCGGGTCTCACACGACTATTCGTTTTAGAGCTAGTTATCGCATGTTCAAATAAGGCTAGTCCGTTATCAACTT TET2_CAGGACTCACACGACTATTC       79:99 2:0:0
     CTAGGTACCACTagacagtttttttttttttttttttttttttttttttttttttttttttctctatgtgtgcttttttttggctttagtctgtgggtccctagttagccccggcgcccccacgcgcagaacgtgtcttaccacaagaacc CTAGGTACCACT    0:12    0:0:0   TTCTTGGGTAGTTTGCAGTTTTTAAAATTATGTTTTAAAATGGACTATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAACGGACGAAACACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGC MBD1_ATAGGTGTCTGAGCGTCCAC       121:1410:0:0
     TCTTCCACTACCgtcccgtcttttttttttttttttttttttttttttttttttttttctttatgtcagttttttttgtgctttagtattgggttcccttgtttgcccgagggctcccaggcccagatttgggctaaccaaagggaccccg TCTTCCACTACC    0:12    0:0:0   ACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTAC MBD1_ATAGGTGTCTGAGCGTCCAC       4:24  0:0:0
-    GTGTCGCTCTGAcctatttttttttttttttttttttctttttacctttaacaatactgttctcatgttatatgctgttattaaatgtgccccccatgtctctagagatcctacccctgctgatcccgtcccaacaaaaaatactagtaca GTGTACCGCTCT    0:10    0:0:2   AAGGAAAAGACGAAACACCGATAGGAGTCTGAGCGTCCACAAATTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTTGTCCGTTAGCAACTTGAAACACTGGCACCGAGTCGGTCCTTTTTTAAGCTTGGCGTAACTGGATCTTGAGCCTC MBD1_ATAGGTGTCTGAGCGTCCAC       20:40 1:0:0
     CTTAATTTGGTGggaagattttttttttttttttttttttttttttttaagtactttaagtaagctttttttaggctttagccgtgggttcccctgttagcccgggaggtccccgggcccaatctgggcctaacagagaggccccgtacaa CTTAATTTGGTG    0:12    0:0:0   CCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGACTCACACGACTCTTCGTTTTAGAGCTAGCAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGT TET2_CAGGACTCACACGACTATTC       63:83 1:0:0
-    GGCGGACAATACccctacgattttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt GGCGGACAATAC    0:12    0:0:0   CCGCAGGACTCACACGACTATTCGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTTCT TET2_CAGGACTCACACGACTATTC       3:23  0:0:0
-    TAAATGTTTAGGtgtccggattttttttttttttttttttttttttttttttttttttttttttttttttttttttctttttcttttttttttctgtttatcatgtggggttttgttttttccttagatttctcccactgtcgtcttgttt TAAATGTTTAGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTTGCTTTATATATCTTGTGGAAAGGACGAAACTCCGGTAGGTGTCTGAGCGTCCTCGTTTTTGAGCTTGAAATAGCCAGTTAAAATAAGGCTAGTCCGTTATCAACTTGACA MBD1_ATAGGTGTCTGAGCGTCCAC       75:95 2:0:0
+    TCGTACATACGGtggtttttttttttttttttttttttttttttttttttttttttttttttttttgtttttttttttttttgtttttttttttgtgtcctttgttttcactggggctcccaggtccatatccggtgttaccagagaaacc TCGTACATACGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGATTGGGGGCGAGTCGGGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAA DNMT3B_CAGGATTGGGGGCGAGTCGG     75:95 0:0:0
+
+11,597 of 227,621,653 read pairs have valid cell and feature barcodes. Note: This is not a sgRNA enrichment library.
 
 |
 
@@ -163,32 +182,30 @@ The generated feature count matrix can be easily imported into well-established 
         -i feature_barcoding_output.tsv.gz \
         -o matrix_featurecount.csv.gz \
         -us 12 \
-        -ul 8 \
-        -um 1 \
-        -ud directional
+        -ul 8
 
 Result summary.
 
-7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,143,943 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.
+11.76 % (1,364 out of 11,597) of read pairs with valid cell and feature barcodes are unique fragments.
 
 .. code-block:: console
 
-    2020-10-20 04:47:32,738 - fba.__main__ - INFO - fba version: 0.0.7
-    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Initiating logging ...
-    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Python version: 3.7
-    2020-10-20 04:47:32,738 - fba.__main__ - INFO - Using count subcommand ...
-    2020-10-20 04:47:32,738 - fba.count - INFO - UMI-tools version: 1.0.1
-    2020-10-20 04:47:32,795 - fba.count - INFO - UMI starting position on read 1: 16
-    2020-10-20 04:47:32,795 - fba.count - INFO - UMI length: 12
-    2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication threshold: 1
-    2020-10-20 04:47:32,795 - fba.count - INFO - UMI-tools deduplication method: directional
-    2020-10-20 04:47:32,795 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-    2020-10-20 04:51:50,886 - fba.count - INFO - Number of lines processed: 93,795,979
-    2020-10-20 04:51:50,893 - fba.count - INFO - Number of cell barcodes detected: 11,758
-    2020-10-20 04:51:50,894 - fba.count - INFO - Number of features detected: 2
-    2020-10-20 05:00:42,298 - fba.count - INFO - Total UMIs after deduplication: 7,145,799
-    2020-10-20 05:00:42,320 - fba.count - INFO - Median number of UMIs per cell: 477.0
-    2020-10-20 05:00:42,434 - fba.__main__ - INFO - Done.
+    2022-03-04 23:18:27,501 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-04 23:18:27,501 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-04 23:18:27,501 - fba.__main__ - INFO - Python version: 3.10
+    2022-03-04 23:18:27,501 - fba.__main__ - INFO - Using count subcommand ...
+    2022-03-04 23:18:31,494 - fba.count - INFO - UMI-tools version: 1.1.2
+    2022-03-04 23:18:31,495 - fba.count - INFO - UMI start position on read 1 auto-detected, overriding -us
+    2022-03-04 23:18:31,495 - fba.count - INFO - UMI length: 8
+    2022-03-04 23:18:31,496 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2022-03-04 23:18:31,496 - fba.count - INFO - UMI-tools deduplication method: directional
+    2022-03-04 23:18:31,496 - fba.count - INFO - Header line: read1_seq cell_barcode cb_matching_pos cb_matching_description read2_seq feature_barcode fb_matching_pos fb_matching_description
+    2022-03-04 23:18:31,581 - fba.count - INFO - Number of lines processed: 11,597
+    2022-03-04 23:18:31,581 - fba.count - INFO - Number of cell barcodes detected: 523
+    2022-03-04 23:18:31,582 - fba.count - INFO - Number of features detected: 3
+    2022-03-04 23:18:31,608 - fba.count - INFO - Total UMIs after deduplication: 1,364
+    2022-03-04 23:18:31,609 - fba.count - INFO - Median number of UMIs per cell: 1.0
+    2022-03-04 23:18:31,615 - fba.__main__ - INFO - Done.
 
 |
 
@@ -200,7 +217,7 @@ Demultiplexing
 Gaussian mixture model
 ----------------------
 
-The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
+The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Use ``-nc`` to set the number of positive cells for a feature to be included for demultiplexing (default ``200``).
 
 .. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -209,31 +226,32 @@ The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired b
     $ fba demultiplex \
         -i matrix_featurecount.csv.gz \
         -dm 2 \
-        -v
+        -v \
+        -nc 0
 
 .. code-block:: console
 
-    2021-10-04 14:14:15,659 - fba.__main__ - INFO - fba version: 0.0.x
-    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Initiating logging ...
-    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Python version: 3.8
-    2021-10-04 14:14:15,659 - fba.__main__ - INFO - Using demultiplex subcommand ...
-    2021-10-04 14:14:36,166 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
-    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Output directory: demultiplexed
-    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - Demultiplexing method: 2
-    2021-10-04 14:14:36,166 - fba.demultiplex - INFO - UMI normalization method: clr
-    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization: On
-    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Visualization method: tsne
-    2021-10-04 14:14:36,167 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
-    2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of cells: 11,758
-    2021-10-04 14:14:37,875 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
-    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Number of features: 2 / 2 (after filtering / original in the matrix)
-    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Features: NON_TARGET-1 RAB1A-2
-    2021-10-04 14:14:37,920 - fba.demultiplex - INFO - Total UMIs: 7,145,799 / 7,145,799
-    2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Median number of UMIs per cell: 477.0 / 477.0
-    2021-10-04 14:14:37,942 - fba.demultiplex - INFO - Demultiplexing ...
-    2021-10-04 14:14:38,418 - fba.demultiplex - INFO - Generating heatmap ...
-    2021-10-04 14:14:42,078 - fba.demultiplex - INFO - Embedding ...
-    2021-10-04 14:15:24,288 - fba.__main__ - INFO - Done.
+    2022-03-04 23:19:05,218 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-04 23:19:05,219 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-04 23:19:05,219 - fba.__main__ - INFO - Python version: 3.10
+    2022-03-04 23:19:05,219 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-03-04 23:19:15,199 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
+    2022-03-04 23:19:15,200 - fba.demultiplex - INFO - Output directory: demultiplexed
+    2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Demultiplexing method: 2
+    2022-03-04 23:19:15,201 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization: On
+    2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of cells: 523
+    2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 0
+    2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)
+    2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Features: DNMT3B MBD1 TET2
+    2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Total UMIs: 1,364 / 1,364
+    2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Median number of UMIs per cell: 1.0 / 1.0
+    2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-03-04 23:19:17,319 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-03-04 23:19:17,784 - fba.demultiplex - INFO - Embedding ...
+    2022-03-04 23:19:32,256 - fba.__main__ - INFO - Done.
 
 Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
@@ -242,16 +260,20 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
-   :alt: t-SNE embedding
-   :width: 500px
-   :align: center
+.. code-block:: python
 
-UMI distribution and model fitting threshold:
+    In [1]: import pandas as pd
 
-.. image:: Pyplot_feature_umi_distribution_gm.png
-   :alt: UMI distribution
-   :width: 800px
-   :align: center
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    DNMT3B    141
+    MBD1      150
+    TET2      158
+    dtype: int64
+
+    In [4]: sum(m.sum(axis=0) > 1)
+    Out[4]: 74
