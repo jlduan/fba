@@ -52,9 +52,9 @@ $ conda install -c bioconda fba
 
 - CRISPR screening
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html)
-    - [CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)](https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA358686/tutorial.html)
+    - [CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)](https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA358686/tutorial.html)
 - Cell surface protein labeling
-    - [CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html)
+    - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html)
 - CellPlex
     - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](https://jlduan.github.io/fba/_build/html/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html)
@@ -63,7 +63,7 @@ $ conda install -c bioconda fba
     - [Peripheral Blood Mononuclear Cells with 8 Antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_hashing/PRJNA423077/tutorial.html)
 - MULTI-seq
     - [15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices](https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html)
-- ECCITE-Seq
+- ECCITE-seq
     - [6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs](https://jlduan.github.io/fba/_build/html/tutorials/eccite-seq/PRJNA521522/tutorial.html)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](https://jlduan.github.io/fba/_build/html/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html)

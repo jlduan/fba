@@ -16,9 +16,9 @@ Pseudo-bulk <pseudo-bulk/index>
 
 - CRISPR screening
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](./crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.rst)
-    - [CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)](./crispr_screening/PRJNA358686/tutorial.rst)
+    - [CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)](./crispr_screening/PRJNA358686/tutorial.rst)
 - Cell surface protein labeling
-    - [CITE-Seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](./cell_surface_protein_labeling/PRJNA393315/tutorial.rst)
+    - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](./cell_surface_protein_labeling/PRJNA393315/tutorial.rst)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](./cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.rst)
 - CellPlex
     - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](./cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.rst)

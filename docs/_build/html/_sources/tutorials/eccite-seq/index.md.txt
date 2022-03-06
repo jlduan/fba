@@ -1,4 +1,4 @@
-# ECCITE-seq
+# ECCITE-Seq
 
 
 ```{toctree}

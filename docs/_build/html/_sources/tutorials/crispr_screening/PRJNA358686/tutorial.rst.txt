@@ -2,10 +2,10 @@
 
 
 ===============================================================================
-CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
+CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
 ===============================================================================
 
-Dataset: CROP-Seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
+Dataset: CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
 
 Datlinger, P., Rendeiro, A.F., Schmidl, C., Krausgruber, T., Traxler, P., Klughammer, J., Schuster, L.C., Kuchler, A., Alpar, D., and Bock, C. (2017). `Pooled CRISPR screening with single-cell transcriptome readout`_. Nat. Methods *14*, 297–301.
 
@@ -33,7 +33,7 @@ Download fastq files from `European Nucleotide Archive`_.
 Mapping
 =======
 
-This dataset is single-cell RNA-Seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2 (`Fig. 1h`_). The platform of this dataset is Drop-Seq. The details about the original data processing can be found here_. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.
+This dataset is single-cell RNA-seq on HEK293T cell lines mixed in equal proportions knocked out for DNMT3B, MBD1, and TET2 (`Fig. 1h`_). The platform of this dataset is Drop-seq. The details about the original data processing can be found here_. Briefly, raw data were process with Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell barcodes, followed by 8 bases UMIs. Captured single cell transcripts are on read 2.
 
 .. _`Fig. 1h`: https://www.nature.com/articles/nmeth.4177/figures/1
 
@@ -98,7 +98,7 @@ Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.
 Barcode extraction
 ==================
 
-The transcripts derived from `CROPseq-Guide-Puro`_ and captured by Drop-Seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-Seq library for sgRNA enrichment. The transcripts derived from `CROPseq-Guide-Puro`_ are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.
+The transcripts derived from `CROPseq-Guide-Puro`_ and captured by Drop-seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-seq library for sgRNA enrichment. The transcripts derived from `CROPseq-Guide-Puro`_ are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.
 
 ``qc`` mode is used for sgRNA extraction. Use ``-n`` to specify the number of reads to analyze, ``None`` means all the reads. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range for read 1 and read 2 respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
