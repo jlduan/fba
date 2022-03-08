@@ -349,7 +349,7 @@
 </section>
 <section id="approach-a">
 <h2>Approach A<a class="headerlink" href="#approach-a" title="Permalink to this headline">¶</a></h2>
-<p>Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GACGAAACACCG</span></code>) upstream of sgRNAs (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a> version 3.7).</p>
+<p>Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GACGAAACACCG</span></code>) upstream of sgRNAs (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
     --cores <span class="m">0</span> <span class="se">\</span>
     --front GACGAAACACCG <span class="se">\</span>
@@ -424,7 +424,7 @@
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz  <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">TAATGTTTAGGGagggcgctttttt       TAATGTTTAGGG    0       ATAGGTGTCTGAGCGTCCACgtttt       MBD1_ATAGGTGTCTGAGCGTCCAC       0</span>
@@ -469,27 +469,28 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">13</span> <span class="se">\</span>
+    -us <span class="m">12</span> <span class="se">\</span>
     -ul <span class="m">8</span>
 </pre></div>
 </div>
 <p>Result summary.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-07 16:12:14,065 - fba.__main__ - INFO - fba version: 0.0.x</span>
-<span class="go">2022-03-07 16:12:14,065 - fba.__main__ - INFO - Initiating logging ...</span>
-<span class="go">2022-03-07 16:12:14,065 - fba.__main__ - INFO - Python version: 3.10</span>
-<span class="go">2022-03-07 16:12:14,065 - fba.__main__ - INFO - Using count subcommand ...</span>
-<span class="go">2022-03-07 16:12:15,882 - fba.count - INFO - UMI-tools version: 1.1.2</span>
-<span class="go">2022-03-07 16:12:15,883 - fba.count - INFO - UMI starting position on read 1: 13</span>
-<span class="go">2022-03-07 16:12:15,883 - fba.count - INFO - UMI length: 8</span>
-<span class="go">2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
-<span class="go">2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication method: directional</span>
-<span class="go">2022-03-07 16:12:15,883 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
-<span class="go">2022-03-07 16:12:15,900 - fba.count - INFO - Number of lines processed: 9,213</span>
-<span class="go">2022-03-07 16:12:15,900 - fba.count - INFO - Number of cell barcodes detected: 420</span>
-<span class="go">2022-03-07 16:12:15,900 - fba.count - INFO - Number of features detected: 3</span>
-<span class="go">2022-03-07 16:12:15,917 - fba.count - INFO - Total UMIs after deduplication: 1,081</span>
-<span class="go">2022-03-07 16:12:15,917 - fba.count - INFO - Median number of UMIs per cell: 1.0</span>
-<span class="go">2022-03-07 16:12:15,922 - fba.__main__ - INFO - Done.</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-08 13:43:27,499 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-08 13:43:27,499 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-08 13:43:27,499 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-03-08 13:43:27,499 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2022-03-08 13:43:28,183 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2022-03-08 13:43:28,184 - fba.count - INFO - UMI starting position on read 1: 12</span>
+<span class="go">2022-03-08 13:43:28,184 - fba.count - INFO - UMI length: 8</span>
+<span class="go">2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2022-03-08 13:43:28,184 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2022-03-08 13:43:28,194 - fba.count - INFO - Number of lines processed: 9,213</span>
+<span class="go">2022-03-08 13:43:28,194 - fba.count - INFO - Number of cell barcodes detected: 420</span>
+<span class="go">2022-03-08 13:43:28,194 - fba.count - INFO - Number of features detected: 3</span>
+<span class="go">2022-03-08 13:43:28,194 - fba.count - INFO - UMI deduplicating ...</span>
+<span class="go">2022-03-08 13:43:28,202 - fba.count - INFO - Total UMIs after deduplication: 1,089</span>
+<span class="go">2022-03-08 13:43:28,202 - fba.count - INFO - Median number of UMIs per cell: 1.0</span>
+<span class="go">2022-03-08 13:43:28,204 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
 <div class="line-block">
@@ -777,10 +778,6 @@
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_original_knee.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_original_knee.png" style="width: 700px;"/></a>
-<p>UMI distribution and knee point detection:</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_DNMT3B.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_DNMT3B.png" style="width: 400px;"/></a>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_MBD1.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_MBD1.png" style="width: 400px;"/></a>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_TET2.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_TET2.png" style="width: 400px;"/></a>
 <p>Preview the demultiplexing result: the numbers of singlets and multiplets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -797,6 +794,10 @@
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">74</span>
 </pre></div>
 </div>
+<p>UMI distribution and knee point detection:</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_DNMT3B.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_DNMT3B.png" style="width: 400px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_MBD1.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_MBD1.png" style="width: 400px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_TET2.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_TET2.png" style="width: 400px;"/></a>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>

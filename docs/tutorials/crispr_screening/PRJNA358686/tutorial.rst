@@ -256,29 +256,30 @@ The generated feature count matrix can be easily imported into well-established 
     $ fba count \
         -i feature_barcoding_output.tsv.gz \
         -o matrix_featurecount.csv.gz \
-        -us 13 \
+        -us 12 \
         -ul 8
 
 Result summary.
 
 .. code-block:: console
 
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - fba version: 0.0.x
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Initiating logging ...
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Python version: 3.10
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Using count subcommand ...
-    2022-03-07 16:12:15,882 - fba.count - INFO - UMI-tools version: 1.1.2
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI starting position on read 1: 13
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI length: 8
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication threshold: 1
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication method: directional
-    2022-03-07 16:12:15,883 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of lines processed: 9,213
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of cell barcodes detected: 420
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of features detected: 3
-    2022-03-07 16:12:15,917 - fba.count - INFO - Total UMIs after deduplication: 1,081
-    2022-03-07 16:12:15,917 - fba.count - INFO - Median number of UMIs per cell: 1.0
-    2022-03-07 16:12:15,922 - fba.__main__ - INFO - Done.
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Python version: 3.9
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Using count subcommand ...
+    2022-03-08 13:43:28,183 - fba.count - INFO - UMI-tools version: 1.1.1
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI starting position on read 1: 12
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI length: 8
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication method: directional
+    2022-03-08 13:43:28,184 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of lines processed: 9,213
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of cell barcodes detected: 420
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of features detected: 3
+    2022-03-08 13:43:28,194 - fba.count - INFO - UMI deduplicating ...
+    2022-03-08 13:43:28,202 - fba.count - INFO - Total UMIs after deduplication: 1,089
+    2022-03-08 13:43:28,202 - fba.count - INFO - Median number of UMIs per cell: 1.0
+    2022-03-08 13:43:28,204 - fba.__main__ - INFO - Done.
 
 |
 
@@ -390,7 +391,6 @@ Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplex
     2022-03-05 01:52:41,810 - fba.demultiplex - INFO - Generating heatmap ...
     2022-03-05 01:52:41,979 - fba.demultiplex - INFO - Embedding ...
     2022-03-05 01:52:44,840 - fba.__main__ - INFO - Done.
-
 
 Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
@@ -631,23 +631,6 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-UMI distribution and knee point detection:
-
-.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
-.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
-.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
 Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
@@ -665,5 +648,22 @@ Preview the demultiplexing result: the numbers of singlets and multiplets.
 
     In [4]: sum(m.sum(axis=0) > 1)
     Out[4]: 74
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
 
 |
