@@ -98,7 +98,7 @@ Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.
 Approach A
 ==========
 
-Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs (`cutadapt`_ version 3.7).
+Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs (`cutadapt`_\, version 3.7).
 
 .. _`cutadapt`: https://github.com/marcelm/cutadapt
 
@@ -199,7 +199,7 @@ Preview of result.
 
 .. code-block:: console
 
-    $ gzip -dc feature_barcoding_output.tsv.gz  | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     TAATGTTTAGGGagggcgctttttt       TAATGTTTAGGG    0       ATAGGTGTCTGAGCGTCCACgtttt       MBD1_ATAGGTGTCTGAGCGTCCAC       0
@@ -256,29 +256,30 @@ The generated feature count matrix can be easily imported into well-established 
     $ fba count \
         -i feature_barcoding_output.tsv.gz \
         -o matrix_featurecount.csv.gz \
-        -us 13 \
+        -us 12 \
         -ul 8
 
 Result summary.
 
 .. code-block:: console
 
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - fba version: 0.0.x
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Initiating logging ...
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Python version: 3.10
-    2022-03-07 16:12:14,065 - fba.__main__ - INFO - Using count subcommand ...
-    2022-03-07 16:12:15,882 - fba.count - INFO - UMI-tools version: 1.1.2
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI starting position on read 1: 13
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI length: 8
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication threshold: 1
-    2022-03-07 16:12:15,883 - fba.count - INFO - UMI-tools deduplication method: directional
-    2022-03-07 16:12:15,883 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of lines processed: 9,213
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of cell barcodes detected: 420
-    2022-03-07 16:12:15,900 - fba.count - INFO - Number of features detected: 3
-    2022-03-07 16:12:15,917 - fba.count - INFO - Total UMIs after deduplication: 1,081
-    2022-03-07 16:12:15,917 - fba.count - INFO - Median number of UMIs per cell: 1.0
-    2022-03-07 16:12:15,922 - fba.__main__ - INFO - Done.
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Python version: 3.9
+    2022-03-08 13:43:27,499 - fba.__main__ - INFO - Using count subcommand ...
+    2022-03-08 13:43:28,183 - fba.count - INFO - UMI-tools version: 1.1.1
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI starting position on read 1: 12
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI length: 8
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication threshold: 1
+    2022-03-08 13:43:28,184 - fba.count - INFO - UMI-tools deduplication method: directional
+    2022-03-08 13:43:28,184 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of lines processed: 9,213
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of cell barcodes detected: 420
+    2022-03-08 13:43:28,194 - fba.count - INFO - Number of features detected: 3
+    2022-03-08 13:43:28,194 - fba.count - INFO - UMI deduplicating ...
+    2022-03-08 13:43:28,202 - fba.count - INFO - Total UMIs after deduplication: 1,089
+    2022-03-08 13:43:28,202 - fba.count - INFO - Median number of UMIs per cell: 1.0
+    2022-03-08 13:43:28,204 - fba.__main__ - INFO - Done.
 
 |
 
@@ -333,7 +334,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -391,7 +392,6 @@ Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplex
     2022-03-05 01:52:41,979 - fba.demultiplex - INFO - Embedding ...
     2022-03-05 01:52:44,840 - fba.__main__ - INFO - Done.
 
-
 Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.
 
 .. image:: Pyplot_heatmap_cells_demultiplexed_trimmed_knee.png
@@ -399,7 +399,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -464,8 +464,6 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     TCTTCCACTACCgtcccgtcttttttttttttttttttttttttttttttttttttttctttatgtcagttttttttgtgctttagtattgggttcccttgtttgcccgagggctcccaggcccagatttgggctaaccaaagggaccccg TCTTCCACTACC    0:12    0:0:0   ACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTAC MBD1_ATAGGTGTCTGAGCGTCCAC       4:24  0:0:0
     CTTAATTTGGTGggaagattttttttttttttttttttttttttttttaagtactttaagtaagctttttttaggctttagccgtgggttcccctgttagcccgggaggtccccgggcccaatctgggcctaacagagaggccccgtacaa CTTAATTTGGTG    0:12    0:0:0   CCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGACTCACACGACTCTTCGTTTTAGAGCTAGCAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGT TET2_CAGGACTCACACGACTATTC       63:83 1:0:0
     TCGTACATACGGtggtttttttttttttttttttttttttttttttttttttttttttttttttttgtttttttttttttttgtttttttttttgtgtcctttgttttcactggggctcccaggtccatatccggtgttaccagagaaacc TCGTACATACGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGATTGGGGGCGAGTCGGGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAA DNMT3B_CAGGATTGGGGGCGAGTCGG     75:95 0:0:0
-
-11,597 of 227,621,653 read pairs have valid cell and feature barcodes. Note: This is not a sgRNA enrichment library.
 
 |
 
@@ -567,7 +565,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -633,24 +631,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-UMI distribution and knee point detection:
-
-.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
-.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
-.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
-   :alt: UMI distribution
-   :width: 400px
-   :align: center
-
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -667,5 +648,22 @@ Preview the demultiplexing result: the numbers of singlets and multiplets. Note:
 
     In [4]: sum(m.sum(axis=0) > 1)
     Out[4]: 74
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
 
 |

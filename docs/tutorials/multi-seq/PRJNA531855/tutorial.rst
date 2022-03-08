@@ -16,9 +16,9 @@ McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivasta
 Preparation
 ===========
 
-Download pre-processed feature count matrix files from `GEO`_.
+Download pre-processed feature count matrix files from `Gene Expression Omnibus`_.
 
-.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578
+.. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578
 
 
 .. code-block:: console

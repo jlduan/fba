@@ -25,9 +25,9 @@ Download fastq files from `European Nucleotide Archive`_.
 
     $ curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_2.fastq.gz
 
-Download cell barcode info from `GEO`_. These are the cell-associated barcodes in this single cell RNA-Seq library.
+Download cell barcode info from `Gene Expression Omnibus`_. These are the cell-associated barcodes in this single cell RNA-Seq library.
 
-.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
+.. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866
 
 .. code-block:: console
 
