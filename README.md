@@ -53,6 +53,7 @@ $ conda install -c bioconda fba
 - CRISPR screening
     - [10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed](https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html)
     - [CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)](https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA358686/tutorial.html)
+    - [Direct-capture Perturb-seq; CRISPRi-based screen of unfolded protein response (UPR) through 3' sgRNA-CR1<sup>cs1</sup>](./PRJNA609688/tutorial.rst)
 - Cell surface protein labeling
     - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html)

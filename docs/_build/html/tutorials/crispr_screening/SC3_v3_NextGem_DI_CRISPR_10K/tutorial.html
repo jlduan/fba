@@ -182,6 +182,7 @@
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">CRISPR screening</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
 <li class="toctree-l3 current current-page"><a class="current reference internal" href="#">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../PRJNA358686/tutorial.html">CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based screen of unfolded protein response (UPR) through 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -328,13 +329,13 @@
 </pre></div>
 </div>
 <p>This library is built using the Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for CRISPR Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content5.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content5.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content5.png" style="width: 350px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content6.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content6.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content6.png" style="width: 350px;"/></a>
 <p>As for read 2, based on the per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf">Template Switch Oligo (TSO) sequence</a>. Starting from base 32, it seems there are two genotypes for the reads we have sampled.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content5.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content5.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content5.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content6.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content6.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content6.png" style="width: 800px;"/></a>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending5.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending5.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending5.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending6.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending6.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending6.png" style="width: 800px;"/></a>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
@@ -520,7 +521,7 @@
 </pre></div>
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm2.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm2.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
@@ -562,9 +563,9 @@
 </pre></div>
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm1.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png" style="width: 500px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.png" style="width: 500px;"/></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_pgm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_pgm.png" style="width: 800px;"/></a>
 <div class="line-block">
@@ -691,7 +692,7 @@
 </pre></div>
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee2.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee2.png" style="width: 700px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee1.png" style="width: 700px;"/></a>
 <p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee1.png" style="width: 500px;"/></a>
 <p>UMI distribution and knee point detection:</p>
