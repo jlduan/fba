@@ -182,7 +182,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA358686/tutorial.html">CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based screen of unfolded protein response (UPR) through 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
 </ul>
 </li>
 <li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">Cell surface protein labeling</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
@@ -261,7 +261,7 @@
 <span class="gp">$ </span>curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR580/000/SRR5808750/SRR5808750_2.fastq.gz
 </pre></div>
 </div>
-<p>Download cell barcode info from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866">GEO</a>. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
+<p>Download cell barcode info from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE100866">Gene Expression Omnibus</a>. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE100nnn/GSE100866/suppl/GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz
 
 <span class="gp">$ </span>gzip -dc GSE100866_CBMC_8K_13AB_10X-ADT_umi.csv.gz <span class="p">|</span> head -1 <span class="p">|</span> sed <span class="s1">'s/,/\n/g'</span> <span class="p">|</span> awk <span class="s1">'NF'</span> &gt; cell_barcodes.txt

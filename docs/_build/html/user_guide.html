@@ -7,7 +7,7 @@
   <meta property="og:title" content="User Guide" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="user_guide.html" />
-  <meta property="og:description" content=", Usage: extract: cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.,..." />
+  <meta property="og:description" content=", What is fba?: fba is a flexible and streamlined toolbox for quality control, quantification, demultiplexing of various feature barcoding assays. It can be applied to customized feature barcoding ..." />
   <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Tutorials" href="tutorials/index.html" /><link rel="prev" title="Installation" href="installation.html" />
 
     <link rel="shortcut icon" href="_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
@@ -182,7 +182,7 @@
 <li class="toctree-l2 has-children"><a class="reference internal" href="tutorials/crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
 <li class="toctree-l3"><a class="reference internal" href="tutorials/crispr_screening/PRJNA358686/tutorial.html">CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="tutorials/crispr_screening/PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based screen of unfolded protein response (UPR) through 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tutorials/crispr_screening/PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
 </ul>
 </li>
 <li class="toctree-l2 has-children"><a class="reference internal" href="tutorials/cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
@@ -254,6 +254,10 @@
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
+<section id="what-is-fba">
+<h2>What is <code class="docutils literal notranslate"><span class="pre">fba</span></code>?<a class="headerlink" href="#what-is-fba" title="Permalink to this headline">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">fba</span></code> is a flexible and streamlined toolbox for quality control, quantification, demultiplexing of various feature barcoding assays. It can be applied to customized feature barcoding specifications, including different CRISPR constructs or targeted enriched transcripts. <code class="docutils literal notranslate"><span class="pre">fba</span></code> allows users to customize a wide range of parameters for the quantification and demultiplexing process. <code class="docutils literal notranslate"><span class="pre">fba</span></code> also has a user-friendly quality control module, which is helpful in troubleshooting feature barcoding experiments.</p>
+</section>
 <section id="usage">
 <h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba
@@ -279,7 +283,7 @@
 </pre></div>
 </div>
 <ul class="simple">
-<li><p><strong>extract</strong>: cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.</p></li>
+<li><p><strong>extract</strong>: extract cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.</p></li>
 <li><p><strong>map</strong>: quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).</p></li>
 <li><p><strong>filter</strong>: filter extracted cell and feature barcodes (output of <code class="docutils literal notranslate"><span class="pre">extract</span></code> or <code class="docutils literal notranslate"><span class="pre">qc</span></code>). Additional fragment filter/selection can be applied through <code class="docutils literal notranslate"><span class="pre">-cb_seq</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_seq</span></code>.</p></li>
 <li><p><strong>count</strong>: count UMIs per feature per cell (UMI deduplication), powered by UMI-tools (Smith, T., et al. 2017). Take the output of <code class="docutils literal notranslate"><span class="pre">extract</span></code> or <code class="docutils literal notranslate"><span class="pre">filter</span></code> as input.</p></li>
@@ -339,6 +343,7 @@
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">User Guide</a><ul>
+<li><a class="reference internal" href="#what-is-fba">What is <code class="docutils literal notranslate"><span class="pre">fba</span></code>?</a></li>
 <li><a class="reference internal" href="#usage">Usage</a></li>
 </ul>
 </li>

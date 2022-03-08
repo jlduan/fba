@@ -1,10 +1,16 @@
+==========
 User Guide
 ==========
 
 |
 
+What is ``fba``?
+================
+
+``fba`` is a flexible and streamlined toolbox for quality control, quantification, demultiplexing of various feature barcoding assays. It can be applied to customized feature barcoding specifications, including different CRISPR constructs or targeted enriched transcripts. ``fba`` allows users to customize a wide range of parameters for the quantification and demultiplexing process. ``fba`` also has a user-friendly quality control module, which is helpful in troubleshooting feature barcoding experiments.
+
 Usage
------
+=====
 
 .. code-block:: console
 
@@ -29,7 +35,7 @@ Usage
                      deploy kallisto/bustools for feature barcoding
                      quantification
 
-* **extract**: cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.
+* **extract**: extract cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.
 * **map**: quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).
 * **filter**: filter extracted cell and feature barcodes (output of ``extract`` or ``qc``). Additional fragment filter/selection can be applied through ``-cb_seq`` and/or ``-fb_seq``.
 * **count**: count UMIs per feature per cell (UMI deduplication), powered by UMI-tools (Smith, T., et al. 2017). Take the output of ``extract`` or ``filter`` as input.
