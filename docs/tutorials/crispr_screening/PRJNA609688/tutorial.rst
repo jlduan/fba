@@ -145,7 +145,7 @@ Sample the first 200,000 (set by ``-n``, default ``100,000``) read pairs for qua
         -r1_c 0,16 \
         -n 200000
 
-This library is built using the Chromium Single Cell 3’ Solution v2 and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
+This library is built using the Chromium Single Cell 3’ Solution v3 and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.png
    :width: 350px
@@ -167,7 +167,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 .. code-block:: console
 
-    $ gzip -dc feature_barcoding_output.tsv.gz | grep -v no_  | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | grep -v no_ | head
 
     read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
     GTGTCCTGTCGCGCATaggacttccg      GTGTCCTCACGCGCAT        0:16    2:0:0   GTGACTCGCAGTAGACGCGGGTTTAAGAGCTAAGCTGGAAACAGCATAGC      UFL1_GTGACTCGCAGTAGACGCG        0:19    0:0:0
@@ -277,6 +277,8 @@ The generated feature count matrix can be easily imported into well-established 
 
 Result summary.
 
+50.2% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 12.9% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.
+
 .. code-block:: console
 
     2022-03-06 07:05:24,972 - fba.__main__ - INFO - fba version: 0.0.x
@@ -356,7 +358,7 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcri
    :width: 500px
    :align: center
 
-Preview the demultiplexing result (`Fig. 2d`_, middle column): the numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171 (13.5%),  and 881 (10.1%), respectively.
+Preview the demultiplexing result (`Fig. 2d`_, middle column): the numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171 (13.5%), and 881 (10.1%), respectively.
 
 .. code-block:: python
 

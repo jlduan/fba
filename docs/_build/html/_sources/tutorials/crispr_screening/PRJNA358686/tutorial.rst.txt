@@ -333,7 +333,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -399,7 +399,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -464,8 +464,6 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     TCTTCCACTACCgtcccgtcttttttttttttttttttttttttttttttttttttttctttatgtcagttttttttgtgctttagtattgggttcccttgtttgcccgagggctcccaggcccagatttgggctaaccaaagggaccccg TCTTCCACTACC    0:12    0:0:0   ACCGATAGGTGTCTGAGCGTCCACGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGAGTCGGTGCTTTTTTAAGCTTGGCGTAACTAGATCTTGAGACACTGCTTTTTGCTTGTAC MBD1_ATAGGTGTCTGAGCGTCCAC       4:24  0:0:0
     CTTAATTTGGTGggaagattttttttttttttttttttttttttttttaagtactttaagtaagctttttttaggctttagccgtgggttcccctgttagcccgggaggtccccgggcccaatctgggcctaacagagaggccccgtacaa CTTAATTTGGTG    0:12    0:0:0   CCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGACTCACACGACTCTTCGTTTTAGAGCTAGCAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAAAAGTGGCACCGT TET2_CAGGACTCACACGACTATTC       63:83 1:0:0
     TCGTACATACGGtggtttttttttttttttttttttttttttttttttttttttttttttttttttgtttttttttttttttgtttttttttttgtgtcctttgttttcactggggctcccaggtccatatccggtgttaccagagaaacc TCGTACATACGG    0:12    0:0:0   ATCATATGCTTACCGTAACTTGAAAGTATTTCGATTTCTTGGCTTTATATATCTTGTGGAAAGGACGAAACACCGCAGGATTGGGGGCGAGTCGGGTTTTAGAGCTAGAAATAGCAAGTTAAAATAAGGCTAGTCCGTTATCAACTTGAAA DNMT3B_CAGGATTGGGGGCGAGTCGG     75:95 0:0:0
-
-11,597 of 227,621,653 read pairs have valid cell and feature barcodes. Note: This is not a sgRNA enrichment library.
 
 |
 
@@ -567,7 +565,7 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
@@ -650,7 +648,7 @@ UMI distribution and knee point detection:
    :width: 400px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets and multiplets. Note: This is not a sgRNA enrichment library.
+Preview the demultiplexing result: the numbers of singlets and multiplets.
 
 .. code-block:: python
 
