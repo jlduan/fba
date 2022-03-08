@@ -2,7 +2,10 @@
 
 
 ===============================================================================
-CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
+PRJNA358686CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
+Direct-capture Perturb-seq; UPR 3' sgRNAcs1
+CRISPRi-based screen
+
 ===============================================================================
 
 Dataset: CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
@@ -95,138 +98,8 @@ Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.
 |
 
 
-Approach 1
-==========
-
-Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant upstream sequence (``GACGAAACACCG``) of sgRNAs (`cutadapt`_ version 3.7).
-
-.. _`cutadapt`: https://github.com/marcelm/cutadapt
-
-.. code-block:: console
-
-    $ cutadapt \
-        --cores 0 \
-        --front GACGAAACACCG \
-        --length 25 \
-        --minimum-length 25:25 \
-        --trimmed-only \
-        --output read_2_trimmed.fq.gz --paired-output read_1_trimmed.fq.gz \
-        ../SRR5163029_2.fastq.gz ../SRR5163029_1.fastq.gz
-
-Preview the filtering result: 1,429,437 out of 227,621,653 (0.6%) read pairs are kept for sgRNA identification.
-
-.. code-block:: console
-
-    == Read fate breakdown ==
-    Pairs that were too short:              25,972 (0.0%)
-    Pairs discarded as untrimmed:      226,166,244 (99.4%)
-    Pairs written (passing filters):     1,429,437 (0.6%)
-
-|
-
-
-QC
-==
-
-Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
-
-.. code-block:: console
-
-    $ fba qc \
-        -1 read_1_trimmed.fq.gz \
-        -2 read_2_trimmed.fq.gz \
-        -w cell_barcodes.txt \
-        -f feature_barcodes.tsv \
-        -r1_c 0,12
-
-This library is built using Drop-seq platform. The first 12 bases are cell barcodes and the following 8 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.
-
-.. image:: Pyplot_read1_per_base_seq_content.png
-   :width: 350px
-   :align: center
-
-As for read 2, based on the per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually `Template Switch Oligo (TSO) sequence`_. Starting from base 32, it seems there are two genotypes for the reads we have sampled.
-
-.. _`Template Switch Oligo (TSO) sequence`: https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf
-
-.. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 350px
-   :align: center
-
-|
-
-.. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 350px
-   :align: center
-
-The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
-
-.. code-block:: console
-
-    $ gzip -dc qc/feature_barcoding_output.tsv.gz | head
-
-    read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description
-    CNCCACACACGTGTTAatgagtactagc    CCTCACACACGTAGTT        0:15    2:0:1   AAGCAGTGGTATCAACGCAGAGTACATGGGATAGGTTTGGTCCTAGCCTTTCTATTAGCTCTTAGTAAGATTACACATGCAAGCATCCCC    no_match        NA      NA
-    GNCGCGATCAGCATTActtttgtcaccc    GTCGCGAAGAGCATTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGACTGTTGCTGGTGTGTACTTGCTAAGGTTTATGTCAGTTCAAGATTATAAGCCCCCCAG    no_match        NA      NA
-    TNGGAAGGTAAGTGTAatcgagggaaca    TGGGAAGCAAAGTGTA        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-    CNCCCAAGTCGATAGGgagcgcaagcat    CCCAACTCACGATAGG        2:16    1:0:2   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-    CNCACTGCAAACGGTGggcgtaaatgag    CTCACTGGTAACGGTG        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-    ANCATCACAGGCGCTTgtcccactatat    AGCATCAGTGGCGCTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-    ANACGAACACTTTCATccaaaagaagtt    AAACGAAGTCTTTCAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-    ANCAACCAGTATCGTTgaaatcctggta    AACAACCTCTATCGTT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGAACGTGCTGACGATGCGGGCGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAA    NON_TARGET-1_AACGTGCTGACGATGCGGGC       31:51   0:0:0
-    GNAGCCCGTACCACATgggcccagtatg    GAAGCCCCAACCACAT        0:16    3:0:0   AAGCAGTGGTATCAACGCAGAGTACATGGGGGCCGGCGAACCAGGAAATAGTTTAAGAGCTAAGCTGGAAACAGCATAGCAAGTTTAAAT    RAB1A-2_GCCGGCGAACCAGGAAATAG    31:51   0:0:0
-
-|
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Barcode extraction
-------------------
-|
-
-
-Matrix generation
------------------
-|
-
-
-Demultiplexing
---------------
-
-
-Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^
-
-Approach 2
-==========
-
-Instead of pre-filtering read 2 for the constant upstream region of sgRNA, we search sgRNAs across the whole read 2. This mode is relatively slow, it is recommended to split fastq files and run on different nodes simultaneously to speed up.
-
-
-Barcode extraction
-------------------
+==================
 
 The transcripts derived from `CROPseq-Guide-Puro`_ and captured by Drop-seq beads contain sgRNA sequences. There are no secondary libraries built on top of this single-cell RNA-seq library for sgRNA enrichment. The transcripts derived from `CROPseq-Guide-Puro`_ are captured by the ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need to extract the sgRNA sequences from read 2.
 
@@ -246,6 +119,32 @@ The transcripts derived from `CROPseq-Guide-Puro`_ and captured by Drop-seq bead
         -r1_c 0,12 \
         -t $SLURM_CPUS_ON_NODE \
         --num_reads None
+
+The first 12 bases are cell barcodes and the following 8 bases are UMIs. Based on the base content plot, the GC content of cell barcodes and UMIs are quite even.
+
+.. image:: Pyplot_read1_per_base_seq_content.png
+   :width: 1200px
+   :align: center
+
+|
+
+.. image:: Pyplot_read1_barcodes_starting_ending.png
+   :width: 1200px
+   :align: center
+
+|
+
+As for read 2, based on the per base content, after the first 12 bases, the reads are A enriched.
+
+.. image:: Pyplot_read2_per_base_seq_content.png
+   :width: 1200px
+   :align: center
+
+|
+
+.. image:: Pyplot_read2_barcodes_starting_ending.png
+   :width: 1200px
+   :align: center
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
 
@@ -270,7 +169,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 
 Matrix generation
------------------
+=================
 
 Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by ``-ud`` (default ``directional``). Use ``-um`` to set UMI deduplication mismatch threshold (default ``1``).
 
@@ -317,11 +216,11 @@ Result summary.
 
 
 Demultiplexing
---------------
+==============
 
 
 Gaussian mixture model
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``). Use ``-nc`` to set the number of positive cells for a feature to be included for demultiplexing (default ``200``).
 
@@ -388,7 +287,7 @@ Preview the demultiplexing result: the numbers of singlets and multiplets. Note:
 
 
 Knee point
-^^^^^^^^^^
+----------
 
 Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method ``5`` is implemented to use the local maxima on the difference curve to detemine the knee point on the UMI saturation curve.
 
