@@ -45,9 +45,11 @@ Guide-tag (sgRNAs):
 
     $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_2.fastq.gz
 
-Download preprocessed transcriptome matrix from `GEO`_. We will need the cell-associated barcodes, which are determined by the transcriptomes.
+|
 
-.. _`GEO`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3596084
+Download pre-processed transcriptome matrix from `Gene Expression Omnibus`_. We will need the cell-associated barcodes, which are determined by the transcriptomes.
+
+.. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3596084
 
 .. code-block:: console
 
@@ -97,9 +99,13 @@ Hashtag
 Preparation
 -----------
 
-Prepare feature barcodes (hashtag-oligo sequences, from Supplementary Table 4 and 5, legend of Supplementary Figure 1):
+Prepare feature barcodes (hashtag-oligo sequences, from `Supplementary Table 4 and 5`_, legend of `Supplementary Figure 1`_):
 
     NIH-3T3 cells were split into 7 tubes and stained with 7 barcoded hashing antibodies (Hashtag-A to Hashtag-G), followed by washing and pooling. MyLa, Sez4 and PBMCs were stained with Hashtag_1, Hashtag_2 and Hashtag_3 respectively.
+
+.. _`Supplementary Table 4 and 5`: https://www.nature.com/articles/s41592-019-0392-0#MOESM1
+
+.. _`Supplementary Figure 1`: https://www.nature.com/articles/s41592-019-0392-0#MOESM1
 
 .. code-block:: console
 
@@ -362,7 +368,7 @@ t-SNE embedding of cells based on the abundance of features (hashtags, no transc
    :width: 500px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells. In summary, the numbers of MyLa, Sez4, PBMCs and NIH-3T3 cells demultiplexed are 324, 283, 914 and 4518 respectively.
+Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells. In summary, the numbers of MyLa, Sez4, PBMCs and NIH-3T3 cells demultiplexed are 324, 283, 914 and 4,518 respectively.
 
 .. code-block:: python
 
@@ -400,9 +406,11 @@ Protein-tag
 Preparation
 -----------
 
-Prepare feature barcodes (protein-tag sequences, from Supplementary Table 3, legend of Supplementary Figure 1):
+Prepare feature barcodes (protein-tag sequences, from `Supplementary Table 3`_, legend of `Supplementary Figure 1`_):
 
     All cells were stained with a mix of anti-human CD29 and anti-mouse CD29 antibodies.
+
+.. _`Supplementary Table 3`: https://www.nature.com/articles/s41592-019-0392-0#MOESM1
 
 .. code-block:: console
 
@@ -604,7 +612,9 @@ Guide-tag
 Preparation
 -----------
 
-Prepare feature barcodes (guide-tag sequences, from Supplementary Table 2, Supplementary Figure 1c).
+Prepare feature barcodes (guide-tag sequences, from `Supplementary Table 2`_, `Supplementary Figure 1`_\c).
+
+.. _`Supplementary Table 2`: https://www.nature.com/articles/s41592-019-0392-0#MOESM1
 
 .. code-block:: console
 
