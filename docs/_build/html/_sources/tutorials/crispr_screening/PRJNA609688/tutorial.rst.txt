@@ -103,7 +103,7 @@ Prepare feature barcodes. sgRNA sequences can be found in `Supplementary Table 2
 
 |
 
-First we screen reads that have the constant sequence (``GTACATGGGG``) upstream of sgRNAs on read 2 (`cutadapt`_ version 3.7).
+First we screen reads that have the constant sequence (``GTACATGGGG``) upstream of sgRNAs on read 2 (`cutadapt`_\, version 3.7).
 
 .. _`cutadapt`: https://github.com/marcelm/cutadapt
 
@@ -277,7 +277,7 @@ The generated feature count matrix can be easily imported into well-established 
 
 Result summary.
 
-50.2% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 12.9% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.
+10.7% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 1.4% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.
 
 .. code-block:: console
 
@@ -351,13 +351,6 @@ Heatmap of the relative abundance of features (sgRNAs) across all cells. Each co
    :width: 700px
    :align: center
 
-t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
-
-.. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
-   :alt: t-SNE embedding
-   :width: 500px
-   :align: center
-
 Preview the demultiplexing result (`Fig. 2d`_, middle column): the numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171 (13.5%), and 881 (10.1%), respectively.
 
 .. code-block:: python
@@ -413,5 +406,12 @@ Preview the demultiplexing result (`Fig. 2d`_, middle column): the numbers of si
 
     In [7]: m.shape
     Out[7]: (32, 8670)
+
+t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
 
 |

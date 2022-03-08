@@ -98,7 +98,7 @@ Prepare feature barcodes. sgRNA sequences can be found in Supplementary Table 1.
 Approach A
 ==========
 
-Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs (`cutadapt`_ version 3.7).
+Since sgRNAs are captured through polyA tails together with other transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA enrichment library). To speed up processing, first we screen reads that have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs (`cutadapt`_\, version 3.7).
 
 .. _`cutadapt`: https://github.com/marcelm/cutadapt
 
@@ -199,7 +199,7 @@ Preview of result.
 
 .. code-block:: console
 
-    $ gzip -dc feature_barcoding_output.tsv.gz  | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     TAATGTTTAGGGagggcgctttttt       TAATGTTTAGGG    0       ATAGGTGTCTGAGCGTCCACgtttt       MBD1_ATAGGTGTCTGAGCGTCCAC       0

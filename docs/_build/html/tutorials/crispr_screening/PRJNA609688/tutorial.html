@@ -329,7 +329,7 @@
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
-<p>First we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GTACATGGGG</span></code>) upstream of sgRNAs on read 2 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a> version 3.7).</p>
+<p>First we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GTACATGGGG</span></code>) upstream of sgRNAs on read 2 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
     --cores <span class="m">0</span> <span class="se">\</span>
     --front GTACATGGGG <span class="se">\</span>
@@ -466,7 +466,7 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>50.2% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 12.9% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.</p>
+<p>10.7% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 1.4% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-06 07:05:24,972 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-06 07:05:24,973 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-06 07:05:24,973 - fba.__main__ - INFO - Python version: 3.10</span>
@@ -526,8 +526,6 @@
 </div>
 <p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png" style="width: 700px;"/></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png" style="width: 500px;"/></a>
 <p>Preview the demultiplexing result (<a class="reference external" href="https://www.nature.com/articles/s41587-020-0470-y/figures/1">Fig. 2d</a>, middle column): the numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171 (13.5%), and 881 (10.1%), respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -582,6 +580,8 @@
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">8670</span><span class="p">)</span>
 </pre></div>
 </div>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png" style="width: 500px;"/></a>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
