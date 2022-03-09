@@ -535,26 +535,22 @@ def add_count_subparser(subparsers):
         help='count feature barcodes per cell',
         description=('Count UMIs per feature per cell (UMI deduplication), '
                      'powered by UMI-tools (Smith, T., et al. 2017). '
-                     'Take the output of `extract` or `filter` as input.')
-    )
+                     'Take the output of `extract` or `filter` as input.'))
 
-    parser.add_argument(
-        '-i',
-        '--input',
-        dest='input',
-        required=True,
-        type=str,
-        help='specify an input file'
-    )
+    parser.add_argument('-i',
+                        '--input',
+                        dest='input',
+                        # action='append',
+                        required=True,
+                        type=str,
+                        help='specify an input file')
 
-    parser.add_argument(
-        '-o',
-        '--output',
-        dest='output',
-        required=True,
-        type=str,
-        help='specify an output file'
-    )
+    parser.add_argument('-o',
+                        '--output',
+                        dest='output',
+                        required=True,
+                        type=str,
+                        help='specify an output file')
 
     parser.add_argument(
         '-us',
@@ -563,8 +559,8 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=16,
-        help='specify expected UMI starting postion on read 1. Default (16)'
-    )
+        help=('specify expected UMI starting postion on read 1. '
+              'Coordinate is 0-based, half-open. Default (16)'))
 
     parser.add_argument(
         '-ul',
@@ -573,10 +569,13 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=12,
-        help=('specify the length of UMIs on read 1. '
-              'Reads with UMI length less than this value will be discarded. '
-              'Default (12)')
-    )
+        help=(
+            'specify the length of UMIs on read 1. '
+            'Reads with UMI length shorter than this value will be discarded. '
+            'Coordinate is 0-based, half-open. '
+            'For example, \'-us 16 -ul 12\' means UMI starts at 16 ends at 27. '
+            'Default (12)'))
+
     parser.add_argument(
         '-um',
         '--umi_mismatches',
@@ -585,8 +584,7 @@ def add_count_subparser(subparsers):
         type=int,
         default=1,
         help=('specify the maximun edit distance allowed '
-              'for UMIs on read 1 for deduplication. Default (1)')
-    )
+              'for UMIs on read 1 for deduplication. Default (1)'))
 
     parser.add_argument(
         '-ud',
@@ -594,13 +592,13 @@ def add_count_subparser(subparsers):
         dest='umi_deduplication_method',
         required=False,
         type=str,
-        choices=['unique', 'percentile',
-                 'cluster', 'adjacency', 'directional'],
+        choices=[
+            'unique', 'percentile', 'cluster', 'adjacency', 'directional'
+        ],
         default='directional',
         help=('specify UMI deduplication method '
               '(powered by UMI-tools. Smith, T., et al. 2017). '
-              'Default (directional)')
-    )
+              'Default (directional)'))
 
 
 # demultiplex
