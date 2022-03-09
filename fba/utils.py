@@ -139,7 +139,7 @@ def parse_samtools_version():
     cmd = [get_binary_path(binary_name='samtools'), '--version']
     outs, _ = run_executable(cmd_line=cmd)
 
-    return outs.split(' ')[1].split()[0]
+    return outs.split('\n')[0].replace('samtools', '').strip()
 
 
 def parse_kallisto_version():

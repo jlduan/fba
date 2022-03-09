@@ -160,7 +160,7 @@ def summarize_sequence_content(read1_file,
     """
 
     if not num_reads:
-        num_reads = 200000
+        num_reads = 200_000
 
     logger.info('Summarizing per base read content ...')
     if num_reads:
@@ -203,32 +203,51 @@ def summarize_sequence_content(read1_file,
 
     _reads = islice(_get_sequence(read1_file, read2_file), 0, num_reads)
 
-    read_counter = int()
+    read_count = int()
     for read1_seq, read2_seq in _reads:
-        read_counter += 1
+        read_count += 1
 
         read1_matrix.append(read1_seq)
         read2_matrix.append(read2_seq)
 
-    logger.info(f'Number of reads processed: {read_counter:,}')
+    logger.info(f'Number of reads processed: {read_count:,}')
+
+    read1_length = max(len(i) for i in read1_matrix)
+    read2_length = max(len(i) for i in read2_matrix)
+
+    read1_matrix = [
+        i + 'Z' * (read1_length - len(i))
+        for i in [ii + 'Z' * (read1_length - len(ii)) for ii in read1_matrix]
+    ]
+    read2_matrix = [
+        i + 'Z' * (read2_length - len(i))
+        for i in [ii + 'Z' * (read2_length - len(ii)) for ii in read2_matrix]
+    ]
 
     read1_matrix = np.array([list(i) for i in read1_matrix])
     read2_matrix = np.array([list(i) for i in read2_matrix])
+
+    read1_count_per_base = read1_matrix.shape[0] - (read1_matrix
+                                                    == 'Z').sum(axis=0)
+    read2_count_per_base = read2_matrix.shape[0] - (read2_matrix
+                                                    == 'Z').sum(axis=0)
+
     read1_composition = pd.DataFrame(
-        {i: (read1_matrix == i).mean(axis=0)
-         for i in list('ACGTN')})
+        data={
+            i: (read1_matrix == i).sum(axis=0) / read1_count_per_base
+            for i in list('ACGTN')
+        })
     read2_composition = pd.DataFrame(
-        {i: (read2_matrix == i).mean(axis=0)
-         for i in list('ACGTN')})
+        data={
+            i: (read2_matrix == i).sum(axis=0) / read2_count_per_base
+            for i in list('ACGTN')
+        })
 
     color_palettes = [
         # ['#a0cbe8', '#8cd17d', '#e15759', '#f1ce63', 'black'],
         ['#E16A86', '#909800', '#00AD9A', '#9183E6', 'black'],
         ['#000000', '#404040', '#7f7f7f', '#bfbfbf', 'black']
     ]
-
-    read1_length = read1_composition.shape[0]
-    read2_length = read2_composition.shape[0]
 
     # read1
     for p, c, n in zip([R1_ACGT_PLOT, R1_ACGT_PLOT_GREY, R1_N_PLOT],
@@ -318,65 +337,65 @@ def summarize_barcode_positions(matching_file, output_directory='qc'):
     read2_length = len(first_line.split('\t')[4])
 
     # barcode starts and ends
-    barcode_counter = [int(), int()]
+    barcode_count = [int(), int()]
     cb_matching_pos = list()
-    cb_matching_description = list()
     cb_mismatches = list()
     fb_matching_pos = list()
-    fb_matching_description = list()
     fb_mismatches = list()
 
     with open_by_suffix(file_name=matching_file) as f:
         next(f)
         for line in f:
             i = line.rstrip().split('\t')
-            barcode_counter[1] += 1
+            barcode_count[1] += 1
 
             if (i[2] not in {'no_match', 'n_skipping'}
                     and i[5] not in {'no_match', 'NA', 'n_skipping'}):
-                barcode_counter[0] += 1
+                barcode_count[0] += 1
 
                 cb_matching_pos.append(i[2])
-                cb_matching_description.append(i[3])
                 _ = [int(ii) for ii in i[2].split(':')]
                 cb_mismatches.append(
                     len(i[1]) - (_[1] - _[0]) +
                     sum([int(ii) for ii in i[3].split(':')]))
                 fb_matching_pos.append(i[6])
-                fb_matching_description.append(i[7])
                 _ = [int(ii) for ii in i[6].split(':')]
                 fb_mismatches.append(
-                    len(i[5]) - (_[1] - _[0]) +
+                    len(i[5].split('_')[-1]) - (_[1] - _[0]) +
                     sum([int(ii) for ii in i[7].split(':')]))
 
-    barcode_counter.append(barcode_counter[0] / barcode_counter[1])
+    barcode_count.append(barcode_count[0] / barcode_count[1])
     with open_by_suffix(file_name=MATCHED_BC_RATIO_FILE, mode='w') as f:
         f.write(','.join(['valid', 'total', 'ratio']) + '\n' +
-                ','.join([str(i) for i in barcode_counter]) + '\n')
+                ','.join([str(i) for i in barcode_count]) + '\n')
 
-    cb_mismatches = pd.Series(cb_mismatches).value_counts().to_frame(
-        name='count')
-    cb_mismatches['ratio'] = cb_mismatches['count'] / \
-        sum(cb_mismatches['count'])
-    cb_mismatches.sort_index().to_csv(CB_MISMATCHES_FILE)
+    def _summarize_num_mismatches(x, file_name):
+        """."""
+        x = pd.Series(x).value_counts().to_frame(name='count')
+        x.index.name = 'num_mismatches'
+        x.reset_index(inplace=True)
+        x.sort_values(by='count', ascending=False, inplace=True)
 
-    fb_mismatches = pd.Series(fb_mismatches).value_counts().to_frame(
-        name='count')
-    fb_mismatches['ratio'] = fb_mismatches['count'] / \
-        sum(fb_mismatches['count'])
-    fb_mismatches.sort_index().to_csv(FB_MISMATCHES_FILE)
+        x.index = range(1, x.shape[0] + 1)
+        x.index.name = 'rank'
+
+        x.to_csv(path_or_buf=file_name)
 
     # cell barcode
+    _summarize_num_mismatches(cb_mismatches, CB_MISMATCHES_FILE)
+
     cb_s = [int(i.split(':')[0]) for i in cb_matching_pos]
     cb_e = [int(i.split(':')[1]) - 1 for i in cb_matching_pos]
 
     cb_start_dist = pd.Series(cb_s).value_counts().to_frame(
         name='count').reindex(list(range(read1_length))).fillna(0).astype(
             np.int64)
+    cb_start_dist.index.name = 'base'
     cb_start_dist.to_csv(R1_BC_STARTING_FILE)
     cb_end_dist = pd.Series(cb_e).value_counts().to_frame(
         name='count').reindex(list(range(read1_length))).fillna(0).astype(
             np.int64)
+    cb_end_dist.index.name = 'base'
     cb_end_dist.to_csv(R1_BC_ENDING_FILE)
 
     fig, ax = plt.subplots(nrows=1,
@@ -394,16 +413,20 @@ def summarize_barcode_positions(matching_file, output_directory='qc'):
                 bbox_inches='tight')
 
     # feature barcode
+    _summarize_num_mismatches(fb_mismatches, FB_MISMATCHES_FILE)
+
     fb_s = [int(i.split(':')[0]) for i in fb_matching_pos]
     fb_e = [int(i.split(':')[1]) - 1 for i in fb_matching_pos]
 
     fb_start_dist = pd.Series(fb_s).value_counts().to_frame(
         name='count').reindex(list(range(read2_length))).fillna(0).astype(
             np.int64)
+    fb_start_dist.index.name = 'base'
     fb_start_dist.to_csv(R2_BC_STARTING_FILE)
     fb_end_dist = pd.Series(fb_e).value_counts().to_frame(
         name='count').reindex(list(range(read2_length))).fillna(0).astype(
             np.int64)
+    fb_end_dist.index.name = 'base'
     fb_end_dist.to_csv(R2_BC_ENDING_FILE)
 
     fig, ax = plt.subplots(nrows=1,
@@ -441,7 +464,7 @@ def analyze_bulk(read_file,
         The path and name of feature barcoding file.
     num_mismatches : int, optional
         Maximum levenshtein distance allowed.
-    num_n_threshoold : int, optional
+    num_n_threshold : int, optional
         Maximum Ns allowed for reads.
     num_reads ; int, optional
         Number of reads to analyze.
@@ -491,12 +514,12 @@ def analyze_bulk(read_file,
 
     logger.info('Matching ...')
 
-    read_counter = int()
+    read_count = int()
     for read_seq, read_qual in _reads:
-        read_counter += 1
+        read_count += 1
 
-        if read_counter % 10_000_000 == 0:
-            logger.info(f'Reads processed: {read_counter:,}')
+        if read_count % 10_000_000 == 0:
+            logger.info(f'Reads processed: {read_count:,}')
 
         if read_seq.count('N') <= num_n_threshold:
             x2, y2 = read_coords
@@ -515,7 +538,7 @@ def analyze_bulk(read_file,
         for i in feature_barcode_count
     }
 
-    logger.info(f'Number of reads processed: {read_counter:,}')
+    logger.info(f'Number of reads processed: {read_count:,}')
     logger.info('Number of reads w/ valid feature barcodes: '
                 f'{sum(feature_barcode_count.values()):,}')
 

@@ -7,7 +7,6 @@ from umi_tools import __version__ as umi_tools_version
 from collections import defaultdict, Counter
 from fba.utils import open_by_suffix, get_logger
 
-
 logger = get_logger(logger_name=__name__)
 
 
@@ -45,7 +44,7 @@ def generate_matrix(matching_file,
     logger.info(f'UMI-tools version: {umi_tools_version}')
 
     matrix_featurecount = defaultdict(dict)
-    line_counter = int()
+    line_count = int()
 
     with open_by_suffix(file_name=matching_file) as f:
         header_line = next(f)
@@ -53,13 +52,11 @@ def generate_matrix(matching_file,
         if len(header_line.split('\t')) == 6:
             if umi_pos_start:
                 logger.info(
-                    f'UMI starting position on read 1: {umi_pos_start}'
-                )
+                    f'UMI starting position on read 1: {umi_pos_start}')
             else:
                 logger.critical(
                     'Need to specify UMI starting position on read 1: '
-                    '\"-us/--umi_start\"'
-                )
+                    '\"-us/--umi_start\"')
                 raise ValueError('need to specify UMI starting position')
         else:
             logger.info('UMI start position on read 1 auto-detected, '
@@ -70,12 +67,12 @@ def generate_matrix(matching_file,
         logger.info('UMI-tools deduplication method: '
                     f'{umi_deduplication_method}')
 
-        logger.info('Header line: {}'.format(
-            header_line.rstrip().replace('\t', ' ')))
+        logger.info('Header line: {}'.format(header_line.rstrip().replace(
+            '\t', ' ')))
 
         for line in f:
             i = line.rstrip().split('\t')
-            line_counter += 1
+            line_count += 1
 
             read_seq = i[0]
             cell_barcode = i[1]
@@ -89,23 +86,20 @@ def generate_matrix(matching_file,
             umi_pos_end = umi_pos_start + umi_length
 
             if len(read_seq) >= umi_pos_end:
-                umi_seq = read_seq[
-                    umi_pos_start:umi_pos_end].upper().encode()
+                umi_seq = read_seq[umi_pos_start:umi_pos_end].upper().encode()
 
                 if feature_barcode not in matrix_featurecount[cell_barcode]:
                     matrix_featurecount[cell_barcode][feature_barcode] = list()
 
-                matrix_featurecount[cell_barcode][
-                    feature_barcode].append(umi_seq)
+                matrix_featurecount[cell_barcode][feature_barcode].append(
+                    umi_seq)
 
-    logger.info(f'Number of lines processed: {line_counter:,}')
+    logger.info(f'Number of read pairs processed: {line_count:,}')
 
     cell_barcodes = sorted(matrix_featurecount.keys())
     feature_barcodes = sorted(
-        set([ii
-             for i in matrix_featurecount
-             for ii in matrix_featurecount[i]])
-    )
+        set([ii for i in matrix_featurecount
+             for ii in matrix_featurecount[i]]))
     logger.info(f'Number of cell barcodes detected: {len(cell_barcodes):,}')
     logger.info(f'Number of features detected: {len(feature_barcodes):,}')
     logger.info('UMI deduplicating ...')
@@ -118,12 +112,12 @@ def generate_matrix(matching_file,
             if umis:
                 matrix_featurecount[i][ii] = len(
                     clusterer(Counter(umis),
-                              threshold=umi_deduplication_threshold)
-                )
+                              threshold=umi_deduplication_threshold))
 
-    matrix_featurecount = {i: [matrix_featurecount[i][ii]
-                               for ii in feature_barcodes]
-                           for i in cell_barcodes}
+    matrix_featurecount = {
+        i: [matrix_featurecount[i][ii] for ii in feature_barcodes]
+        for i in cell_barcodes
+    }
     matrix_featurecount = pd.DataFrame.from_dict(matrix_featurecount,
                                                  orient='columns')
     matrix_featurecount.index = feature_barcodes
