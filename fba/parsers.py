@@ -115,10 +115,10 @@ def add_extract_subparser(subparsers):
         default=(0, 16),
         type=coords,
         help=(
-            'specify coordinates \'start,end\' of read 1 to search. '
+            'specify coordinate \'start,end\' of read 1 to search. '
             'For example, \'0,16\': starts at 0, stops at 15. '
             'Nucleotide bases outside the range will be masked '
-            'as lower case in output. Default (0,16)'
+            'as lowercase in the output. Default (0,16)'
         )
     )
 
@@ -232,18 +232,16 @@ def add_map_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r1_c', '--read1_coordinate',
+        '-r1_c',
+        '--read1_coordinate',
         dest='read1_coordinate',
         required=False,
         default=(0, 16),
         type=coords,
-        help=(
-            'specify coordinates \'start,end\' of read 1 to search. '
-            'For example, \'0,16\': starts at 0, stops at 15. '
-            'Nucleotide bases outside the range will be masked '
-            'as lower case in output. Default (0,16)'
-        )
-    )
+        help=('specify coordinate \'start,end\' of read 1 to search. '
+              'For example, \'0,16\': starts at 0, stops at 15. '
+              'Nucleotide bases outside the range will be masked '
+              'as lowercase in the output. Default (0,16)'))
 
     parser.add_argument(
         '-cb_m',
@@ -741,12 +739,12 @@ def add_qc_subparser(subparsers):
         help=('specify fastq file for read 2. '
               'If only read 2 file is provided, '
               'bulk mode is enabled '
-              '(skipping arguments -w/--whitelist\', '
+              '(skipping arguments \'-w/--whitelist\', '
               '\'-cb_m/--cb_mismatches\', '
               '\'-r1_c/--read1_coordinate\', '
               'must provide \'-r2_c/--read2_coordinate\' '
               'and \'-fb_m/--fb_mismatches\'). '
-              'In bulk mode, reads 2 will be searched against '
+              'In bulk mode, read 2 will be searched against '
               'reference feature barcodes and '
               'read count for each feature barcode will be summarized')
     )
@@ -768,25 +766,27 @@ def add_qc_subparser(subparsers):
     )
 
     parser.add_argument(
-        '-r1_c', '--read1_coordinate',
+        '-r1_c',
+        '--read1_coordinate',
         dest='read1_coordinate',
         required=False,
         default=None,
         type=coords,
-        help=('specify coordinates \'start,end\' of read 1 to search '
-              '(doesn\'t need to be the exact expected barcode range). '
+        help=('specify coordinate \'start,end\' of read 1 to search '
+              '(doesn\'t need to be the exact expected barcode coordinate). '
+              'Coordinate is 0-based, half-open. '
+              'For example, \'0,16\': starts at 0, stops at 15. '
               'The default is to use all the nucleotide bases. '
               'Nucleotide bases outside the range will be masked '
-              'as lower case in output')
-    )
+              'as lowercase in the output'))
 
-    parser.add_argument(
-        '-r2_c', '--read2_coordinate',
-        dest='read2_coordinate',
-        required=False,
-        default=None,
-        type=coords, help='see \'-r1_c/--read1_coordinate\''
-    )
+    parser.add_argument('-r2_c',
+                        '--read2_coordinate',
+                        dest='read2_coordinate',
+                        required=False,
+                        default=None,
+                        type=coords,
+                        help='see \'-r1_c/--read1_coordinate\'')
 
     parser.add_argument(
         '-cb_m',
