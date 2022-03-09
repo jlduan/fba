@@ -395,8 +395,8 @@ def summarize_barcode_positions(matching_file, output_directory='qc'):
     cb_end_dist = pd.Series(cb_e).value_counts().to_frame(
         name='count').reindex(list(range(read1_length))).fillna(0).astype(
             np.int64)
-    cb_end_dist.to_csv(R1_BC_ENDING_FILE)
     cb_end_dist.index.name = 'base'
+    cb_end_dist.to_csv(R1_BC_ENDING_FILE)
 
     fig, ax = plt.subplots(nrows=1,
                            ncols=1,
