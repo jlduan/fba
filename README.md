@@ -15,7 +15,7 @@
 
 
 <a href="https://jlduan.github.io/fba">
-    <img src="docs/logo.svg" align="right" width='200'/>
+    <img src="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/logo.svg" align="right" width='200'/>
 </a>
 
 
