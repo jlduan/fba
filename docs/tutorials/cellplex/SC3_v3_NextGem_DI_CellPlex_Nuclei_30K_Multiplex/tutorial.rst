@@ -110,14 +110,14 @@ According to the description of this dataset:
 
 Heatmap of the relative abundance of features (CMOs) across all cells. Each column represents a single cell. Multiplets have more than one CMOs.
 
-.. image:: Pyplot_heatmap_cells_demultiplexed.png
+.. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
    :alt: Heatmap
    :width: 700px
    :align: center
 
 t-SNE embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA. Twelve singlet clusters and cross-oligo multiplet clusters are clearly present.
 
-.. image:: Pyplot_embedding_cells_demultiplexed.png
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
    :alt: t-SNE embedding
    :width: 500px
    :align: center
