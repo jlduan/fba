@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
+from fba import __version__
 
 with open(file='README.md', mode='r') as fh:
     long_description = fh.read()
 
 setup(
     name='fba',
-    version='0.0.12',
+    version=__version__,
     author='JD',
     author_email='t4mi27b3v@relay.firefox.com',
     description='Tools for feature barcoding analysis',
