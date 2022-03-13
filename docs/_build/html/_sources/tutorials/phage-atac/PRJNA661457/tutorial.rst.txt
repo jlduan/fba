@@ -553,7 +553,7 @@ The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired b
     2022-03-13 11:27:47,035 - fba.__main__ - INFO - Python version: 3.9
     2022-03-13 11:27:47,035 - fba.__main__ - INFO - Using demultiplex subcommand ...
     2022-03-13 11:27:49,515 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
-    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Output directory: demultiplexed_gm
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Output directory: demultiplexed
     2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Demultiplexing method: 2
     2022-03-13 11:27:49,515 - fba.demultiplex - INFO - UMI normalization method: clr
     2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Visualization: On
