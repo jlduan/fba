@@ -1,17 +1,15 @@
 # Changelog
 
-
 ## **0.0.12 (Mar 9 2022)**
 
 ### Added
 
-- `qc` supports non-uniform read lengths
+- Non-uniform read lengths support in `qc` module
 
 ### Fixed
 
 - Readability of the `qc` results
 - Matplotlib `FixedFormatter` warning
-
 
 ## **0.0.11 (Jun 17 2021)**
 
