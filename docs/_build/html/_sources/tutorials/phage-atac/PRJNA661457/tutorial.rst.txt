@@ -241,13 +241,7 @@ R1
 For read 1, based on the per base content, it suggests low complexity. There are almost constant bases at the beginning of the reads.
 
 .. image:: Pyplot_read2_per_base_seq_content_trimmed_r1.png
-   :width: 400px
-   :align: center
-
-|
-
-.. image:: Pyplot_read2_barcodes_starting_ending_trimmed_r1.png
-   :width: 400px
+   :width: 350px
    :align: center
 
 The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns indicate the matched positions on reads. ``matching_description`` columns indicate mismatches in substitutions:insertions:deletions format.
