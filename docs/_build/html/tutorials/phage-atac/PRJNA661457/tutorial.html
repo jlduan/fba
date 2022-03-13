@@ -263,7 +263,7 @@
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851">Gene Expression Omnibus</a>.</p>
-<p>Inspect fastq files (This is a phage-derived tag library built on top of single-cell ATAC-seq library, we will need all 3 reads).</p>
+<p>Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 reads).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>zcat SRR12588752_1.fastq.gz <span class="p">|</span> head
 
 <span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
@@ -412,6 +412,7 @@
     -2 SRR12588752_3_trimmed.fq.gz <span class="se">\</span>
     -w barcodes.tsv <span class="se">\</span>
     -f feature_barcodes_R3_truncated.txt <span class="se">\</span>
+    -cb_rc <span class="se">\</span>
     -n <span class="m">10000</span>
 </pre></div>
 </div>
@@ -446,6 +447,7 @@
     -2 SRR12588752_1_trimmed.fq.gz <span class="se">\</span>
     -w barcodes.tsv <span class="se">\</span>
     -f feature_barcodes_R1_truncated.txt <span class="se">\</span>
+    -cb_rc <span class="se">\</span>
     -n <span class="m">10000</span>
 </pre></div>
 </div>
@@ -475,7 +477,7 @@
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
 <section id="id1">
 <h3>R3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences for processing.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
     -2 SRR12588752_3_trimmed.fq.gz <span class="se">\</span>
@@ -485,7 +487,8 @@
     -r1_c <span class="m">0</span>,16 <span class="se">\</span>
     -r2_c <span class="m">0</span>,12 <span class="se">\</span>
     -cb_m <span class="m">1</span> <span class="se">\</span>
-    -fb_m <span class="m">1</span>
+    -fb_m <span class="m">1</span> <span class="se">\</span>
+    -cb_rc
 </pre></div>
 </div>
 <p>Preview of result.</p>
@@ -531,7 +534,7 @@
 </section>
 <section id="id2">
 <h3>R1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences for processing.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
     -2 SRR12588752_1_trimmed.fq.gz <span class="se">\</span>
@@ -541,7 +544,8 @@
     -r1_c <span class="m">0</span>,16 <span class="se">\</span>
     -r2_c <span class="m">0</span>,12 <span class="se">\</span>
     -cb_m <span class="m">1</span> <span class="se">\</span>
-    -fb_m <span class="m">1</span>
+    -fb_m <span class="m">1</span> <span class="se">\</span>
+    -cb_rc
 </pre></div>
 </div>
 <p>Preview of result.</p>
@@ -588,7 +592,7 @@
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
-<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code> means no UMIs and read counts are summarized instead. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in the output matrix if needed (default <code class="docutils literal notranslate"><span class="pre">False</span></code>). The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code> means no UMIs and read counts are summarized instead. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in the output matrix if needed. The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output_R1.tsv.gz <span class="se">\</span>
     -i feature_barcoding_output_R3.tsv.gz <span class="se">\</span>
@@ -745,7 +749,7 @@
 </div>
 <p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png" style="width: 500px;"/></a>
-<p>UMI distribution and model fitting threshold:</p>
+<p>Read distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png" style="width: 800px;"/></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png" style="width: 800px;"/></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png" style="width: 800px;"/></a>

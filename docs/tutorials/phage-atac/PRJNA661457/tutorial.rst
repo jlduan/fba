@@ -20,7 +20,7 @@ Download fastq files from `Gene Expression Omnibus`_.
 
 .. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851
 
-Inspect fastq files (This is a phage-derived tag library built on top of single-cell ATAC-seq library, we will need all 3 reads).
+Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 reads).
 
 .. code-block:: console
 
@@ -188,6 +188,7 @@ R3
         -2 SRR12588752_3_trimmed.fq.gz \
         -w barcodes.tsv \
         -f feature_barcodes_R3_truncated.txt \
+        -cb_rc \
         -n 10000
 
 This library is built using the `Chromium Single Cell ATAC Reagent Kits`_ and sequenced on Illumina NextSeq 500. The GC content of cell barcodes (read 2) are quite even.
@@ -236,6 +237,7 @@ R1
         -2 SRR12588752_1_trimmed.fq.gz \
         -w barcodes.tsv \
         -f feature_barcodes_R1_truncated.txt \
+        -cb_rc \
         -n 10000
 
 For read 1, based on the per base content, it suggests low complexity. There are almost constant bases at the beginning of the reads.
@@ -271,7 +273,7 @@ Barcode extraction
 R3
 --
 
-Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 3. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed.
+Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 3. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Use ``-cb_rc`` to reverse-complement the cell barcode sequences for processing.
 
 .. code-block:: console
 
@@ -284,7 +286,8 @@ Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 3. One mismatch
         -r1_c 0,16 \
         -r2_c 0,12 \
         -cb_m 1 \
-        -fb_m 1
+        -fb_m 1 \
+        -cb_rc
 
 Preview of result.
 
@@ -334,7 +337,7 @@ Result summary.
 R1
 --
 
-Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 1. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed.
+Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 1. One mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. Use ``-cb_rc`` to reverse-complement the cell barcode sequences for processing.
 
 .. code-block:: console
 
@@ -347,7 +350,8 @@ Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 1. One mismatch
         -r1_c 0,16 \
         -r2_c 0,12 \
         -cb_m 1 \
-        -fb_m 1
+        -fb_m 1 \
+        -cb_rc
 
 Preview of result.
 
@@ -397,7 +401,7 @@ Result summary.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use ``-ul`` to set the UMI length (default ``12``). Setting to ``0`` means no UMIs and read counts are summarized instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in the output matrix if needed (default ``False``). The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
+Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use ``-ul`` to set the UMI length (default ``12``). Setting to ``0`` means no UMIs and read counts are summarized instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in the output matrix if needed. The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
 
 .. _Seruat: https://satijalab.org/seurat/
 
@@ -606,7 +610,7 @@ t-SNE embedding of cells based on the abundance of features (phage-derived tags,
    :width: 500px
    :align: center
 
-UMI distribution and model fitting threshold:
+Read distribution and model fitting threshold:
 
 .. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png
    :alt: UMI distribution
