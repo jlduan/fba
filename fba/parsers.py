@@ -155,12 +155,9 @@ def add_extract_subparser(subparsers):
         '--cell_barcode_reverse_complement',
         dest='cb_reverse_complement',
         required=False,
-        type=bool,
-        default=False,
+        action='store_true',
         help=('specify to convert cell barcode sequences '
-              'into their reverse-complement counterparts for processing. '
-              'Default (False)'))
-
+              'into their reverse-complement counterparts for processing.'))
 
 # map
 def add_map_subparser(subparsers):
@@ -557,11 +554,9 @@ def add_count_subparser(subparsers):
         '--cell_barcode_reverse_complement',
         dest='cb_reverse_complement',
         required=False,
-        type=bool,
-        default=False,
+        action='store_true',
         help=('specify to convert cell barcode sequences '
-              'into their reverse-complement counterparts in the output. '
-              'Default (False)'))
+              'into their reverse-complement counterparts in the output.'))
 
 
 # demultiplex
@@ -775,11 +770,9 @@ def add_qc_subparser(subparsers):
         '--cell_barcode_reverse_complement',
         dest='cb_reverse_complement',
         required=False,
-        type=bool,
-        default=False,
+        action='store_true',
         help=('specify to convert cell barcode sequences '
-              'into their reverse-complement counterparts in the output. '
-              'Default (False)'))
+              'into their reverse-complement counterparts for processing.'))
 
     parser.add_argument(
         '-t',
