@@ -6,6 +6,7 @@
 
 CRISPR screening <crispr_screening/index>
 Cell surface protein labeling <cell_surface_protein_labeling/index>
+PHAGE-ATAC <phage-atac/index>
 CellPlex <cellplex/index>
 Cell hashing <cell_hashing/index>
 MULTI-seq <multi-seq/index>
@@ -21,6 +22,8 @@ Pseudo-bulk <pseudo-bulk/index>
 - Cell surface protein labeling
     - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](./cell_surface_protein_labeling/PRJNA393315/tutorial.rst)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](./cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.rst)
+- PHAGE-ATAC
+    - [PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors](./phage-atac/PRJNA661457/tutorial.rst)
 - CellPlex
     - [10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs](./cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.rst)
     - [30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs](cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.rst)

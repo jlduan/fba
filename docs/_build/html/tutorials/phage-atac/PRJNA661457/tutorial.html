@@ -1,0 +1,760 @@
+<!doctype html>
+<html class="no-js">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta property="og:title" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="tutorials/phage-atac/PRJNA661457/tutorial.html" />
+  <meta property="og:description" content="Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A...." />
+  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CellPlex" href="../../cellplex/index.html" /><link rel="prev" title="CRISPR screening" href="../index.html" />
+
+    <link rel="shortcut icon" href="../../../_static/logo.svg"/><meta name="generator" content="sphinx-4.3.2, furo 2021.10.09"/>
+        <title>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors - FBA</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  body[data-theme="dark"] {
+    --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+  }
+  @media (prefers-color-scheme: dark) {
+    body:not([data-theme="light"]) {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+  }
+</style>
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-X0MEL2T23M');
+</script>
+
+</head>
+  <body>
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+      <path stroke="none" d="M0 0h24v24H0z" />
+      <line x1="4" y1="6" x2="20" y2="6" />
+      <line x1="10" y1="12" x2="20" y2="12" />
+      <line x1="6" y1="18" x2="20" y2="18" />
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">FBA</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand centered" href="../../../index.html">
+  
+  <div class="sidebar-logo-container">
+    <img class="sidebar-logo" src="../../../_static/logo.svg" alt="Logo"/>
+  </div>
+  
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../user_guide.html">User Guide</a></li>
+<li class="toctree-l1 current has-children"><a class="reference internal" href="../../index.html">Tutorials</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../crispr_screening/index.html">CRISPR screening</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA358686/tutorial.html">CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../crispr_screening/PRJNA609688/tutorial.html">Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3' sgRNA-CR1&lt;sup&gt;cs1&lt;/sup&gt;</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_surface_protein_labeling/index.html">Cell surface protein labeling</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/PRJNA393315/tutorial.html">CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html">1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</a></li>
+</ul>
+</li>
+<li class="toctree-l2 current has-children"><a class="reference internal" href="../index.html">PHAGE-ATAC</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul class="current">
+<li class="toctree-l3 current current-page"><a class="current reference internal" href="#">PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cellplex/index.html">CellPlex</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html">30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed, 12 CMOs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../cell_hashing/index.html">Cell hashing</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" role="switch" type="checkbox"/><label for="toctree-checkbox-6"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../cell_hashing/PRJNA423077/tutorial.html">Peripheral Blood Mononuclear cells with 8 Antibodies</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../multi-seq/index.html">MULTI-seq</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" role="switch" type="checkbox"/><label for="toctree-checkbox-7"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../multi-seq/PRJNA531855/tutorial.html">15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../eccite-seq/index.html">ECCITE-seq</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" role="switch" type="checkbox"/><label for="toctree-checkbox-8"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../eccite-seq/PRJNA521522/tutorial.html">6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../targeted_transcript_enrichment/index.html">Targeted transcript enrichment</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" role="switch" type="checkbox"/><label for="toctree-checkbox-9"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html">Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../pseudo-bulk/index.html">Pseudo-bulk</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" role="switch" type="checkbox"/><label for="toctree-checkbox-10"><div class="visually-hidden">Toggle child pages in navigation</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html">10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../pseudo-bulk/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Development</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
+</ul>
+
+</div>
+</div>
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors">
+<span id="tutorial-phage-atac-prjna661457"></span><h1>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors<a class="headerlink" href="#phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors" title="Permalink to this headline">¶</a></h1>
+<p>Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors</p>
+<p>Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC</a>. Nat. Biotechnol. 1–8.</p>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<section id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851">Gene Expression Omnibus</a>.</p>
+<p>Inspect fastq files (This is a single-cell ATAC-seq library, we willneed all 3 reads).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>zcat SRR12588752_1.fastq.gz <span class="p">|</span> head
+
+<span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
+<span class="go">CAGCTNTTCCTGCGCTCGACACCGTTACTTGTGT</span>
+<span class="go">+SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
+<span class="go">AAAAA#EEEEEEEEEEEEEEEEEEEEEEEEEEEE</span>
+<span class="go">@SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=34</span>
+<span class="go">CAGCTNTTCCTGCGCTGCTTACCGTAACTTGTGT</span>
+<span class="go">+SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=34</span>
+<span class="go">AAAAA#EEEEEEEAEEEEEEEEEEEEEEEEEEEE</span>
+<span class="go">@SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=34</span>
+<span class="go">CAGCTNTTCCTGCGCTCGACACCGTTACTTGTGT</span>
+
+<span class="gp">$ </span>zcat SRR12588752_2.fastq.gz <span class="p">|</span> head
+
+<span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=16</span>
+<span class="go">NNNNAGNNNNNATGNN</span>
+<span class="go">+SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=16</span>
+<span class="gp">#</span><span class="c1">###AE#####EEE##</span>
+<span class="go">@SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=16</span>
+<span class="go">NNAACTNNNNNAAAAN</span>
+<span class="go">+SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=16</span>
+<span class="gp">#</span><span class="c1">#//A6#####////#</span>
+<span class="go">@SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=16</span>
+<span class="go">NNTCAGTNNNTCAGGN</span>
+
+<span class="gp">$ </span>zcat SRR12588752_3.fastq.gz <span class="p">|</span> head
+
+<span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
+<span class="go">GATACCGNGGNNNNNNNNNNNNNNNNNNNNNNNN</span>
+<span class="go">+SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
+<span class="go">AAAAAEE#EE########################</span>
+<span class="go">@SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=34</span>
+<span class="go">GATACCGCGGTGTNTNANNNCNNNNNAGNNNCNN</span>
+<span class="go">+SRR12588752.2 NB501583:726:HMCKKBGXF:1:11101:14655:1033 length=34</span>
+<span class="go">AAAAAEEEEEEEE#E#E###E#####EE###E##</span>
+<span class="go">@SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=34</span>
+<span class="go">GATACCGCGGTGTATNANNNGNNNNNAANNNGNN</span>
+</pre></div>
+</div>
+<p>Prepare cell barcodes (downloaded from the manuscript’s <a class="reference external" href="https://github.com/evgenijfiskin/phage-atac">GitHub</a>). These are the cell-associated barcodes, they are generated based on the scATAC-seq library.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://raw.githubusercontent.com/evgenijfiskin/phage-atac/master/cd8_hashing/data/barcodes.tsv
+</pre></div>
+</div>
+<p>Inspect cell barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wc -l barcodes.tsv
+
+<span class="go">8366</span>
+
+<span class="gp">$ </span>head barcodes.tsv
+
+<span class="go">AAACGAAAGACCATAA-1</span>
+<span class="go">AAACGAAAGGAGGCGA-1</span>
+<span class="go">AAACGAAAGGCGATTG-1</span>
+<span class="go">AAACGAACAAGAGATT-1</span>
+<span class="go">AAACGAACACAGTTAC-1</span>
+<span class="go">AAACGAACACTGATTG-1</span>
+<span class="go">AAACGAACACTTACAG-1</span>
+<span class="go">AAACGAACAGCAGGTA-1</span>
+<span class="go">AAACGAACAGCGTACC-1</span>
+<span class="go">AAACGAAGTTGCAGAG-1</span>
+</pre></div>
+</div>
+<p>Prepare feature barcodes. CDR3 barcode sequences (phage-derived tag, PDT) can be found in <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5#Sec35">Supplementary Table 4</a> and are truncated to only keep the variable parts.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_R3_truncated.tsv
+
+<span class="go">CD8Nb_PH-A      CAAAGGACGCGG</span>
+<span class="go">CD8Nb_PH-B      CTAAAGACGCGG</span>
+
+<span class="gp">$ </span>cat feature_barcodes_R1_truncated.tsv
+
+<span class="go">CD8Nb_PH-C      CGTAACTTGTGT</span>
+<span class="go">CD8Nb_PH-D      AGTGACCTGTGT</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<p>First, we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GATACCGCGGTGTATTATTGCG</span></code>) at the beginning of the CDR3 barcode sequences on read 3 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
+    --cores <span class="m">0</span> <span class="se">\</span>
+    --front GATACCGCGGTGTATTATTGCG <span class="se">\</span>
+    --minimum-length <span class="m">12</span>:16 <span class="se">\</span>
+    --trimmed-only <span class="se">\</span>
+    --output SRR12588752_3_trimmed.fq.gz --paired-output SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
+    SRR12588752_3.fastq.gz SRR12588752_2.fastq.gz
+</pre></div>
+</div>
+<p>Preview the filtering result: 51,140,637 out of 54,274,791 (94.2%) read pairs are kept for phage-derived tag (PDT) identification.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">== Read fate breakdown ==</span>
+<span class="go">Pairs that were too short:             652,917 (1.2%)</span>
+<span class="go">Pairs discarded as untrimmed:        2,481,237 (4.6%)</span>
+<span class="go">Pairs written (passing filters):    51,140,637 (94.2%)</span>
+</pre></div>
+</div>
+<p>Then, for read 1 (<code class="docutils literal notranslate"><span class="pre">CAGCTCTTCCTGCGCTGCTTAC</span></code>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
+    --cores <span class="m">0</span> <span class="se">\</span>
+    --front CAGCTCTTCCTGCGCTGCTTAC <span class="se">\</span>
+    --minimum-length <span class="m">12</span>:16 <span class="se">\</span>
+    --trimmed-only <span class="se">\</span>
+    --output SRR12588752_1_trimmed.fq.gz --paired-output SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
+    SRR12588752_1.fastq.gz SRR12588752_2.fastq.gz
+</pre></div>
+</div>
+<p>Preview the filtering result: 25,988,762 out of 54,274,791 (47.9%) read pairs are kept for phage-derived tag (PDT) identification.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">== Read fate breakdown ==</span>
+<span class="go">Pairs that were too short:              16,644 (0.0%)</span>
+<span class="go">Pairs discarded as untrimmed:       28,269,385 (52.1%)</span>
+<span class="go">Pairs written (passing filters):    25,988,762 (47.9%)</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+<section id="qc">
+<h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
+<p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>This library is built using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent Kits</a>. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell Ranger ATAC</a> may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in outputs. In <code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to convert cell barcode sequences to their reverse-complement counterparts for processing (default <code class="docutils literal notranslate"><span class="pre">False</span></code>).</p>
+<section id="r3">
+<h3>R3<a class="headerlink" href="#r3" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fba qc \</span>
+<span class="go">    -1 SRR12588752_2_trimmed.fq.gz \</span>
+<span class="go">    -2 SRR12588752_3_trimmed.fq.gz \</span>
+<span class="go">    -w barcodes.tsv \</span>
+<span class="go">    -f feature_barcodes_R3_truncated.txt \</span>
+<span class="go">    -n 10000</span>
+</pre></div>
+</div>
+<p>This library is built using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent Kits</a> and sequenced on Illumina NextSeq 500. The GC content of cell barcodes are quite even.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" style="width: 350px;"/></a>
+<p>As for read 3, based on the per base content, it suggests low complexity.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" style="width: 325px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" style="width: 325px;"/></a>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>m1_1 gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">NTGTTGCTGGTTAGAA        CTGTTGCTGGTTAGAA        1       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">NTCGACCGATTGCGTA        GTCGACCGATTGCGTA        1       CTAAAGACGCGG    CD8Nb_PH-B_CTAAAGACGCGG 0</span>
+<span class="go">GCCGAACTGTTAGAAG        GCCGAACTGTTAGAAG        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">TGAGCGCACACCTTGA        TGAGCGCACACCTTGA        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">AATTCTGCTTGGCTGC        AATTCTGCTTGGCTGC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">GGAATGGTGACCGTGC        GGAATGGTGACCGTGC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">AGGAATTGATTCGCCT        AGGAATTGATTCGCCT        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">CCAAGTTGATAATAGG        CCAAGTTGATAATAGG        0       CTAAAGACGCGG    CD8Nb_PH-B_CTAAAGACGCGG 0</span>
+<span class="go">CCGCAAGTGAATCCAC        CCGCAAGTGAATCCAC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+</pre></div>
+</div>
+</section>
+<section id="r1">
+<h3>R1<a class="headerlink" href="#r1" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">fba qc \</span>
+<span class="go">    -1 SRR12588752_2_trimmed.fq.gz \</span>
+<span class="go">    -2 SRR12588752_1_trimmed.fq.gz \</span>
+<span class="go">    -w barcodes.tsv \</span>
+<span class="go">    -f feature_barcodes_R1_truncated.txt \</span>
+<span class="go">    -n 10000</span>
+</pre></div>
+</div>
+<p>As for read 2, based on the per base content, it suggests that low complexity and there are almost constant bases at the beginning of the reads.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" style="width: 400px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.png" style="width: 400px;"/></a>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>m1_1 gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">NCTCGGGACGTCTGGC        ACTCGGGACGTCTGGC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NCTAAGACTTTATGGC        GCTAAGACTTTATGGC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NACGGAAGATCGTAAC        CACGGAAGATCGTAAC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NTGTTGTGAGTCCCGA        GTGTTGTGAGTCCCGA        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">CCTCCTGCTATCAGGG        CCTCCTGCTATCAGGG        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">GTTGATTCTCGAAGCA        GTTGATTCTCGAAGCA        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">TGGTTAGACTCCGTAA        TGGTTAGACTCCGTAA        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">GCCTCTTGACTGGGTC        GCCTCTTGACTGGGTC        0       CGTAACTTGTGT    CD8Nb_PH-C_CGTAACTTGTGT 0</span>
+<span class="go">AGGTAGCGAGAGTAAT        AGGTAGCGAGAGTAAT        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+<section id="barcode-extraction">
+<h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this headline">¶</a></h2>
+<section id="id1">
+<h3>R3<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
+    -2 SRR12588752_3_trimmed.fq.gz <span class="se">\</span>
+    -w barcodes.tsv <span class="se">\</span>
+    -f feature_barcodes_R3_truncated.txt <span class="se">\</span>
+    -o feature_barcoding_output_R3.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">0</span>,12 <span class="se">\</span>
+    -cb_m <span class="m">1</span> <span class="se">\</span>
+    -fb_m <span class="m">1</span>
+</pre></div>
+</div>
+<p>Preview of result.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output_R3.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">NTGTTGCTGGTTAGAA        CTGTTGCTGGTTAGAA        1       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">NTCGACCGATTGCGTA        GTCGACCGATTGCGTA        1       CTAAAGACGCGG    CD8Nb_PH-B_CTAAAGACGCGG 0</span>
+<span class="go">GCCGAACTGTTAGAAG        GCCGAACTGTTAGAAG        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">TGAGCGCACACCTTGA        TGAGCGCACACCTTGA        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">AATTCTGCTTGGCTGC        AATTCTGCTTGGCTGC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">GGAATGGTGACCGTGC        GGAATGGTGACCGTGC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">AGGAATTGATTCGCCT        AGGAATTGATTCGCCT        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+<span class="go">CCAAGTTGATAATAGG        CCAAGTTGATAATAGG        0       CTAAAGACGCGG    CD8Nb_PH-B_CTAAAGACGCGG 0</span>
+<span class="go">CCGCAAGTGAATCCAC        CCGCAAGTGAATCCAC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>10,543,901 out of 51,140,637 read pairs have valid cell and feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Python version: 3.10</span>
+<span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2022-03-13 00:13:02,589 - fba.levenshtein - INFO - Number of reference cell barcodes: 8,366</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12)</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 1</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2022-03-13 00:13:02,590 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2022-03-13 00:13:02,809 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2022-03-13 00:16:00,978 - fba.levenshtein - INFO - Read pairs processed: 10,000,000</span>
+<span class="go">2022-03-13 00:18:58,488 - fba.levenshtein - INFO - Read pairs processed: 20,000,000</span>
+<span class="go">2022-03-13 00:21:55,956 - fba.levenshtein - INFO - Read pairs processed: 30,000,000</span>
+<span class="go">2022-03-13 00:24:53,698 - fba.levenshtein - INFO - Read pairs processed: 40,000,000</span>
+<span class="go">2022-03-13 00:27:51,819 - fba.levenshtein - INFO - Read pairs processed: 50,000,000</span>
+<span class="go">2022-03-13 00:28:12,045 - fba.levenshtein - INFO - Number of read pairs processed: 51,140,637</span>
+<span class="go">2022-03-13 00:28:12,045 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 10,543,901</span>
+<span class="go">2022-03-13 00:28:12,060 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>R1<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
+    -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
+    -2 SRR12588752_1_trimmed.fq.gz <span class="se">\</span>
+    -w barcodes.tsv <span class="se">\</span>
+    -f feature_barcodes_R1_truncated.txt <span class="se">\</span>
+    -o feature_barcoding_output_R1.tsv.gz <span class="se">\</span>
+    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
+    -r2_c <span class="m">0</span>,12 <span class="se">\</span>
+    -cb_m <span class="m">1</span> <span class="se">\</span>
+    -fb_m <span class="m">1</span>
+</pre></div>
+</div>
+<p>Preview of result.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output_R1.tsv.gz <span class="p">|</span> head
+
+<span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
+<span class="go">NCTCGGGACGTCTGGC        ACTCGGGACGTCTGGC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NCTAAGACTTTATGGC        GCTAAGACTTTATGGC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NACGGAAGATCGTAAC        CACGGAAGATCGTAAC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">NTGTTGTGAGTCCCGA        GTGTTGTGAGTCCCGA        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">CCTCCTGCTATCAGGG        CCTCCTGCTATCAGGG        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">GTTGATTCTCGAAGCA        GTTGATTCTCGAAGCA        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">TGGTTAGACTCCGTAA        TGGTTAGACTCCGTAA        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+<span class="go">GCCTCTTGACTGGGTC        GCCTCTTGACTGGGTC        0       CGTAACTTGTGT    CD8Nb_PH-C_CGTAACTTGTGT 0</span>
+<span class="go">AGGTAGCGAGAGTAAT        AGGTAGCGAGAGTAAT        0       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>11,128,546 out of 25,988,762 read pairs have valid cell and feature barcodes.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Python version: 3.10</span>
+<span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Using extract subcommand ...</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Number of reference cell barcodes: 8,366</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Number of reference feature barcodes: 2</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Read 1 coordinates to search: [0, 16)</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Read 2 coordinates to search: [0, 12)</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Cell barcode maximum number of mismatches: 1</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Feature barcode maximum number of mismatches: 1</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Read 1 maximum number of N allowed: 3</span>
+<span class="go">2022-03-12 23:29:33,488 - fba.levenshtein - INFO - Read 2 maximum number of N allowed: 3</span>
+<span class="go">2022-03-12 23:29:33,707 - fba.levenshtein - INFO - Matching ...</span>
+<span class="go">2022-03-12 23:33:10,471 - fba.levenshtein - INFO - Read pairs processed: 10,000,000</span>
+<span class="go">2022-03-12 23:36:47,019 - fba.levenshtein - INFO - Read pairs processed: 20,000,000</span>
+<span class="go">2022-03-12 23:38:56,544 - fba.levenshtein - INFO - Number of read pairs processed: 25,988,762</span>
+<span class="go">2022-03-12 23:38:56,544 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 11,128,546</span>
+<span class="go">2022-03-12 23:38:56,558 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+<section id="matrix-generation">
+<h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this headline">¶</a></h2>
+<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code> means no UMIs and fragment counts are summarized instead. The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
+    -i feature_barcoding_output_R1.tsv.gz <span class="se">\</span>
+    -i feature_barcoding_output_R3.tsv.gz <span class="se">\</span>
+    -o matrix_featurecount.csv.gz <span class="se">\</span>
+    -ul <span class="m">0</span>
+</pre></div>
+</div>
+<p>Result summary.</p>
+<p>39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid cell and feature barcodes. The median count per cell for this phage-derived tag library is 2,261.0.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Using count subcommand ...</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools version: 1.1.1</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI starting position on read 1: 16</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI length: 0</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools deduplication threshold: 1</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools deduplication method: directional</span>
+<span class="go">2022-03-13 00:36:02,348 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches</span>
+<span class="go">2022-03-13 00:36:20,914 - fba.count - INFO - Number of read pairs processed: 21,672,447</span>
+<span class="go">2022-03-13 00:36:20,917 - fba.count - INFO - Number of cell barcodes detected: 8,366</span>
+<span class="go">2022-03-13 00:36:20,917 - fba.count - INFO - Number of features detected: 4</span>
+<span class="go">2022-03-13 00:36:20,917 - fba.count - INFO - Counting ...</span>
+<span class="go">2022-03-13 00:36:21,009 - fba.count - INFO - Total count after deduplication: 21,672,447</span>
+<span class="go">2022-03-13 00:36:21,016 - fba.count - INFO - Median number of count per cell: 2,261.0</span>
+<span class="go">2022-03-13 00:36:21,103 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+<section id="demultiplexing">
+<h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this headline">¶</a></h2>
+<section id="negative-binomial-distribution">
+<h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this headline">¶</a></h3>
+<p>Cells are demultiplexed based on the feature count matrix. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount.csv.gz <span class="se">\</span>
+    -q <span class="m">0</span>.99 <span class="se">\</span>
+    -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Python version: 3.10</span>
+<span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-03-13 00:47:49,145 - fba.__main__ - INFO - Skipping arguments: "-p/--prob"</span>
+<span class="go">2022-03-13 00:47:49,145 - fba.demultiplex - INFO - Output directory: demultiplexed_nb_0.99</span>
+<span class="go">2022-03-13 00:47:49,145 - fba.demultiplex - INFO - Demultiplexing method: 1</span>
+<span class="go">2022-03-13 00:47:49,146 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-03-13 00:47:49,146 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-03-13 00:47:49,146 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-03-13 00:47:49,146 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
+<span class="go">2022-03-13 00:47:49,324 - fba.demultiplex - INFO - Number of cells: 8,366</span>
+<span class="go">2022-03-13 00:47:49,324 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Number of features: 4 / 4 (after filtering / original in the matrix)</span>
+<span class="go">2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Features: CD8Nb_PH-A CD8Nb_PH-B CD8Nb_PH-C CD8Nb_PH-D</span>
+<span class="go">2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Total UMIs: 21,672,447 / 21,672,447</span>
+<span class="go">2022-03-13 00:47:49,328 - fba.demultiplex - INFO - Median number of UMIs per cell: 2,261.0 / 2,261.0</span>
+<span class="go">2022-03-13 00:47:49,328 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-03-13 00:48:53,685 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-03-13 00:48:59,759 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-03-13 00:49:20,128 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs) across all cells. Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png" style="width: 700px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negatives are 6,373 (76.2%), 638 (7.6%), and 1,355 (16.2%), respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'demultiplexed/matrix_cell_identity.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1638</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1603</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">C</span>    <span class="mi">1564</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">D</span>    <span class="mi">1568</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">6373</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">638</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1355</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png" style="width: 500px;"/></a>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../../cellplex/index.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">CellPlex</div>
+              </div>
+              <svg><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="../index.html">
+              <svg><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">CRISPR screening</div>
+                
+              </div>
+            </a>
+        </div>
+
+        <div class="related-information">
+              Copyright &#169; 2020-2022, Jialei Duan
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            Contents
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors</a><ul>
+<li><a class="reference internal" href="#preparation">Preparation</a></li>
+<li><a class="reference internal" href="#qc">QC</a><ul>
+<li><a class="reference internal" href="#r3">R3</a></li>
+<li><a class="reference internal" href="#r1">R1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#barcode-extraction">Barcode extraction</a><ul>
+<li><a class="reference internal" href="#id1">R3</a></li>
+<li><a class="reference internal" href="#id2">R1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
+<li><a class="reference internal" href="#demultiplexing">Demultiplexing</a><ul>
+<li><a class="reference internal" href="#negative-binomial-distribution">Negative binomial distribution</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/clipboard.min.js"></script>
+    <script src="../../../_static/copybutton.js"></script>
+    </body>
+</html>
