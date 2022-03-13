@@ -444,7 +444,7 @@ def demultiplex_feature_barcoding(matrix_featurecount_file,
         f'{matrix_featurecount.values.sum():,} / '
         f'{matrix_metrics_before_filtering[1]:,}')
     logger.info(
-        'Median number of UMIs per cell: '
+        'Median number of UMIs/reads per cell: '
         f'{np.median(matrix_featurecount.sum(axis=0)):,} / '
         f'{matrix_metrics_before_filtering[2]:,}')
 

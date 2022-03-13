@@ -6,7 +6,6 @@ from itertools import islice, repeat
 from multiprocessing import Pool, cpu_count
 from fba.utils import open_by_suffix, get_logger
 
-
 logger = get_logger(logger_name=__name__)
 
 
@@ -48,8 +47,10 @@ def compile_regex_ref_barcodes_fuzzy(barcodes, num_mismatches=1):
         A list of compiled regex patterns of barcodes.
     """
 
-    ref_barcodes = [regex.compile(f'({i}){{0<e<={num_mismatches}}}',
-                                  regex.BESTMATCH) for i in barcodes]
+    ref_barcodes = [
+        regex.compile(f'({i}){{0<e<={num_mismatches}}}', regex.BESTMATCH)
+        for i in barcodes
+    ]
 
     return ref_barcodes
 
@@ -80,21 +81,22 @@ def compare_against_ref_barcodes(obs_sequence,
         """Formats matching result."""
 
         if z:
-            return [x,
-                    regex.search(
-                        r'\((.*?)\)', z.pattern).group(1),
-                    ':'.join([str(i) for i in y.span()]),
-                    ':'.join([str(i) for i in y.fuzzy_counts])]
+            return [
+                x,
+                regex.search(r'\((.*?)\)', z.pattern).group(1),
+                ':'.join([str(i) for i in y.span()]),
+                ':'.join([str(i) for i in y.fuzzy_counts])
+            ]
 
         else:
-            return [x,
-                    y.string[y.start():y.end()],
-                    ':'.join([str(i) for i in y.span()]),
-                    ':'.join([str(i) for i in y.fuzzy_counts])]
+            return [
+                x, y.string[y.start():y.end()],
+                ':'.join([str(i) for i in y.span()]),
+                ':'.join([str(i) for i in y.fuzzy_counts])
+            ]
 
     if matched:
-        matched_info = _format_matching(x=obs_sequence,
-                                        y=matched)
+        matched_info = _format_matching(x=obs_sequence, y=matched)
 
     else:
         if compiled_pattern_fuzzy:
@@ -149,8 +151,7 @@ def match_barcodes(obs_sequence,
         matched_info = compare_against_ref_barcodes(
             obs_sequence=obs_sequence,
             compiled_pattern_exact=barcodes_compiled_exact,
-            compiled_pattern_fuzzy=barcodes_compiled_fuzzy
-        )
+            compiled_pattern_fuzzy=barcodes_compiled_fuzzy)
 
         matching_result.extend(matched_info)
 
@@ -195,24 +196,20 @@ def match_barcodes_paired(read_seqs,
     assert len(read_seqs) == 4
     read1_seq, read2_seq, read1_seq2, read2_seq2 = read_seqs
 
-    matching_out = match_barcodes(
-        obs_sequence=read1_seq,
-        barcodes_compiled_exact=cb_compiled_exact,
-        barcodes_compiled_fuzzy=cb_compiled_fuzzy,
-        num_n_threshold=cb_num_n_threshold
-    )
+    matching_out = match_barcodes(obs_sequence=read1_seq,
+                                  barcodes_compiled_exact=cb_compiled_exact,
+                                  barcodes_compiled_fuzzy=cb_compiled_fuzzy,
+                                  num_n_threshold=cb_num_n_threshold)
 
     if matching_out[1] in ['no_match', 'n_skipping']:
         matching_out.append(read2_seq)
         matching_out.extend(('NA', 'NA', 'NA'))
 
     else:
-        fb_matching = match_barcodes(
-            obs_sequence=read2_seq,
-            barcodes_compiled_exact=fb_compiled_exact,
-            barcodes_compiled_fuzzy=fb_compiled_fuzzy,
-            num_n_threshold=fb_num_n_threshold
-        )
+        fb_matching = match_barcodes(obs_sequence=read2_seq,
+                                     barcodes_compiled_exact=fb_compiled_exact,
+                                     barcodes_compiled_fuzzy=fb_compiled_fuzzy,
+                                     num_n_threshold=fb_num_n_threshold)
 
         matching_out.extend(fb_matching)
 
@@ -233,7 +230,8 @@ def extract_feature_barcoding_regex(read1_file,
                                     read2_coords=None,
                                     num_threads=None,
                                     chunk_size=1000,
-                                    num_reads=None):
+                                    num_reads=None,
+                                    cb_reverse_complement=False):
     """Extracts feature barcodes."""
 
     logger.info(f'regex version: {regex.__version__}')
@@ -241,9 +239,13 @@ def extract_feature_barcoding_regex(read1_file,
     with open_by_suffix(file_name=cb_file) as f:
         cell_barcodes = [i.split('-')[0].rstrip() for i in f]
 
+    if cb_reverse_complement:
+        cell_barcodes = [rev_compl(i) for i in cell_barcodes]
+
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split('\t')[1]: i.split('\t')[0] for i in f
+            i.rstrip().split('\t')[1]: i.split('\t')[0]
+            for i in f
         }
 
     logger.info(f'Number of reference cell barcodes: {len(cell_barcodes):,}')
@@ -261,11 +263,8 @@ def extract_feature_barcoding_regex(read1_file,
         f'Cell barcode maximum number of mismatches: {cb_num_mismatches}')
     logger.info(
         f'Feature barcode maximum number of mismatches: {fb_num_mismatches}')
-    logger.info(
-        f'Read 1 maximum number of N allowed: {cb_num_n_threshold}')
-    logger.info(
-        f'Read 2 maximum number of N allowed: {fb_num_n_threshold}'
-    )
+    logger.info(f'Read 1 maximum number of N allowed: {cb_num_n_threshold}')
+    logger.info(f'Read 2 maximum number of N allowed: {fb_num_n_threshold}')
 
     if num_reads:
         logger.info(f'Number of read pairs to analyze: {num_reads:,}')
@@ -275,30 +274,26 @@ def extract_feature_barcoding_regex(read1_file,
         logger.info('Number of read pairs to analyze: all')
 
     cell_barcodes_compiled_exact = compile_regex_ref_barcodes_exact(
-        barcodes=cell_barcodes
-    )
+        barcodes=cell_barcodes)
     feature_barcodes_compiled_exact = compile_regex_ref_barcodes_exact(
-        barcodes=feature_barcodes.keys()
-    )
+        barcodes=feature_barcodes.keys())
 
     if cb_num_mismatches:
         cell_barcodes_compiled_fuzzy = compile_regex_ref_barcodes_fuzzy(
-            barcodes=cell_barcodes,
-            num_mismatches=cb_num_mismatches
-        )
+            barcodes=cell_barcodes, num_mismatches=cb_num_mismatches)
     else:
         cell_barcodes_compiled_fuzzy = None
 
     if fb_num_mismatches:
         feature_barcodes_compiled_fuzzy = compile_regex_ref_barcodes_fuzzy(
-            barcodes=feature_barcodes,
-            num_mismatches=fb_num_mismatches
-        )
+            barcodes=feature_barcodes, num_mismatches=fb_num_mismatches)
     else:
         feature_barcodes_compiled_fuzzy = None
 
-    def get_sequence(read1_file, read2_file,
-                     read1_coords=read1_coords, read2_coords=read2_coords):
+    def _get_sequence(read1_file,
+                      read2_file,
+                      read1_coords=read1_coords,
+                      read2_coords=read2_coords):
         """Gets sequences."""
 
         with dnaio.open(file1=read1_file,
@@ -314,13 +309,13 @@ def extract_feature_barcoding_regex(read1_file,
 
                 if read1_coords:
                     r1_start, r1_end = read1_coords
-                    r1 = read1_seq[r1_start: min(r1_end, len(read1_seq))]
+                    r1 = read1_seq[r1_start:min(r1_end, len(read1_seq))]
                 else:
                     r1 = read1_seq
 
                 if read2_coords:
                     r2_start, r2_end = read2_coords
-                    r2 = read2_seq[r2_start: min(r2_end, len(read2_seq))]
+                    r2 = read2_seq[r2_start:min(r2_end, len(read2_seq))]
                 else:
                     r2 = read2_seq
 
@@ -343,8 +338,7 @@ def extract_feature_barcoding_regex(read1_file,
             r1_start, r1_end = read1_coords
             if ':' in x[2]:
                 x[2] = ':'.join(
-                    [str(int(i) + r1_start) for i in x[2].split(':')]
-                )
+                    [str(int(i) + r1_start) for i in x[2].split(':')])
             x[0] = x[-2][:r1_start].lower() + x[0] + x[-2][r1_end:].lower()
 
         # read2
@@ -352,8 +346,7 @@ def extract_feature_barcoding_regex(read1_file,
             r2_start, r2_end = read2_coords
             if ':' in x[6]:
                 x[6] = ':'.join(
-                    [str(int(i) + r2_start) for i in x[6].split(':')]
-                )
+                    [str(int(i) + r2_start) for i in x[6].split(':')])
             x[4] = x[-1][:r2_start].lower() + x[4] + x[-1][r2_end:].lower()
 
         if x[5] not in {'no_match', 'n_skipping', 'NA'}:
@@ -370,11 +363,7 @@ def extract_feature_barcoding_regex(read1_file,
 
     logger.info('Matching ...')
 
-    _reads = islice(
-        get_sequence(read1_file, read2_file),
-        0,
-        num_reads
-    )
+    _reads = islice(_get_sequence(read1_file, read2_file), 0, num_reads)
 
     read_counter = int()
     if num_threads == 1:
@@ -391,8 +380,7 @@ def extract_feature_barcoding_regex(read1_file,
                 cb_compiled_fuzzy=cell_barcodes_compiled_fuzzy,
                 fb_compiled_fuzzy=feature_barcodes_compiled_fuzzy,
                 cb_num_n_threshold=cb_num_n_threshold,
-                fb_num_n_threshold=fb_num_n_threshold
-            )
+                fb_num_n_threshold=fb_num_n_threshold)
 
             out = _restore_orig_seq(x=out,
                                     read1_coords=read1_coords,
@@ -408,15 +396,15 @@ def extract_feature_barcoding_regex(read1_file,
 
                 outs = p.starmap(
                     match_barcodes_paired,
-                    zip(items,
+                    zip(
+                        items,
                         repeat(cell_barcodes_compiled_exact),
                         repeat(feature_barcodes_compiled_exact),
                         repeat(cell_barcodes_compiled_fuzzy),
                         repeat(feature_barcodes_compiled_fuzzy),
                         repeat(cb_num_n_threshold),
                         repeat(fb_num_n_threshold),
-                        )
-                )
+                    ))
                 outs = [
                     _restore_orig_seq(x=i,
                                       read1_coords=read1_coords,

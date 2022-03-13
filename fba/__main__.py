@@ -64,8 +64,8 @@ def main():
                     read1_coords=args.read1_coordinate,
                     read2_coords=args.read2_coordinate,
                     cb_num_n_threshold=args.cb_num_n_threshold,
-                    fb_num_n_threshold=args.fb_num_n_threshold
-            ):
+                    fb_num_n_threshold=args.fb_num_n_threshold,
+                    cb_reverse_complement=args.cb_reverse_complement):
                 f.write(out + '\n')
         logger.info('Done.')
 
@@ -127,7 +127,8 @@ def main():
             umi_pos_start=args.umi_pos_start,
             umi_length=args.umi_length,
             umi_deduplication_method=args.umi_deduplication_method,
-            umi_deduplication_threshold=args.umi_mismatches
+            umi_deduplication_threshold=args.umi_mismatches,
+            barcode_reverse_complement=args.cb_reverse_complement
         )
 
         matrix_featurecount.to_csv(
@@ -210,7 +211,8 @@ def main():
                         read2_coords=args.read2_coordinate,
                         num_threads=args.threads,
                         chunk_size=args.chunk_size,
-                        num_reads=num_reads):
+                        num_reads=num_reads,
+                        cb_reverse_complement=args.cb_reverse_complement):
 
                     f.write(out + '\n')
 
