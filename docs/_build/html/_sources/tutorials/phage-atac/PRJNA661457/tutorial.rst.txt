@@ -20,7 +20,7 @@ Download fastq files from `Gene Expression Omnibus`_.
 
 .. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851
 
-Inspect fastq files (This is a single-cell ATAC-seq library, we willneed all 3 reads).
+Inspect fastq files (This is a phage-derived tag library built on top of single-cell ATAC-seq library, we will need all 3 reads).
 
 .. code-block:: console
 
@@ -63,7 +63,7 @@ Inspect fastq files (This is a single-cell ATAC-seq library, we willneed all 3 r
     @SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=34
     GATACCGCGGTGTATNANNNGNNNNNAANNNGNN
 
-Prepare cell barcodes (downloaded from the manuscript's `GitHub`_). These are the cell-associated barcodes, they are generated based on the scATAC-seq library.
+Prepare cell barcodes (downloaded from the manuscript's `GitHub`_). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.
 
 .. _`GitHub`: https://github.com/evgenijfiskin/phage-atac
 
@@ -92,9 +92,18 @@ Inspect cell barcodes.
     AAACGAACAGCGTACC-1
     AAACGAAGTTGCAGAG-1
 
-Prepare feature barcodes. CDR3 barcode sequences (phage-derived tag, PDT) can be found in `Supplementary Table 4`_ and are truncated to only keep the variable parts.
+Prepare feature barcodes. CDR3 barcode sequences (phage-derived tags, PDTs) can be found in `Supplementary Table 4`_ and are truncated to only keep the variable parts.
 
 .. _`Supplementary Table 4`: https://www.nature.com/articles/s41587-021-01065-5#Sec35
+
+.. csv-table:: CDR3 barcode sequences
+   :widths: 20, 60
+   :header-rows: 0
+
+    "CD8Nb PH-A",GATACCGCGGTGTATTATTGCGCAAAGGACGCGG
+    "CD8Nb PH-B",GATACCGCGGTGTATTATTGCGCTAAAGACGCGG
+    "CD8Nb PH-C",CAGCTCTTCCTGCGCTGCTTACCGTAACTTGTGT
+    "CD8Nb PH-D",CAGCTCTTCCTGCGCTGCTTACAGTGACCTGTGT
 
 .. code-block:: console
 
@@ -163,7 +172,7 @@ QC
 
 Sample the first 10,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
-This library is built using 10x Genomics' `Chromium Single Cell ATAC Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in outputs. In ``fba``, use ``-cb_rc`` to convert cell barcode sequences to their reverse-complement counterparts for processing (default ``False``).
+This library is built using 10x Genomics' `Chromium Single Cell ATAC Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in the outputs. In ``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for processing (default ``False``).
 
 .. _`Chromium Single Cell ATAC Reagent Kits`: https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries
 
@@ -174,14 +183,14 @@ R3
 
 .. code-block:: console
 
-    fba qc \
+    $ fba qc \
         -1 SRR12588752_2_trimmed.fq.gz \
         -2 SRR12588752_3_trimmed.fq.gz \
         -w barcodes.tsv \
         -f feature_barcodes_R3_truncated.txt \
         -n 10000
 
-This library is built using the `Chromium Single Cell ATAC Reagent Kits`_ and sequenced on Illumina NextSeq 500. The GC content of cell barcodes are quite even.
+This library is built using the `Chromium Single Cell ATAC Reagent Kits`_ and sequenced on Illumina NextSeq 500. The GC content of cell barcodes (read 2) are quite even.
 
 .. image:: Pyplot_read1_per_base_seq_content_trimmed_r3.png
    :width: 350px
@@ -203,7 +212,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 .. code-block:: console
 
-    $ m1_1 gzip -dc feature_barcoding_output.tsv.gz | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     NTGTTGCTGGTTAGAA        CTGTTGCTGGTTAGAA        1       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0
@@ -222,14 +231,14 @@ R1
 
 .. code-block:: console
 
-    fba qc \
+    $ fba qc \
         -1 SRR12588752_2_trimmed.fq.gz \
         -2 SRR12588752_1_trimmed.fq.gz \
         -w barcodes.tsv \
         -f feature_barcodes_R1_truncated.txt \
         -n 10000
 
-As for read 2, based on the per base content, it suggests that low complexity and there are almost constant bases at the beginning of the reads.
+For read 1, based on the per base content, it suggests low complexity. There are almost constant bases at the beginning of the reads.
 
 .. image:: Pyplot_read2_per_base_seq_content_trimmed_r1.png
    :width: 400px
@@ -245,7 +254,7 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
 
 .. code-block:: console
 
-    $ m1_1 gzip -dc feature_barcoding_output.tsv.gz | head
+    $ gzip -dc feature_barcoding_output.tsv.gz | head
 
     read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches
     NCTCGGGACGTCTGGC        ACTCGGGACGTCTGGC        1       AGTGACCTGTGT    CD8Nb_PH-D_AGTGACCTGTGT 0
@@ -394,7 +403,7 @@ Result summary.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use ``-ul`` to set the UMI length (default ``12``). Setting to ``0`` means no UMIs and fragment counts are summarized instead. The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
+Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use ``-ul`` to set the UMI length (default ``12``). Setting to ``0`` means no UMIs and read counts are summarized instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in the output matrix if needed (default ``False``). The generated feature count matrix can be easily imported into well-established single cell analysis packages: Seruat_ and Scanpy_.
 
 .. _Seruat: https://satijalab.org/seurat/
 
@@ -410,7 +419,7 @@ Only fragments with correct (passed the criteria) cell and feature barcodes are 
 
 Result summary.
 
-39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid cell and feature barcodes. The median count per cell for this phage-derived tag library is 2,261.0.
+39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid cell and feature barcodes. The median number of reads per cell for this phage-derived tag library is 2,261.0.
 
 .. code-block:: console
 
@@ -419,18 +428,14 @@ Result summary.
     2022-03-13 00:36:01,502 - fba.__main__ - INFO - Python version: 3.9
     2022-03-13 00:36:01,502 - fba.__main__ - INFO - Using count subcommand ...
     2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools version: 1.1.1
-    2022-03-13 00:36:02,348 - fba.count - INFO - UMI starting position on read 1: 16
-    2022-03-13 00:36:02,348 - fba.count - INFO - UMI starting position on read 1: 16
-    2022-03-13 00:36:02,348 - fba.count - INFO - UMI length: 0
-    2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools deduplication threshold: 1
-    2022-03-13 00:36:02,348 - fba.count - INFO - UMI-tools deduplication method: directional
-    2022-03-13 00:36:02,348 - fba.count - INFO - Header line: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
+    2022-03-13 00:36:02,348 - fba.count - INFO - UMI length set to 0, ignoring UMI information. Skipping arguments: "-us/--umi_start".
+    2022-03-13 00:36:02,348 - fba.count - INFO - Header: read1_seq cell_barcode cb_num_mismatches read2_seq feature_barcode fb_num_mismatches
     2022-03-13 00:36:20,914 - fba.count - INFO - Number of read pairs processed: 21,672,447
     2022-03-13 00:36:20,917 - fba.count - INFO - Number of cell barcodes detected: 8,366
     2022-03-13 00:36:20,917 - fba.count - INFO - Number of features detected: 4
     2022-03-13 00:36:20,917 - fba.count - INFO - Counting ...
-    2022-03-13 00:36:21,009 - fba.count - INFO - Total count after deduplication: 21,672,447
-    2022-03-13 00:36:21,016 - fba.count - INFO - Median number of count per cell: 2,261.0
+    2022-03-13 00:36:21,009 - fba.count - INFO - Total reads: 21,672,447
+    2022-03-13 00:36:21,016 - fba.count - INFO - Median number of reads per cell: 2,261.0
     2022-03-13 00:36:21,103 - fba.__main__ - INFO - Done.
 
 |
@@ -471,8 +476,8 @@ Cells are demultiplexed based on the feature count matrix. Demultiplexing method
     2022-03-13 00:47:49,324 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
     2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Number of features: 4 / 4 (after filtering / original in the matrix)
     2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Features: CD8Nb_PH-A CD8Nb_PH-B CD8Nb_PH-C CD8Nb_PH-D
-    2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Total UMIs: 21,672,447 / 21,672,447
-    2022-03-13 00:47:49,328 - fba.demultiplex - INFO - Median number of UMIs per cell: 2,261.0 / 2,261.0
+    2022-03-13 00:47:49,327 - fba.demultiplex - INFO - Total UMIs/reads: 21,672,447 / 21,672,447
+    2022-03-13 00:47:49,328 - fba.demultiplex - INFO - Median number of UMIs/reads per cell: 2,261.0 / 2,261.0
     2022-03-13 00:47:49,328 - fba.demultiplex - INFO - Demultiplexing ...
     2022-03-13 00:48:53,685 - fba.demultiplex - INFO - Generating heatmap ...
     2022-03-13 00:48:59,759 - fba.demultiplex - INFO - Embedding ...

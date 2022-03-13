@@ -3,9 +3,9 @@
 
 ## **0.0.12 (Mar 9 2022)**
 
-### Changed
+### Added
 
-- `qc` supports non-uniform read lengths in the fastq files
+- `qc` supports non-uniform read lengths
 
 ### Fixed
 
