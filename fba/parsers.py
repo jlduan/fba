@@ -480,7 +480,7 @@ def add_count_subparser(subparsers):
         '-i',
         '--input',
         dest='input',
-        # action='append',
+        action='append',
         required=True,
         type=str,
         help='specify an input file')
