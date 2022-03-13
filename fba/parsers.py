@@ -150,6 +150,17 @@ def add_extract_subparser(subparsers):
         help=('specify maximum number of ambiguous nucleotides '
               'allowed for read 2. Default (3)'))
 
+    parser.add_argument(
+        '-cb_rc',
+        '--cell_barcode_reverse_complement',
+        dest='cb_reverse_complement',
+        required=False,
+        type=bool,
+        default=False,
+        help=('specify to convert cell barcode sequences '
+              'into their reverse-complement counterparts for processing. '
+              'Default (False)'))
+
 
 # map
 def add_map_subparser(subparsers):
@@ -483,7 +494,7 @@ def add_count_subparser(subparsers):
         action='append',
         required=True,
         type=str,
-        help='specify an input file')
+        help='specify input files. Multiple \'-i\' flags can be used.')
 
     parser.add_argument('-o',
                         '--output',
@@ -540,6 +551,17 @@ def add_count_subparser(subparsers):
         help=('specify UMI deduplication method '
               '(powered by UMI-tools. Smith, T., et al. 2017). '
               'Default (directional)'))
+
+    parser.add_argument(
+        '-cb_rc',
+        '--cell_barcode_reverse_complement',
+        dest='cb_reverse_complement',
+        required=False,
+        type=bool,
+        default=False,
+        help=('specify to convert cell barcode sequences '
+              'into their reverse-complement counterparts in the output. '
+              'Default (False)'))
 
 
 # demultiplex
@@ -747,6 +769,17 @@ def add_qc_subparser(subparsers):
         default=float('inf'),
         help=('specify maximum number of ambiguous nucleotides allowed '
               'for read 2. The default is no limit'))
+
+    parser.add_argument(
+        '-cb_rc',
+        '--cell_barcode_reverse_complement',
+        dest='cb_reverse_complement',
+        required=False,
+        type=bool,
+        default=False,
+        help=('specify to convert cell barcode sequences '
+              'into their reverse-complement counterparts in the output. '
+              'Default (False)'))
 
     parser.add_argument(
         '-t',
