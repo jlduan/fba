@@ -686,6 +686,74 @@
 </div>
 <p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png" style="width: 500px;"/></a>
+</section>
+<section id="gaussian-mixture-model">
+<h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this headline">¶</a></h3>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
+    -i matrix_featurecount.csv.gz <span class="se">\</span>
+    -dm <span class="m">2</span> <span class="se">\</span>
+    -v
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Initiating logging ...</span>
+<span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Python version: 3.9</span>
+<span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Output directory: demultiplexed_gm</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Demultiplexing method: 2</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - UMI normalization method: clr</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Visualization: On</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Visualization method: tsne</span>
+<span class="go">2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...</span>
+<span class="go">2022-03-13 11:27:49,595 - fba.demultiplex - INFO - Number of cells: 8,366</span>
+<span class="go">2022-03-13 11:27:49,595 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200</span>
+<span class="go">2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Number of features: 4 / 4 (after filtering / original in the matrix)</span>
+<span class="go">2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Features: CD8Nb_PH-A CD8Nb_PH-B CD8Nb_PH-C CD8Nb_PH-D</span>
+<span class="go">2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Total UMIs: 21,672,447 / 21,672,447</span>
+<span class="go">2022-03-13 11:27:49,614 - fba.demultiplex - INFO - Median number of UMIs/reads per cell: 2,261.0 / 2,261.0</span>
+<span class="go">2022-03-13 11:27:49,614 - fba.demultiplex - INFO - Demultiplexing ...</span>
+<span class="go">2022-03-13 11:27:51,392 - fba.demultiplex - INFO - Generating heatmap ...</span>
+<span class="go">2022-03-13 11:27:53,158 - fba.demultiplex - INFO - Embedding ...</span>
+<span class="go">2022-03-13 11:28:08,072 - fba.__main__ - INFO - Done.</span>
+</pre></div>
+</div>
+<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs) across all cells. Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png" style="width: 700px;"/></a>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%), respectively.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">'demultiplexed/matrix_cell_identity.csv.gz'</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1681</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1638</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">C</span>    <span class="mi">1646</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">D</span>    <span class="mi">1546</span>
+<span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">6511</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">709</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1146</span>
+
+<span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png" style="width: 500px;"/></a>
+<p>UMI distribution and model fitting threshold:</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png" style="width: 800px;"/></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png" style="width: 800px;"/></a>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
@@ -753,6 +821,7 @@
 <li><a class="reference internal" href="#matrix-generation">Matrix generation</a></li>
 <li><a class="reference internal" href="#demultiplexing">Demultiplexing</a><ul>
 <li><a class="reference internal" href="#negative-binomial-distribution">Negative binomial distribution</a></li>
+<li><a class="reference internal" href="#gaussian-mixture-model">Gaussian mixture model</a></li>
 </ul>
 </li>
 </ul>

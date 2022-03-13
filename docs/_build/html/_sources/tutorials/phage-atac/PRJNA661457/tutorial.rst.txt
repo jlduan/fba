@@ -531,4 +531,107 @@ t-SNE embedding of cells based on the abundance of features (phage-derived tags,
    :width: 500px
    :align: center
 
+
+Gaussian mixture model
+----------------------
+
+The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
+
+.. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+
+.. code-block:: console
+
+    $ fba demultiplex \
+        -i matrix_featurecount.csv.gz \
+        -dm 2 \
+        -v
+
+.. code-block:: console
+
+    2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.x
+    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Initiating logging ...
+    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Python version: 3.9
+    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Using demultiplex subcommand ...
+    2022-03-13 11:27:49,515 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Output directory: demultiplexed_gm
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Demultiplexing method: 2
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - UMI normalization method: clr
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Visualization: On
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Visualization method: tsne
+    2022-03-13 11:27:49,515 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+    2022-03-13 11:27:49,595 - fba.demultiplex - INFO - Number of cells: 8,366
+    2022-03-13 11:27:49,595 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 200
+    2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Number of features: 4 / 4 (after filtering / original in the matrix)
+    2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Features: CD8Nb_PH-A CD8Nb_PH-B CD8Nb_PH-C CD8Nb_PH-D
+    2022-03-13 11:27:49,607 - fba.demultiplex - INFO - Total UMIs: 21,672,447 / 21,672,447
+    2022-03-13 11:27:49,614 - fba.demultiplex - INFO - Median number of UMIs/reads per cell: 2,261.0 / 2,261.0
+    2022-03-13 11:27:49,614 - fba.demultiplex - INFO - Demultiplexing ...
+    2022-03-13 11:27:51,392 - fba.demultiplex - INFO - Generating heatmap ...
+    2022-03-13 11:27:53,158 - fba.demultiplex - INFO - Embedding ...
+    2022-03-13 11:28:08,072 - fba.__main__ - INFO - Done.
+
+Heatmap of the relative abundance of features (phage-derived tags, PDTs) across all cells. Each column represents a single cell. This is a re-creation of `Fig. 3b`_ in `Fiskin, E., et al. (2021)`_.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_gm.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets, multiplets and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%), respectively.
+
+.. code-block:: python
+
+    In [1]: import pandas as pd
+
+    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+
+    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+    Out[3]:
+    CD8Nb_PH-A    1681
+    CD8Nb_PH-B    1638
+    CD8Nb_PH-C    1646
+    CD8Nb_PH-D    1546
+    dtype: int64
+
+    In [4]: sum(m.sum(axis=0) == 1)
+    Out[4]: 6511
+
+    In [5]: sum(m.sum(axis=0) > 1)
+    Out[5]: 709
+
+    In [6]: sum(m.sum(axis=0) == 0)
+    Out[6]: 1146
+
+    In [7]: m.shape
+    Out[7]: (4, 8366)
+
+t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of `Fig. 3d`_ in `Fiskin, E., et al. (2021)`_.
+
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+   :alt: t-SNE embedding
+   :width: 500px
+   :align: center
+
+UMI distribution and model fitting threshold:
+
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
 |
