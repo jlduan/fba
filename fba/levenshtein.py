@@ -6,9 +6,7 @@ from itertools import combinations
 from polyleven import levenshtein
 from fba.utils import open_by_suffix, get_logger
 
-
 logger = get_logger(logger_name=__name__)
-
 
 # In-memory implementation of TinyFastSS
 # https://github.com/fujimotos/TinyFastSS
@@ -90,10 +88,7 @@ def create_index(barcodes, num_mismatches=1):
 
             d[bkey] = set2bytes(barcode_set)
 
-    d = {
-        sys.intern(i.decode()): sys.intern(d[i].decode())
-        for i in d
-    }
+    d = {sys.intern(i.decode()): sys.intern(d[i].decode()) for i in d}
 
     return d
 
@@ -169,9 +164,12 @@ def select_query(x, read_seq, read_qual):
             if len(x[i]) == 1:
                 return x[i][0], i
             else:
-                s = [sum([ord(read_qual[idx]) - 33
-                          for idx, val in enumerate(read_seq)
-                          if ii[idx] != val]) for ii in x[i]]
+                s = [
+                    sum([
+                        ord(read_qual[idx]) - 33
+                        for idx, val in enumerate(read_seq) if ii[idx] != val
+                    ]) for ii in x[i]
+                ]
 
                 s = [idx for idx, val in enumerate(s) if val == min(s)][0]
 
@@ -205,9 +203,7 @@ def format_one_query(q, read_seq, read_coords, barcode_dict=None):
     """
 
     x, y = read_coords
-    read_seq = (read_seq[:x].lower()
-                + read_seq[x:y]
-                + read_seq[y:].lower())
+    read_seq = (read_seq[:x].lower() + read_seq[x:y] + read_seq[y:].lower())
 
     if barcode_dict:
         barcode = barcode_dict[q[0]]

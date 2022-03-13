@@ -5,6 +5,7 @@ import dnaio
 from itertools import islice, repeat
 from multiprocessing import Pool, cpu_count
 from fba.utils import open_by_suffix, get_logger
+from fba.levenshtein import rev_compl
 
 logger = get_logger(logger_name=__name__)
 
