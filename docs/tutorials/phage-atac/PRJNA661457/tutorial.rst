@@ -464,7 +464,7 @@ Cells are demultiplexed based on the feature count matrix. Demultiplexing method
     2022-03-13 00:47:41,569 - fba.__main__ - INFO - Python version: 3.10
     2022-03-13 00:47:41,569 - fba.__main__ - INFO - Using demultiplex subcommand ...
     2022-03-13 00:47:49,145 - fba.__main__ - INFO - Skipping arguments: "-p/--prob"
-    2022-03-13 00:47:49,145 - fba.demultiplex - INFO - Output directory: demultiplexed_nb_0.99
+    2022-03-13 00:47:49,145 - fba.demultiplex - INFO - Output directory: demultiplexed
     2022-03-13 00:47:49,145 - fba.demultiplex - INFO - Demultiplexing method: 1
     2022-03-13 00:47:49,146 - fba.demultiplex - INFO - UMI normalization method: clr
     2022-03-13 00:47:49,146 - fba.demultiplex - INFO - Visualization: On
