@@ -517,13 +517,13 @@ def add_count_subparser(subparsers):
         required=False,
         type=int,
         default=12,
-        help=(
-            'specify the length of UMIs on read 1. '
-            'Reads with UMI length shorter than this value will be discarded. '
-            'Coordinate is 0-based, half-open. '
-            'For example, '
-            '\'-us 16 -ul 12\' means UMI starts at 16 ends at 27. '
-            'Default (12)'))
+        help=('specify the length of UMIs on read 1. '
+              'Reads shorter than cell barcode + UMI will be discarded. '
+              'Coordinate is 0-based, half-open. '
+              'For example, '
+              '\'-us 16 -ul 12\' means UMI starts at 16 ends at 27. '
+              'If set to 0, UMI information will be ignored during counting. '
+              'Default (12)'))
 
     parser.add_argument(
         '-um',
