@@ -21,6 +21,7 @@ Pseudo-bulk <pseudo-bulk/index>
     - [Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3' sgRNA-CR1<sup>cs1</sup>](./crispr_screening/PRJNA609688/tutorial.rst)
 - Cell surface protein labeling
     - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](./cell_surface_protein_labeling/PRJNA393315/tutorial.rst)
+    - [ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells](./cell_surface_protein_labeling/PRJNA658075/tutorial.rst)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](./cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.rst)
 - PHAGE-ATAC
     - [PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors](./phage-atac/PRJNA661457/tutorial.rst)

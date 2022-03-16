@@ -533,9 +533,9 @@ t-SNE embedding of cells based on the abundance of features (phage-derived tags,
 Gaussian mixture model
 ----------------------
 
-The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics’ website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
+The implementation of demultiplexing method ``2`` (set by ``-dm``) is inspired by the method described on `10x Genomics' website`_. Use ``-p`` to set the probability threshold for demulitplexing (default ``0.9``).
 
-.. _`10x Genomics’ website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+.. _`10x Genomics' website`: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
 .. code-block:: console
 
