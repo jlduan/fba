@@ -172,7 +172,7 @@ QC
 
 Sample the first 10,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
-This library is built using 10x Genomics' `Chromium Single Cell ATAC Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in the outputs. In ``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for processing (default ``False``).
+This library is built using 10x Genomics' `Chromium Single Cell ATAC Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in the outputs. In ``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for processing.
 
 .. _`Chromium Single Cell ATAC Reagent Kits`: https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries
 
