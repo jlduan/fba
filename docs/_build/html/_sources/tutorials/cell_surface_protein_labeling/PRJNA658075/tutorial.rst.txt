@@ -535,7 +535,7 @@ t-SNE embedding of cells based on the abundance of features (phage-derived tags,
 |
 
 
-Cite-seq
+CITE-seq
 ========
 
 

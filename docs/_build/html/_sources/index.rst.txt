@@ -68,6 +68,11 @@ Welcome to ``fba``'s documentation!
    GitHub Repository <https://github.com/jlduan/fba>
 
 
+..
+
+    **工欲善其事，必先利其器。—— 论语·卫灵公**
+
+
 Quickstart
 ----------
 
