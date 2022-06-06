@@ -29,7 +29,7 @@ Hashtag (Cell hashing):
 
     $ curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_2.fastq.gz
 
-Protein-tag (Cite-seq):
+Protein-tag (CITE-seq):
 
 .. code-block:: console
 
