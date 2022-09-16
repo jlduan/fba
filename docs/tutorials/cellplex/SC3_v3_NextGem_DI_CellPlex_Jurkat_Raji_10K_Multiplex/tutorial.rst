@@ -278,7 +278,7 @@ Inspect feature count matrix.
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("matrix_featurecount.csv.gz", index_col=0)
 
     In [3]: m.sum(axis=1)
     Out[3]:
@@ -296,9 +296,9 @@ Inspect feature count matrix.
     CMO312_ACATGGTCAACGCTG         703
     dtype: int64
 
-    In [4]: m = m.loc[['CMO301_ATGAGGAATTCCTGC', 'CMO302_CATGCCAATAGAGCG'], :]
+    In [4]: m = m.loc[["CMO301_ATGAGGAATTCCTGC", "CMO302_CATGCCAATAGAGCG"], :]
 
-    In [5]: m.to_csv(path_or_buf='matrix_featurecount_filtered.csv.gz', compression='infer')
+    In [5]: m.to_csv(path_or_buf="matrix_featurecount_filtered.csv.gz", compression="infer")
 
 ``CMO301_ATGAGGAATTCCTGC`` and ``CMO302_CATGCCAATAGAGCG`` have the most abundant UMIs. They are the CMOs acutally used in this experiment.
 
@@ -385,7 +385,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -466,7 +466,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -543,7 +543,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:

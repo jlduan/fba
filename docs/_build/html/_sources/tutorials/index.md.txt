@@ -6,11 +6,11 @@
 
 CRISPR screening <crispr_screening/index>
 Cell surface protein labeling <cell_surface_protein_labeling/index>
+ECCITE-seq <eccite-seq/index>
 PHAGE-ATAC <phage-atac/index>
 CellPlex <cellplex/index>
 Cell hashing <cell_hashing/index>
 MULTI-seq <multi-seq/index>
-ECCITE-seq <eccite-seq/index>
 Targeted transcript enrichment <targeted_transcript_enrichment/index>
 Pseudo-bulk <pseudo-bulk/index>
 ```
@@ -23,6 +23,8 @@ Pseudo-bulk <pseudo-bulk/index>
     - [CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies](./cell_surface_protein_labeling/PRJNA393315/tutorial.rst)
     - [ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells](./cell_surface_protein_labeling/PRJNA658075/tutorial.rst)
     - [1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed](./cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.rst)
+- ECCITE-seq
+    - [6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs](./eccite-seq/PRJNA521522/tutorial.rst)
 - PHAGE-ATAC
     - [PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors](./phage-atac/PRJNA661457/tutorial.rst)
 - CellPlex
@@ -32,8 +34,6 @@ Pseudo-bulk <pseudo-bulk/index>
     - [Peripheral Blood Mononuclear Cells with 8 Antibodies](./cell_hashing/PRJNA423077/tutorial.rst)
 - MULTI-seq
     - [15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices](./multi-seq/PRJNA531855/tutorial.rst)
-- ECCITE-seq
-    - [6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs](./eccite-seq/PRJNA521522/tutorial.rst)
 - Targeted transcript enrichment
     - [Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel](./targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.rst)
 - Pseudo-bulk

@@ -339,7 +339,7 @@ The median number of reads per cell of this HTO library is 1,893.0.
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("matrix_featurecount.csv.gz", index_col=0)
 
     In [3]: m.sum(axis=1)
     Out[3]:
@@ -354,25 +354,25 @@ The median number of reads per cell of this HTO library is 1,893.0.
 
     In [4]: m1 = m.loc[
     ...:     [
-    ...:         'anti-human_hashtag_1_GTCAACTCTTTAGCG',
-    ...:         'anti-human_hashtag_2_TGATGGCCTATTGGG',
-    ...:         'anti-human_hashtag_3_TTCCGCCTCTCTTTG',
-    ...:         'anti-human_hashtag_4_AGTAAGTTCAGCGTA',
-    ...:         'anti-human_hashtag_5_AAGTATCGTTTCGCA',
+    ...:         "anti-human_hashtag_1_GTCAACTCTTTAGCG",
+    ...:         "anti-human_hashtag_2_TGATGGCCTATTGGG",
+    ...:         "anti-human_hashtag_3_TTCCGCCTCTCTTTG",
+    ...:         "anti-human_hashtag_4_AGTAAGTTCAGCGTA",
+    ...:         "anti-human_hashtag_5_AAGTATCGTTTCGCA",
     ...:     ],
     ...:     :,
     ...: ]
 
-    In [5]: m1.to_csv(path_or_buf='matrix_featurecount_HTO_1-5.csv.gz',
-                      compression='infer')
+    In [5]: m1.to_csv(path_or_buf="matrix_featurecount_HTO_1-5.csv.gz",
+                      compression="infer")
 
     In [6]: m2 = m.loc[[
-    ...:     'anti-human_hashtag_12_TAACGACCAGCCATA',
-    ...:     'anti-human_hashtag_13_AAATCTCTCAGGCTC'
+    ...:     "anti-human_hashtag_12_TAACGACCAGCCATA",
+    ...:     "anti-human_hashtag_13_AAATCTCTCAGGCTC"
     ...: ], :]
 
-    In [7]: m2.to_csv(path_or_buf='matrix_featurecount_HTO_12-13.csv.gz',
-                      compression='infer')
+    In [7]: m2.to_csv(path_or_buf="matrix_featurecount_HTO_12-13.csv.gz",
+                      compression="infer")
 
 |
 
@@ -436,7 +436,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -511,7 +511,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -700,7 +700,7 @@ On average, approximately 25 ADTs (proteins) are detected per cell.
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('matrix_featurecount.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("matrix_featurecount.csv.gz", index_col=0)
 
     In [3]: m.shape
     Out[3]: (37, 9151)

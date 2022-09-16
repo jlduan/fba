@@ -114,9 +114,11 @@ Usage
 Citation
 --------
 
-Jialei Duan, Gary Hon. FBA: feature barcoding analysis for single cell RNA-Seq. Bioinformatics. 2021 May 17:btab375. doi: `10.1093/bioinformatics/btab375`_. Epub ahead of print. PMID: 33999185.
+Jialei Duan, Gary C Hon, **FBA: feature barcoding analysis for single cell RNA-Seq**, *Bioinformatics*, Volume 37, Issue 22, 15 November 2021, Pages 4266–4268. DOI: `10.1093/bioinformatics/btab375`_. PMID: `33999185`_.
 
 .. _`10.1093/bioinformatics/btab375`: https://doi.org/10.1093/bioinformatics/btab375
+
+.. _`33999185`: https://pubmed.ncbi.nlm.nih.gov/33999185
 
 .. raw:: html
 

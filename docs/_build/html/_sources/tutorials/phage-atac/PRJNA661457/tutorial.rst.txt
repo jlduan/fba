@@ -498,7 +498,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -581,7 +581,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]: import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:

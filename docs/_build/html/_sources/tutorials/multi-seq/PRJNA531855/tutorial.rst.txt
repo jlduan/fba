@@ -71,7 +71,7 @@ Pre-process feature count matrix.
 
     In [2]: import pandas as pd
 
-    In [3]: m = pd.read_csv(filepath_or_buffer='POC_MULTI_matrix.csv',
+    In [3]: m = pd.read_csv(filepath_or_buffer="POC_MULTI_matrix.csv",
                             index_col=0)
 
     In [4]: m.iloc[1:5, 1:5]
@@ -83,10 +83,10 @@ Pre-process feature count matrix.
     AAACCTGAGGGATCTG-1     2     0     1         3
     AAACCTGAGGTAAACT-1    98     0     0        98
 
-    In [5]: m = m.T.drop(['LaneID', 'nUMI_Bar'])
+    In [5]: m = m.T.drop(["LaneID", "nUMI_Bar"])
 
-    In [6]: m.to_csv(path_or_buf='matrix_featurecount_POC_MULTI.csv.gz',
-                     compression='infer')
+    In [6]: m.to_csv(path_or_buf="matrix_featurecount_POC_MULTI.csv.gz",
+                     compression="infer")
 
     In [7]: m.sum(axis=0)
     Out[7]:
@@ -156,7 +156,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [1]:  import pandas as pd
 
-    In [2]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[3]:
@@ -206,12 +206,12 @@ Pre-process feature count matrix.
 
     In [2]: import pandas as pd
 
-    In [3]: m = pd.read_csv(filepath_or_buffer='HMEC_orig_MULTI_matrix.csv',
+    In [3]: m = pd.read_csv(filepath_or_buffer="HMEC_orig_MULTI_matrix.csv",
                             index_col=0)
 
     In [4]: m = m.T.drop(['nUMI_Bar'])
 
-    In [5]: m.to_csv(path_or_buf='matrix_featurecount_HMEC_MULTI.csv.gz', compression='infer')
+    In [5]: m.to_csv(path_or_buf="matrix_featurecount_HMEC_MULTI.csv.gz", compression="infer")
 
     In [6]: m.sum(axis=0)
     Out[6]:
@@ -295,7 +295,7 @@ Preview the demultiplexing result: the numbers of singlets, multiplets and negat
 
     In [2]: import pandas as pd
 
-    In [3]: m = pd.read_csv('demultiplexed/matrix_cell_identity.csv.gz', index_col=0)
+    In [3]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
 
     In [4]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
     Out[4]:
