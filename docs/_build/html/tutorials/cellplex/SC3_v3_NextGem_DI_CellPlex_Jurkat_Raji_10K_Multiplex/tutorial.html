@@ -259,7 +259,7 @@
         <article role="main">
           <section id="k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed">
 <span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex"></span><h1>10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed<a class="headerlink" href="#k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed" title="Permalink to this headline">¶</a></h1>
-<p>Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</p>
+<p><strong>Dataset</strong>: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0">here</a>.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
@@ -554,7 +554,7 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm1.png" style="width: 700px;"/></a>
 <p>UMAP embedding of cells based on the abundance of features (CMOs, no transcriptome information used). Colors indicate the CMO status for each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png"><img alt="UMAP embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm1.png" style="width: 500px;"/></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
+<p>Preview the demultiplexing result: the numbers of singlets (5,614 + 4,712), multiplets (1,505) and negative cells (1,781).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"demultiplexed/matrix_cell_identity.csv.gz"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -667,7 +667,7 @@
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee.png" style="width: 500px;"/></a>
 <p>UMI distribution and knee point detection:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee.png" style="width: 800px;"/></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
+<p>Preview the demultiplexing result: the numbers of singlets (5,396 + 4,726), multiplets (1,178) and negative cells (2,312).</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">"demultiplexed/matrix_cell_identity.csv.gz"</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>

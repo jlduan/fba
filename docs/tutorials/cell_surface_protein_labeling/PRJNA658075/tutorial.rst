@@ -5,9 +5,9 @@
 ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells
 =============================================================
 
-Dataset: ASAP-seq: Multiplexed CRISPR Perturbations in Primary T Cells
+**Dataset**: ASAP-seq: Multiplexed CRISPR Perturbations in Primary T Cells
 
-Mimitou, E.P., Lareau, C.A., Chen, K.Y., Zorzetto-Fernandes, A.L., Hao, Y., Takeshima, Y., Luo, W., Huang, T.-S., Yeung, B.Z., Papalexi, E., et al. (2021). `Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells`_. Nat. Biotechnol. *39*, 1246–1258.
+Mimitou, E.P., Lareau, C.A., Chen, K.Y., Zorzetto-Fernandes, A.L., Hao, Y., Takeshima, Y., Luo, W., Huang, T.-S., Yeung, B.Z., Papalexi, E., et al. (2021). `Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells`_. *Nat. Biotechnol.* **39**, 1246–1258.
 
 .. _`Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells`: https://doi.org/10.1038/s41587-021-00927-2
 
@@ -51,9 +51,9 @@ Antibody-derived tags
 
     $ cat SRR12476627_3.fastq.gz SRR12476628_3.fastq.gz > adt_read_3.fq.gz
 
-Download cell barcode info from the manuscript's wonderful `GitHub`_. We need to get the cell-associated barcodes of this single-cell ATAC-Seq library.
+Download cell barcode info from the manuscript's wonderful GitHub `repository`_. We need to get the cell-associated barcodes of this single-cell ATAC-Seq library.
 
-.. _`GitHub`: https://github.com/caleblareau/asap_reproducibility
+.. _`repository`: https://github.com/caleblareau/asap_reproducibility
 
 .. code-block:: console
 

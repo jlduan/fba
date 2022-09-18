@@ -7,9 +7,9 @@ Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (U
 
 .. |sgRNA-CR1cs1| replace:: sgRNA-CR1\ :sup:`cs1`\
 
-Dataset: Direct-capture Perturb-seq (|sgRNA-CR1cs1|)
+**Dataset**: Direct-capture Perturb-seq (|sgRNA-CR1cs1|)
 
-Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan, J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al. (2020). `Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing`_. Nat. Biotechnol. *38*, 954–961.
+Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan, J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al. (2020). `Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing`_. *Nat. Biotechnol.* **38**, 954–961.
 
 .. _`Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing`: https://doi.org/10.1038/s41587-020-0470-y
 

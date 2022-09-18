@@ -5,7 +5,7 @@
 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed
 ====================================================
 
-Dataset: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs
+**Dataset**: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2 CMOs
 
 The detailed description of this dataset can be found `here`_.
 
@@ -379,7 +379,7 @@ UMAP embedding of cells based on the abundance of features (CMOs, no transcripto
    :width: 500px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+Preview the demultiplexing result: the numbers of singlets (5,614 + 4,712), multiplets (1,505) and negative cells (1,781).
 
 .. code-block:: python
 
@@ -537,7 +537,7 @@ UMI distribution and knee point detection:
    :width: 800px
    :align: center
 
-Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.
+Preview the demultiplexing result: the numbers of singlets (5,396 + 4,726), multiplets (1,178) and negative cells (2,312).
 
 .. code-block:: python
 

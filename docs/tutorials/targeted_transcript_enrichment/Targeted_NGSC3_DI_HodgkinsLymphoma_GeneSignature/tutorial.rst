@@ -5,7 +5,7 @@
 Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 =====================================================================
 
-Dataset: Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
+**Dataset**: Hodgkin's Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel
 
 The detailed description of this dataset can be found here_.
 

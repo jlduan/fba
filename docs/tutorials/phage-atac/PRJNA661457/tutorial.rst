@@ -4,9 +4,9 @@
 PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors
 ===========================================================================================================
 
-Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors
+**Dataset**: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors
 
-Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). `Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC`_. Nat. Biotechnol. 1–8.
+Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). `Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC`_. *Nat. Biotechnol.* **40**, 374–381.
 
 .. _`Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC`: https://doi.org/10.1038/s41587-021-01065-5
 
@@ -20,7 +20,7 @@ Download fastq files from `Gene Expression Omnibus`_.
 
 .. _`Gene Expression Omnibus`: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851
 
-Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 reads).
+Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 end reads).
 
 .. code-block:: console
 
@@ -63,9 +63,9 @@ Inspect fastq files (This is a phage-derived tag library built on top of the sin
     @SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=34
     GATACCGCGGTGTATNANNNGNNNNNAANNNGNN
 
-Prepare cell barcodes (downloaded from the manuscript's `GitHub`_). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.
+Prepare cell barcodes (downloaded from the manuscript's GitHub `repository`_). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.
 
-.. _`GitHub`: https://github.com/evgenijfiskin/phage-atac
+.. _`repository`: https://github.com/evgenijfiskin/phage-atac
 
 .. code-block:: console
 

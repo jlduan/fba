@@ -259,15 +259,15 @@
         <article role="main">
           <section id="phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors">
 <span id="tutorial-phage-atac-prjna661457"></span><h1>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors<a class="headerlink" href="#phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors" title="Permalink to this headline">¶</a></h1>
-<p>Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors</p>
-<p>Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC</a>. Nat. Biotechnol. 1–8.</p>
+<p><strong>Dataset</strong>: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors</p>
+<p>Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC</a>. <em>Nat. Biotechnol.</em> <strong>40</strong>, 374–381.</p>
 <div class="line-block">
 <div class="line"><br/></div>
 </div>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851">Gene Expression Omnibus</a>.</p>
-<p>Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 reads).</p>
+<p>Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 end reads).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>zcat SRR12588752_1.fastq.gz <span class="p">|</span> head
 
 <span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
@@ -308,7 +308,7 @@
 <span class="go">GATACCGCGGTGTATNANNNGNNNNNAANNNGNN</span>
 </pre></div>
 </div>
-<p>Prepare cell barcodes (downloaded from the manuscript’s <a class="reference external" href="https://github.com/evgenijfiskin/phage-atac">GitHub</a>). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.</p>
+<p>Prepare cell barcodes (downloaded from the manuscript’s GitHub <a class="reference external" href="https://github.com/evgenijfiskin/phage-atac">repository</a>). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://raw.githubusercontent.com/evgenijfiskin/phage-atac/master/cd8_hashing/data/barcodes.tsv
 </pre></div>
 </div>

@@ -5,9 +5,9 @@
 Peripheral Blood Mononuclear Cells with 8 Antibodies
 ====================================================
 
-Dataset: Cell hashing
+**Dataset**: Cell hashing
 
-Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). `Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`_. Genome Biol. *19*, 224.
+Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck, W.M., 3rd, Smibert, P., and Satija, R. (2018). `Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`_. *Genome Biol.* **19**, 224.
 
 .. _`Cell Hashing with barcoded antibodies enables multiplexing and doublet detection for single cell genomics`: https://doi.org/10.1186/s13059-018-1603-1
 

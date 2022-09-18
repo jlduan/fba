@@ -5,9 +5,9 @@
 CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
 ===============================================================================
 
-Dataset: CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
+**Dataset**: CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)
 
-Datlinger, P., Rendeiro, A.F., Schmidl, C., Krausgruber, T., Traxler, P., Klughammer, J., Schuster, L.C., Kuchler, A., Alpar, D., and Bock, C. (2017). `Pooled CRISPR screening with single-cell transcriptome readout`_. Nat. Methods *14*, 297–301.
+Datlinger, P., Rendeiro, A.F., Schmidl, C., Krausgruber, T., Traxler, P., Klughammer, J., Schuster, L.C., Kuchler, A., Alpar, D., and Bock, C. (2017). `Pooled CRISPR screening with single-cell transcriptome readout`_. *Nat. Methods* **14**, 297–301.
 
 .. _`Pooled CRISPR screening with single-cell transcriptome readout`: https://doi.org/10.1038/nmeth.4177
 

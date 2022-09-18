@@ -5,7 +5,7 @@
 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA
 ==================================================================
 
-Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed
+**Dataset**: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed
 
 The detailed description of this dataset can be found here_.
 

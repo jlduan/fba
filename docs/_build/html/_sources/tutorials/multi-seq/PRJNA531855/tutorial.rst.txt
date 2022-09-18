@@ -4,9 +4,9 @@
 15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices
 =============================================================================
 
-Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices
+**Dataset**: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices
 
-McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). `MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`_. Nat. Methods *16*, 619–626.
+McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). `MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`_. *Nat. Methods* **16**, 619–626.
 
 .. _`MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices`: https://doi.org/10.1038/s41592-019-0433-8
 
