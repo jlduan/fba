@@ -15,9 +15,8 @@
 
 
 <a href="https://jlduan.github.io/fba">
-    <img src="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/logo.svg" align="right" width='200'/>
+    <img src="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" align="right" width='200'/>
 </a>
-
 
 > **工欲善其事，必先利其器。—— 论语·卫灵公**
 
