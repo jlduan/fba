@@ -122,7 +122,11 @@ copybutton_line_continuation_character = "\\"
 # Generate OpenGraph metadata
 # https://github.com/wpilibsuite/sphinxext-opengraph
 ogp_site_url = "https://jlduan.github.io/fba/_build/html/index.html"
-ogp_type = "article"
+ogp_type = "website"
 ogp_custom_meta_tags = [
     '<meta property="og:ignore_canonical" content="true" />',
+    '<meta property="article:author" content="Jialei Duan" />',
+    '<meta property="og:site_name" content="FBA" />',
+    '<meta name="twitter:card" content="summary"></meta>',
+    '<meta name="twitter:creator" content="@jlduan" />',
 ]
