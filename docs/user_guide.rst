@@ -21,7 +21,7 @@ Usage
    Tools for feature barcoding analysis
 
    optional arguments:
-   -h, --help        show this help message and exit
+   -h, --help         show this help message and exit
 
    functions:
 
@@ -32,8 +32,8 @@ Usage
       demultiplex     demultiplex cells based on feature abundance
       qc              quality control of feature barcoding assay
       kallisto_wrapper
-                     deploy kallisto/bustools for feature barcoding
-                     quantification
+                      deploy kallisto/bustools for feature barcoding
+                      quantification
 
 * **extract**: extract cell and feature barcodes from paired fastq files. For single cell assays, read 1 usually contains cell partitioning and UMI information, and read 2 contains feature information.
 * **map**: quantify enriched transcripts (through hybridization or PCR amplification) from parent single cell libraries. Read 1 contains cell partitioning and UMI information, and read 2 contains transcribed regions of enriched/targeted transcripts of interest. BWA (Li, H. 2013) or Bowtie2 (Langmead, B., et al. 2012) is used for read 2 alignment. The quantification (UMI deduplication) of enriched/targeted transcripts is powered by UMI-tools (Smith, T., et al. 2017).

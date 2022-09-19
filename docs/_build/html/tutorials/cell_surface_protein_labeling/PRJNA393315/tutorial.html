@@ -6,12 +6,13 @@
 
 <meta property="og:title" content="CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies" />
   
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
   
-<meta property="og:url" content="tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html" />
+<meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA393315/tutorial.html" />
   
 <meta property="og:description" content="Dataset: CITE-seq Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). Simultaneous epitope and transcriptome mea..." />
-  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" href="../PRJNA658075/tutorial.html" /><link rel="prev" title="Cell surface protein labeling" href="../index.html" />
+  
+<meta property="og:ignore_canonical" content="true" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" href="../PRJNA658075/tutorial.html" /><link rel="prev" title="Cell surface protein labeling" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies - FBA</title>
@@ -25,19 +26,19 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
+    --color-code-background: #eeeedd;
   --color-code-foreground: black;
   
   }
   body[data-theme="dark"] {
-    --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
   }
   @media (prefers-color-scheme: dark) {
     body:not([data-theme="light"]) {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
     }
   }
@@ -262,6 +263,9 @@
 <span id="tutorial-cell-surface-protein-labeling-prjna393315"></span><h1>CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies<a class="headerlink" href="#cite-seq-8k-cord-blood-mononuclear-cells-with-13-antibodies" title="Permalink to this headline">¶</a></h1>
 <p><strong>Dataset</strong>: CITE-seq</p>
 <p>Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay, P.K., Swerdlow, H., Satija, R., and Smibert, P. (2017). <a class="reference external" href="https://doi.org/10.1038/nmeth.4380">Simultaneous epitope and transcriptome measurement in single cells</a>. <em>Nat. Methods</em> <strong>14</strong>, 865–868.</p>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA393315">European Nucleotide Archive</a>.</p>
@@ -309,6 +313,9 @@
 <span class="go">v2_BC14 AGTTCC</span>
 </pre></div>
 </div>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
@@ -343,6 +350,9 @@
 <span class="go">GACCTGGTCTTAGCCCCCCAGATCA       GACCTGGTCTTAACCT        0:16    2:0:0   GCCAATCAAAAAAAAAAAAAAAAAAAAAAAA v2_BC6_GCCAAT   0:6     0:0:0</span>
 <span class="go">NCGGCCAGGGTGTAGCACGGATTGC       CTGATAGCAGGGATTG        9:24    2:0:1   ACAGTGCAAAAAAAAAAAAAAAAAAAAAAAA v2_BC5_ACAGTG   0:6     0:0:0</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 </section>
 <section id="barcode-extraction">
@@ -416,6 +426,9 @@
 <span class="go">2021-02-18 01:01:50,228 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 63,063,944</span>
 <span class="go">2021-02-18 01:01:50,249 - fba.__main__ - INFO - Done.</span>
 </pre></div>
+</div>
+<div class="line-block">
+<div class="line"><br/></div>
 </div>
 </section>
 <section id="matrix-generation">

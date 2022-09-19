@@ -6,7 +6,7 @@ Installation
 
 .. _PyPI: https://pypi.org/project/fba/
 
-.. code-block::
+.. code-block:: console
 
     $ pip install fba
 
@@ -14,7 +14,7 @@ Alternatively, if you're using Conda_, you can run:
 
 .. _Conda: https://conda.io/en/latest/index.html
 
-.. code-block::
+.. code-block:: console
 
     $ conda install -c bioconda fba
 
@@ -22,6 +22,6 @@ Or, you can grab the latest source code from GitHub_:
 
 .. _GitHub: https://github.com/jlduan/fba
 
-.. code-block::
+.. code-block:: console
 
     $ pip install git+https://github.com/jlduan/fba.git

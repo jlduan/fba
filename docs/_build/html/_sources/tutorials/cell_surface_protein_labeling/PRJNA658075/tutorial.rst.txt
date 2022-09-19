@@ -11,6 +11,9 @@ Mimitou, E.P., Lareau, C.A., Chen, K.Y., Zorzetto-Fernandes, A.L., Hao, Y., Take
 
 .. _`Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells`: https://doi.org/10.1038/s41587-021-00927-2
 
+|
+
+
 Preparation
 ===========
 
@@ -168,8 +171,6 @@ Prepare feature barcodes (antibody-derived tags, ADTs) from sheet 'Supplementary
 
 Cell hashing
 ============
-
-|
 
 
 QC

@@ -96,7 +96,7 @@ Usage
    Tools for feature barcoding analysis
 
    optional arguments:
-   -h, --help        show this help message and exit
+   -h, --help         show this help message and exit
 
    functions:
 
@@ -107,8 +107,8 @@ Usage
       demultiplex     demultiplex cells based on feature abundance
       qc              quality control of feature barcoding assay
       kallisto_wrapper
-                     deploy kallisto/bustools for feature barcoding
-                     quantification
+                      deploy kallisto/bustools for feature barcoding
+                      quantification
 
 
 Citation

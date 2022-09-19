@@ -47,7 +47,8 @@ exclude_patterns = ["_build", "Thumbs.db", ".DS_Store"]
 
 # The name of the Pygments (syntax highlighting) style to use.
 # from pygments.styles import STYLE_MAP; print(sorted(STYLE_MAP.keys()))
-pygments_style = "tango"
+pygments_style = "perldoc"
+pygments_dark_style = "monokai"
 
 # -- Options for HTML output -------------------------------------------------
 
@@ -117,3 +118,11 @@ copybutton_prompt_text = "$"
 copybutton_prompt_text = r"\$ |>>> |\.\.\. |In \[\d*\]: | {2,5}\.\.\.: "
 copybutton_prompt_is_regexp = True
 copybutton_line_continuation_character = "\\"
+
+# Generate OpenGraph metadata
+# https://github.com/wpilibsuite/sphinxext-opengraph
+ogp_site_url = "https://jlduan.github.io/fba/_build/html/index.html"
+ogp_type = "article"
+ogp_custom_meta_tags = [
+    '<meta property="og:ignore_canonical" content="true" />',
+]

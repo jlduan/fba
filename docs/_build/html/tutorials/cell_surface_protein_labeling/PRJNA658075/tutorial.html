@@ -6,12 +6,13 @@
 
 <meta property="og:title" content="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" />
   
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
   
-<meta property="og:url" content="tutorials/cell_surface_protein_labeling/PRJNA658075/tutorial.html" />
+<meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA658075/tutorial.html" />
   
 <meta property="og:description" content="Dataset: ASAP-seq: Multiplexed CRISPR Perturbations in Primary T Cells Mimitou, E.P., Lareau, C.A., Chen, K.Y., Zorzetto-Fernandes, A.L., Hao, Y., Takeshima, Y., Luo, W., Huang, T.-S., Yeung, B.Z.,..." />
-  <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" href="../SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" /><link rel="prev" title="CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies" href="../PRJNA393315/tutorial.html" />
+  
+<meta property="og:ignore_canonical" content="true" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" href="../SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" /><link rel="prev" title="CITE-seq; 8k Cord Blood Mononuclear Cells with 13 Antibodies" href="../PRJNA393315/tutorial.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
         <title>ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells - FBA</title>
@@ -25,19 +26,19 @@
 
 <style>
   body {
-    --color-code-background: #f8f8f8;
+    --color-code-background: #eeeedd;
   --color-code-foreground: black;
   
   }
   body[data-theme="dark"] {
-    --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+    --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
   }
   @media (prefers-color-scheme: dark) {
     body:not([data-theme="light"]) {
-      --color-code-background: #202020;
-  --color-code-foreground: #d0d0d0;
+      --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
   
     }
   }
@@ -262,6 +263,9 @@
 <span id="tutorial-cell-surface-protein-labeling-prjna658075"></span><h1>ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells<a class="headerlink" href="#asap-seq-multiplexed-crispr-perturbations-in-primary-t-cells" title="Permalink to this headline">¶</a></h1>
 <p><strong>Dataset</strong>: ASAP-seq: Multiplexed CRISPR Perturbations in Primary T Cells</p>
 <p>Mimitou, E.P., Lareau, C.A., Chen, K.Y., Zorzetto-Fernandes, A.L., Hao, Y., Takeshima, Y., Luo, W., Huang, T.-S., Yeung, B.Z., Papalexi, E., et al. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-00927-2">Scalable, multimodal profiling of chromatin accessibility, gene expression and protein levels in single cells</a>. <em>Nat. Biotechnol.</em> <strong>39</strong>, 1246–1258.</p>
+<div class="line-block">
+<div class="line"><br/></div>
+</div>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156478">Gene Expression Omnibus</a>.</p>
@@ -395,9 +399,6 @@
 </section>
 <section id="cell-hashing">
 <h2>Cell hashing<a class="headerlink" href="#cell-hashing" title="Permalink to this headline">¶</a></h2>
-<div class="line-block">
-<div class="line"><br/></div>
-</div>
 <section id="qc">
 <h3>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h3>
 <p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">qc</span></code>). By default, full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>

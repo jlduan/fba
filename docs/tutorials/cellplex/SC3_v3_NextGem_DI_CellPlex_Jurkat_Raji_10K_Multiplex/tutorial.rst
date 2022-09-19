@@ -11,6 +11,8 @@ The detailed description of this dataset can be found `here`_.
 
 .. _`here`: https://www.10xgenomics.com/resources/datasets/10-k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed-2-cm-os-3-1-standard-6-0-0
 
+|
+
 
 Preparation
 ===========
@@ -83,6 +85,8 @@ Inspect feature barcodes.
     CMO311  GAATCGTGATTCTTC
     CMO312  ACATGGTCAACGCTG
 
+|
+
 
 QC
 ==
@@ -138,6 +142,8 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     GTCCCATTCTAAACGTtgagtacgagcg    CATCCCATCCTAAACG        0:15    2:0:1   CATGCCAATAGAGCGGCTCACCTATTAGCGGCTAAGGCGCTCGTACTCAACGTTTAGAATGGGACCTGTCTCTTATACACATCTGACGCT      CMO302_CATGCCAATAGAGCG     0:15    0:0:0
     CAGAGCCCAATAGGGCcaccctcttaac    CAGAGCCGTATAGGGC        0:16    2:0:0   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGGTTAAGAGGGTGGCCCTATTGGGCTCTGCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0
     AACCCAATCAGTTGTAggatattcacct    AACCCAACAGCATTGT        0:15    0:1:2   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAGGTGAATATCCTACAACTGATTGGGTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0
+
+|
 
 
 Barcode extraction
@@ -221,6 +227,8 @@ Result summary.
     2021-09-30 07:52:47,851 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 138,246,914
     2021-09-30 07:52:47,970 - fba.__main__ - INFO - Done.
 
+|
+
 
 Matrix generation
 =================
@@ -267,6 +275,8 @@ Result summary.
     2021-09-30 18:31:30,172 - fba.count - INFO - Total UMIs after deduplication: 121,661,177
     2021-09-30 18:31:30,208 - fba.count - INFO - Median number of UMIs per cell: 7,663.5
     2021-09-30 18:31:30,457 - fba.__main__ - INFO - Done.
+
+|
 
 
 Demultiplexing

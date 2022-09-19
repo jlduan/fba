@@ -11,6 +11,8 @@ Stoeckius, M., Hafemeister, C., Stephenson, W., Houck-Loomis, B., Chattopadhyay,
 
 .. _`Simultaneous epitope and transcriptome measurement in single cells`: https://doi.org/10.1038/nmeth.4380
 
+|
+
 
 Preparation
 ===========
@@ -72,6 +74,8 @@ Prepare feature barcodes (antibody-oligo sequences, from the online methods sect
     v2_BC13 AGTCAA
     v2_BC14 AGTTCC
 
+|
+
 
 QC
 ==
@@ -121,6 +125,8 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     CTCGAGGAGCCACCTGGAGATACAG       CTCCTAGAGCCACCTG        0:16    3:0:0   ACAGTGCAAAAAAAAAAAAAAAAAAAAAAAA v2_BC5_ACAGTG   0:6     0:0:0
     GACCTGGTCTTAGCCCCCCAGATCA       GACCTGGTCTTAACCT        0:16    2:0:0   GCCAATCAAAAAAAAAAAAAAAAAAAAAAAA v2_BC6_GCCAAT   0:6     0:0:0
     NCGGCCAGGGTGTAGCACGGATTGC       CTGATAGCAGGGATTG        9:24    2:0:1   ACAGTGCAAAAAAAAAAAAAAAAAAAAAAAA v2_BC5_ACAGTG   0:6     0:0:0
+
+|
 
 
 Barcode extraction
@@ -202,6 +208,8 @@ Result summary.
     2021-02-18 01:01:50,228 - fba.levenshtein - INFO - Number of read pairs processed: 207,724,395
     2021-02-18 01:01:50,228 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 63,063,944
     2021-02-18 01:01:50,249 - fba.__main__ - INFO - Done.
+
+|
 
 
 Matrix generation

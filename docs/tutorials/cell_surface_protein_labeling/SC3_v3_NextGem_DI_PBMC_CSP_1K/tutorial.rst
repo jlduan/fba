@@ -1,18 +1,21 @@
 .. _tutorial_cell_surface_protein_labeling_SC3_v3_NextGem_DI_PBMC_CSP_1K:
 
 
+============================================================
 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies
 ============================================================
 
-**Dataset**: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed
+Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed
 
 The detailed description of this dataset can be found here_.
 
 .. _here: https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K
 
+|
+
 
 Preparation
------------
+===========
 
 Download fastq files.
 
@@ -107,9 +110,11 @@ Clean up.
     CD20    TTCTGGGTCCCTAGA
     CD25    TTTGTCCTGTACGCC
 
+|
+
 
 QC
---
+==
 
 Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs for quality control. Use ``-t`` to set the number of threads. By default, the diagnostic results and plots are generated in the ``qc`` directory (set by ``--output_directory``), full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use ``-r1_c`` and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for cell and feature barcode matching (default ``3``).
 
@@ -162,9 +167,11 @@ The detailed ``qc`` results are stored in ``feature_barcoding_output.tsv.gz`` fi
     TGATCTTAGAACACGTCAGGGTCCTGAA    TGATCTTTCAACACGT        0:16    2:0:0   GGGGGGGGGGGGGGGGAGGGGGCCGGAAAAGAACCCCGAGAGGCCAGCGCCAAACAAAAAAGAACAAAAAAGAGGAAAAAAAAAAAAAAA      no_match        NA      NA
     GGGCTACAGGACGCTGGTTTCATTTTTT    CTGGTCTTCATTGTTC        13:28   2:0:1   CCTTAATCAACTCATTGTAACTCCTGTTCCCACAGCTTTAAGGCCGGTCCTAGCAAAAAAAATGAAACCAGCGTCCTGTAGCCCCTGTCT      CD3_CTCATTGTAACTCCT     10:25   0:0:0
 
+|
+
 
 Barcode extraction
-------------------
+==================
 
 The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on the ``qc`` results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to ``0,16`` on read 1 and ``10,25`` on read 2. Two mismatches for cell and feature barcodes (``-cb_m``, ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (``-cb_n``, ``-cf_n``) are allowed.
 
@@ -221,9 +228,11 @@ Result summary.
     2021-02-17 23:53:22,264 - fba.levenshtein - INFO - Number of read pairs w/ valid barcodes: 4,607,787
     2021-02-17 23:53:22,279 - fba.__main__ - INFO - Done.
 
+|
+
 
 Matrix generation
------------------
+=================
 
 Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI length (default ``12``). Fragments with UMI length less than this value are discarded. Use ``-um`` to set mismatch threshold (default ``1``). UMI deduplication method is set by ``-ud`` (default ``directional``).
 
