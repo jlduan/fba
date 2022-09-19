@@ -129,4 +129,5 @@ ogp_custom_meta_tags = [
     '<meta property="og:site_name" content="FBA" />',
     '<meta name="twitter:card" content="summary"></meta>',
     '<meta name="twitter:creator" content="@jlduan" />',
+    '<meta name="twitter:image" content="https://github.com/jlduan.png" />',
 ]
