@@ -1,9 +1,8 @@
-
-            pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight pre { line-height: 125%; }
+.highlight td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+.highlight span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+.highlight td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: #ffffcc }
 .highlight { background: #eeeedd; }
 .highlight .c { color: #228B22 } /* Comment */
@@ -70,11 +69,12 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .vi { color: #00688B } /* Name.Variable.Instance */
 .highlight .vm { color: #00688B } /* Name.Variable.Magic */
 .highlight .il { color: #B452CD } /* Literal.Number.Integer.Long */
-            pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+@media not print {
+body[data-theme="dark"] .highlight pre { line-height: 125%; }
+body[data-theme="dark"] .highlight td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+body[data-theme="dark"] .highlight span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+body[data-theme="dark"] .highlight td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body[data-theme="dark"] .highlight span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 body[data-theme="dark"] .highlight .hll { background-color: #49483e }
 body[data-theme="dark"] .highlight { background: #272822; color: #f8f8f2 }
 body[data-theme="dark"] .highlight .c { color: #75715e } /* Comment */
@@ -154,12 +154,12 @@ body[data-theme="dark"] .highlight .vg { color: #f8f8f2 } /* Name.Variable.Globa
 body[data-theme="dark"] .highlight .vi { color: #f8f8f2 } /* Name.Variable.Instance */
 body[data-theme="dark"] .highlight .vm { color: #f8f8f2 } /* Name.Variable.Magic */
 body[data-theme="dark"] .highlight .il { color: #ae81ff } /* Literal.Number.Integer.Long */
-            @media (prefers-color-scheme: dark) {
-                pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+@media (prefers-color-scheme: dark) {
+body:not([data-theme="light"]) .highlight pre { line-height: 125%; }
+body:not([data-theme="light"]) .highlight td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+body:not([data-theme="light"]) .highlight span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+body:not([data-theme="light"]) .highlight td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+body:not([data-theme="light"]) .highlight span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 body:not([data-theme="light"]) .highlight .hll { background-color: #49483e }
 body:not([data-theme="light"]) .highlight { background: #272822; color: #f8f8f2 }
 body:not([data-theme="light"]) .highlight .c { color: #75715e } /* Comment */
@@ -239,4 +239,5 @@ body:not([data-theme="light"]) .highlight .vg { color: #f8f8f2 } /* Name.Variabl
 body:not([data-theme="light"]) .highlight .vi { color: #f8f8f2 } /* Name.Variable.Instance */
 body:not([data-theme="light"]) .highlight .vm { color: #f8f8f2 } /* Name.Variable.Magic */
 body:not([data-theme="light"]) .highlight .il { color: #ae81ff } /* Literal.Number.Integer.Long */
-            }
+}
+}

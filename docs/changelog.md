@@ -2,7 +2,7 @@
 
 ## **0.0.13 (Jan 1 2023)**
 
-### Added
+Added
 
 -   Multiple `-i/--input` flags support in `count` module
 -   Better single-cell ATAC-seq support
@@ -11,18 +11,18 @@
 
 ## **0.0.12 (Mar 9 2022)**
 
-### Added
+Added
 
 -   Non-uniform read lengths support in `qc` module
 
-### Fixed
+Fixed
 
 -   Readability of the `qc` results
 -   Matplotlib `FixedFormatter` warning
 
 ## **0.0.11 (Jun 17 2021)**
 
-### Changed
+Changed
 
 -   Rename options `-r1_coords` and `-r2_coords` to `-r1_c` and `-r2_c`, respectively.
 -   Improve logging information.

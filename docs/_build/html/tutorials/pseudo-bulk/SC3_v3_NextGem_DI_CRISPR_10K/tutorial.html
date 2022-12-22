@@ -1,16 +1,19 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="color-scheme" content="light dark">
 <meta property="og:title" content="10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA" />
   
 <meta property="og:type" content="website" />
   
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html" />
   
-<meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes ..." />
+<meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes are prepared as described here., QC: Threshold: one mismatch: In the qc subcommand, if-1(read 1) is ..." />
+  
+<meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
+  
+<meta property="og:image:alt" content="10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA" />
   
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
@@ -19,12 +22,12 @@
 <meta name="twitter:creator" content="@jlduan" />
 <meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" /><link rel="prev" title="Pseudo-bulk" href="../index.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.ico"/><meta name="generator" content="sphinx-4.5.0, furo 2021.10.09"/>
+    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=0254c309f5cadf746f1a613e7677379ac9c8cdcd" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=16fb25fabf47304eee183a5e9af80b1ba98259b1" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
     
 
@@ -35,16 +38,18 @@
   --color-code-foreground: black;
   
   }
-  body[data-theme="dark"] {
-    --color-code-background: #272822;
-  --color-code-foreground: #f8f8f2;
-  
-  }
-  @media (prefers-color-scheme: dark) {
-    body:not([data-theme="light"]) {
+  @media not print {
+    body[data-theme="dark"] {
       --color-code-background: #272822;
   --color-code-foreground: #f8f8f2;
   
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #272822;
+  --color-code-foreground: #f8f8f2;
+  
+      }
     }
   }
 </style>
@@ -62,24 +67,22 @@
 
 </head>
   <body>
+    
     <script>
       document.body.dataset.theme = localStorage.getItem("theme") || "auto";
     </script>
     
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
   <symbol id="svg-toc" viewBox="0 0 24 24">
     <title>Contents</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-      <path stroke="none" d="M0 0h24v24H0z" />
-      <line x1="4" y1="6" x2="20" y2="6" />
-      <line x1="10" y1="12" x2="20" y2="12" />
-      <line x1="6" y1="18" x2="20" y2="18" />
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
     </svg>
   </symbol>
   <symbol id="svg-menu" viewBox="0 0 24 24">
     <title>Menu</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
       <line x1="3" y1="12" x2="21" y2="12"></line>
       <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -88,14 +91,14 @@
   </symbol>
   <symbol id="svg-arrow-right" viewBox="0 0 24 24">
     <title>Expand</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
       <polyline points="9 18 15 12 9 6"></polyline>
     </svg>
   </symbol>
   <symbol id="svg-sun" viewBox="0 0 24 24">
     <title>Light mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
       <circle cx="12" cy="12" r="5"></circle>
       <line x1="12" y1="1" x2="12" y2="3"></line>
@@ -110,7 +113,7 @@
   </symbol>
   <symbol id="svg-moon" viewBox="0 0 24 24">
     <title>Dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
       <path stroke="none" d="M0 0h24v24H0z" fill="none" />
       <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
@@ -118,7 +121,7 @@
   </symbol>
   <symbol id="svg-sun-half" viewBox="0 0 24 24">
     <title>Auto light/dark mode</title>
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
       stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
       <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
       <circle cx="12" cy="12" r="9" />
@@ -180,7 +183,7 @@
   
   
 </a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
-  <input class="sidebar-search" placeholder=Search name="q" aria-label="Search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
   <input type="hidden" name="check_keywords" value="yes">
   <input type="hidden" name="area" value="default">
 </form>
@@ -242,6 +245,7 @@
 
 </div>
 </div>
+
       </div>
       
     </div>
@@ -249,8 +253,15 @@
   <div class="main">
     <div class="content">
       <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
         <div class="content-icon-container">
-          <div class="theme-toggle-container theme-toggle-content">
+          
+<div class="theme-toggle-container theme-toggle-content">
             <button class="theme-toggle">
               <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
               <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
@@ -264,24 +275,24 @@
           </label>
         </div>
         <article role="main">
-          <section id="k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna">
-<span id="tutorial-pseudo-bulk-sc3-v3-nextgem-di-crispr-10k"></span><h1>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA<a class="headerlink" href="#k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna" title="Permalink to this headline">¶</a></h1>
+          <div class="section" id="k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna">
+<span id="tutorial-pseudo-bulk-sc3-v3-nextgem-di-crispr-10k"></span><h1>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA<a class="headerlink" href="#k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K">here</a>.</p>
 <div class="line-block">
-<div class="line"><br/></div>
+<div class="line"><br /></div>
 </div>
-<section id="preparation">
-<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="preparation">
+<h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Fastq files and feature barcodes are prepared as described <a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k"><span class="std std-ref">here</span></a>.</p>
 <div class="line-block">
-<div class="line"><br/></div>
+<div class="line"><br /></div>
 </div>
-</section>
-<section id="qc">
-<h2>QC<a class="headerlink" href="#qc" title="Permalink to this headline">¶</a></h2>
-<section id="threshold-one-mismatch">
-<h3>Threshold: one mismatch<a class="headerlink" href="#threshold-one-mismatch" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="qc">
+<h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
+<div class="section" id="threshold-one-mismatch">
+<h3>Threshold: one mismatch<a class="headerlink" href="#threshold-one-mismatch" title="Permalink to this heading">#</a></h3>
 <p>In the <code class="docutils literal notranslate"><span class="pre">qc</span></code> subcommand, if <code class="docutils literal notranslate"><span class="pre">-1</span></code> (read 1) is omitted, bulk mode is enabled. The purpose of bulk mode is to help design and qc feature barcoding assays before the actual single cell experiments. For instance, you may want to estimate 1) how many reads have valid feature barcodes. This may reflect the specificity of the primers used for library construction and could suggest the number of reads needed for sequencing; 2) the distribution of feature barcodes. This reflects the biological aspect of the design.</p>
 <p>Use <code class="docutils literal notranslate"><span class="pre">-2</span></code> to specify read 2, and <code class="docutils literal notranslate"><span class="pre">-f</span></code> to specify feature barcodes. Search range on read 2 can be controlled by <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>. In this example, only one mismatch is allowed for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze (<code class="docutils literal notranslate"><span class="pre">None</span></code> is to analyze all reads provided in the fastq file). By default, the distribution of feature barcodes detected is summarized in <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
@@ -293,11 +304,12 @@
 </pre></div>
 </div>
 <p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
-<div class="table-wrapper"><table class="docutils align-default">
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 52%"/>
-<col style="width: 18%"/>
-<col style="width: 30%"/>
+<col style="width: 52%" />
+<col style="width: 18%" />
+<col style="width: 30%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>feature barcode</p></td>
@@ -313,7 +325,8 @@
 <td><p>0.3020114068620947</p></td>
 </tr>
 </tbody>
-</table></div>
+</table>
+</div>
 <p>Result summary.</p>
 <p>58.59% (84,973,062 / 145,032,428) of reads have valid feature barcodes (sgRNAs). Although the valid read ratio is 1.663170816 (NON_TARGET-1_AACGTGCTGACGATGCGGGC / RAB1A-2_GCCGGCGAACCAGGAAATAG; 59,310,228 / 25,662,834), cells transduced with them separately are mixed at 1: 1 ratio. See <a class="reference internal" href="../../crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html#tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k"><span class="std std-ref">here</span></a> for more details.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - fba version: 0.0.7</span>
@@ -321,7 +334,7 @@
 <span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - Python version: 3.7</span>
 <span class="go">2021-02-17 16:12:35,393 - fba.__main__ - INFO - Using qc subcommand ...</span>
 <span class="go">2021-02-17 16:12:35,394 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed</span>
-<span class="go">2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: "-w/--whitelist", "-cb_m/--cb_mismatches", "-r1_c/--read1_coordinate"</span>
+<span class="go">2021-02-17 16:12:35,394 - fba.__main__ - INFO - Skipping arguments: &quot;-w/--whitelist&quot;, &quot;-cb_m/--cb_mismatches&quot;, &quot;-r1_c/--read1_coordinate&quot;</span>
 <span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Number of reference feature barcodes: 2</span>
 <span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)</span>
 <span class="go">2021-02-17 16:12:35,395 - fba.qc - INFO - Feature barcode maximum number of mismatches: 1</span>
@@ -349,11 +362,11 @@
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line"><br/></div>
+<div class="line"><br /></div>
 </div>
-</section>
-<section id="threshold-two-mismatches">
-<h3>Threshold: two mismatches<a class="headerlink" href="#threshold-two-mismatches" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="threshold-two-mismatches">
+<h3>Threshold: two mismatches<a class="headerlink" href="#threshold-two-mismatches" title="Permalink to this heading">#</a></h3>
 <p>Let’s relax the threshold to allow 2 mismatches for feature barcode matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -364,11 +377,12 @@
 </pre></div>
 </div>
 <p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
-<div class="table-wrapper"><table class="docutils align-default">
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 52%"/>
-<col style="width: 18%"/>
-<col style="width: 30%"/>
+<col style="width: 52%" />
+<col style="width: 18%" />
+<col style="width: 30%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>feature barcode</p></td>
@@ -384,7 +398,8 @@
 <td><p>0.3386884673924782</p></td>
 </tr>
 </tbody>
-</table></div>
+</table>
+</div>
 <p>Result summary.</p>
 <p>69.16% (100,307,853 / 145,032,428) of reads have valid feature barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 16:12:00,407 - fba.__main__ - INFO - fba version: 0.0.7</span>
@@ -392,7 +407,7 @@
 <span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Python version: 3.7</span>
 <span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Using qc subcommand ...</span>
 <span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Bulk mode enabled: only feature barcodes on reads 2 are analyzed</span>
-<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: "-w/--whitelist", "-cb_m/--cb_mismatches", "-r1_c/--read1_coordinate"</span>
+<span class="go">2021-02-17 16:12:00,408 - fba.__main__ - INFO - Skipping arguments: &quot;-w/--whitelist&quot;, &quot;-cb_m/--cb_mismatches&quot;, &quot;-r1_c/--read1_coordinate&quot;</span>
 <span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Number of reference feature barcodes: 2</span>
 <span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Read 2 coordinates to search: [31, 51)</span>
 <span class="go">2021-02-17 16:12:00,426 - fba.qc - INFO - Feature barcode maximum number of mismatches: 2</span>
@@ -420,11 +435,11 @@
 </pre></div>
 </div>
 <div class="line-block">
-<div class="line"><br/></div>
+<div class="line"><br /></div>
 </div>
-</section>
-</section>
-</section>
+</div>
+</div>
+</div>
 
         </article>
       </div>
@@ -438,10 +453,10 @@
                 </div>
                 <div class="title">10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed</div>
               </div>
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
             </a>
           <a class="prev-page" href="../index.html">
-              <svg><use href="#svg-arrow-right"></use></svg>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
                 <div class="context">
                   <span>Previous</span>
@@ -452,9 +467,18 @@
               </div>
             </a>
         </div>
-
-        <div class="related-information">
-              Copyright &#169; 2020-2022, Jialei Duan
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2020-2022, Jialei Duan
+            </div>
+            Made with 
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
         </div>
         
       </footer>
@@ -465,7 +489,7 @@
       <div class="toc-sticky toc-scroll">
         <div class="toc-title-container">
           <span class="toc-title">
-            Contents
+            On this page
           </span>
         </div>
         <div class="toc-tree-container">
@@ -492,8 +516,10 @@
 </div><script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
     <script src="../../../_static/jquery.js"></script>
     <script src="../../../_static/underscore.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/scripts/main.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/scripts/furo.js"></script>
     <script src="../../../_static/clipboard.min.js"></script>
     <script src="../../../_static/copybutton.js"></script>
     </body>

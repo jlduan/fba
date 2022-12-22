@@ -1,5 +1,5 @@
 :og:description: fba is a flexible and streamlined toolbox for quality control, quantification, demultiplexing of various feature barcoding assays. It can be applied to customized feature barcoding specifications, including different CRISPR constructs or targeted enriched transcripts.
-:og:image:
+:og:image: https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg
 
 .. fba documentation master file, created by
    sphinx-quickstart on Tue Apr  6 18:44:42 2021.
