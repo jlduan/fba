@@ -1,17 +1,25 @@
-:og:description: fba is a flexible and streamlined toolbox for quality control, quantification, demultiplexing of various feature barcoding assays. It can be applied to customized feature barcoding specifications, including different CRISPR constructs or targeted enriched transcripts.
-:og:image: https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg
+:og:description:
+   fba is a flexible and streamlined toolbox for quality control,
+   quantification, demultiplexing of various single-cell feature
+   barcoding assays. It can be applied to customized feature barcoding
+   specifications, including different CRISPR constructs or targeted
+   enriched transcripts.
 
-.. fba documentation master file, created by
+:og:image:
+   https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/bioinformatics/37/22/10.1093_bioinformatics_btab375/2/btab375f1.jpeg?Expires=1674767963&Signature=fs5S-bzHNkgN5tWD2FuCC3dMTaSCMqxLj9BcETS0QfJ~Dd2kJJ5h9j7auTFwiTiqJDaBBtWwBFAvlKKEkmkEOzpD-2tcsgnenYqaCKK1orz6nI2OT0pG50npsL8YpjgSuNcRnwQb4rEEW67T2qBOxymLbdMB-Qc5R2Z1YSYjoJKz2klCQYboohwP6eZg4g2zhPgyJDK7FDvQqfNwYDtJWSGf2~L6RltKrmxs6qeiT23r8lDOxdun1KC6dJqOS8MIhQoZ2err7SE-JXqdAmVH89AmQZyALDsstb2ZqSEyw5KyPWidgIc3PPeCaSLNWydW7LIDztZZzyLRwQH59UWZTg__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA
+
+..
+   fba documentation master file, created by
    sphinx-quickstart on Tue Apr  6 18:44:42 2021.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to ``fba``'s documentation!
-===================================
+#####################################
+ Welcome to ``fba``'s documentation!
+#####################################
 
-
-``fba``: a flexible and streamlined package for feature barcoding assays.
-
+``fba``: a flexible and streamlined package for single-cell feature
+barcoding assays.
 
 .. image:: https://img.shields.io/pypi/v/fba.svg?logo=pypi
    :target: https://pypi.python.org/pypi/fba
@@ -53,7 +61,6 @@ Welcome to ``fba``'s documentation!
 .. image:: https://zenodo.org/badge/292596737.svg
    :target: https://zenodo.org/badge/latestdoi/292596737
 
-
 .. toctree::
    :maxdepth: 3
    :hidden:
@@ -62,7 +69,6 @@ Welcome to ``fba``'s documentation!
    user_guide
    tutorials/index
 
-
 .. toctree::
    :caption: Development
    :hidden:
@@ -70,27 +76,25 @@ Welcome to ``fba``'s documentation!
    changelog
    GitHub Repository <https://github.com/jlduan/fba>
 
-
 ..
 
-    **工欲善其事，必先利其器。—— 论语·卫灵公**
+   **工欲善其事，必先利其器。—— 论语·卫灵公**
 
-
-Quickstart
-----------
-
+************
+ Quickstart
+************
 
 Installation
-^^^^^^^^^^^^
+============
 
-.. code-block:: console
+.. code:: console
 
    $ pip install fba
 
 Usage
-^^^^^
+=====
 
-.. code-block:: console
+.. code:: console
 
    $ fba
 
@@ -113,15 +117,18 @@ Usage
                       deploy kallisto/bustools for feature barcoding
                       quantification
 
+**********
+ Citation
+**********
 
-Citation
---------
+Jialei Duan, Gary C Hon, **FBA: feature barcoding analysis for single
+cell RNA-Seq**, *Bioinformatics*, Volume 37, Issue 22, 15 November 2021,
+Pages 4266–4268. DOI: `10.1093/bioinformatics/btab375`_. PMID:
+33999185_.
 
-Jialei Duan, Gary C Hon, **FBA: feature barcoding analysis for single cell RNA-Seq**, *Bioinformatics*, Volume 37, Issue 22, 15 November 2021, Pages 4266–4268. DOI: `10.1093/bioinformatics/btab375`_. PMID: `33999185`_.
+.. _10.1093/bioinformatics/btab375: https://doi.org/10.1093/bioinformatics/btab375
 
-.. _`10.1093/bioinformatics/btab375`: https://doi.org/10.1093/bioinformatics/btab375
-
-.. _`33999185`: https://pubmed.ncbi.nlm.nih.gov/33999185
+.. _33999185: https://pubmed.ncbi.nlm.nih.gov/33999185
 
 .. raw:: html
 

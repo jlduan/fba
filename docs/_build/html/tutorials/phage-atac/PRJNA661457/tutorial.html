@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/phage-atac/PRJNA661457/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). Single-cell profiling of proteins and chromatin accessibilit..." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). Single-cell profiling of proteins and chromatin accessibilit..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CellPlex" href="../../cellplex/index.html" /><link rel="prev" title="PHAGE-ATAC" href="../index.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CellPlex" href="../../cellplex/index.html" /><link rel="prev" title="PHAGE-ATAC" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors - FBA</title>
@@ -277,15 +273,20 @@
         <article role="main">
           <div class="section" id="phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors">
 <span id="tutorial-phage-atac-prjna661457"></span><h1>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors<a class="headerlink" href="#phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors" title="Permalink to this heading">#</a></h1>
-<p><strong>Dataset</strong>: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent hashing experiment using CD8 T cells from four human donors</p>
-<p>Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring, A.M., Xavier, R.J., and Regev, A. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Single-cell profiling of proteins and chromatin accessibility using PHAGE-ATAC</a>. <em>Nat. Biotechnol.</em> <strong>40</strong>, 374–381.</p>
+<p><strong>Dataset</strong>: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent
+hashing experiment using CD8 T cells from four human donors</p>
+<p>Fiskin, E., Lareau, C.A., Ludwig, L.S., Eraslan, G., Liu, F., Ring,
+A.M., Xavier, R.J., and Regev, A. (2021). <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Single-cell profiling of
+proteins and chromatin accessibility using PHAGE-ATAC</a>. <em>Nat.
+Biotechnol.</em> <strong>40</strong>, 374–381.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851">Gene Expression Omnibus</a>.</p>
-<p>Inspect fastq files (This is a phage-derived tag library built on top of the single-cell ATAC-seq library, we will need all 3 end reads).</p>
+<p>Inspect fastq files (This is a phage-derived tag library built on top of
+the single-cell ATAC-seq library, we will need all 3 end reads).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>zcat SRR12588752_1.fastq.gz <span class="p">|</span> head
 
 <span class="go">@SRR12588752.1 NB501583:726:HMCKKBGXF:1:11101:16677:1031 length=34</span>
@@ -326,7 +327,9 @@
 <span class="go">GATACCGCGGTGTATNANNNGNNNNNAANNNGNN</span>
 </pre></div>
 </div>
-<p>Prepare cell barcodes (downloaded from the manuscript’s GitHub <a class="reference external" href="https://github.com/evgenijfiskin/phage-atac">repository</a>). These are the cell-associated barcodes, they are generated based on the single-cell ATAC-seq library.</p>
+<p>Prepare cell barcodes (downloaded from the manuscript’s GitHub
+<a class="reference external" href="https://github.com/evgenijfiskin/phage-atac">repository</a>). These are the cell-associated barcodes, they are generated
+based on the single-cell ATAC-seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://raw.githubusercontent.com/evgenijfiskin/phage-atac/master/cd8_hashing/data/barcodes.tsv
 </pre></div>
 </div>
@@ -349,7 +352,9 @@
 <span class="go">AAACGAAGTTGCAGAG-1</span>
 </pre></div>
 </div>
-<p>Prepare feature barcodes. CDR3 barcode sequences (phage-derived tags, PDTs) can be found in <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5#Sec35">Supplementary Table 4</a> and are truncated to only keep the variable parts.</p>
+<p>Prepare feature barcodes. CDR3 barcode sequences (phage-derived tags,
+PDTs) can be found in <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5#Sec35">Supplementary Table 4</a> and are truncated to only
+keep the variable parts.</p>
 <div class="table-wrapper colwidths-given docutils container" id="id3">
 <table class="colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">CDR3 barcode sequences</span><a class="headerlink" href="#id3" title="Permalink to this table">#</a></caption>
@@ -387,7 +392,9 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>First, we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GATACCGCGGTGTATTATTGCG</span></code>) at the beginning of the CDR3 barcode sequences on read 3 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
+<p>First, we screen reads that have the constant sequence
+(<code class="docutils literal notranslate"><span class="pre">GATACCGCGGTGTATTATTGCG</span></code>) at the beginning of the CDR3 barcode
+sequences on read 3 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
     --cores <span class="m">0</span> <span class="se">\</span>
     --front GATACCGCGGTGTATTATTGCG <span class="se">\</span>
@@ -397,7 +404,8 @@
     SRR12588752_3.fastq.gz SRR12588752_2.fastq.gz
 </pre></div>
 </div>
-<p>Preview the filtering result: 51,140,637 out of 54,274,791 (94.2%) read pairs are kept for phage-derived tag (PDT) identification.</p>
+<p>Preview the filtering result: 51,140,637 out of 54,274,791 (94.2%) read
+pairs are kept for phage-derived tag (PDT) identification.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">== Read fate breakdown ==</span>
 <span class="go">Pairs that were too short:             652,917 (1.2%)</span>
 <span class="go">Pairs discarded as untrimmed:        2,481,237 (4.6%)</span>
@@ -414,7 +422,8 @@
     SRR12588752_1.fastq.gz SRR12588752_2.fastq.gz
 </pre></div>
 </div>
-<p>Preview the filtering result: 25,988,762 out of 54,274,791 (47.9%) read pairs are kept for phage-derived tag (PDT) identification.</p>
+<p>Preview the filtering result: 25,988,762 out of 54,274,791 (47.9%) read
+pairs are kept for phage-derived tag (PDT) identification.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">== Read fate breakdown ==</span>
 <span class="go">Pairs that were too short:              16,644 (0.0%)</span>
 <span class="go">Pairs discarded as untrimmed:       28,269,385 (52.1%)</span>
@@ -427,8 +436,22 @@
 </div>
 <div class="section" id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<p>This library is built using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent Kits</a>. The 10x Barcode (16 bp) is sequenced in the i5 index read. 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell Ranger ATAC</a> may convert the raw 16 bp sequences to their reverse-complement counterparts as cell barcodes in the outputs. In <code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences for processing.</p>
+<p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
+for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
+default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and
+read 2 are searched against reference cell and feature barcodes,
+respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>This library is built using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC
+Reagent Kits</a>. The 10x Barcode (16 bp) is sequenced in the i5 index
+read. 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell Ranger ATAC</a> may convert the raw 16 bp
+sequences to their reverse-complement counterparts as cell barcodes in
+the outputs. In <code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell
+barcode sequences for processing.</p>
 <div class="section" id="r3">
 <h3>R3<a class="headerlink" href="#r3" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
@@ -440,15 +463,22 @@
     -n <span class="m">10000</span>
 </pre></div>
 </div>
-<p>This library is built using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent Kits</a> and sequenced on Illumina NextSeq 500. The GC content of cell barcodes (read 2) are quite even.</p>
+<p>This library is built using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent
+Kits</a> and sequenced on Illumina NextSeq 500. The GC content of cell
+barcodes (read 2) are quite even.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" style="width: 350px;" /></a>
-<p>As for read 3, based on the per base content, it suggests low complexity.</p>
+<p>As for read 3, based on the per base content, it suggests low
+complexity.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" style="width: 325px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" style="width: 325px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
+columns indicate mismatches in substitutions:insertions:deletions
+format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
@@ -475,9 +505,14 @@
     -n <span class="m">10000</span>
 </pre></div>
 </div>
-<p>For read 1, based on the per base content, it suggests low complexity. There are almost constant bases at the beginning of the reads.</p>
+<p>For read 1, based on the per base content, it suggests low complexity.
+There are almost constant bases at the beginning of the reads.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" style="width: 350px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
+columns indicate mismatches in substitutions:insertions:deletions
+format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
@@ -501,7 +536,10 @@
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
 <div class="section" id="id1">
 <h3>R3<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences for processing.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One
+mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
+allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences
+for processing.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
     -2 SRR12588752_3_trimmed.fq.gz <span class="se">\</span>
@@ -531,7 +569,8 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>10,543,901 out of 51,140,637 read pairs have valid cell and feature barcodes.</p>
+<p>10,543,901 out of 51,140,637 read pairs have valid cell and feature
+barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Python version: 3.10</span>
@@ -558,7 +597,10 @@
 </div>
 <div class="section" id="id2">
 <h3>R1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences for processing.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One
+mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
+allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences
+for processing.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
     -2 SRR12588752_1_trimmed.fq.gz <span class="se">\</span>
@@ -588,7 +630,8 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>11,128,546 out of 25,988,762 read pairs have valid cell and feature barcodes.</p>
+<p>11,128,546 out of 25,988,762 read pairs have valid cell and feature
+barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Python version: 3.10</span>
@@ -616,7 +659,13 @@
 </div>
 <div class="section" id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code> means no UMIs and read counts are summarized instead. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in the output matrix if needed. The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<p>Only fragments with correct (passed the criteria) cell and feature
+barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default
+<code class="docutils literal notranslate"><span class="pre">12</span></code>). Setting to <code class="docutils literal notranslate"><span class="pre">0</span></code> means no UMIs and read counts are summarized
+instead. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in
+the output matrix if needed. The generated feature count matrix can be
+easily imported into well-established single cell analysis packages:
+<a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output_R1.tsv.gz <span class="se">\</span>
     -i feature_barcoding_output_R3.tsv.gz <span class="se">\</span>
@@ -625,7 +674,9 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid cell and feature barcodes. The median number of reads per cell for this phage-derived tag library is 2,261.0.</p>
+<p>39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid
+cell and feature barcodes. The median number of reads per cell for this
+phage-derived tag library is 2,261.0.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Python version: 3.9</span>
@@ -650,7 +701,14 @@
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
 <div class="section" id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this heading">#</a></h3>
-<p>Cells are demultiplexed based on the feature count matrix. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demultiplexed based on the feature count matrix.
+Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the
+method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some
+modifications. A cell identity matrix is generated in the output
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0
+means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile
+threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create
+visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -q <span class="m">0</span>.99 <span class="se">\</span>
@@ -680,9 +738,13 @@
 <span class="go">2022-03-13 00:49:20,128 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs) across all cells. Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs)
+across all cells. Each column represents a single cell. This is a
+re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png" style="width: 700px;" /></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negatives are 6,373 (76.2%), 638 (7.6%), and 1,355 (16.2%), respectively.</p>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets
+and negatives are 6,373 (76.2%), 638 (7.6%), and 1,355 (16.2%),
+respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;demultiplexed/matrix_cell_identity.csv.gz&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -708,12 +770,17 @@
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<p>t-SNE embedding of cells based on the abundance of features
+(phage-derived tags, no transcriptome information used). Colors indicate
+the hashtag status for each cell, as called by FBA. This is a
+re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png" style="width: 500px;" /></a>
 </div>
 <div class="section" id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
+inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
+to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">2</span> <span class="se">\</span>
@@ -743,9 +810,13 @@
 <span class="go">2022-03-13 11:28:08,072 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs) across all cells. Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<p>Heatmap of the relative abundance of features (phage-derived tags, PDTs)
+across all cells. Each column represents a single cell. This is a
+re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png" style="width: 700px;" /></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%), respectively.</p>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets
+and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%),
+respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;demultiplexed/matrix_cell_identity.csv.gz&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -771,7 +842,10 @@
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>t-SNE embedding of cells based on the abundance of features (phage-derived tags, no transcriptome information used). Colors indicate the hashtag status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
+<p>t-SNE embedding of cells based on the abundance of features
+(phage-derived tags, no transcriptome information used). Colors indicate
+the hashtag status for each cell, as called by FBA. This is a
+re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.png" style="width: 500px;" /></a>
 <p>Read distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png" style="width: 800px;" /></a>

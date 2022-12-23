@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel The detailed description of this dataset can be found here., Preparation: Download fastq files. Download cell barcode info. These are the cell-associated barcodes determined in the parent Hodgkin’s Lymphoma, Dissociate..." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel The detailed description of this dataset can be found here., Preparation: Download fastq files. Download cell barcode info. These are the cell-associated barcodes determined in the parent Hodgkin’s Lymphoma, Dissociate..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Pseudo-bulk" href="../../pseudo-bulk/index.html" /><link rel="prev" title="Targeted transcript enrichment" href="../index.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Pseudo-bulk" href="../../pseudo-bulk/index.html" /><link rel="prev" title="Targeted transcript enrichment" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel - FBA</title>
@@ -277,7 +273,8 @@
         <article role="main">
           <div class="section" id="hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel">
 <span id="tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature"></span><h1>Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel<a class="headerlink" href="#hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel" title="Permalink to this heading">#</a></h1>
-<p><strong>Dataset</strong>: Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel</p>
+<p><strong>Dataset</strong>: Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene
+Signature Panel</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://www.10xgenomics.com/resources/datasets/hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel-3-1-standard-4-0-0">here</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -291,7 +288,9 @@
 </pre></div>
 </div>
 <p>Download cell barcode info.</p>
-<p>These are the cell-associated barcodes determined in the parent <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma">Hodgkin’s Lymphoma, Dissociated Tumor: Whole Transcriptome Analysis</a> dataset.</p>
+<p>These are the cell-associated barcodes determined in the parent
+<a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma">Hodgkin’s Lymphoma, Dissociated Tumor: Whole Transcriptome Analysis</a>
+dataset.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma/Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
 
 <span class="gp">$ </span>tar zxvf Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
@@ -313,9 +312,19 @@
 </pre></div>
 </div>
 <p>Prepare feature sequences.</p>
-<p><code class="docutils literal notranslate"><span class="pre">map</span></code> subcommand is designed to deal with secondary libraries built on top of the whole transcriptome assays. The transcripts of interest in the whole transcriptome libraries are enriched through hybridization or PCR amplification, which enables possibly more sensitive detection. The transcripts can be from endogenous genes or ectopic constructs, for example eGFP, as long as they are captured in the parent libraries.</p>
-<p>In this tutorial, this 10x Genomics ‘Targeted Gene Expression’ library is used as an example. The <a class="reference external" href="https://kb.10xgenomics.com/hc/en-us/articles/360045688071-What-are-the-bait-design-criteria-for-10x-pre-designed-and-custom-panels-">bait sequences</a> are used as references for read 2 mapping. Ideally, sequences of all possible captured transcribed regions should be included.</p>
-<p>Read 1 contains cell barcodes and UMIs. Read 2 is expected captured transcribed regions. For feature references, they should only contain transcribed parts (non-overlapping and no introns for endogenous genes).</p>
+<p><code class="docutils literal notranslate"><span class="pre">map</span></code> subcommand is designed to deal with secondary libraries built on
+top of the whole transcriptome assays. The transcripts of interest in
+the whole transcriptome libraries are enriched through hybridization or
+PCR amplification, which enables possibly more sensitive detection. The
+transcripts can be from endogenous genes or ectopic constructs, for
+example eGFP, as long as they are captured in the parent libraries.</p>
+<p>In this tutorial, this 10x Genomics ‘Targeted Gene Expression’ library
+is used as an example. The <a class="reference external" href="https://kb.10xgenomics.com/hc/en-us/articles/360045688071-What-are-the-bait-design-criteria-for-10x-pre-designed-and-custom-panels-">bait sequences</a> are used as references for
+read 2 mapping. Ideally, sequences of all possible captured transcribed
+regions should be included.</p>
+<p>Read 1 contains cell barcodes and UMIs. Read 2 is expected captured
+transcribed regions. For feature references, they should only contain
+transcribed parts (non-overlapping and no introns for endogenous genes).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
 </pre></div>
 </div>
@@ -361,8 +370,23 @@
 </div>
 <div class="section" id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>First, all read 1 are searched against reference cell-associated barcodes. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> to set the search range (default <code class="docutils literal notranslate"><span class="pre">0,16</span></code>), <code class="docutils literal notranslate"><span class="pre">-cb_m</span></code> to set the mismatching threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). Read 2 with correct cell barcodes (on reads 1) is mapped to the provided sequences (bwa, <a class="reference external" href="https://arxiv.org/abs/1303.3997">Li, H. (2013). arXiv:1303.3997.</a> or  bowtie2, <a class="reference external" href="http://dx.doi.org/10.1038/nmeth.1923">Langmead, B., and Salzberg, S.L. (2012). Nat. Methods 9, 357–359.</a>). The default aligner is <code class="docutils literal notranslate"><span class="pre">bwa</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-al</span></code>). Only alignments passed mapping quality threshold (set by <code class="docutils literal notranslate"><span class="pre">--mapq</span></code>, default <code class="docutils literal notranslate"><span class="pre">10</span></code>) are kept for downstream feature counting. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
-<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<p>First, all read 1 are searched against reference cell-associated
+barcodes. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> to set the search range (default <code class="docutils literal notranslate"><span class="pre">0,16</span></code>),
+<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code> to set the mismatching threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). Read 2 with
+correct cell barcodes (on reads 1) is mapped to the provided sequences
+(bwa, <a class="reference external" href="https://arxiv.org/abs/1303.3997">Li, H. (2013). arXiv:1303.3997.</a> or bowtie2, <a class="reference external" href="http://dx.doi.org/10.1038/nmeth.1923">Langmead, B., and
+Salzberg, S.L. (2012). Nat. Methods 9, 357–359.</a>). The default aligner
+is <code class="docutils literal notranslate"><span class="pre">bwa</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-al</span></code>). Only alignments passed mapping quality
+threshold (set by <code class="docutils literal notranslate"><span class="pre">--mapq</span></code>, default <code class="docutils literal notranslate"><span class="pre">10</span></code>) are kept for downstream
+feature counting. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
+Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.</a>). Use
+<code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use
+<code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI
+length less than this value are discarded. UMI deduplication method is
+set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI
+deduplication mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<p>The generated feature count matrix can be easily imported into
+well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba map <span class="se">\</span>
     -1 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R1_001.fastq.gz <span class="se">\</span>
     -2 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R2_001.fastq.gz <span class="se">\</span>
@@ -381,7 +405,8 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>7.67% of total read pairs (2,405,998 of 31,372,024) contribute to the final expression matrix after UMI deduplication. Sequenced quite deep.</p>
+<p>7.67% of total read pairs (2,405,998 of 31,372,024) contribute to the
+final expression matrix after UMI deduplication. Sequenced quite deep.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 23:33:59,615 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2021-02-17 23:33:59,615 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2021-02-17 23:33:59,615 - fba.__main__ - INFO - Python version: 3.7</span>

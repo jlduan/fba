@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Download fastq files. Combine reads of different lanes. Download cell barcode info. These are the cell-associated barcodes in this si..." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Download fastq files. Combine reads of different lanes. Download cell barcode info. These are the cell-associated barcodes in this si..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" href="../PRJNA358686/tutorial.html" /><link rel="prev" title="CRISPR screening" href="../index.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" href="../PRJNA358686/tutorial.html" /><link rel="prev" title="CRISPR screening" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA - FBA</title>
@@ -277,7 +273,8 @@
         <article role="main">
           <div class="section" id="k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna">
 <span id="tutorial-crispr-screening-sc3-v3-nextgem-di-crispr-10k"></span><h1>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA<a class="headerlink" href="#k-a375-cells-transduced-with-1-non-target-and-1-target-sgrna" title="Permalink to this heading">#</a></h1>
-<p><strong>Dataset</strong>: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed</p>
+<p><strong>Dataset</strong>: 10k A375 Cells Transduced with (1) Non-Target and (1)
+Target sgRNA, Dual Indexed</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K">here</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -296,7 +293,8 @@
 <span class="gp">$ </span>cat SC3_v3_NextGem_DI_CRISPR_10K_fastqs/SC3_v3_NextGem_DI_CRISPR_10K_crispr_fastqs/SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_L00?_R2_001.fastq.gz &gt; SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz
 </pre></div>
 </div>
-<p>Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
+<p>Download cell barcode info. These are the cell-associated barcodes in
+this single cell RNA-Seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_CRISPR_10K/SC3_v3_NextGem_DI_CRISPR_10K_filtered_feature_bc_matrix.tar.gz
 
 <span class="gp">$ </span>tar zxvf SC3_v3_NextGem_DI_CRISPR_10K_filtered_feature_bc_matrix.tar.gz
@@ -344,7 +342,16 @@
 </div>
 <div class="section" id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
+for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
+default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and
+read 2 are searched against reference cell and feature barcodes,
+respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -354,15 +361,27 @@
     -n <span class="m">20000</span>
 </pre></div>
 </div>
-<p>This library is built using the Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for CRISPR Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<p>This library is built using the Chromium Next GEM Single Cell 3ʹ Reagent
+Kits v3.1 (Dual Index) with Feature Barcode technology for CRISPR
+Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are
+cell barcodes and the following 12 bases are UMIs. Based on the base
+content plot, the GC content of cell barcodes are quite even. The UMIs
+are slightly T enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content6.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content6.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content6.png" style="width: 350px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that bases 0-31 are constant and we can almost read the bases. They are actually <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf">Template Switch Oligo (TSO) sequence</a>. Starting from base 32, it seems there are two genotypes for the reads we have sampled.</p>
+<p>As for read 2, based on the per base content, it suggests that bases
+0-31 are constant and we can almost read the bases. They are actually
+<a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf">Template Switch Oligo (TSO) sequence</a>. Starting from base 32, it seems
+there are two genotypes for the reads we have sampled.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content6.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content6.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content6.png" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending6.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending6.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending6.png" style="width: 800px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
+columns indicate mismatches in substitutions:insertions:deletions
+format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -383,14 +402,19 @@
 </div>
 <div class="section" id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
-<p>Although the lengths of the two feature barcodes are one base different, they all start at the same position on read 2. For the purpose of feature barcode identification, let’s include one extra downstream base (G) for the RAB1A-2 feature barcode to make their lengths equal.</p>
+<p>Although the lengths of the two feature barcodes are one base different,
+they all start at the same position on read 2. For the purpose of
+feature barcode identification, let’s include one extra downstream base
+(G) for the RAB1A-2 feature barcode to make their lengths equal.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv
 
 <span class="go">RAB1A-2 GCCGGCGAACCAGGAAATAG</span>
 <span class="go">NON_TARGET-1    AACGTGCTGACGATGCGGGC</span>
 </pre></div>
 </div>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">31,51</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">31,51</span></code> on read 2. Two
+mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
+allowed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -419,7 +443,9 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>64.7% (93,795,979 out of 145,032,428) of total read pairs have valid cell and feature barcodes. Majority of fragments in this library have correct structure.</p>
+<p>64.7% (93,795,979 out of 145,032,428) of total read pairs have valid
+cell and feature barcodes. Majority of fragments in this library have
+correct structure.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-15 01:51:59,262 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2021-02-15 01:51:59,262 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2021-02-15 01:51:59,262 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -458,8 +484,16 @@
 </div>
 <div class="section" id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
-<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<p>Only fragments with correct (passed the criteria) cell and feature
+barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
+et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI
+starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI
+length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value
+are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch
+threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<p>The generated feature count matrix can be easily imported into
+well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
@@ -470,7 +504,10 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and feature barcodes are unique fragments. 4.9% (7,143,943 out of 145,032,428) of total sequenced read pairs contribute to the final matrix.</p>
+<p>7.6% (7,145,799 out of 93,795,979) of read pairs with valid cell and
+feature barcodes are unique fragments. 4.9% (7,143,943 out of
+145,032,428) of total sequenced read pairs contribute to the final
+matrix.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2020-10-20 04:47:32,738 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -497,7 +534,13 @@
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
 <div class="section" id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this heading">#</a></h3>
-<p>Cells are classified based on the feature count matrix. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A cell identity matrix is generated in the output directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are classified based on the feature count matrix. Demultiplexing
+method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method
+described by <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> with some modifications. A
+cell identity matrix is generated in the output directory (set by
+<code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1
+means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile threshold for
+demulitplexing. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -506,9 +549,12 @@
     -v
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed1.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed1.png" style="width: 500px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -516,7 +562,9 @@
 </div>
 <div class="section" id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
+inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
+to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">2</span> <span class="se">\</span>
@@ -546,9 +594,12 @@
 <span class="go">2021-10-04 14:15:24,288 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm3.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm3.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm3.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm3.png" style="width: 500px;" /></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_gm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_gm.png" style="width: 800px;" /></a>
@@ -558,7 +609,9 @@
 </div>
 <div class="section" id="poisson-gaussian-mixture-model">
 <h3>Poisson-Gaussian mixture model<a class="headerlink" href="#poisson-gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.5</span></code>).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
+inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the
+probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.5</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">3</span> <span class="se">\</span>
@@ -588,9 +641,12 @@
 <span class="go">2021-12-20 00:13:41,271 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm1.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.png" style="width: 500px;" /></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_pgm.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_pgm.png" style="width: 800px;" /></a>
@@ -600,7 +656,9 @@
 </div>
 <div class="section" id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h3>
-<p>CRISPR perturbatons are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications.</p>
+<p>CRISPR perturbatons are demultiplexed based on the abundance of
+features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method
+described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">4</span> <span class="se">\</span>
@@ -631,9 +689,12 @@
 <span class="go">2021-12-26 18:11:44,219 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_kde1.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_kde1.png" style="width: 500px;" /></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_kde.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_kde.png" style="width: 800px;" /></a>
@@ -645,7 +706,11 @@
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this heading">#</a></h3>
 <div class="section" id="method-1">
 <h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this heading">#</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which tries to determine perturbations in the cells through the detection of inflection point on the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs).
+Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which
+tries to determine perturbations in the cells through the detection of
+inflection point on the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al.
+(2019)</a>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span>-2019 <span class="se">\</span>
@@ -675,9 +740,12 @@
 <span class="go">2022-01-02 13:58:12,014 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_20191.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee_20191.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_20191.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee_20191.png" style="width: 500px;" /></a>
 <p>UMI distribution and knee point detection:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee_20191.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee_20191.png" style="width: 800px;" /></a>
@@ -687,7 +755,10 @@
 </div>
 <div class="section" id="method-2">
 <h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading">#</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (sgRNAs). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on the difference curve to detemine the knee point on the UMI saturation curve.</p>
+<p>Cells are demultiplexed based on the abundance of features (sgRNAs).
+Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
+the difference curve to detemine the knee point on the UMI saturation
+curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span> <span class="se">\</span>
@@ -717,9 +788,12 @@
 <span class="go">2021-12-29 22:55:57,485 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_knee1.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_knee1.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_knee1.png" style="width: 500px;" /></a>
 <p>UMI distribution and knee point detection:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_knee1.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_knee1.png" style="width: 800px;" /></a>

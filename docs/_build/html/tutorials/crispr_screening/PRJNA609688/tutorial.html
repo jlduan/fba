@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA609688/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: Direct-capture Perturb-seq ( sgRNA-CR1 cs1) Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan, J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al. (2020). Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing. Nat...." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: Direct-capture Perturb-seq ( sgRNA-CR1 cs1) Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan, J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al. (2020). Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing. Nat...." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Cell surface protein labeling" href="../../cell_surface_protein_labeling/index.html" /><link rel="prev" title="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" href="../PRJNA358686/tutorial.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Cell surface protein labeling" href="../../cell_surface_protein_labeling/index.html" /><link rel="prev" title="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" href="../PRJNA358686/tutorial.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1 - FBA</title>
@@ -278,7 +274,10 @@
           <div class="section" id="direct-capture-perturb-seq-crispri-based-screen-of-unfolded-protein-response-upr-using-3-sgrna-cr1cs1">
 <span id="tutorial-crispr-screening-prjna609688"></span><h1>Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1<sup>cs1</sup><a class="headerlink" href="#direct-capture-perturb-seq-crispri-based-screen-of-unfolded-protein-response-upr-using-3-sgrna-cr1cs1" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: Direct-capture Perturb-seq (sgRNA-CR1<sup>cs1</sup>)</p>
-<p>Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan, J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al. (2020). <a class="reference external" href="https://doi.org/10.1038/s41587-020-0470-y">Combinatorial single-cell CRISPR screens by direct guide RNA capture and targeted sequencing</a>. <em>Nat. Biotechnol.</em> <strong>38</strong>, 954–961.</p>
+<p>Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan,
+J.Z., Meer, E.J., Terry, J.M., Riordan, D.P., Srinivas, N., et al.
+(2020). <a class="reference external" href="https://doi.org/10.1038/s41587-020-0470-y">Combinatorial single-cell CRISPR screens by direct guide RNA
+capture and targeted sequencing</a>. <em>Nat. Biotechnol.</em> <strong>38</strong>, 954–961.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
@@ -315,7 +314,8 @@
 <span class="go">AAACGAAAGTGCCGAA-4</span>
 </pre></div>
 </div>
-<p>Prepare feature barcodes. sgRNA sequences can be found in <a class="reference external" href="https://www.nature.com/articles/s41587-020-0470-y#Sec18">Supplementary Table 2</a> and are truncated to equal length.</p>
+<p>Prepare feature barcodes. sgRNA sequences can be found in <a class="reference external" href="https://www.nature.com/articles/s41587-020-0470-y#Sec18">Supplementary
+Table 2</a> and are truncated to equal length.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_UPR_edited.tsv
 
 <span class="go">NegCtrl2        GCGATGGGGGGGTGGGTAG</span>
@@ -355,7 +355,8 @@
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>First we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GTACATGGGG</span></code>) upstream of sgRNAs on read 2 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
+<p>First we screen reads that have the constant sequence (<code class="docutils literal notranslate"><span class="pre">GTACATGGGG</span></code>)
+upstream of sgRNAs on read 2 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt <span class="se">\</span>
     --cores <span class="m">0</span> <span class="se">\</span>
     --front GTACATGGGG <span class="se">\</span>
@@ -366,7 +367,8 @@
     GSM4367980_2.fq.gz GSM4367980_1.fq.gz
 </pre></div>
 </div>
-<p>Preview the filtering result: 104,375,315 out of 404,963,129 (25.8%) read pairs are kept for sgRNA identification.</p>
+<p>Preview the filtering result: 104,375,315 out of 404,963,129 (25.8%)
+read pairs are kept for sgRNA identification.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">== Read fate breakdown ==</span>
 <span class="go">Pairs that were too short:             377,332 (0.1%)</span>
 <span class="go">Pairs discarded as untrimmed:      300,210,482 (74.1%)</span>
@@ -379,7 +381,16 @@
 </div>
 <div class="section" id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 200,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>Sample the first 200,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
+for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
+default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and full length of read 1 and
+read 2 are searched against reference cell and feature barcodes,
+respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 read_1_trimmed.fq.gz <span class="se">\</span>
     -2 read_2_trimmed.fq.gz <span class="se">\</span>
@@ -389,15 +400,24 @@
     -n <span class="m">200000</span>
 </pre></div>
 </div>
-<p>This library is built using the Chromium Single Cell 3’ Solution v3 and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 10 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<p>This library is built using the Chromium Single Cell 3’ Solution v3 and
+sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes
+and the following 10 bases are UMIs. Based on the base content plot, the
+GC content of cell barcodes are quite even. The UMIs are slightly T
+enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content5.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content5.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content5.png" style="width: 350px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that read 2 is slightly A enriched.</p>
+<p>As for read 2, based on the per base content, it suggests that read 2 is
+slightly A enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content5.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content5.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content5.png" style="width: 400px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending5.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending5.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending5.png" style="width: 400px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
+columns indicate mismatches in substitutions:insertions:deletions
+format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> grep -v no_ <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -418,7 +438,9 @@
 </div>
 <div class="section" id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
-<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,19</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed.</p>
+<p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,19</span></code> on read 2. Two
+mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
+allowed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 read_1_trimmed.fq.gz <span class="se">\</span>
     -2 read_2_trimmed.fq.gz <span class="se">\</span>
@@ -447,7 +469,8 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>52,352,330 out of 104,375,315 read pairs have valid cell and feature barcodes.</p>
+<p>52,352,330 out of 104,375,315 read pairs have valid cell and feature
+barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-06 03:44:57,488 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-06 03:44:57,488 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-06 03:44:57,489 - fba.__main__ - INFO - Python version: 3.10</span>
@@ -482,8 +505,16 @@
 </div>
 <div class="section" id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with correct (passed the criteria) cell and feature barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
-<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+<p>Only fragments with correct (passed the criteria) cell and feature
+barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
+et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI
+starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI
+length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value
+are discarded. UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">directional</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set UMI deduplication mismatch
+threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
+<p>The generated feature count matrix can be easily imported into
+well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
@@ -492,7 +523,10 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>10.7% (5,581,448 out of 52,352,330) of read pairs with valid cell and feature barcodes are unique fragments. 1.4% (5,581,448 out of 404,963,129) of total sequenced read pairs contribute to the final matrix. The meidan number of UMIs of sgRNA per cell is 413.0.</p>
+<p>10.7% (5,581,448 out of 52,352,330) of read pairs with valid cell and
+feature barcodes are unique fragments. 1.4% (5,581,448 out of
+404,963,129) of total sequenced read pairs contribute to the final
+matrix. The meidan number of UMIs of sgRNA per cell is 413.0.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-06 07:05:24,972 - fba.__main__ - INFO - fba version: 0.0.x</span>
 <span class="go">2022-03-06 07:05:24,973 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-06 07:05:24,973 - fba.__main__ - INFO - Python version: 3.10</span>
@@ -519,7 +553,11 @@
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
 <div class="section" id="poisson-gaussian-mixture-model">
 <h3>Poisson-Gaussian mixture model<a class="headerlink" href="#poisson-gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.5</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> to set the number of positive cells for a feature to be included for demultiplexing (default <code class="docutils literal notranslate"><span class="pre">200</span></code>).</p>
+<p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
+inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the
+probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.5</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nc</span></code>
+to set the number of positive cells for a feature to be included for
+demultiplexing (default <code class="docutils literal notranslate"><span class="pre">200</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">3</span> <span class="se">\</span>
@@ -550,9 +588,12 @@
 <span class="go">2022-03-06 14:08:12,180 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features (sgRNAs) across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_pgm.png" style="width: 700px;" /></a>
-<p>Preview the demultiplexing result (<a class="reference external" href="https://www.nature.com/articles/s41587-020-0470-y/figures/1">Fig. 2d</a>, middle column): the numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171 (13.5%), and 881 (10.1%), respectively.</p>
+<p>Preview the demultiplexing result (<a class="reference external" href="https://www.nature.com/articles/s41587-020-0470-y/figures/1">Fig. 2d</a>, middle column): the
+numbers of singlets, multiplets and negatives are 6,618 (76.3%), 1,171
+(13.5%), and 881 (10.1%), respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;demultiplexed/matrix_cell_identity.csv.gz&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -606,7 +647,9 @@
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">8670</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no transcriptome information used). Colors indicate the sgRNA status for each cell, as called by FBA.</p>
+<p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
+transcriptome information used). Colors indicate the sgRNA status for
+each cell, as called by FBA.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.png" style="width: 500px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>

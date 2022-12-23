@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). MULTI-seq: sample multiplexing for single-cell..." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). MULTI-seq: sample multiplexing for single-cell..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Targeted transcript enrichment" href="../../targeted_transcript_enrichment/index.html" /><link rel="prev" title="MULTI-seq" href="../index.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Targeted transcript enrichment" href="../../targeted_transcript_enrichment/index.html" /><link rel="prev" title="MULTI-seq" href="../index.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices - FBA</title>
@@ -277,14 +273,20 @@
         <article role="main">
           <div class="section" id="k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices">
 <span id="tutorial-multi-seq-prjna531855"></span><h1>15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices<a class="headerlink" href="#k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices" title="Permalink to this heading">#</a></h1>
-<p><strong>Dataset</strong>: MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</p>
-<p>McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y., Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al. (2019). <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">MULTI-seq: sample multiplexing for single-cell RNA sequencing using lipid-tagged indices</a>. <em>Nat. Methods</em> <strong>16</strong>, 619–626.</p>
+<p><strong>Dataset</strong>: MULTI-seq: sample multiplexing for single-cell RNA
+sequencing using lipid-tagged indices</p>
+<p>McGinnis, C.S., Patterson, D.M., Winkler, J., Conrad, D.N., Hein, M.Y.,
+Srivastava, V., Hu, J.L., Murrow, L.M., Weissman, J.S., Werb, Z., et al.
+(2019). <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">MULTI-seq: sample multiplexing for single-cell RNA sequencing
+using lipid-tagged indices</a>. <em>Nat. Methods</em> <strong>16</strong>,
+619–626.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <div class="section" id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
-<p>Download pre-processed feature count matrix files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578">Gene Expression Omnibus</a>.</p>
+<p>Download pre-processed feature count matrix files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578">Gene Expression
+Omnibus</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://ftp.ncbi.nlm.nih.gov/geo/series/GSE129nnn/GSE129578/suppl/GSE129578_processed_data_files.csv.tar.gz
 
 <span class="gp">$ </span>tar zxvf GSE129578_processed_data_files.csv.tar.gz
@@ -370,7 +372,11 @@
 </div>
 <div class="section" id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h3>
-<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demultiplexed based on the abundance of features.
+Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
+in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A
+cell identity matrix is generated in the output directory: 0 means
+negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_POC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 14:54:45,248 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -396,9 +402,11 @@
 <span class="go">2021-12-20 14:55:12,277 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features across all cells. Each
+column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_POC_MULTI.png" style="width: 700px;" /></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets
+and negative cells.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span>  <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="n">m</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;demultiplexed/matrix_cell_identity.csv.gz&quot;</span><span class="p">,</span> <span class="n">index_col</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
@@ -482,7 +490,11 @@
 </div>
 <div class="section" id="id2">
 <h3>Demultiplexing<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
-<p>Cells are demultiplexed based on the abundance of features. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell identity matrix is generated in the output directory: 0 means negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demultiplexed based on the abundance of features.
+Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
+in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A
+cell identity matrix is generated in the output directory: 0 means
+negative, 1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex -i matrix_featurecount_HMEC_MULTI.csv.gz -dm <span class="m">4</span> -v
 
 <span class="go">2021-12-20 16:31:12,889 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -508,11 +520,16 @@
 <span class="go">2021-12-20 16:36:58,791 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>Heatmap of the relative abundance of features across all cells. Each column represents a single cell.</p>
+<p>Heatmap of the relative abundance of features across all cells. Each
+column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_HMEC_MULTI.png" style="width: 700px;" /></a>
-<p>t-SNE embedding of cells based on the abundance of features (no transcriptome information used). Colors indicate the index status for each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0433-8/figures/2">Fig. 2a</a> in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
+<p>t-SNE embedding of cells based on the abundance of features (no
+transcriptome information used). Colors indicate the index status for
+each cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0433-8/figures/2">Fig. 2a</a> in
+<a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png" style="width: 500px;" /></a>
-<p>Preview the demultiplexing result: the numbers of singlets, multiplets and negative cells.</p>
+<p>Preview the demultiplexing result: the numbers of singlets, multiplets
+and negative cells.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">2</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>

@@ -2,25 +2,21 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark">
-<meta property="og:title" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
-  
+    <meta name="color-scheme" content="light dark"><meta property="og:title" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
 <meta property="og:type" content="website" />
-  
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" />
-  
+<meta property="og:site_name" content="fba" />
 <meta property="og:description" content="Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed The detailed description of this dataset can be found here., Preparation: Download fastq files. Combine reads of different lanes. Download cell barcode info. These are the cell-associated barcodes in this single c..." />
-  
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
-  
-<meta property="og:image:alt" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
-  
+<meta property="og:image:alt" content="fba" />
+<meta name="description" content="Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed The detailed description of this dataset can be found here., Preparation: Download fastq files. Combine reads of different lanes. Download cell barcode info. These are the cell-associated barcodes in this single c..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
 <meta name="twitter:card" content="summary"></meta>
 <meta name="twitter:creator" content="@jlduan" />
-<meta name="twitter:image" content="https://github.com/jlduan.png" /><link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="ECCITE-seq" href="../../eccite-seq/index.html" /><link rel="prev" title="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" href="../PRJNA658075/tutorial.html" />
+<meta name="twitter:image" content="https://github.com/jlduan.png" />
+<link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="ECCITE-seq" href="../../eccite-seq/index.html" /><link rel="prev" title="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" href="../PRJNA658075/tutorial.html" />
 
     <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
         <title>1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies - FBA</title>
@@ -277,7 +273,8 @@
         <article role="main">
           <div class="section" id="k-human-pbmcs-stained-with-a-panel-of-totalseq-b-antibodies">
 <span id="tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k"></span><h1>1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies<a class="headerlink" href="#k-human-pbmcs-stained-with-a-panel-of-totalseq-b-antibodies" title="Permalink to this heading">#</a></h1>
-<p>Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies, Dual Indexed</p>
+<p>Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies,
+Dual Indexed</p>
 <p>The detailed description of this dataset can be found <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K">here</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -296,7 +293,8 @@
 <span class="gp">$ </span>cat SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_fastqs/SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_L00?_R2_001.fastq.gz &gt; SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2.fastq.gz
 </pre></div>
 </div>
-<p>Download cell barcode info. These are the cell-associated barcodes in this single cell RNA-Seq library.</p>
+<p>Download cell barcode info. These are the cell-associated barcodes in
+this single cell RNA-Seq library.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
 
 <span class="gp">$ </span>tar zxvf SC3_v3_NextGem_DI_PBMC_CSP_1K_filtered_feature_bc_matrix.tar.gz
@@ -364,7 +362,16 @@
 </div>
 <div class="section" id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), full length of read 1 and read 2 are searched against reference cell and feature barcodes, respectively. The per base content of both read pairs and the distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
+for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
+default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), full length of read 1 and
+read 2 are searched against reference cell and feature barcodes,
+respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -374,16 +381,34 @@
     -n <span class="m">20000</span>
 </pre></div>
 </div>
-<p>This library is constructed using Chromium Next GEM Single Cell 3ʹ Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16 bases are cell barcodes and the following 12 bases are UMIs. Based on the base content plot, the GC content of cell barcodes are quite even. The UMIs are slightly T enriched.</p>
+<p>This library is constructed using Chromium Next GEM Single Cell 3ʹ
+Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
+Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16
+bases are cell barcodes and the following 12 bases are UMIs. Based on
+the base content plot, the GC content of cell barcodes are quite even.
+The UMIs are slightly T enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content2.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content2.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content2.png" style="width: 350px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that bases 0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled, which could mean that their sequences are random at library-level. While bases 34-55 and 84-89 are constant sequences and we can almost read the bases. Bases 10-24 are less random but also not constant. They are actually our feature barcodes (See the distribution of matched barcode positions on read 2).</p>
+<p>As for read 2, based on the per base content, it suggests that bases
+0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled,
+which could mean that their sequences are random at library-level. While
+bases 34-55 and 84-89 are constant sequences and we can almost read the
+bases. Bases 10-24 are less random but also not constant. They are
+actually our feature barcodes (See the distribution of matched barcode
+positions on read 2).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content2.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content2.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content2.png" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending2.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending2.png" style="width: 800px;" /></a>
-<p>The fragment structure in this feature barcoding library inferred from <code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (Page 3, <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this is an example dataset from 10x Genomics). Bases 34-56 are actually called ‘Capture Sequence 1’ on beads.</p>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in substitutions:insertions:deletions format.</p>
+<p>The fragment structure in this feature barcoding library inferred from
+<code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (Page 3, <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this
+is an example dataset from 10x Genomics). Bases 34-56 are actually
+called ‘Capture Sequence 1’ on beads.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
+columns indicate mismatches in substitutions:insertions:deletions
+format.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -404,7 +429,13 @@
 </div>
 <div class="section" id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
-<p>The lengths of cell and feature barcodes are all identical (16 and 15, respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of starting and ending positions of cell and feature barcodes are very uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">10,25</span></code> on read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
+<p>The lengths of cell and feature barcodes are all identical (16 and 15,
+respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of
+starting and ending positions of cell and feature barcodes are very
+uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">10,25</span></code> on
+read 2. Two mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>,
+<code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns)
+for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -433,7 +464,8 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>59.8% (4,607,787 out of 7,704,799) of total read pairs have valid cell and feature barcodes.</p>
+<p>59.8% (4,607,787 out of 7,704,799) of total read pairs have valid cell
+and feature barcodes.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2021-02-17 23:37:41,353 - fba.__main__ - INFO - Python version: 3.7</span>
@@ -458,8 +490,16 @@
 </div>
 <div class="section" id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with valid (passed the criteria) cell and feature barcodes are included. UMI deduplication is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>).</p>
-<p>The generated feature count matrix can be easily imported into well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
+<p>Only fragments with valid (passed the criteria) cell and feature
+barcodes are included. UMI deduplication is powered by UMI-tools
+(<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to
+set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to
+set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than
+this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold (default
+<code class="docutils literal notranslate"><span class="pre">1</span></code>). UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">directional</span></code>).</p>
+<p>The generated feature count matrix can be easily imported into
+well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
@@ -470,7 +510,9 @@
 </pre></div>
 </div>
 <p>Result summary.</p>
-<p>69.8% (3,214,503 out of 4,607,787) of read pairs with valid cell and feature barcodes are unique fragments. 41.7% (3,214,503 out of 7,704,799) of total sequenced read pairs contribute to the final matrix.</p>
+<p>69.8% (3,214,503 out of 4,607,787) of read pairs with valid cell and
+feature barcodes are unique fragments. 41.7% (3,214,503 out of
+7,704,799) of total sequenced read pairs contribute to the final matrix.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - fba version: 0.0.7</span>
 <span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2021-02-17 23:53:36,024 - fba.__main__ - INFO - Python version: 3.7</span>
