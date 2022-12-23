@@ -68,11 +68,10 @@ the single-cell ATAC-seq library, we will need all 3 end reads).
    @SRR12588752.3 NB501583:726:HMCKKBGXF:1:11101:17414:1034 length=34
    GATACCGCGGTGTATNANNNGNNNNNAANNNGNN
 
-Prepare cell barcodes (downloaded from the manuscript's GitHub
-repository_). These are the cell-associated barcodes, they are generated
-based on the single-cell ATAC-seq library.
-
-.. _repository: https://github.com/evgenijfiskin/phage-atac
+Prepare cell barcodes (downloaded from the manuscript's `GitHub
+repository <https://github.com/evgenijfiskin/phage-atac>`_). These are
+the cell-associated barcodes, they are generated based on the
+single-cell ATAC-seq library.
 
 .. code:: console
 

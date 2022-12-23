@@ -49,13 +49,16 @@ on read 2.
 .. _here: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588
 
 I re-processed these raw reads to get cell-associated barcodes for
-downstream analysis. Briefly, raw reads were trimmed using `Trim Galore!
-<https://www.bioinformatics.babraham.ac.uk/projects/trim_galore>`_ and
-mapped to the human reference genome `refdata-gex-GRCh38-2020-A
-<https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A>`_
-using STAR v2.7.8a. Plasmid `CROPseq-Guide-Puro
-<https://www.addgene.org/86708/>`_ sequence was not included in the
-reference.
+downstream analysis. Briefly, raw reads were trimmed using `Trim
+Galore!`_ and mapped to the human reference genome
+refdata-gex-GRCh38-2020-A_ using STAR v2.7.8a. Plasmid
+CROPseq-Guide-Puro_ sequence was not included in the reference.
+
+.. _cropseq-guide-puro: https://www.addgene.org/86708/
+
+.. _refdata-gex-grch38-2020-a: https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A
+
+.. _trim galore!: https://www.bioinformatics.babraham.ac.uk/projects/trim_galore
 
 .. csv-table:: Mapping statistics
    :widths: 70, 20
@@ -113,7 +116,9 @@ Since sgRNAs are captured through polyA tails together with other
 transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA
 enrichment library). To speed up processing, first we screen reads that
 have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs
-(`cutadapt <https://github.com/marcelm/cutadapt>`_, version 3.7).
+(cutadapt_\, version 3.7).
+
+.. _cutadapt: https://github.com/marcelm/cutadapt
 
 .. code:: console
 
@@ -328,11 +333,12 @@ Gaussian mixture model
 ----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics’ website
-<https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr>`_.
-Use ``-p`` to set the probability threshold for demulitplexing (default
-``0.9``). Use ``-nc`` to set the number of positive cells for a feature
-to be included for demultiplexing (default ``200``).
+inspired by the method described on `10x Genomics’ website`_. Use ``-p``
+to set the probability threshold for demulitplexing (default ``0.9``).
+Use ``-nc`` to set the number of positive cells for a feature to be
+included for demultiplexing (default ``200``).
+
+.. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
 .. code:: console
 
@@ -476,14 +482,12 @@ simultaneously to speed up.
 Barcode extraction
 ==================
 
-The transcripts derived from `CROPseq-Guide-Puro
-<https://www.addgene.org/86708/>`_ and captured by Drop-seq beads
-contain sgRNA sequences. There are no secondary libraries built on top
-of this single-cell RNA-seq library for sgRNA enrichment. The
-transcripts derived from `CROPseq-Guide-Puro
-<https://www.addgene.org/86708/>`_ are captured by the ployA tails.
-Therefore, the locations of sgRNA on read 2 vary. We need to extract the
-sgRNA sequences from read 2.
+The transcripts derived from CROPseq-Guide-Puro_ and captured by
+Drop-seq beads contain sgRNA sequences. There are no secondary libraries
+built on top of this single-cell RNA-seq library for sgRNA enrichment.
+The transcripts derived from CROPseq-Guide-Puro_ are captured by the
+ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need
+to extract the sgRNA sequences from read 2.
 
 ``qc`` mode is used for sgRNA extraction. Use ``-n`` to specify the
 number of reads to analyze, ``None`` means all the reads. Use ``-t`` to
@@ -546,6 +550,7 @@ are discarded. UMI deduplication method is set by ``-ud`` (default
 ``directional``). Use ``-um`` to set UMI deduplication mismatch
 threshold (default ``1``).
 
+.. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
 well-established single cell analysis packages: Seruat_ and Scanpy_.
@@ -585,5 +590,166 @@ barcodes are unique fragments.
    2022-03-04 23:18:31,608 - fba.count - INFO - Total UMIs after deduplication: 1,364
    2022-03-04 23:18:31,609 - fba.count - INFO - Median number of UMIs per cell: 1.0
    2022-03-04 23:18:31,615 - fba.__main__ - INFO - Done.
+
+|
+
+Demultiplexing
+==============
+
+Gaussian mixture model
+----------------------
+
+The implementation of demultiplexing method ``2`` (set by ``-dm``) is
+inspired by the method described on `10x Genomics’ website`_. Use ``-p``
+to set the probability threshold for demulitplexing (default ``0.9``).
+Use ``-nc`` to set the number of positive cells for a feature to be
+included for demultiplexing (default ``200``).
+
+.. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+
+.. code:: console
+
+   $ fba demultiplex \
+       -i matrix_featurecount.csv.gz \
+       -dm 2 \
+       -v \
+       -nc 0
+
+.. code:: console
+
+   2022-03-04 23:19:05,218 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-04 23:19:05,219 - fba.__main__ - INFO - Initiating logging ...
+   2022-03-04 23:19:05,219 - fba.__main__ - INFO - Python version: 3.10
+   2022-03-04 23:19:05,219 - fba.__main__ - INFO - Using demultiplex subcommand ...
+   2022-03-04 23:19:15,199 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method"
+   2022-03-04 23:19:15,200 - fba.demultiplex - INFO - Output directory: demultiplexed
+   2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Demultiplexing method: 2
+   2022-03-04 23:19:15,201 - fba.demultiplex - INFO - UMI normalization method: clr
+   2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization: On
+   2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Visualization method: tsne
+   2022-03-04 23:19:15,201 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+   2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of cells: 523
+   2022-03-04 23:19:15,219 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 0
+   2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)
+   2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Features: DNMT3B MBD1 TET2
+   2022-03-04 23:19:15,222 - fba.demultiplex - INFO - Total UMIs: 1,364 / 1,364
+   2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Median number of UMIs per cell: 1.0 / 1.0
+   2022-03-04 23:19:15,223 - fba.demultiplex - INFO - Demultiplexing ...
+   2022-03-04 23:19:17,319 - fba.demultiplex - INFO - Generating heatmap ...
+   2022-03-04 23:19:17,784 - fba.demultiplex - INFO - Embedding ...
+   2022-03-04 23:19:32,256 - fba.__main__ - INFO - Done.
+
+Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_original_gm.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets and
+multiplets.
+
+.. code:: python
+
+   In [1]: import pandas as pd
+
+   In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
+
+   In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+   Out[3]:
+   DNMT3B    141
+   MBD1      150
+   TET2      158
+   dtype: int64
+
+   In [4]: sum(m.sum(axis=0) > 1)
+   Out[4]: 74
+
+|
+
+Knee point
+----------
+
+Cells are demultiplexed based on the abundance of features (sgRNAs).
+Demultiplexing method ``5`` is implemented to use the local maxima on
+the difference curve to detemine the knee point on the UMI saturation
+curve.
+
+.. code:: console
+
+   $ fba demultiplex \
+       -i matrix_featurecount.csv.gz \
+       -dm 5 \
+       -v \
+       -nc 0
+
+.. code:: console
+
+   2022-03-05 01:52:38,900 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-05 01:52:38,900 - fba.__main__ - INFO - Initiating logging ...
+   2022-03-05 01:52:38,900 - fba.__main__ - INFO - Python version: 3.9
+   2022-03-05 01:52:38,900 - fba.__main__ - INFO - Using demultiplex subcommand ...
+   2022-03-05 01:52:41,396 - fba.__main__ - INFO - Skipping arguments: "-q/--quantile", "-cm/--clustering_method", "-p/--prob"
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Output directory: demultiplexed
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Demultiplexing method: 5
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - UMI normalization method: clr
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Visualization: On
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Visualization method: tsne
+   2022-03-05 01:52:41,396 - fba.demultiplex - INFO - Loading feature count matrix: matrix_featurecount.csv.gz ...
+   2022-03-05 01:52:41,403 - fba.demultiplex - INFO - Number of cells: 523
+   2022-03-05 01:52:41,403 - fba.demultiplex - INFO - Number of positive cells for a feature to be included: 0
+   2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Number of features: 3 / 3 (after filtering / original in the matrix)
+   2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Features: DNMT3B MBD1 TET2
+   2022-03-05 01:52:41,404 - fba.demultiplex - INFO - Total UMIs: 1,364 / 1,364
+   2022-03-05 01:52:41,405 - fba.demultiplex - INFO - Median number of UMIs per cell: 1.0 / 1.0
+   2022-03-05 01:52:41,405 - fba.demultiplex - INFO - Demultiplexing ...
+   2022-03-05 01:52:41,810 - fba.demultiplex - INFO - Generating heatmap ...
+   2022-03-05 01:52:41,979 - fba.demultiplex - INFO - Embedding ...
+   2022-03-05 01:52:44,840 - fba.__main__ - INFO - Done.
+
+Heatmap of the relative abundance of features (sgRNAs) across all cells.
+Each column represents a single cell.
+
+.. image:: Pyplot_heatmap_cells_demultiplexed_original_knee.png
+   :alt: Heatmap
+   :width: 700px
+   :align: center
+
+Preview the demultiplexing result: the numbers of singlets and
+multiplets.
+
+.. code:: python
+
+   In [1]: import pandas as pd
+
+   In [2]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
+
+   In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+   Out[3]:
+   DNMT3B    141
+   MBD1      150
+   TET2      158
+   dtype: int64
+
+   In [4]: sum(m.sum(axis=0) > 1)
+   Out[4]: 74
+
+UMI distribution and knee point detection:
+
+.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
+   :alt: UMI distribution
+   :width: 400px
+   :align: center
 
 |
