@@ -1,0 +1,47 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=61.0.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fba"
+description = "Tools for feature barcoding analysis"
+authors = [{ name = "Jialei Duan", email = "t4mi27b3v@relay.firefox.com" }]
+readme = "README.md"
+requires-python = ">=3.6"
+license = { file = "LICENSE" }
+classifiers = [
+  "Development Status :: 5 - Production/Stable",
+  "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: MacOS :: MacOS X",
+  "Operating System :: POSIX :: Linux",
+  "Operating System :: Unix",
+  "Programming Language :: Python :: 3",
+  "Topic :: Scientific/Engineering :: Bio-Informatics",
+]
+keywords = [
+  "cell-hashing",
+  "cell-partitioning",
+  "cellplex",
+  "cite-seq",
+  "crispr",
+  "eccite-seq",
+  "feature-barcodes",
+  "multi-seq",
+  "phage-atac",
+  "single-cell",
+  "targeted-transcripts",
+]
+dynamic = ["version", "dependencies"]
+
+[tool.setuptools.dynamic]
+version = { attr = "fba.__version__" }
+dependencies = { file = ["requirements.txt"] }
+
+[project.urls]
+Homepage = "https://github.com/jlduan/fba"
+
+[project.scripts]
+fba = "fba.__main__:main"
