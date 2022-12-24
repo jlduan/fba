@@ -100,7 +100,7 @@ Usage
 
    usage: fba [-h]  ...
 
-   Tools for feature barcoding analysis
+   Tools for single-cell feature barcoding analysis
 
    optional arguments:
    -h, --help         show this help message and exit
@@ -133,3 +133,5 @@ Pages 4266–4268. DOI: `10.1093/bioinformatics/btab375`_. PMID:
 .. raw:: html
 
    <span class="__dimensions_badge_embed__" data-doi="10.1093/bioinformatics/btab375" data-hide-zero-citations="true" data-style="small_rectangle"></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script>
+
+|

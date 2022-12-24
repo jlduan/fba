@@ -39,7 +39,7 @@ troubleshooting feature barcoding experiments.
 
    usage: fba [-h]  ...
 
-   Tools for feature barcoding analysis
+   Tools for single-cell feature barcoding analysis
 
    optional arguments:
    -h, --help         show this help message and exit
