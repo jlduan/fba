@@ -18,7 +18,7 @@
 
 # `fba`
 
-Tools for feature barcoding analysis
+Tools for single-cell feature barcoding analysis
 
 > Jialei Duan, Gary C Hon, **FBA: feature barcoding analysis for single cell RNA-Seq**, _Bioinformatics_, Volume 37, Issue 22, 15 November 2021, Pages 4266–4268. DOI: <https://doi.org/10.1093/bioinformatics/btab375>. PMID: [33999185](https://pubmed.ncbi.nlm.nih.gov/33999185/).
 
@@ -82,7 +82,7 @@ $ fba
 
 usage: fba [-h]  ...
 
-Tools for feature barcoding analysis
+Tools for single-cell feature barcoding analysis
 
 optional arguments:
   -h, --help        show this help message and exit
