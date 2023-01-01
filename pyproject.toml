@@ -6,7 +6,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fba"
-description = "Tools for feature barcoding analysis"
+description = "Tools for single-cell feature barcoding analysis"
 authors = [{ name = "Jialei Duan", email = "t4mi27b3v@relay.firefox.com" }]
 readme = "README.md"
 requires-python = ">=3.6"
