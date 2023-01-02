@@ -333,13 +333,17 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
 
     # read1
     Path(output_directory).mkdir(exist_ok=True)
-    R1_BC_STARTING_FILE = Path(output_directory) / "Read1_barcodes_starting.csv"
+    R1_BC_STARTING_FILE = (
+        Path(output_directory) / "Read1_barcodes_starting.csv"
+    )
     R1_BC_ENDING_FILE = Path(output_directory) / "Read1_barcodes_ending.csv"
     R1_BC_STARTING_ENDING_PLOT = (
         Path(output_directory) / "Pyplot_read1_barcodes_starting_ending.pdf"
     )
     # read2
-    R2_BC_STARTING_FILE = Path(output_directory) / "Read2_barcodes_starting.csv"
+    R2_BC_STARTING_FILE = (
+        Path(output_directory) / "Read2_barcodes_starting.csv"
+    )
     R2_BC_ENDING_FILE = Path(output_directory) / "Read2_barcodes_ending.csv"
     R2_BC_STARTING_ENDING_PLOT = (
         Path(output_directory) / "Pyplot_read2_barcodes_starting_ending.pdf"
@@ -351,7 +355,9 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
     FB_MISMATCHES_FILE = (
         Path(output_directory) / "Read2_barcodes_mismatches.csv"
     )
-    MATCHED_BC_RATIO_FILE = Path(output_directory) / "matched_barcode_ratio.csv"
+    MATCHED_BC_RATIO_FILE = (
+        Path(output_directory) / "matched_barcode_ratio.csv"
+    )
 
     #
     with open_by_suffix(file_name=matching_file) as f:
@@ -537,7 +543,8 @@ def analyze_bulk(
 
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_") for i in f
+            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_")
+            for i in f
         }
     fb_index = create_index(
         barcodes=feature_barcodes.keys(), num_mismatches=num_mismatches
