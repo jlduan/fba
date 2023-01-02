@@ -16,7 +16,6 @@ logger = get_logger(logger_name=__name__)
 params = {
     "pdf.fonttype": 42,
     "mathtext.default": "regular",
-    "axes.axisbelow": True,
 }
 plt.rcParams.update(params)
 
@@ -70,6 +69,7 @@ def plot_sequence_content(
     ax.set_title(label=title, fontsize=7)
     ax.tick_params(labelsize=6, labelcolor="black", direction="out")
     ax.xaxis.set_ticks(range(0, read_composition.shape[0], 2))
+    ax.margins(x=0.025)
 
     ax.set_yticks(ax.get_yticks())
 
@@ -126,10 +126,23 @@ def plot_barcode_startend(s, e, bases, title, ax):
 
     ax.set_title(label=title, fontsize=7)
     ax.tick_params(labelsize=6, labelcolor="black", direction="out")
+
     ax.xaxis.set_ticks(range(0, len(bases), 2))
-    ax.set_xbound(lower=-1, upper=len(bases) + 1)
-    ax.set_ylim(bottom=0, top=1)
-    ax.set_yticks(ax.get_yticks().tolist())
+    ax.margins(x=0)
+    ax.set_xbound(lower=-1, upper=len(bases))
+
+    ax.set_yticks(ax.get_yticks())
+    limits_y = list(ax.get_ylim())
+    if limits_y[0] < 0:
+        limits_y[0] = 0
+    if limits_y[1] > 1:
+        limits_y[1] = 1
+    ax.set_ylim(limits_y[0], limits_y[1])
+
+    a = (limits_y[1] - limits_y[0]) * 0.025
+
+    ax.set_ybound(lower=limits_y[0] - a, upper=limits_y[1] + a)
+
     ax.set_yticklabels(labels=["{:,.1%}".format(i) for i in ax.get_yticks()])
 
     for i in ["top", "bottom", "left", "right"]:
