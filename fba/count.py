@@ -77,7 +77,9 @@ def generate_matrix(
     if umi_length:
         if len(header) == 6:
             if umi_pos_start:
-                logger.info(f"UMI starting position on read 1: {umi_pos_start}")
+                logger.info(
+                    f"UMI starting position on read 1: {umi_pos_start}"
+                )
             else:
                 logger.critical(
                     "Need to specify UMI starting position on read 1: "
@@ -129,7 +131,9 @@ def generate_matrix(
                     umi_pos_end = umi_pos_start + umi_length
                     if len(read_seq) >= umi_pos_end:
                         umi_seq = (
-                            read_seq[umi_pos_start:umi_pos_end].upper().encode()
+                            read_seq[umi_pos_start:umi_pos_end]
+                            .upper()
+                            .encode()
                         )
 
                         if (
@@ -144,7 +148,10 @@ def generate_matrix(
                             feature_barcode
                         ].append(umi_seq)
                 else:
-                    if feature_barcode not in matrix_featurecount[cell_barcode]:
+                    if (
+                        feature_barcode
+                        not in matrix_featurecount[cell_barcode]
+                    ):
                         matrix_featurecount[cell_barcode][
                             feature_barcode
                         ] = int()
@@ -171,7 +178,8 @@ def generate_matrix(
                 if umis:
                     matrix_featurecount[i][ii] = len(
                         clusterer(
-                            Counter(umis), threshold=umi_deduplication_threshold
+                            Counter(umis),
+                            threshold=umi_deduplication_threshold,
                         )
                     )
 
