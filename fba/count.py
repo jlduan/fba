@@ -1,12 +1,14 @@
 # count.py
 
+from collections import Counter, defaultdict
+
 import numpy as np
 import pandas as pd
 from umi_tools import UMIClusterer
 from umi_tools import __version__ as umi_tools_version
-from collections import defaultdict, Counter
-from fba.utils import open_by_suffix, get_logger
+
 from fba.levenshtein import rev_compl
+from fba.utils import get_logger, open_by_suffix
 
 logger = get_logger(logger_name=__name__)
 
@@ -20,19 +22,21 @@ def check_header(matching_file):
             header = next(f)
             headers.append(header)
 
-    headers = [i.strip().split('\t') for i in headers]
+    headers = [i.strip().split("\t") for i in headers]
     if len(set([len(i) for i in headers])) != 1:
-        raise ValueError('The header is not consistent.')
+        raise ValueError("The header is not consistent.")
     else:
         return headers[0]
 
 
-def generate_matrix(matching_file,
-                    umi_pos_start=16,
-                    umi_length=12,
-                    umi_deduplication_method='directional',
-                    umi_deduplication_threshold=1,
-                    barcode_reverse_complement=False):
+def generate_matrix(
+    matching_file,
+    umi_pos_start=16,
+    umi_length=12,
+    umi_deduplication_method="directional",
+    umi_deduplication_threshold=1,
+    barcode_reverse_complement=False,
+):
     """Generates a matrix based on matching results.
 
     Parameters
@@ -61,9 +65,9 @@ def generate_matrix(matching_file,
     DataFrame
         A pandas DataFrame of feature count. The columns are cells and
         the rows are features.
-    """ # noqa
+    """  # noqa
 
-    logger.info(f'UMI-tools version: {umi_tools_version}')
+    logger.info(f"UMI-tools version: {umi_tools_version}")
 
     matrix_featurecount = defaultdict(dict)
     line_count = int()
@@ -73,79 +77,91 @@ def generate_matrix(matching_file,
     if umi_length:
         if len(header) == 6:
             if umi_pos_start:
-                logger.info(
-                    f'UMI starting position on read 1: {umi_pos_start}')
+                logger.info(f"UMI starting position on read 1: {umi_pos_start}")
             else:
                 logger.critical(
-                    'Need to specify UMI starting position on read 1: '
-                    '\"-us/--umi_start\"')
-                raise ValueError('Need to specify UMI starting position')
+                    "Need to specify UMI starting position on read 1: "
+                    '"-us/--umi_start"'
+                )
+                raise ValueError("Need to specify UMI starting position")
         else:
-            logger.info('UMI start position on read 1 auto-detected, '
-                        'overriding \"-us/--umi_start\"')
+            logger.info(
+                "UMI start position on read 1 auto-detected, "
+                'overriding "-us/--umi_start"'
+            )
 
-        logger.info(f'UMI length: {umi_length}')
+        logger.info(f"UMI length: {umi_length}")
 
-        logger.info('UMI-tools deduplication threshold: '
-                    f'{umi_deduplication_threshold}')
-        logger.info('UMI-tools deduplication method: '
-                    f'{umi_deduplication_method}')
+        logger.info(
+            "UMI-tools deduplication threshold: "
+            f"{umi_deduplication_threshold}"
+        )
+        logger.info(
+            "UMI-tools deduplication method: " f"{umi_deduplication_method}"
+        )
 
     else:
-        logger.info('UMI length set to 0, ignoring UMI information. '
-                    'Skipping arguments: \"-us/--umi_start\".')
+        logger.info(
+            "UMI length set to 0, ignoring UMI information. "
+            'Skipping arguments: "-us/--umi_start".'
+        )
 
-    logger.info('Header: {}'.format(' '.join(header)))
+    logger.info("Header: {}".format(" ".join(header)))
 
     for j in matching_file:
         with open_by_suffix(file_name=j) as f:
             header = next(f)
 
             for line in f:
-                i = line.rstrip().split('\t')
+                i = line.rstrip().split("\t")
                 line_count += 1
 
                 read_seq = i[0]
                 cell_barcode = i[1]
 
-                if len(header.split('\t')) == 6:
+                if len(header.split("\t")) == 6:
                     feature_barcode = i[4]
                 else:
                     feature_barcode = i[5]
-                    umi_pos_start = [int(ii) for ii in i[2].split(':')][1]
+                    umi_pos_start = [int(ii) for ii in i[2].split(":")][1]
 
                 if umi_length:
                     umi_pos_end = umi_pos_start + umi_length
                     if len(read_seq) >= umi_pos_end:
-                        umi_seq = read_seq[umi_pos_start:umi_pos_end].upper(
-                        ).encode()
+                        umi_seq = (
+                            read_seq[umi_pos_start:umi_pos_end].upper().encode()
+                        )
 
-                        if feature_barcode not in matrix_featurecount[
-                                cell_barcode]:
+                        if (
+                            feature_barcode
+                            not in matrix_featurecount[cell_barcode]
+                        ):
                             matrix_featurecount[cell_barcode][
-                                feature_barcode] = list()
+                                feature_barcode
+                            ] = list()
 
                         matrix_featurecount[cell_barcode][
-                            feature_barcode].append(umi_seq)
+                            feature_barcode
+                        ].append(umi_seq)
                 else:
-                    if feature_barcode not in matrix_featurecount[
-                            cell_barcode]:
+                    if feature_barcode not in matrix_featurecount[cell_barcode]:
                         matrix_featurecount[cell_barcode][
-                            feature_barcode] = int()
+                            feature_barcode
+                        ] = int()
                     matrix_featurecount[cell_barcode][feature_barcode] += 1
 
-    logger.info(f'Number of read pairs processed: {line_count:,}')
+    logger.info(f"Number of read pairs processed: {line_count:,}")
 
     cell_barcodes = sorted(matrix_featurecount.keys())
     feature_barcodes = sorted(
-        set([ii for i in matrix_featurecount
-             for ii in matrix_featurecount[i]]))
+        set([ii for i in matrix_featurecount for ii in matrix_featurecount[i]])
+    )
 
-    logger.info(f'Number of cell barcodes detected: {len(cell_barcodes):,}')
-    logger.info(f'Number of features detected: {len(feature_barcodes):,}')
+    logger.info(f"Number of cell barcodes detected: {len(cell_barcodes):,}")
+    logger.info(f"Number of features detected: {len(feature_barcodes):,}")
 
     if umi_length:
-        logger.info('UMI deduplicating ...')
+        logger.info("UMI deduplicating ...")
 
         clusterer = UMIClusterer(cluster_method=umi_deduplication_method)
         for i in matrix_featurecount:
@@ -154,11 +170,13 @@ def generate_matrix(matching_file,
                 umis = matrix_featurecount[i].setdefault(ii, 0)
                 if umis:
                     matrix_featurecount[i][ii] = len(
-                        clusterer(Counter(umis),
-                                  threshold=umi_deduplication_threshold))
+                        clusterer(
+                            Counter(umis), threshold=umi_deduplication_threshold
+                        )
+                    )
 
     else:
-        logger.info('Counting ...')
+        logger.info("Counting ...")
 
         for i in matrix_featurecount:
             for ii in feature_barcodes:
@@ -170,8 +188,9 @@ def generate_matrix(matching_file,
         i: [matrix_featurecount[i][ii] for ii in feature_barcodes]
         for i in cell_barcodes
     }
-    matrix_featurecount = pd.DataFrame.from_dict(matrix_featurecount,
-                                                 orient='columns')
+    matrix_featurecount = pd.DataFrame.from_dict(
+        matrix_featurecount, orient="columns"
+    )
     matrix_featurecount.index = feature_barcodes
 
     if barcode_reverse_complement:
@@ -180,18 +199,23 @@ def generate_matrix(matching_file,
         ]
 
     if umi_length:
-        logger.info('Total UMIs after deduplication: '
-                    f'{matrix_featurecount.values.sum():,}')
-        logger.info('Median number of UMIs per cell: '
-                    f'{np.median(matrix_featurecount.sum(axis=0)):,}')
+        logger.info(
+            "Total UMIs after deduplication: "
+            f"{matrix_featurecount.values.sum():,}"
+        )
+        logger.info(
+            "Median number of UMIs per cell: "
+            f"{np.median(matrix_featurecount.sum(axis=0)):,}"
+        )
     else:
-        logger.info('Total reads: '
-                    f'{matrix_featurecount.values.sum():,}')
-        logger.info('Median number of reads per cell: '
-                    f'{np.median(matrix_featurecount.sum(axis=0)):,}')
+        logger.info("Total reads: " f"{matrix_featurecount.values.sum():,}")
+        logger.info(
+            "Median number of reads per cell: "
+            f"{np.median(matrix_featurecount.sum(axis=0)):,}"
+        )
 
     return matrix_featurecount
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass

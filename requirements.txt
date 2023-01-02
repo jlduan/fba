@@ -1,4 +1,4 @@
-dnaio
+dnaio>=0.10.0
 hdbscan
 matplotlib>=3.3
 numpy

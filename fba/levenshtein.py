@@ -1,10 +1,12 @@
 # levenshtein.py
 
 import sys
-import dnaio
 from itertools import combinations
+
+import dnaio
 from polyleven import levenshtein
-from fba.utils import open_by_suffix, get_logger
+
+from fba.utils import get_logger, open_by_suffix
 
 logger = get_logger(logger_name=__name__)
 
@@ -26,12 +28,12 @@ def indexkeys(word, max_dist):
         variants = combinations(word, wordlen - dist)
 
         for variant in variants:
-            res.add(''.join(variant))
+            res.add("".join(variant))
 
     return res
 
 
-def bytes2set(b, delimiter=b'\x00', encoding='utf-8'):
+def bytes2set(b, delimiter=b"\x00", encoding="utf-8"):
     """Deserialize bytes into a set of unicode strings.
     >>> int2byte(b'a\x00b\x00c')
     {u'a', u'b', u'c'}
@@ -45,7 +47,7 @@ def bytes2set(b, delimiter=b'\x00', encoding='utf-8'):
     return set(bword.decode(encoding) for bword in list_)
 
 
-def set2bytes(s, delimiter=b'\x00', encoding='utf-8'):
+def set2bytes(s, delimiter=b"\x00", encoding="utf-8"):
     """Serialize a set of unicode strings into bytes.
     >>> set2byte({u'a', u'b', u'c')
     b'a\x00b\x00c'
@@ -74,7 +76,7 @@ def create_index(barcodes, num_mismatches=1):
     dict
         A dictionary of keys to a list of barcodes. Keys are variants of
         original barcodes.
-   """
+    """
 
     d = dict()
     for bc in barcodes:
@@ -165,10 +167,14 @@ def select_query(x, read_seq, read_qual):
                 return x[i][0], i
             else:
                 s = [
-                    sum([
-                        ord(read_qual[idx]) - 33
-                        for idx, val in enumerate(read_seq) if ii[idx] != val
-                    ]) for ii in x[i]
+                    sum(
+                        [
+                            ord(read_qual[idx]) - 33
+                            for idx, val in enumerate(read_seq)
+                            if ii[idx] != val
+                        ]
+                    )
+                    for ii in x[i]
                 ]
 
                 s = [idx for idx, val in enumerate(s) if val == min(s)][0]
@@ -203,7 +209,7 @@ def format_one_query(q, read_seq, read_coords, barcode_dict=None):
     """
 
     x, y = read_coords
-    read_seq = (read_seq[:x].lower() + read_seq[x:y] + read_seq[y:].lower())
+    read_seq = read_seq[:x].lower() + read_seq[x:y] + read_seq[y:].lower()
 
     if barcode_dict:
         barcode = barcode_dict[q[0]]
@@ -226,20 +232,22 @@ def rev_compl(dna_string):
         Reverse-complement DNA sequence.
     """
 
-    base_dict = {'A': 'T', 'C': 'G', 'G': 'C', 'T': 'A', 'N': 'N'}
-    return ''.join(base_dict[n] for n in reversed(dna_string))
+    base_dict = {"A": "T", "C": "G", "G": "C", "T": "A", "N": "N"}
+    return "".join(base_dict[n] for n in reversed(dna_string))
 
 
-def match_barcodes_paired_fastss(read_seqs,
-                                 cb_index,
-                                 fb_index,
-                                 feature_barcodes,
-                                 read1_coords,
-                                 read2_coords,
-                                 cb_num_mismatches=1,
-                                 fb_num_mismatches=1,
-                                 cb_num_n_threshold=3,
-                                 fb_num_n_threshold=3):
+def match_barcodes_paired_fastss(
+    read_seqs,
+    cb_index,
+    fb_index,
+    feature_barcodes,
+    read1_coords,
+    read2_coords,
+    cb_num_mismatches=1,
+    fb_num_mismatches=1,
+    cb_num_n_threshold=3,
+    fb_num_n_threshold=3,
+):
     """Searches one read pair for known cell and feature barcodes.
 
     Parameters
@@ -275,86 +283,105 @@ def match_barcodes_paired_fastss(read_seqs,
 
     read1_seq, read1_qual, read2_seq, read2_qual = read_seqs
 
-    if read1_seq.count('N') <= cb_num_n_threshold:
+    if read1_seq.count("N") <= cb_num_n_threshold:
         x1, y1 = read1_coords
 
-        cb_queries = query_index(read1_seq[x1:y1],
-                                 barcode_index=cb_index,
-                                 num_mismatches=cb_num_mismatches)
+        cb_queries = query_index(
+            read1_seq[x1:y1],
+            barcode_index=cb_index,
+            num_mismatches=cb_num_mismatches,
+        )
 
-        cb_matched = select_query(cb_queries, read1_seq[x1:y1],
-                                  read1_qual[x1:y1])
+        cb_matched = select_query(
+            cb_queries, read1_seq[x1:y1], read1_qual[x1:y1]
+        )
 
-        if cb_matched and read2_seq.count('N') <= fb_num_n_threshold:
+        if cb_matched and read2_seq.count("N") <= fb_num_n_threshold:
             x2, y2 = read2_coords
 
-            fb_queries = query_index(read2_seq[x2:y2],
-                                     barcode_index=fb_index,
-                                     num_mismatches=fb_num_mismatches)
+            fb_queries = query_index(
+                read2_seq[x2:y2],
+                barcode_index=fb_index,
+                num_mismatches=fb_num_mismatches,
+            )
 
-            fb_matched = select_query(fb_queries, read2_seq[x2:y2],
-                                      read2_qual[x2:y2])
+            fb_matched = select_query(
+                fb_queries, read2_seq[x2:y2], read2_qual[x2:y2]
+            )
             if fb_matched:
-                out = format_one_query(cb_matched, read1_seq, read1_coords) \
-                    + format_one_query(fb_matched, read2_seq,
-                                       read2_coords, feature_barcodes)
+                out = format_one_query(
+                    cb_matched, read1_seq, read1_coords
+                ) + format_one_query(
+                    fb_matched, read2_seq, read2_coords, feature_barcodes
+                )
 
                 return out
 
 
-def extract_feature_barcoding_fastss(read1_file,
-                                     read2_file,
-                                     cb_file,
-                                     fb_file,
-                                     read1_coords,
-                                     read2_coords,
-                                     cb_num_mismatches,
-                                     fb_num_mismatches,
-                                     cb_num_n_threshold=3,
-                                     fb_num_n_threshold=3,
-                                     cb_reverse_complement=False):
+def extract_feature_barcoding_fastss(
+    read1_file,
+    read2_file,
+    cb_file,
+    fb_file,
+    read1_coords,
+    read2_coords,
+    cb_num_mismatches,
+    fb_num_mismatches,
+    cb_num_n_threshold=3,
+    fb_num_n_threshold=3,
+    cb_reverse_complement=False,
+):
     """Extracts feature barcodes."""
 
     with open_by_suffix(file_name=cb_file) as f:
-        cell_barcodes = [i.split('-')[0].rstrip() for i in f]
+        cell_barcodes = [i.split("-")[0].rstrip() for i in f]
 
     if cb_reverse_complement:
         cell_barcodes = [rev_compl(i) for i in cell_barcodes]
 
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split('\t')[-1]: i.rstrip().replace('\t', '_')
-            for i in f
+            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_") for i in f
         }
 
-    logger.info(f'Number of reference cell barcodes: {len(cell_barcodes):,}')
+    logger.info(f"Number of reference cell barcodes: {len(cell_barcodes):,}")
     logger.info(
-        f'Number of reference feature barcodes: {len(feature_barcodes):,}')
-
-    logger.info('Read 1 coordinates to search: [' +
-                ', '.join([str(i) for i in read1_coords]) + ')')
-    logger.info('Read 2 coordinates to search: [' +
-                ', '.join([str(i) for i in read2_coords]) + ')')
+        f"Number of reference feature barcodes: {len(feature_barcodes):,}"
+    )
 
     logger.info(
-        f'Cell barcode maximum number of mismatches: {cb_num_mismatches}')
+        "Read 1 coordinates to search: ["
+        + ", ".join([str(i) for i in read1_coords])
+        + ")"
+    )
     logger.info(
-        f'Feature barcode maximum number of mismatches: {fb_num_mismatches}')
-    logger.info(f'Read 1 maximum number of N allowed: {cb_num_n_threshold}')
-    logger.info(f'Read 2 maximum number of N allowed: {fb_num_n_threshold}')
+        "Read 2 coordinates to search: ["
+        + ", ".join([str(i) for i in read2_coords])
+        + ")"
+    )
 
-    cb_index = create_index(barcodes=cell_barcodes,
-                            num_mismatches=cb_num_mismatches)
+    logger.info(
+        f"Cell barcode maximum number of mismatches: {cb_num_mismatches}"
+    )
+    logger.info(
+        f"Feature barcode maximum number of mismatches: {fb_num_mismatches}"
+    )
+    logger.info(f"Read 1 maximum number of N allowed: {cb_num_n_threshold}")
+    logger.info(f"Read 2 maximum number of N allowed: {fb_num_n_threshold}")
 
-    fb_index = create_index(barcodes=feature_barcodes.keys(),
-                            num_mismatches=fb_num_mismatches)
+    cb_index = create_index(
+        barcodes=cell_barcodes, num_mismatches=cb_num_mismatches
+    )
 
-    logger.info('Matching ...')
+    fb_index = create_index(
+        barcodes=feature_barcodes.keys(), num_mismatches=fb_num_mismatches
+    )
 
-    with dnaio.open(file1=read1_file,
-                    file2=read2_file,
-                    fileformat='fastq',
-                    mode='r') as f:
+    logger.info("Matching ...")
+
+    with dnaio.open(
+        file1=read1_file, file2=read2_file, fileformat="fastq", mode="r"
+    ) as f:
 
         read_counter = [int(), int()]
         for rec in f:
@@ -362,11 +389,15 @@ def extract_feature_barcoding_fastss(read1_file,
 
             read_counter[1] += 1
             if read_counter[1] % 10_000_000 == 0:
-                logger.info(f'Read pairs processed: {read_counter[1]:,}')
+                logger.info(f"Read pairs processed: {read_counter[1]:,}")
 
             out = match_barcodes_paired_fastss(
-                read_seqs=(read1.sequence, read1.qualities, read2.sequence,
-                           read2.qualities),
+                read_seqs=(
+                    read1.sequence,
+                    read1.qualities,
+                    read2.sequence,
+                    read2.qualities,
+                ),
                 cb_index=cb_index,
                 fb_index=fb_index,
                 feature_barcodes=feature_barcodes,
@@ -375,14 +406,15 @@ def extract_feature_barcoding_fastss(read1_file,
                 cb_num_mismatches=cb_num_mismatches,
                 fb_num_mismatches=fb_num_mismatches,
                 cb_num_n_threshold=cb_num_n_threshold,
-                fb_num_n_threshold=fb_num_n_threshold)
+                fb_num_n_threshold=fb_num_n_threshold,
+            )
             if out:
                 read_counter[0] += 1
-                yield '\t'.join(out)
+                yield "\t".join(out)
 
-    logger.info(f'Number of read pairs processed: {read_counter[1]:,}')
-    logger.info(f'Number of read pairs w/ valid barcodes: {read_counter[0]:,}')
+    logger.info(f"Number of read pairs processed: {read_counter[1]:,}")
+    logger.info(f"Number of read pairs w/ valid barcodes: {read_counter[0]:,}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     pass
