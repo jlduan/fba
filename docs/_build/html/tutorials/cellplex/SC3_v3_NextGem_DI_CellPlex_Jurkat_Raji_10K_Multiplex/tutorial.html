@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed">
+          <section id="k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed">
 <span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-jurkat-raji-10k-multiplex"></span><h1>10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed<a class="headerlink" href="#k-1-1-mixture-of-raji-and-jurkat-cells-multiplexed" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: 10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed, 2
 CMOs</p>
@@ -287,7 +289,7 @@ CMOs</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
@@ -350,8 +352,8 @@ transcriptomic UMIs captured per barcode).</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <p>Sample the first 100,000 (default, set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality
 control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. Use
@@ -418,8 +420,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
 <p>The lengths of cell and feature barcodes (CMOs) are all identical (16
 and 15, respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the
@@ -504,8 +506,8 @@ have the correct structure.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>Only fragments with valid (passed the criteria) cell and feature
 barcodes are included. UMI deduplication is powered by UMI-tools
@@ -552,8 +554,8 @@ matrix.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
 <p>Inspect feature count matrix.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -583,7 +585,7 @@ matrix.</p>
 </div>
 <p><code class="docutils literal notranslate"><span class="pre">CMO301_ATGAGGAATTCCTGC</span></code> and <code class="docutils literal notranslate"><span class="pre">CMO302_CATGCCAATAGAGCG</span></code> have the most
 abundant UMIs. They are the CMOs acutally used in this experiment.</p>
-<div class="section" id="gaussian-mixture-model">
+<section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>Cells are classified based on the feature count matrix (CMO abundance).
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method
@@ -669,10 +671,10 @@ cell, as called by FBA.</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="p">[</span><span class="mi">1505</span><span class="p">,</span> <span class="mi">1781</span><span class="p">]</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="knee-point">
+</section>
+<section id="knee-point">
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this heading">#</a></h3>
-<div class="section" id="method-1">
+<section id="method-1">
 <h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this heading">#</a></h4>
 <p>Cells are demultiplexed based on the abundance of features (CMOs).
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which
@@ -735,8 +737,8 @@ and negative cells.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="method-2">
+</section>
+<section id="method-2">
 <h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading">#</a></h4>
 <p>Cells are demultiplexed based on the abundance of features (CMOs).
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
@@ -799,10 +801,10 @@ cell, as called by FBA.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
         </article>
       </div>

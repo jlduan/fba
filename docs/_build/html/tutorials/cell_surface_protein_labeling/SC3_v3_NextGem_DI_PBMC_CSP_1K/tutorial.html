@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/SC3_v3_NextGem_DI_PBMC_CSP_1K/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="k-human-pbmcs-stained-with-a-panel-of-totalseq-b-antibodies">
+          <section id="k-human-pbmcs-stained-with-a-panel-of-totalseq-b-antibodies">
 <span id="tutorial-cell-surface-protein-labeling-sc3-v3-nextgem-di-pbmc-csp-1k"></span><h1>1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies<a class="headerlink" href="#k-human-pbmcs-stained-with-a-panel-of-totalseq-b-antibodies" title="Permalink to this heading">#</a></h1>
 <p>Dataset: 1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies,
 Dual Indexed</p>
@@ -287,7 +289,7 @@ Dual Indexed</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/SC3_v3_NextGem_DI_PBMC_CSP_1K/SC3_v3_NextGem_DI_PBMC_CSP_1K_fastqs.tar
@@ -367,8 +369,8 @@ this single cell RNA-Seq library.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
 for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
@@ -434,8 +436,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
 <p>The lengths of cell and feature barcodes are all identical (16 and 15,
 respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of
@@ -495,8 +497,8 @@ and feature barcodes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>Only fragments with valid (passed the criteria) cell and feature
 barcodes are included. UMI deduplication is powered by UMI-tools
@@ -542,8 +544,8 @@ feature barcodes are unique fragments. 41.7% (3,214,503 out of
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>

@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/multi-seq/PRJNA531855/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices">
+          <section id="k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices">
 <span id="tutorial-multi-seq-prjna531855"></span><h1>15k HEK293 and 40k HMECs Multiplexed by Lipid- and Cholesterol-tagged Indices<a class="headerlink" href="#k-hek293-and-40k-hmecs-multiplexed-by-lipid-and-cholesterol-tagged-indices" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: MULTI-seq: sample multiplexing for single-cell RNA
 sequencing using lipid-tagged indices</p>
@@ -291,7 +293,7 @@ using lipid-tagged indices</a>. <em>Nat. Methods</em> <strong>16</strong>,
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download pre-processed feature count matrix files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE129578">Gene Expression
 Omnibus</a>.</p>
@@ -312,10 +314,10 @@ Omnibus</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="k-human-embryonic-kidney-293-cells-hek293">
+</section>
+<section id="k-human-embryonic-kidney-293-cells-hek293">
 <h2>15k human embryonic kidney 293 cells (HEK293)<a class="headerlink" href="#k-human-embryonic-kidney-293-cells-hek293" title="Permalink to this heading">#</a></h2>
-<div class="section" id="pre-processing">
+<section id="pre-processing">
 <h3>Pre-processing<a class="headerlink" href="#pre-processing" title="Permalink to this heading">#</a></h3>
 <p>Inspect feature count matrix.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head POC_MULTI_matrix.csv
@@ -377,8 +379,8 @@ Omnibus</a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h3>
 <p>Cells are demultiplexed based on the abundance of features.
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
@@ -436,11 +438,11 @@ and negative cells.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-<div class="section" id="k-primary-human-mammary-epithelial-cells-hmecs">
+</section>
+</section>
+<section id="k-primary-human-mammary-epithelial-cells-hmecs">
 <h2>40k primary human mammary epithelial cells (HMECs)<a class="headerlink" href="#k-primary-human-mammary-epithelial-cells-hmecs" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Pre-processing<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Inspect feature count matrix.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head HMEC_orig_MULTI_matrix.csv
@@ -495,8 +497,8 @@ and negative cells.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>Demultiplexing<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Cells are demultiplexed based on the abundance of features.
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
@@ -572,9 +574,9 @@ and negative cells.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_surface_protein_labeling/PRJNA658075/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="asap-seq-multiplexed-crispr-perturbations-in-primary-t-cells">
+          <section id="asap-seq-multiplexed-crispr-perturbations-in-primary-t-cells">
 <span id="tutorial-cell-surface-protein-labeling-prjna658075"></span><h1>ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells<a class="headerlink" href="#asap-seq-multiplexed-crispr-perturbations-in-primary-t-cells" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: ASAP-seq: Multiplexed CRISPR Perturbations in Primary T
 Cells</p>
@@ -291,7 +293,7 @@ gene expression and protein levels in single cells</a>. <em>Nat. Biotechnol.</em
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE156478">Gene Expression Omnibus</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>ls -l
@@ -426,10 +428,10 @@ by 10x Genomics’ <a class="reference external" href="https://support.10xgenomi
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="cell-hashing">
+</section>
+<section id="cell-hashing">
 <h2>Cell hashing<a class="headerlink" href="#cell-hashing" title="Permalink to this heading">#</a></h2>
-<div class="section" id="qc">
+<section id="qc">
 <h3>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h3>
 <p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control.
 Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and
@@ -490,8 +492,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h3>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h3>
 <p>The lengths of cell and feature barcodes are all identical (16 and 15,
 respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of
@@ -558,8 +560,8 @@ and feature barcodes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h3>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h3>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default
@@ -633,10 +635,10 @@ well-established single cell analysis packages: <a class="reference external" hr
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h3>
-<div class="section" id="gaussian-mixture-model">
+<section id="gaussian-mixture-model">
 <h4>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h4>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
@@ -771,12 +773,12 @@ the hashtag status for each cell, as called by FBA.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="cite-seq">
+</section>
+</section>
+</section>
+<section id="cite-seq">
 <h2>CITE-seq<a class="headerlink" href="#cite-seq" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id1">
+<section id="id1">
 <h3>QC<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Same as the HTO library, sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read
 pairs for quality control.</p>
@@ -821,8 +823,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>Barcode extraction<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>The lengths of cell and feature barcodes are all identical (16 and 15,
 respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of
@@ -891,8 +893,8 @@ and feature barcodes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h3>Matrix generation<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default
@@ -981,9 +983,9 @@ the output matrix if needed.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

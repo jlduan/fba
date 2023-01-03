@@ -74,6 +74,7 @@ barcoding assays.
    :hidden:
 
    changelog
+   acknowledgements
    GitHub Repository <https://github.com/jlduan/fba>
 
 ..

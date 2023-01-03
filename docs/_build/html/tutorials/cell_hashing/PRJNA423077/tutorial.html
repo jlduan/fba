@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="Peripheral Blood Mononuclear Cells with 8 Antibodies" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Peripheral Blood Mononuclear Cells with 8 Antibodies" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cell_hashing/PRJNA423077/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="peripheral-blood-mononuclear-cells-with-8-antibodies">
+          <section id="peripheral-blood-mononuclear-cells-with-8-antibodies">
 <span id="tutorial-cell-hashing-prjna423077"></span><h1>Peripheral Blood Mononuclear Cells with 8 Antibodies<a class="headerlink" href="#peripheral-blood-mononuclear-cells-with-8-antibodies" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: Cell hashing</p>
 <p>Stoeckius, M., Zheng, S., Houck-Loomis, B., Hao, S., Yeung, B.Z., Mauck,
@@ -289,7 +291,7 @@ single cell genomics</a>. <em>Genome Biol.</em> <strong>19</strong>, 224.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA423077">European Nucleotide Archive</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
@@ -341,8 +343,8 @@ barcode).</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <p>Sample the first 20,000 read pairs for quality control (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>,
 default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The
@@ -403,8 +405,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
 <p>The lengths of cell and feature barcodes (hashtags) are all identical
 (16 and 12, respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the
@@ -475,8 +477,8 @@ correct structure.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>Only fragments with valid (passed the criteria) cell and feature
 barcodes are included. UMI deduplication is powered by UMI-tools
@@ -523,10 +525,10 @@ matrix.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
-<div class="section" id="negative-binomial-distribution">
+<section id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this heading">#</a></h3>
 <p>Cells are classified based on the abundance of features (HTOs, no
 transcriptome information used). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by
@@ -590,8 +592,8 @@ in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="gaussian-mixture-model">
+</section>
+<section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>Alternatively, cells can be demultiplexed using gaussian mixture model.
 The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
@@ -654,9 +656,9 @@ cell, as called by FBA.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

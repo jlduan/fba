@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/eccite-seq/PRJNA521522/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="k-single-cell-multimodal-readout-of-nih-3t3-myla-sez4-and-pbmcs">
+          <section id="k-single-cell-multimodal-readout-of-nih-3t3-myla-sez4-and-pbmcs">
 <span id="tutorial-eccite-seq-prjna521522"></span><h1>6k Single-cell Multimodal Readout of NIH-3T3, MyLa, Sez4 and PBMCs<a class="headerlink" href="#k-single-cell-multimodal-readout-of-nih-3t3-myla-sez4-and-pbmcs" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: ECCITE-seq</p>
 <p>Mimitou, E.P., Cheng, A., Montalbano, A., Hao, S., Stoeckius, M., Legut,
@@ -290,7 +292,7 @@ CRISPR perturbations in single cells</a>. <em>Nat. Methods</em> <strong>16</stro
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA521522?show=reads">European Nucleotide Archive</a>.</p>
 <p>Hashtag (Cell hashing):</p>
@@ -353,10 +355,10 @@ determined by the transcriptomes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="hashtag">
+</section>
+<section id="hashtag">
 <h2>Hashtag<a class="headerlink" href="#hashtag" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Preparation<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Prepare feature barcodes (hashtag-oligo sequences, from <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary
 Table 4 and 5</a>, legend of
@@ -381,8 +383,8 @@ and Hashtag_3 respectively.</p>
 <span class="go">Hashtag_G       TAACGACGTGGT</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h3>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h3>
 <p>Sample the first 100,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality control.
 Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. The diagnostic results and
@@ -460,8 +462,8 @@ format.</p>
 <span class="go">NAATGAACATGCGCACACGATAGTTT      no_match        NA      NA      TATCACATCGGTCCCATATAAGAAAAAACTATCGTGTGC NA      NA      NA</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h3>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h3>
 <p>The lengths of cell and feature barcodes are all identical (16 and 12,
 respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the distributions of
@@ -520,8 +522,8 @@ and feature barcodes.</p>
 <span class="go">2022-01-08 16:38:39,582 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h3>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h3>
 <p>Only fragments with valid (passed the criteria) cell and feature
 barcodes are included. UMI deduplication is powered by UMI-tools
@@ -570,8 +572,8 @@ with an average of 55 UMIs per cell.</p>
 <span class="go">2022-01-08 16:44:28,444 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h3>
 <p>Cells are classified based on the abundance of features (hashtags, no
 transcriptome information used). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by
@@ -650,11 +652,11 @@ NIH-3T3 cells demultiplexed are 324, 283, 914 and 4,518 respectively.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-<div class="section" id="protein-tag">
+</section>
+</section>
+<section id="protein-tag">
 <h2>Protein-tag<a class="headerlink" href="#protein-tag" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id2">
+<section id="id2">
 <h3>Preparation<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Prepare feature barcodes (protein-tag sequences, from <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary
 Table 3</a>, legend of <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary Figure 1</a>):</p>
@@ -668,8 +670,8 @@ CD29 antibodies.</p>
 <span class="go">mCD29   CGAAGACCAAGA</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id3">
+</section>
+<section id="id3">
 <h3>QC<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR8550946_1.fastq.gz <span class="se">\</span>
@@ -742,8 +744,8 @@ format.</p>
 <span class="go">CGGGTCAAGACACTAAAAAACCTGCT      ACACTGACAAACTGCT        9:26    2:1:0   AATTCCGTCAGATGACCCATATAAGAAAAGCAGGTTTTT no_match        NA      NA</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id4">
+</section>
+<section id="id4">
 <h3>Barcode extraction<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR8550946_1.fastq.gz <span class="se">\</span>
@@ -792,8 +794,8 @@ feature barcodes.</p>
 <span class="go">2022-01-08 12:37:37,985 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id5">
+</section>
+<section id="id5">
 <h3>Matrix generation<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
@@ -836,11 +838,11 @@ embedding is based on hashtags, not the transcriptomes).</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-<div class="section" id="guide-tag">
+</section>
+</section>
+<section id="guide-tag">
 <h2>Guide-tag<a class="headerlink" href="#guide-tag" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id6">
+<section id="id6">
 <h3>Preparation<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>Prepare feature barcodes (guide-tag sequences, from <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary Table
 2</a>, <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary Figure 1</a>c).</p>
@@ -858,8 +860,8 @@ embedding is based on hashtags, not the transcriptomes).</p>
 <span class="go">mNT10   AATACGTTGCGAGTAGAAG</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id7">
+</section>
+<section id="id7">
 <h3>QC<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR8550948_1.fastq.gz <span class="se">\</span>
@@ -922,8 +924,8 @@ format.</p>
 <span class="go">AGGGTGAAGCGCTTATTAATCGAAGG      AGGGTGAAGCGATGAC        0:16    3:0:0   AATTCCGTCAGATGACCCATATAAGAAACCTTCGATTAA no_match        NA      NA</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id8">
+</section>
+<section id="id8">
 <h3>Barcode extraction<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 SRR8550948_1.fastq.gz <span class="se">\</span>
@@ -960,8 +962,8 @@ and feature barcodes.</p>
 <span class="go">2022-01-08 15:30:09,188 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h3>Matrix generation<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
@@ -1004,9 +1006,9 @@ based on hashtags, not the transcriptomes).</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

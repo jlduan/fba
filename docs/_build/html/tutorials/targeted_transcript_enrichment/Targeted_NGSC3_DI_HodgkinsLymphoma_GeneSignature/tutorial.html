@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/targeted_transcript_enrichment/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel">
+          <section id="hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel">
 <span id="tutorial-targeted-transcript-enrichment-targeted-ngsc3-di-hodgkinslymphoma-genesignature"></span><h1>Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene Signature Panel<a class="headerlink" href="#hodgkins-lymphoma-dissociated-tumor-targeted-gene-signature-panel" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: Hodgkin’s Lymphoma, Dissociated Tumor: Targeted, Gene
 Signature Panel</p>
@@ -287,7 +289,7 @@ Signature Panel</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
@@ -375,8 +377,8 @@ transcribed parts (non-overlapping and no introns for endogenous genes).</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>First, all read 1 are searched against reference cell-associated
 barcodes. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> to set the search range (default <code class="docutils literal notranslate"><span class="pre">0,16</span></code>),
@@ -463,8 +465,8 @@ final expression matrix after UMI deduplication. Sequenced quite deep.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
         </article>
       </div>

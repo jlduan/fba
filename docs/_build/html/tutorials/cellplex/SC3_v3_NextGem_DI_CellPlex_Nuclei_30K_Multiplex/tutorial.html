@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/cellplex/SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="k-mouse-e18-combined-cortex-hippocampus-and-subventricular-zone-nuclei-multiplexed">
+          <section id="k-mouse-e18-combined-cortex-hippocampus-and-subventricular-zone-nuclei-multiplexed">
 <span id="tutorial-cellplex-sc3-v3-nextgem-di-cellplex-nuclei-30k-multiplex"></span><h1>30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed<a class="headerlink" href="#k-mouse-e18-combined-cortex-hippocampus-and-subventricular-zone-nuclei-multiplexed" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: 30k Mouse E18 Combined Cortex, Hippocampus and
 Subventricular Zone Nuclei Multiplexed, 12 CMOs</p>
@@ -293,7 +295,7 @@ Multiplexed, 2 CMOs</span></a>.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="demultiplexing">
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
 <p>In summary, 799,808,703 of total 1,238,424,843 read pairs have the valid
 structure (<code class="docutils literal notranslate"><span class="pre">-cb_m</span> <span class="pre">2</span></code>, <code class="docutils literal notranslate"><span class="pre">-fb_m</span> <span class="pre">1</span></code>). The average UMIs per cell is
@@ -339,7 +341,7 @@ structure (<code class="docutils literal notranslate"><span class="pre">-cb_m</s
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
 </div>
-<div class="section" id="gaussian-mixture-model">
+<section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>Cells are demultiplexed based on the feature count matrix (CMO
 abundance). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by
@@ -419,8 +421,8 @@ multiplet clusters are clearly present.</p>
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="kernel-density-estimation">
+</section>
+<section id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h3>
 <p>Cells are demultiplexed based on the abundance of features.
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
@@ -489,9 +491,9 @@ each cell, as called by FBA.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

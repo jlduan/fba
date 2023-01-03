@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/phage-atac/PRJNA661457/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors">
+          <section id="phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors">
 <span id="tutorial-phage-atac-prjna661457"></span><h1>PHAGE-ATAC; Anti-CD8 Phage Hashing Single-cell ATAC-seq Using CD8 T Cells from Four Human Donors<a class="headerlink" href="#phage-atac-anti-cd8-phage-hashing-single-cell-atac-seq-using-cd8-t-cells-from-four-human-donors" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: PHAGE-ATAC: four anti-CD8 phage hashtags and a subsequent
 hashing experiment using CD8 T cells from four human donors</p>
@@ -290,7 +292,7 @@ Biotechnol.</em> <strong>40</strong>, 374–381.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4766851">Gene Expression Omnibus</a>.</p>
 <p>Inspect fastq files (This is a phage-derived tag library built on top of
@@ -442,8 +444,8 @@ pairs are kept for phage-derived tag (PDT) identification.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <p>Sample the first 10,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
 for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
@@ -461,7 +463,7 @@ read. 10x Genomics’ <a class="reference external" href="https://support.10xgen
 sequences to their reverse-complement counterparts as cell barcodes in
 the outputs. In <code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell
 barcode sequences for processing.</p>
-<div class="section" id="r3">
+<section id="r3">
 <h3>R3<a class="headerlink" href="#r3" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
@@ -502,8 +504,8 @@ format.</p>
 <span class="go">CCGCAAGTGAATCCAC        CCGCAAGTGAATCCAC        0       CAAAGGACGCGG    CD8Nb_PH-A_CAAAGGACGCGG 0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="r1">
+</section>
+<section id="r1">
 <h3>R1<a class="headerlink" href="#r1" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SRR12588752_2_trimmed.fq.gz <span class="se">\</span>
@@ -539,11 +541,11 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
-<div class="section" id="id1">
+<section id="id1">
 <h3>R3<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One
 mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
@@ -603,8 +605,8 @@ barcodes.</p>
 <span class="go">2022-03-13 00:28:12,060 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>R1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One
 mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
@@ -664,9 +666,9 @@ barcodes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to set the UMI length (default
@@ -705,10 +707,10 @@ phage-derived tag library is 2,261.0.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
-<div class="section" id="negative-binomial-distribution">
+<section id="negative-binomial-distribution">
 <h3>Negative binomial distribution<a class="headerlink" href="#negative-binomial-distribution" title="Permalink to this heading">#</a></h3>
 <p>Cells are demultiplexed based on the feature count matrix.
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">1</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the
@@ -784,8 +786,8 @@ respectively.</p>
 the hashtag status for each cell, as called by FBA. This is a
 re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png" style="width: 500px;" /></a>
-</div>
-<div class="section" id="gaussian-mixture-model">
+</section>
+<section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
@@ -864,9 +866,9 @@ re-creation of <a class="reference external" href="https://www.nature.com/articl
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>

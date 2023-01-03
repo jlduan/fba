@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA358686/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="crop-seq-1-1-1-mixture-of-dnmt3b-mbd1-and-tet2-knockout-cell-lines-hek293t">
+          <section id="crop-seq-1-1-1-mixture-of-dnmt3b-mbd1-and-tet2-knockout-cell-lines-hek293t">
 <span id="tutorial-crispr-screening-prjna358686"></span><h1>CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout Cell Lines (HEK293T)<a class="headerlink" href="#crop-seq-1-1-1-mixture-of-dnmt3b-mbd1-and-tet2-knockout-cell-lines-hek293t" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: CROP-seq; 1:1:1 Mixture of DNMT3B, MBD1, and TET2 Knockout
 Cell Lines (HEK293T)</p>
@@ -290,7 +292,7 @@ readout</a>. <em>Nat. Methods</em> <strong>14</strong>, 297–301.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA521522?show=reads">European Nucleotide Archive</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp.sra.ebi.ac.uk/vol1/fastq/SRR516/009/SRR5163029/SRR5163029_1.fastq.gz
@@ -301,8 +303,8 @@ readout</a>. <em>Nat. Methods</em> <strong>14</strong>, 297–301.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="mapping">
+</section>
+<section id="mapping">
 <h2>Mapping<a class="headerlink" href="#mapping" title="Permalink to this heading">#</a></h2>
 <p>This dataset is single-cell RNA-seq on HEK293T cell lines mixed in equal
 proportions knocked out for DNMT3B, MBD1, and TET2 (<a class="reference external" href="https://www.nature.com/articles/nmeth.4177/figures/1">Fig. 1h</a>). The
@@ -393,8 +395,8 @@ Table 1.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="approach-a">
+</section>
+<section id="approach-a">
 <h2>Approach A<a class="headerlink" href="#approach-a" title="Permalink to this heading">#</a></h2>
 <p>Since sgRNAs are captured through polyA tails together with other
 transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA
@@ -422,7 +424,7 @@ pairs are kept for sgRNA identification.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="qc">
+<section id="qc">
 <h3>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h3>
 <p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
 for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
@@ -476,8 +478,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h3>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h3>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,20</span></code> on read 2. One
 mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
@@ -532,8 +534,8 @@ allowed.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h3>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h3>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
@@ -575,10 +577,10 @@ well-established single cell analysis packages: <a class="reference external" hr
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h3>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h3>
-<div class="section" id="gaussian-mixture-model">
+<section id="gaussian-mixture-model">
 <h4>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h4>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
@@ -638,8 +640,8 @@ multiplets.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="knee-point">
+</section>
+<section id="knee-point">
 <h4>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this heading">#</a></h4>
 <p>Cells are demultiplexed based on the abundance of features (sgRNAs).
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
@@ -698,16 +700,16 @@ multiplets.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="approach-b">
+</section>
+</section>
+</section>
+<section id="approach-b">
 <h2>Approach B<a class="headerlink" href="#approach-b" title="Permalink to this heading">#</a></h2>
 <p>Instead of pre-filtering read 2 for the constant upstream region of
 sgRNA, we search sgRNAs across the whole read 2. This mode is relatively
 slow, it is recommended to split fastq files and run on different nodes
 simultaneously to speed up.</p>
-<div class="section" id="id1">
+<section id="id1">
 <h3>Barcode extraction<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>The transcripts derived from <a class="reference external" href="https://www.addgene.org/86708/">CROPseq-Guide-Puro</a> and captured by
 Drop-seq beads contain sgRNA sequences. There are no secondary libraries
@@ -761,8 +763,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id2">
+</section>
+<section id="id2">
 <h3>Matrix generation<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
@@ -805,10 +807,10 @@ barcodes are unique fragments.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id6">
+</section>
+<section id="id6">
 <h3>Demultiplexing<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
-<div class="section" id="id7">
+<section id="id7">
 <h4>Gaussian mixture model<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
@@ -868,8 +870,8 @@ multiplets.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="id9">
+</section>
+<section id="id9">
 <h4>Knee point<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
 <p>Cells are demultiplexed based on the abundance of features (sgRNAs).
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
@@ -932,10 +934,10 @@ multiplets.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
+</section>
 
         </article>
       </div>

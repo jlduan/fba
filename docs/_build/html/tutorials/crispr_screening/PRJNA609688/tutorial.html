@@ -2,7 +2,8 @@
 <html class="no-js" lang="en">
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
-    <meta name="color-scheme" content="light dark"><meta property="og:title" content="Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1" />
+    <meta name="color-scheme" content="light dark"><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+<meta property="og:title" content="Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1cs1" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/crispr_screening/PRJNA609688/tutorial.html" />
 <meta property="og:site_name" content="fba" />
@@ -236,6 +237,7 @@
 <p class="caption" role="heading"><span class="caption-text">Development</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../acknowledgements.html">Acknowledgements</a></li>
 <li class="toctree-l1"><a class="reference external" href="https://github.com/jlduan/fba">GitHub Repository</a></li>
 </ul>
 
@@ -279,7 +281,7 @@
           </label>
         </div>
         <article role="main">
-          <div class="section" id="direct-capture-perturb-seq-crispri-based-screen-of-unfolded-protein-response-upr-using-3-sgrna-cr1cs1">
+          <section id="direct-capture-perturb-seq-crispri-based-screen-of-unfolded-protein-response-upr-using-3-sgrna-cr1cs1">
 <span id="tutorial-crispr-screening-prjna609688"></span><h1>Direct-capture Perturb-seq; CRISPRi-based Screen of Unfolded Protein Response (UPR) Using 3’ sgRNA-CR1<sup>cs1</sup><a class="headerlink" href="#direct-capture-perturb-seq-crispri-based-screen-of-unfolded-protein-response-upr-using-3-sgrna-cr1cs1" title="Permalink to this heading">#</a></h1>
 <p><strong>Dataset</strong>: Direct-capture Perturb-seq (sgRNA-CR1<sup>cs1</sup>)</p>
 <p>Replogle, J.M., Norman, T.M., Xu, A., Hussmann, J.A., Chen, J., Cogan,
@@ -289,7 +291,7 @@ capture and targeted sequencing</a>. <em>Nat. Biotechnol.</em> <strong>38</stron
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<div class="section" id="preparation">
+<section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM4367980">Gene Expression Omnibus</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat SRR11214033_2.fastq.gz SRR11214034_2.fastq.gz SRR11214035_2.fastq.gz SRR11214036_2.fastq.gz &gt; GSM4367980_1.fq.gz
@@ -386,8 +388,8 @@ read pairs are kept for sgRNA identification.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="qc">
+</section>
+<section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <p>Sample the first 200,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
 for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
@@ -443,8 +445,8 @@ format.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="barcode-extraction">
+</section>
+<section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1 and <code class="docutils literal notranslate"><span class="pre">0,19</span></code> on read 2. Two
 mismatches for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
@@ -510,8 +512,8 @@ barcodes.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="matrix-generation">
+</section>
+<section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
 <p>Only fragments with correct (passed the criteria) cell and feature
 barcodes are included. UMI removal is powered by UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T.,
@@ -556,10 +558,10 @@ matrix. The meidan number of UMIs of sgRNA per cell is 413.0.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-<div class="section" id="demultiplexing">
+</section>
+<section id="demultiplexing">
 <h2>Demultiplexing<a class="headerlink" href="#demultiplexing" title="Permalink to this heading">#</a></h2>
-<div class="section" id="poisson-gaussian-mixture-model">
+<section id="poisson-gaussian-mixture-model">
 <h3>Poisson-Gaussian mixture model<a class="headerlink" href="#poisson-gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">3</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by <a class="reference external" href="https://www.biorxiv.org/content/10.1101/2021.12.16.473013">Replogle, M., et al. (2021)</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the
@@ -662,9 +664,9 @@ each cell, as called by FBA.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
         </article>
       </div>
