@@ -183,7 +183,7 @@ bases are UMIs (Read 1 length is 26). Based on the base content plot,
 the GC content of cell barcodes are quite even. The UMIs are slightly T
 enriched.
 
-.. image:: Pyplot_read1_per_base_seq_content_hashtag.png
+.. image:: Pyplot_read1_per_base_seq_content_hashtag.webp
    :width: 390px
    :align: center
 
@@ -191,13 +191,13 @@ As for read 2, based on the per base content, it suggests that bases
 0-12 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 2).
 
-.. image:: Pyplot_read2_per_base_seq_content_hashtag.png
+.. image:: Pyplot_read2_per_base_seq_content_hashtag.webp
    :width: 400px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending_hashtag.png
+.. image:: Pyplot_read2_barcodes_starting_ending_hashtag.webp
    :width: 400px
    :align: center
 
@@ -510,13 +510,13 @@ As for read 2, based on the per base content, it suggests that bases
 0-12 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 2).
 
-.. image:: Pyplot_read2_per_base_seq_content_protein-tag.png
+.. image:: Pyplot_read2_per_base_seq_content_protein-tag.webp
    :width: 400px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending_protein-tag.png
+.. image:: Pyplot_read2_barcodes_starting_ending_protein-tag.webp
    :width: 400px
    :align: center
 
@@ -733,13 +733,13 @@ As for read 2, based on the per base content, it suggests that bases
 15-34 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 2).
 
-.. image:: Pyplot_read2_per_base_seq_content_guide-tag.png
+.. image:: Pyplot_read2_per_base_seq_content_guide-tag.webp
    :width: 400px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending_guide-tag.png
+.. image:: Pyplot_read2_barcodes_starting_ending_guide-tag.webp
    :width: 400px
    :align: center
 

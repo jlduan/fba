@@ -379,7 +379,7 @@ Multiplexing and sequenced on Illumina NovaSeq 6000. The first 16 bases
 are cell barcodes and the following 12 bases are UMIs. Based on the base
 content plot, the GC content of cell barcodes are quite even. The UMIs
 are slightly T enriched.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content3.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content3.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content3.png" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content3.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content3.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content3.webp" style="width: 350px;" /></a>
 <p>As for read 2, based on the per base content, it suggests that bases
 0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we
 can almost read the bases (<code class="docutils literal notranslate"><span class="pre">GCTCACCTATTAGCGGCTAAGG</span></code>). They are
@@ -392,12 +392,12 @@ barcodes, UMIs and CMOs, all the info we need for demultiplexing.
 Theoretically, we could utilize the cell barcodes and UMIs on both reads
 to account for PCR, sequencing errors to further improve demultiplexing
 accuracy.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content3.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content3.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content3.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content3.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content3.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content3.webp" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
 <p>Most of the reads have the correct structure.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending3.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending3.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending3.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending3.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending3.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending3.webp" style="width: 800px;" /></a>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
 <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>

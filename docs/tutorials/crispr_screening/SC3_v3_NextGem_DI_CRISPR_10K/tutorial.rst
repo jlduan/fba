@@ -120,7 +120,13 @@ cell barcodes and the following 12 bases are UMIs. Based on the base
 content plot, the GC content of cell barcodes are quite even. The UMIs
 are slightly T enriched.
 
-.. image:: Pyplot_read1_per_base_seq_content.png
+.. image:: Pyplot_read1_barcodes_starting_ending.webp
+   :width: 350px
+   :align: center
+
+|
+
+.. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
 
@@ -131,13 +137,13 @@ there are two genotypes for the reads we have sampled.
 
 .. _template switch oligo (tso) sequence: https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf
 
-.. image:: Pyplot_read2_per_base_seq_content.png
+.. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending.png
+.. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px
    :align: center
 

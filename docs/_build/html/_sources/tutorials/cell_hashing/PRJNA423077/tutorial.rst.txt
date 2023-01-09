@@ -111,13 +111,13 @@ This library is constructed using Chromium Single Cell 3' Reagent Kits
 10 bases are UMIs. Based on the base content plot, the GC content of
 cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
 
-.. image:: Pyplot_read1_per_base_seq_content.png
+.. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
 
 |
 
-.. image:: Pyplot_read1_barcodes_starting_ending.png
+.. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 350px
    :align: center
 
@@ -126,13 +126,13 @@ As for read 2, based on the per base content, it suggests that bases
 from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences.
 Most of the reads have the correct structure.
 
-.. image:: Pyplot_read2_per_base_seq_content.png
+.. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending.png
+.. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px
    :align: center
 

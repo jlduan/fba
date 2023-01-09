@@ -120,7 +120,7 @@ are cell barcodes and the following 12 bases are UMIs. Based on the base
 content plot, the GC content of cell barcodes are quite even. The UMIs
 are slightly T enriched.
 
-.. image:: Pyplot_read1_per_base_seq_content.png
+.. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
 
@@ -139,7 +139,7 @@ accuracy.
 
 .. _capture sequence 2: https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf
 
-.. image:: Pyplot_read2_per_base_seq_content.png
+.. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
    :align: center
 
@@ -147,7 +147,7 @@ accuracy.
 
 Most of the reads have the correct structure.
 
-.. image:: Pyplot_read2_barcodes_starting_ending.png
+.. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px
    :align: center
 

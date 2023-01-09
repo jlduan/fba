@@ -110,7 +110,13 @@ bases are UMIs (Read 1 length is 25). Based on the base content plot,
 the GC content of cell barcodes are quite even. The UMIs are slightly G
 enriched.
 
-.. image:: Pyplot_read1_per_base_seq_content.png
+.. image:: Pyplot_read1_per_base_seq_content.webp
+   :width: 390px
+   :align: center
+
+|
+
+.. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 390px
    :align: center
 
@@ -118,13 +124,13 @@ As for read 2, based on the per base content, it suggests that bases 0-5
 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 2).
 
-.. image:: Pyplot_read2_per_base_seq_content.png
+.. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 400px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending.png
+.. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 400px
    :align: center
 

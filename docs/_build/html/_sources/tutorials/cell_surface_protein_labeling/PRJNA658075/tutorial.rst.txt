@@ -216,22 +216,22 @@ This library is built using the `Chromium Single Cell ATAC Reagent
 Kits`_ and sequenced on Illumina NextSeq 550. The GC content of cell
 barcodes (read 2) are A-rich.
 
-.. image:: Pyplot_read1_per_base_seq_content_HTO.png
-   :width: 350px
+.. image:: Pyplot_read1_per_base_seq_content_HTO.webp
+   :width: 375px
    :align: center
 
 As for read 3, based on the per base content, it suggests that bases
 0-14 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 3).
 
-.. image:: Pyplot_read2_per_base_seq_content_HTO.png
-   :width: 600px
+.. image:: Pyplot_read2_per_base_seq_content_HTO.webp
+   :width: 650px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending_HTO.png
-   :width: 600px
+.. image:: Pyplot_read2_barcodes_starting_ending_HTO.webp
+   :width: 650px
    :align: center
 
 The detailed ``qc`` results are stored in
@@ -610,22 +610,22 @@ pairs for quality control.
 
 Cell barcodes are A-rich.
 
-.. image:: Pyplot_read1_per_base_seq_content_ADT.png
-   :width: 350px
+.. image:: Pyplot_read1_per_base_seq_content_ADT.webp
+   :width: 375px
    :align: center
 
 As for read 3, based on the per base content, it suggests that bases
 0-14 are actually our feature barcodes (See the distribution of matched
 barcode positions on read 3).
 
-.. image:: Pyplot_read2_per_base_seq_content_ADT.png
-   :width: 600px
+.. image:: Pyplot_read2_per_base_seq_content_ADT.webp
+   :width: 650px
    :align: center
 
 |
 
-.. image:: Pyplot_read2_barcodes_starting_ending_ADT.png
-   :width: 600px
+.. image:: Pyplot_read2_barcodes_starting_ending_ADT.webp
+   :width: 650px
    :align: center
 
 The detailed ``qc`` results are stored in
