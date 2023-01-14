@@ -458,7 +458,7 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_pgm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
