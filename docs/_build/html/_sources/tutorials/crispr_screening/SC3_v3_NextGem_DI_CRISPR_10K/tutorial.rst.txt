@@ -359,7 +359,7 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed.png
+.. image:: Pyplot_embedding_cells_demultiplexed.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -418,14 +418,19 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 UMI distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_gm.png
+.. image:: Pyplot_feature_umi_distribution_gm_NON_TARGET-1_0.9.webp
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_gm_RAB1A-2_0.9.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
@@ -484,14 +489,19 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_pgm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_pgm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 UMI distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_pgm.png
+.. image:: Pyplot_feature_umi_distribution_pgm_NON_TARGET-1_0.5.webp
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_pgm_RAB1A-2_0.5.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
@@ -551,14 +561,19 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_kde.png
+.. image:: Pyplot_embedding_cells_demultiplexed_kde.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 UMI distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_kde.png
+.. image:: Pyplot_feature_umi_distribution_kde_NON_TARGET-1_18.webp
+   :alt: UMI distribution
+   :width: 800px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_kde_RAB1A-2_18.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
@@ -613,7 +628,7 @@ inflection point on the feature UMI saturation curve (`Xie, S., et al.
 Heatmap of the relative abundance of features (sgRNAs) across all cells.
 Each column represents a single cell.
 
-.. image:: Pyplot_heatmap_cells_demultiplexed_knee_2019.png
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee-2019.png
    :alt: Heatmap
    :width: 700px
    :align: center
@@ -622,16 +637,21 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_knee_2019.png
+.. image:: Pyplot_embedding_cells_demultiplexed_knee-2019.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
-UMI distribution and knee point detection:
+UMI distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_knee_2019.png
+.. image:: Pyplot_feature_umi_distribution_knee-2019_NON_TARGET-1.webp
    :alt: UMI distribution
-   :width: 800px
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee-2019_RAB1A-2.webp
+   :alt: UMI distribution
+   :width: 400px
    :align: center
 
 |
@@ -687,16 +707,21 @@ t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_knee.png
+.. image:: Pyplot_embedding_cells_demultiplexed_knee.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
-UMI distribution and knee point detection:
+UMI distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_knee.png
+.. image:: Pyplot_feature_umi_distribution_knee_NON_TARGET-1.webp
    :alt: UMI distribution
-   :width: 800px
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_RAB1A-2.webp
+   :alt: UMI distribution
+   :width: 400px
    :align: center
 
 |

@@ -171,8 +171,6 @@ enriched.
    :width: 380px
    :align: center
 
-|
-
 .. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 380px
    :align: center
@@ -183,8 +181,6 @@ slightly A enriched.
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 450px
    :align: center
-
-|
 
 .. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 450px
