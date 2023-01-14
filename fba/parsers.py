@@ -361,7 +361,13 @@ def add_map_subparser(subparsers):
         dest="umi_deduplication_method",
         required=False,
         type=str,
-        choices=["unique", "percentile", "cluster", "adjacency", "directional"],
+        choices=[
+            "unique",
+            "percentile",
+            "cluster",
+            "adjacency",
+            "directional",
+        ],
         default="directional",
         help=(
             "specify UMI deduplication method "
@@ -668,7 +674,13 @@ def add_count_subparser(subparsers):
         dest="umi_deduplication_method",
         required=False,
         type=str,
-        choices=["unique", "percentile", "cluster", "adjacency", "directional"],
+        choices=[
+            "unique",
+            "percentile",
+            "cluster",
+            "adjacency",
+            "directional",
+        ],
         default="directional",
         help=(
             "specify UMI deduplication method "
