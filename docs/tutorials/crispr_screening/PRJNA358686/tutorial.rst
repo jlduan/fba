@@ -171,22 +171,24 @@ cell barcodes and the following 8 bases are UMIs. Based on the base
 content plot, the GC content of cell barcodes are quite even. The UMIs
 are slightly T enriched.
 
-.. image:: Pyplot_read1_per_base_seq_content.png
+.. image:: Pyplot_read1_per_base_seq_content.webp
+   :width: 350px
+   :align: center
+
+.. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 350px
    :align: center
 
 As for read 2, the GC content of sgRNAs is quite even. The first 20
 bases are sgRNA sequences.
 
-.. image:: Pyplot_read2_per_base_seq_content.png
-   :width: 350px
-   :align: center
+|pic1| |pic2|
 
-|
+.. |pic1| image:: Pyplot_read2_per_base_seq_content.webp
+   :width: 48%
 
-.. image:: Pyplot_read2_barcodes_starting_ending.png
-   :width: 350px
-   :align: center
+.. |pic2| image:: Pyplot_read2_barcodes_starting_ending.webp
+   :width: 48%
 
 The detailed ``qc`` results are stored in
 ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
@@ -737,17 +739,17 @@ multiplets.
 
 UMI distribution and knee point detection:
 
-.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.png
+.. image:: Pyplot_feature_umi_distribution_knee_DNMT3B.webp
    :alt: UMI distribution
    :width: 400px
    :align: center
 
-.. image:: Pyplot_feature_umi_distribution_knee_MBD1.png
+.. image:: Pyplot_feature_umi_distribution_knee_MBD1.webp
    :alt: UMI distribution
    :width: 400px
    :align: center
 
-.. image:: Pyplot_feature_umi_distribution_knee_TET2.png
+.. image:: Pyplot_feature_umi_distribution_knee_TET2.webp
    :alt: UMI distribution
    :width: 400px
    :align: center
