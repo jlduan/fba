@@ -220,22 +220,24 @@ This library is built using the `Chromium Single Cell ATAC Reagent
 Kits`_ and sequenced on Illumina NextSeq 500. The GC content of cell
 barcodes (read 2) are quite even.
 
-.. image:: Pyplot_read1_per_base_seq_content_trimmed_r3.png
+.. image:: Pyplot_read1_per_base_seq_content_trimmed_r3.webp
+   :width: 350px
+   :align: center
+
+.. image:: Pyplot_read1_barcodes_starting_ending_trimmed_r3.webp
    :width: 350px
    :align: center
 
 As for read 3, based on the per base content, it suggests low
 complexity.
 
-.. image:: Pyplot_read2_per_base_seq_content_trimmed_r3.png
-   :width: 325px
-   :align: center
+|pic1| |pic2|
 
-|
+.. |pic1| image:: Pyplot_read2_barcodes_starting_ending_trimmed_r3.webp
+   :width: 49%
 
-.. image:: Pyplot_read2_barcodes_starting_ending_trimmed_r3.png
-   :width: 325px
-   :align: center
+.. |pic2| image:: Pyplot_read2_per_base_seq_content_trimmed_r3.webp
+   :width: 49%
 
 The detailed ``qc`` results are stored in
 ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
@@ -274,9 +276,13 @@ R1
 For read 1, based on the per base content, it suggests low complexity.
 There are almost constant bases at the beginning of the reads.
 
-.. image:: Pyplot_read2_per_base_seq_content_trimmed_r1.png
-   :width: 350px
-   :align: center
+|pic3| |pic4|
+
+.. |pic3| image:: Pyplot_read2_barcodes_starting_ending_trimmed_r1.webp
+   :width: 49%
+
+.. |pic4| image:: Pyplot_read2_per_base_seq_content_trimmed_r1.webp
+   :width: 49%
 
 The detailed ``qc`` results are stored in
 ``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
@@ -351,7 +357,7 @@ barcodes.
 
 .. code:: console
 
-   2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.12
    2022-03-13 00:13:02,564 - fba.__main__ - INFO - Initiating logging ...
    2022-03-13 00:13:02,564 - fba.__main__ - INFO - Python version: 3.10
    2022-03-13 00:13:02,564 - fba.__main__ - INFO - Using extract subcommand ...
@@ -419,7 +425,7 @@ barcodes.
 
 .. code:: console
 
-   2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.12
    2022-03-12 23:29:33,460 - fba.__main__ - INFO - Initiating logging ...
    2022-03-12 23:29:33,460 - fba.__main__ - INFO - Python version: 3.10
    2022-03-12 23:29:33,460 - fba.__main__ - INFO - Using extract subcommand ...
@@ -472,7 +478,7 @@ phage-derived tag library is 2,261.0.
 
 .. code:: console
 
-   2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.12
    2022-03-13 00:36:01,502 - fba.__main__ - INFO - Initiating logging ...
    2022-03-13 00:36:01,502 - fba.__main__ - INFO - Python version: 3.9
    2022-03-13 00:36:01,502 - fba.__main__ - INFO - Using count subcommand ...
@@ -516,7 +522,7 @@ visualization plots.
 
 .. code:: console
 
-   2022-03-13 00:47:41,569 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-13 00:47:41,569 - fba.__main__ - INFO - fba version: 0.0.12
    2022-03-13 00:47:41,569 - fba.__main__ - INFO - Initiating logging ...
    2022-03-13 00:47:41,569 - fba.__main__ - INFO - Python version: 3.10
    2022-03-13 00:47:41,569 - fba.__main__ - INFO - Using demultiplex subcommand ...
@@ -552,7 +558,7 @@ re-creation of `Fig. 3b`_ in `Fiskin, E., et al. (2021)`_.
    :align: center
 
 Preview the demultiplexing result: the numbers of singlets, multiplets
-and negatives are 6,373 (76.2%), 638 (7.6%), and 1,355 (16.2%),
+and negatives are 6,373 (76.2%), 639 (7.6%), and 1,354 (16.2%),
 respectively.
 
 .. code:: python
@@ -563,8 +569,8 @@ respectively.
 
    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
    Out[3]:
-   CD8Nb_PH-A    1638
-   CD8Nb_PH-B    1603
+   CD8Nb_PH-A    1640
+   CD8Nb_PH-B    1601
    CD8Nb_PH-C    1564
    CD8Nb_PH-D    1568
    dtype: int64
@@ -573,10 +579,10 @@ respectively.
    Out[4]: 6373
 
    In [5]: sum(m.sum(axis=0) > 1)
-   Out[5]: 638
+   Out[5]: 639
 
    In [6]: sum(m.sum(axis=0) == 0)
-   Out[6]: 1355
+   Out[6]: 1354
 
    In [7]: m.shape
    Out[7]: (4, 8366)
@@ -588,7 +594,7 @@ re-creation of `Fig. 3d`_ in `Fiskin, E., et al. (2021)`_.
 
 .. _fig. 3d: https://www.nature.com/articles/s41587-021-01065-5/figures/3
 
-.. image:: Pyplot_embedding_cells_demultiplexed_nb.png
+.. image:: Pyplot_embedding_cells_demultiplexed_nb.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -611,7 +617,7 @@ to set the probability threshold for demulitplexing (default ``0.9``).
 
 .. code:: console
 
-   2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.x
+   2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.12
    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Initiating logging ...
    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Python version: 3.9
    2022-03-13 11:27:47,035 - fba.__main__ - INFO - Using demultiplex subcommand ...
@@ -643,7 +649,7 @@ re-creation of `Fig. 3b`_ in `Fiskin, E., et al. (2021)`_.
    :align: center
 
 Preview the demultiplexing result: the numbers of singlets, multiplets
-and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%),
+and negatives are 6,510 (77.8%), 709 (8.5%), and 1,147 (13.7%),
 respectively.
 
 .. code:: python
@@ -654,20 +660,20 @@ respectively.
 
    In [3]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
    Out[3]:
-   CD8Nb_PH-A    1681
-   CD8Nb_PH-B    1638
+   CD8Nb_PH-A    1680
+   CD8Nb_PH-B    1637
    CD8Nb_PH-C    1646
-   CD8Nb_PH-D    1546
+   CD8Nb_PH-D    1547
    dtype: int64
 
    In [4]: sum(m.sum(axis=0) == 1)
-   Out[4]: 6511
+   Out[4]: 6510
 
    In [5]: sum(m.sum(axis=0) > 1)
    Out[5]: 709
 
    In [6]: sum(m.sum(axis=0) == 0)
-   Out[6]: 1146
+   Out[6]: 1147
 
    In [7]: m.shape
    Out[7]: (4, 8366)
@@ -677,29 +683,29 @@ t-SNE embedding of cells based on the abundance of features
 the hashtag status for each cell, as called by FBA. This is a
 re-creation of `Fig. 3d`_ in `Fiskin, E., et al. (2021)`_.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 Read distribution and model fitting threshold:
 
-.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
 
-.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
 
-.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.webp
    :alt: UMI distribution
    :width: 800px
    :align: center
 
-.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png
+.. image:: Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.webp
    :alt: UMI distribution
    :width: 800px
    :align: center

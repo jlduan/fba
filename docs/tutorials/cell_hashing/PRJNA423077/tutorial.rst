@@ -115,8 +115,6 @@ cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
    :width: 350px
    :align: center
 
-|
-
 .. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 350px
    :align: center
@@ -129,8 +127,6 @@ Most of the reads have the correct structure.
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
    :align: center
-
-|
 
 .. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px
@@ -347,7 +343,7 @@ Each column represents a single cell. This is a re-creation of `Fig.
 
 .. _fig. 1c: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1
 
-.. image:: Pyplot_heatmap_cells_demultiplexed.png
+.. image:: Pyplot_heatmap_cells_demultiplexed_nb.png
    :alt: Heatmap
    :width: 700px
    :align: center
@@ -359,7 +355,7 @@ cell, as called by FBA. This is a re-creation of `Fig. 1d`_ in
 
 .. _fig. 1d: https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1
 
-.. image:: Pyplot_embedding_cells_demultiplexed.png
+.. image:: Pyplot_embedding_cells_demultiplexed_nb.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -440,9 +436,10 @@ Each column represents a single cell.
 
 t-SNE embedding of cells based on the abundance of features (HTOs, no
 transcriptome information used). Colors indicate the HTO status for each
-cell, as called by FBA.
+cell, as called by FBA. This is a re-creation of `Fig. 1d`_ in
+`Stoeckius, M., et al. (2018)`_.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center

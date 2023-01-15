@@ -443,7 +443,7 @@ UMAP embedding of cells based on the abundance of features (CMOs, no
 transcriptome information used). Colors indicate the CMO status for each
 cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_gm.webp
    :alt: UMAP embedding
    :width: 500px
    :align: center
@@ -513,7 +513,7 @@ the feature UMI saturation curve (`Xie, S., et al. (2019)`_).
 Heatmap of the relative abundance of features (CMOs) across all cells.
 Each column represents a single cell.
 
-.. image:: Pyplot_heatmap_cells_demultiplexed_knee_2019.png
+.. image:: Pyplot_heatmap_cells_demultiplexed_knee-2019.png
    :alt: Heatmap
    :width: 700px
    :align: center
@@ -522,16 +522,21 @@ t-SNE embedding of cells based on the abundance of features (CMOs, no
 transcriptome information used). Colors indicate the CMO status for each
 cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_knee_2019.png
+.. image:: Pyplot_embedding_cells_demultiplexed_knee.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 UMI distribution and knee point detection:
 
-.. image:: Pyplot_feature_umi_distribution_knee_2019.png
+.. image:: Pyplot_feature_umi_distribution_knee_CMO301.webp
    :alt: UMI distribution
-   :width: 800px
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee_CMO302.webp
+   :alt: UMI distribution
+   :width: 400px
    :align: center
 
 Preview the demultiplexing result: the numbers of singlets, multiplets
@@ -605,16 +610,21 @@ t-SNE embedding of cells based on the abundance of features (CMOs, no
 transcriptome information used). Colors indicate the CMO status for each
 cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_knee.png
+.. image:: Pyplot_embedding_cells_demultiplexed_knee-2019.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
 
 UMI distribution and knee point detection:
 
-.. image:: Pyplot_feature_umi_distribution_knee.png
+.. image:: Pyplot_feature_umi_distribution_knee-2019_CMO301.webp
    :alt: UMI distribution
-   :width: 800px
+   :width: 400px
+   :align: center
+
+.. image:: Pyplot_feature_umi_distribution_knee-2019_CMO302.webp
+   :alt: UMI distribution
+   :width: 400px
    :align: center
 
 Preview the demultiplexing result: the numbers of singlets (5,396 +

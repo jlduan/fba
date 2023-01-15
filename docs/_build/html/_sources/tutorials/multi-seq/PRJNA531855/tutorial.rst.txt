@@ -294,7 +294,7 @@ each cell, as called by FBA. This is a re-creation of `Fig. 2a`_ in
 
 .. _fig. 2a: https://www.nature.com/articles/s41592-019-0433-8/figures/2
 
-.. image:: Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.png
+.. image:: Pyplot_embedding_cells_demultiplexed_HMEC_MULTI.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -308,30 +308,97 @@ and negative cells.
 
    In [2]: import pandas as pd
 
-   In [3]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
+   In [3]: pd.options.display.max_rows = 999
 
-   In [4]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
-   Out[4]:
+   In [4]: m = pd.read_csv("demultiplexed/matrix_cell_identity.csv.gz", index_col=0)
+
+   In [5]: m.loc[:, m.sum(axis=0) == 1].sum(axis=1)
+   Out[5]:
    Bar1     121
    Bar2     201
    Bar3     745
    Bar4     681
    Bar5     257
-           ...
+   Bar6     346
+   Bar7     181
+   Bar8     169
+   Bar9     687
+   Bar10    572
+   Bar11    395
+   Bar13    334
+   Bar15    472
+   Bar18    262
+   Bar20    195
+   Bar22    456
+   Bar23    279
+   Bar24    276
+   Bar25    226
+   Bar27    503
+   Bar28    378
+   Bar29    324
+   Bar31    123
+   Bar32    165
+   Bar33    488
+   Bar34    358
+   Bar35    260
+   Bar36    222
+   Bar37    247
+   Bar39    348
+   Bar40    453
+   Bar41    252
+   Bar42    215
+   Bar43    134
+   Bar44    103
+   Bar45    297
+   Bar46    391
+   Bar47    268
+   Bar48    276
+   Bar49    122
+   Bar51    316
+   Bar53    211
+   Bar54    254
+   Bar55    164
+   Bar58    356
+   Bar59    172
+   Bar60    182
+   Bar61    321
+   Bar63    202
+   Bar65    207
+   Bar66    200
+   Bar67    130
+   Bar69    286
+   Bar70    258
+   Bar71    184
+   Bar72    257
+   Bar73    299
+   Bar75    478
+   Bar76    396
+   Bar77    328
+   Bar78    286
+   Bar80    174
+   Bar81    387
+   Bar82    391
+   Bar83    294
+   Bar84    250
+   Bar85    263
+   Bar88    400
+   Bar89    360
+   Bar90    277
+   Bar91    213
    Bar92    259
    Bar93    452
    Bar94    354
    Bar95    366
    Bar96    255
-   Length: 76, dtype: int64
+   dtype: int64
 
-   In [5]: np.median(m.loc[:, m.sum(axis=0) == 1].sum(axis=1))
-   Out[5]: 276.0
+   In [6]: np.median(m.loc[:, m.sum(axis=0) == 1].sum(axis=1))
+   Out[6]: 276.0
 
-   In [6]: sum(m.sum(axis=0) > 1)
-   Out[6]: 3597
+   In [7]: sum(m.sum(axis=0) > 1)
+   Out[7]: 3597
 
-   In [7]: sum(m.sum(axis=0) == 0)
-   Out[7]: 13448
+   In [8]: sum(m.sum(axis=0) == 0)
+   Out[8]: 13448
 
 |

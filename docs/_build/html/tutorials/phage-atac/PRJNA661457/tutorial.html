@@ -477,14 +477,11 @@ barcode sequences for processing.</p>
 <p>This library is built using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent
 Kits</a> and sequenced on Illumina NextSeq 500. The GC content of cell
 barcodes (read 2) are quite even.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.png" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_trimmed_r3.webp" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_barcodes_starting_ending_trimmed_r3.webp"><img alt="../../../_images/Pyplot_read1_barcodes_starting_ending_trimmed_r3.webp" class="align-center" src="../../../_images/Pyplot_read1_barcodes_starting_ending_trimmed_r3.webp" style="width: 350px;" /></a>
 <p>As for read 3, based on the per base content, it suggests low
 complexity.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.png" style="width: 325px;" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.png" style="width: 325px;" /></a>
+<p><a class="reference internal" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.webp"><img alt="pic1" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.webp" style="width: 49%;" /></a> <a class="reference internal" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.webp"><img alt="pic2" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.webp" style="width: 49%;" /></a></p>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
 <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
@@ -518,7 +515,7 @@ format.</p>
 </div>
 <p>For read 1, based on the per base content, it suggests low complexity.
 There are almost constant bases at the beginning of the reads.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.png" style="width: 350px;" /></a>
+<p><a class="reference internal" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.webp"><img alt="pic3" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.webp" style="width: 49%;" /></a> <a class="reference internal" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.webp"><img alt="pic4" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.webp" style="width: 49%;" /></a></p>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
 <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
@@ -582,7 +579,7 @@ for processing.</p>
 <p>Result summary.</p>
 <p>10,543,901 out of 51,140,637 read pairs have valid cell and feature
 barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - fba version: 0.0.12</span>
 <span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Python version: 3.10</span>
 <span class="go">2022-03-13 00:13:02,564 - fba.__main__ - INFO - Using extract subcommand ...</span>
@@ -643,7 +640,7 @@ for processing.</p>
 <p>Result summary.</p>
 <p>11,128,546 out of 25,988,762 read pairs have valid cell and feature
 barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - fba version: 0.0.12</span>
 <span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Python version: 3.10</span>
 <span class="go">2022-03-12 23:29:33,460 - fba.__main__ - INFO - Using extract subcommand ...</span>
@@ -688,7 +685,7 @@ easily imported into well-established single cell analysis packages:
 <p>39.9 % (21,672,447 out of 54,274,791) of total read pairs have valid
 cell and feature barcodes. The median number of reads per cell for this
 phage-derived tag library is 2,261.0.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - fba version: 0.0.12</span>
 <span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Python version: 3.9</span>
 <span class="go">2022-03-13 00:36:01,502 - fba.__main__ - INFO - Using count subcommand ...</span>
@@ -726,7 +723,7 @@ visualization plots.</p>
     -v
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - fba version: 0.0.12</span>
 <span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Python version: 3.10</span>
 <span class="go">2022-03-13 00:47:41,569 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
@@ -752,9 +749,9 @@ visualization plots.</p>
 <p>Heatmap of the relative abundance of features (phage-derived tags, PDTs)
 across all cells. Each column represents a single cell. This is a
 re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb1.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb1.png" style="width: 700px;" /></a>
 <p>Preview the demultiplexing result: the numbers of singlets, multiplets
-and negatives are 6,373 (76.2%), 638 (7.6%), and 1,355 (16.2%),
+and negatives are 6,373 (76.2%), 639 (7.6%), and 1,354 (16.2%),
 respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -762,8 +759,8 @@ respectively.</p>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
-<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1638</span>
-<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1603</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1640</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1601</span>
 <span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">C</span>    <span class="mi">1564</span>
 <span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">D</span>    <span class="mi">1568</span>
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
@@ -772,10 +769,10 @@ respectively.</p>
 <span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">6373</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">638</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">639</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1355</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1354</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
@@ -785,7 +782,7 @@ respectively.</p>
 (phage-derived tags, no transcriptome information used). Colors indicate
 the hashtag status for each cell, as called by FBA. This is a
 re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb1.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb1.webp" style="width: 500px;" /></a>
 </section>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
@@ -798,7 +795,7 @@ to set the probability threshold for demulitplexing (default <code class="docuti
     -v
 </pre></div>
 </div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.x</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - fba version: 0.0.12</span>
 <span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Initiating logging ...</span>
 <span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Python version: 3.9</span>
 <span class="go">2022-03-13 11:27:47,035 - fba.__main__ - INFO - Using demultiplex subcommand ...</span>
@@ -826,7 +823,7 @@ across all cells. Each column represents a single cell. This is a
 re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3b</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm4.png" style="width: 700px;" /></a>
 <p>Preview the demultiplexing result: the numbers of singlets, multiplets
-and negatives are 6,511 (77.8%), 709 (8.5%), and 1,146 (13.7%),
+and negatives are 6,510 (77.8%), 709 (8.5%), and 1,147 (13.7%),
 respectively.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
@@ -834,20 +831,20 @@ respectively.</p>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">3</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">3</span><span class="p">]:</span>
-<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1681</span>
-<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1638</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">A</span>    <span class="mi">1680</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">B</span>    <span class="mi">1637</span>
 <span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">C</span>    <span class="mi">1646</span>
-<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">D</span>    <span class="mi">1546</span>
+<span class="n">CD8Nb_PH</span><span class="o">-</span><span class="n">D</span>    <span class="mi">1547</span>
 <span class="n">dtype</span><span class="p">:</span> <span class="n">int64</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">6511</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">4</span><span class="p">]:</span> <span class="mi">6510</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="mi">709</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="nb">sum</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1146</span>
+<span class="n">Out</span><span class="p">[</span><span class="mi">6</span><span class="p">]:</span> <span class="mi">1147</span>
 
 <span class="n">In</span> <span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span>
 <span class="n">Out</span><span class="p">[</span><span class="mi">7</span><span class="p">]:</span> <span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8366</span><span class="p">)</span>
@@ -857,12 +854,12 @@ respectively.</p>
 (phage-derived tags, no transcriptome information used). Colors indicate
 the hashtag status for each cell, as called by FBA. This is a
 re-creation of <a class="reference external" href="https://www.nature.com/articles/s41587-021-01065-5/figures/3">Fig. 3d</a> in <a class="reference external" href="https://doi.org/10.1038/s41587-021-01065-5">Fiskin, E., et al. (2021)</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm3.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm3.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm4.webp" style="width: 500px;" /></a>
 <p>Read distribution and model fitting threshold:</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.png" style="width: 800px;" /></a>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.png" style="width: 800px;" /></a>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.png" style="width: 800px;" /></a>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.png" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-A_gm_0.9.webp" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-B_gm_0.9.webp" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-C_gm_0.9.webp" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_CD8Nb_PH-D_gm_0.9.webp" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>

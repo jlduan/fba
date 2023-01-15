@@ -370,18 +370,12 @@ to set the mismatch tolerance for cell and feature barcode matching
 10 bases are UMIs. Based on the base content plot, the GC content of
 cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content.webp" style="width: 350px;" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_barcodes_starting_ending.webp"><img alt="../../../_images/Pyplot_read1_barcodes_starting_ending.webp" class="align-center" src="../../../_images/Pyplot_read1_barcodes_starting_ending.webp" style="width: 350px;" /></a>
 <p>As for read 2, based on the per base content, it suggests that bases
 0-11 are relatively GC balanced for the reads we have sampled. Starting
 from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences.
 Most of the reads have the correct structure.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content.webp" style="width: 800px;" /></a>
-<div class="line-block">
-<div class="line"><br /></div>
-</div>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending.webp" style="width: 800px;" /></a>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
 <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
@@ -564,12 +558,12 @@ default <code class="docutils literal notranslate"><span class="pre">demultiplex
 <p>Heatmap of the relative abundance of features (HTOs) across all cells.
 Each column represents a single cell. This is a re-creation of <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1">Fig.
 1c</a> in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed.png" style="width: 700px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_nb.png" style="width: 700px;" /></a>
 <p>t-SNE embedding of cells based on the abundance of features (HTOs, no
 transcriptome information used). Colors indicate the HTO status for each
 cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1">Fig. 1d</a> in
 <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a>.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed.png" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_nb.webp" style="width: 500px;" /></a>
 <p>Preview the demultiplexing result: the numbers of singlets. The result
 in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a> can be found in <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1#Sec26">Additional file 3</a>.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -633,8 +627,9 @@ Each column represents a single cell.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png"><img alt="Heatmap" class="align-center" src="../../../_images/Pyplot_heatmap_cells_demultiplexed_gm.png" style="width: 700px;" /></a>
 <p>t-SNE embedding of cells based on the abundance of features (HTOs, no
 transcriptome information used). Colors indicate the HTO status for each
-cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.png" style="width: 500px;" /></a>
+cell, as called by FBA. This is a re-creation of <a class="reference external" href="https://genomebiology.biomedcentral.com/articles/10.1186/s13059-018-1603-1/figures/1">Fig. 1d</a> in
+<a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M., et al. (2018)</a>.</p>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_gm.webp" style="width: 500px;" /></a>
 <p>Preview the demultiplexing result: the numbers of singlets.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">In</span> <span class="p">[</span><span class="mi">1</span><span class="p">]:</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 

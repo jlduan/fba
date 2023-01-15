@@ -406,7 +406,7 @@ t-SNE embedding of cells based on the abundance of features (hashtags,
 no transcriptome information used). Colors indicate the hashtag status
 for each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_hashtag.png
+.. image:: Pyplot_embedding_cells_demultiplexed_hashtag.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -652,7 +652,7 @@ embedding is based on hashtags, not the transcriptomes).
 
 .. _mimitou, e.p., et al. (2019): https://doi.org/10.1038/s41592-019-0392-0
 
-.. image:: Rplot_embedding_protein-tag_vertical.png
+.. image:: Rplot_embedding_protein-tag_vertical.webp
    :width: 350px
    :alt: t-SNE embedding
    :align: center
@@ -845,7 +845,7 @@ abundance for each cell, as caculated by FBA. This is a re-creation of
 `Fig. 1c`_ (iv) in `Mimitou, E.P., et al. (2019)`_ (The embedding is
 based on hashtags, not the transcriptomes).
 
-.. image:: Rplot_embedding_guide.png
+.. image:: Rplot_embedding_guide.webp
    :alt: t-SNE embedding
    :width: 350px
    :align: center
