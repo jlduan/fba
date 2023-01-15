@@ -225,13 +225,11 @@ As for read 3, based on the per base content, it suggests that bases
 barcode positions on read 3).
 
 .. image:: Pyplot_read2_per_base_seq_content_HTO.webp
-   :width: 650px
+   :width: 625px
    :align: center
 
-|
-
 .. image:: Pyplot_read2_barcodes_starting_ending_HTO.webp
-   :width: 650px
+   :width: 625px
    :align: center
 
 The detailed ``qc`` results are stored in
@@ -619,13 +617,11 @@ As for read 3, based on the per base content, it suggests that bases
 barcode positions on read 3).
 
 .. image:: Pyplot_read2_per_base_seq_content_ADT.webp
-   :width: 650px
+   :width: 625px
    :align: center
 
-|
-
 .. image:: Pyplot_read2_barcodes_starting_ending_ADT.webp
-   :width: 650px
+   :width: 625px
    :align: center
 
 The detailed ``qc`` results are stored in

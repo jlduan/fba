@@ -157,8 +157,6 @@ positions on read 2).
    :width: 800px
    :align: center
 
-|
-
 .. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px
    :align: center

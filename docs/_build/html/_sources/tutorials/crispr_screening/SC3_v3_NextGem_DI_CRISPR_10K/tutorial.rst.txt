@@ -124,8 +124,6 @@ are slightly T enriched.
    :width: 350px
    :align: center
 
-|
-
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
@@ -140,8 +138,6 @@ there are two genotypes for the reads we have sampled.
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
    :align: center
-
-|
 
 .. image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 800px

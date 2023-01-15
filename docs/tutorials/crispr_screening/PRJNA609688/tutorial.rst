@@ -168,22 +168,22 @@ GC content of cell barcodes are quite even. The UMIs are slightly T
 enriched.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
-   :width: 380px
+   :width: 350px
    :align: center
 
 .. image:: Pyplot_read1_barcodes_starting_ending.webp
-   :width: 380px
+   :width: 350px
    :align: center
 
 As for read 2, based on the per base content, it suggests that read 2 is
 slightly A enriched.
 
 .. image:: Pyplot_read2_per_base_seq_content.webp
-   :width: 450px
+   :width: 425px
    :align: center
 
 .. image:: Pyplot_read2_barcodes_starting_ending.webp
-   :width: 450px
+   :width: 425px
    :align: center
 
 The detailed ``qc`` results are stored in

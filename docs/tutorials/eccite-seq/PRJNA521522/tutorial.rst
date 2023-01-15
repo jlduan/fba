@@ -195,8 +195,6 @@ barcode positions on read 2).
    :width: 400px
    :align: center
 
-|
-
 .. image:: Pyplot_read2_barcodes_starting_ending_hashtag.webp
    :width: 400px
    :align: center
@@ -514,8 +512,6 @@ barcode positions on read 2).
    :width: 400px
    :align: center
 
-|
-
 .. image:: Pyplot_read2_barcodes_starting_ending_protein-tag.webp
    :width: 400px
    :align: center
@@ -736,8 +732,6 @@ barcode positions on read 2).
 .. image:: Pyplot_read2_per_base_seq_content_guide-tag.webp
    :width: 400px
    :align: center
-
-|
 
 .. image:: Pyplot_read2_barcodes_starting_ending_guide-tag.webp
    :width: 400px
