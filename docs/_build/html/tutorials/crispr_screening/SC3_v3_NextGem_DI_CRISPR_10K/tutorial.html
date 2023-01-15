@@ -377,20 +377,20 @@ Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are
 cell barcodes and the following 12 bases are UMIs. Based on the base
 content plot, the GC content of cell barcodes are quite even. The UMIs
 are slightly T enriched.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_barcodes_starting_ending3.webp"><img alt="../../../_images/Pyplot_read1_barcodes_starting_ending3.webp" class="align-center" src="../../../_images/Pyplot_read1_barcodes_starting_ending3.webp" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_barcodes_starting_ending4.webp"><img alt="../../../_images/Pyplot_read1_barcodes_starting_ending4.webp" class="align-center" src="../../../_images/Pyplot_read1_barcodes_starting_ending4.webp" style="width: 350px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content5.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content5.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content5.webp" style="width: 350px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content6.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content6.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content6.webp" style="width: 350px;" /></a>
 <p>As for read 2, based on the per base content, it suggests that bases
 0-31 are constant and we can almost read the bases. They are actually
 <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf">Template Switch Oligo (TSO) sequence</a>. Starting from base 32, it seems
 there are two genotypes for the reads we have sampled.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content5.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content5.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content5.webp" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content6.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content6.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content6.webp" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp" style="width: 800px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending6.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending6.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending6.webp" style="width: 800px;" /></a>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
 <code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
@@ -662,7 +662,7 @@ Each column represents a single cell.</p>
 <p>t-SNE embedding of cells based on the abundance of features (sgRNAs, no
 transcriptome information used). Colors indicate the sgRNA status for
 each cell, as called by FBA.</p>
-<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm.webp" style="width: 500px;" /></a>
+<a class="reference internal image-reference" href="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.webp"><img alt="t-SNE embedding" class="align-center" src="../../../_images/Pyplot_embedding_cells_demultiplexed_pgm1.webp" style="width: 500px;" /></a>
 <p>UMI distribution and model fitting threshold:</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_pgm_NON_TARGET-1_0.5.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_pgm_NON_TARGET-1_0.5.webp" style="width: 800px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_feature_umi_distribution_pgm_RAB1A-2_0.5.webp"><img alt="UMI distribution" class="align-center" src="../../../_images/Pyplot_feature_umi_distribution_pgm_RAB1A-2_0.5.webp" style="width: 800px;" /></a>

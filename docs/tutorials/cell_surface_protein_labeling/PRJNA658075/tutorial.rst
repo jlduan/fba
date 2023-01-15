@@ -508,7 +508,7 @@ t-SNE embedding of cells based on the abundance of features
 (phage-derived tags, no transcriptome information used). Colors indicate
 the hashtag status for each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_HTO_1-5_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_HTO_1-5_gm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
@@ -581,7 +581,7 @@ t-SNE embedding of cells based on the abundance of features
 (phage-derived tags, no transcriptome information used). Colors indicate
 the hashtag status for each cell, as called by FBA.
 
-.. image:: Pyplot_embedding_cells_demultiplexed_HTO_12-13_gm.png
+.. image:: Pyplot_embedding_cells_demultiplexed_HTO_12-13_gm.webp
    :alt: t-SNE embedding
    :width: 500px
    :align: center
