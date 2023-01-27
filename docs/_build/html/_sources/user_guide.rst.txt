@@ -21,7 +21,7 @@ troubleshooting feature barcoding experiments.
  Workflow
 **********
 
-.. figure:: https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/bioinformatics/37/22/10.1093_bioinformatics_btab375/2/btab375f1.jpeg?Expires=1674792986&Signature=BtQPKObtXmv1XfGAp0GVyWPFZ5zTJuHyc9yPaZ29Di1iphZd2SJKlU6mLtBbLeZmuWMIYPl06w~h0Wmz724E5vbbnPFxm8d5IyrNAOa-0QCwoYrHxd4~SCeDu0QkQHeIBVGxHpVt7qjz-1mSl5XaTVpl8~2QoZwc1FB~y1fS3l9aR0j6~KnTBjDJ9n9hkoOqmt94R~qCnmEEyboxbsujClNWUJTt-g1n8PTVOFNF7o-Co5QisbmFze28YaCpzNUTS6Yhwap6Q4g2YC6geQw5CsKNLwHcRcf2aZZMLA2r94~2Bw2xMDxzPOTnPKx32vSFoUJPQ~y95G3ynX8HHPsXxA__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA
+.. figure:: workflow.jpeg
    :target: https://doi.org/10.1093/bioinformatics/btab375
    :alt: FBA workflow
    :width: 500px
