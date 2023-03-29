@@ -93,15 +93,16 @@ Inspect feature barcodes.
  QC
 ****
 
-Sample the first 100,000 (default, set by ``-n``) read pairs for quality
-control. Use ``-t`` to set the number of threads. Use
-``--output_directory`` to set the output directory (default ``qc``). By
-default, full length of read 1 and read 2 are searched against reference
-cell and feature barcodes, respectively. The per base content of both
-read pairs and the distribution of matched barcode positions are
-summarized. Use ``-r1_coords`` and/or ``-r2_coords`` to limit the search
-range. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch tolerance for
-cell and feature barcode matching (default ``3``).
+The first ``100,000`` read pairs are sampled (default, set by ``-n``)
+for quality control. The ``-t`` option can be used to set the number of
+threads. By default, diagnostic results and plots are generated in the
+``qc`` directory (set by ``--output_directory``), and the full length of
+read 1 and read 2 are searched against reference cell and feature
+barcodes, respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use ``-r1_c``
+and/or ``-r2_c`` to limit the search range, and ``-cb_n`` and/or
+``-fb_n`` to set the mismatch tolerance for cell and feature barcode
+matching (default ``3``).
 
 .. code:: console
 
@@ -113,29 +114,31 @@ cell and feature barcode matching (default ``3``).
        --output_directory qc \
        -r1_c 0,16
 
-This library was constructed using Chromium Next GEM Single Cell 3ʹ
+This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
-Multiplexing and sequenced on Illumina NovaSeq 6000. The first 16 bases
-are cell barcodes and the following 12 bases are UMIs. Based on the base
-content plot, the GC content of cell barcodes are quite even. The UMIs
-are slightly T enriched.
+Multiplexing and sequenced on an Illumina NovaSeq 6000. The first 16
+bases of each read represent cell barcodes, and the following 12 bases
+represent UMIs. The base content plot indicates that the GC content of
+cell barcodes is evenly distributed. However, there is a slight
+T-enrichment in the UMIs.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases
-0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we
-can almost read the bases (``GCTCACCTATTAGCGGCTAAGG``). They are
-actually `Capture Sequence 2`_. The next 12 bases are UMIs, and followed
-by 16-base cell barcodes. Bases 37-54 are reverse complement to the read
-1. The size of the CellPlex library is relatively small, read 2 has also
-sequenced through part of the Nextera Read 1 sequencing primer
-(constant, bases 55-79). Actually, read 1 is not needed, read 2 has cell
-barcodes, UMIs and CMOs, all the info we need for demultiplexing.
-Theoretically, we could utilize the cell barcodes and UMIs on both reads
-to account for PCR, sequencing errors to further improve demultiplexing
-accuracy.
+In reference to read 2, the per base content indicates that bases 0-14
+represent feature barcodes (CMOs, at 15 bp). Bases 15-36 are constant
+and comprise `Capture Sequence 2`_, which can be read with high accuracy
+(``GCTCACCTATTAGCGGCTAAGG``). The succeeding 12 bases represent UMIs,
+followed by 16-base cell barcodes. Bases 37-54 correspond to the reverse
+complement of read 1. While the CellPlex library is relatively small,
+read 2 has also sequenced through a portion of the Nextera Read 1
+sequencing primer, which is constant and encompasses bases 55-79. In
+actuality, read 1 is unnecessary since read 2 contains all the necessary
+information for demultiplexing, including cell barcodes, UMIs, and CMOs.
+Theoretically, we can further enhance the accuracy of demultiplexing by
+utilizing the cell barcodes and UMIs on both reads to account for PCR
+and sequencing errors.
 
 .. _capture sequence 2: https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf
 
@@ -178,14 +181,14 @@ format.
  Barcode extraction
 ********************
 
-The lengths of cell and feature barcodes (CMOs) are all identical (16
-and 15, respectively). And based on the ``qc`` results, the
-distributions of starting and ending positions of cell and feature
-barcodes are very uniform. Search ranges are set to ``0,16`` on read 1
-and ``0,15`` on read 2. Two mismatches for cell and one mismatch for
-feature barcodes (set by ``-cb_m``, ``-cf_m``) are allowed. By default,
-three ambiguous nucleotides (Ns) for read 1 and read2 (set by ``-cb_n``,
-``-cf_n``) are allowed.
+Both cell and feature barcodes (CMOs) have the same length of 16 and 15,
+respectively. The starting and ending positions of these barcodes are
+uniformly distributed according to the ``qc`` results. The read 1 search
+range is set from 0 to 16, while the read 2 search range is set from 0
+to 15. There is a tolerance of two mismatches allowed for the cell
+barcode and one for the feature barcode (set by ``-cb_m`` and
+``-cf_m``). The default setting allows for three ambiguous nucleotides
+(Ns) in both read 1 and read 2 (set by ``-cb_n`` and ``-cf_n``).
 
 .. code:: console
 
@@ -271,14 +274,14 @@ have the correct structure.
  Matrix generation
 *******************
 
-Only fragments with valid (passed the criteria) cell and feature
-barcodes are included. UMI deduplication is powered by UMI-tools
-(`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to
-set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to
-set the UMI length (default ``12``). Fragments with UMI length less than
-this value are discarded. Use ``-um`` to set mismatch threshold (default
-``1``). UMI deduplication method is set by ``-ud`` (default
-``directional``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -365,14 +368,14 @@ abundant UMIs. They are the CMOs acutally used in this experiment.
 Gaussian mixture model
 ======================
 
-Cells are classified based on the feature count matrix (CMO abundance).
-Demultiplexing method ``2`` (set by ``-dm``) is inspired by the method
-described on `10x Genomics' website`_. A cell identity matrix is
-generated in the output directory: 0 means negative, 1 means positive.
-Use ``-nm`` to set normalization method (default ``clr``). Use ``-p`` to
-set the probability threshold for demulitplexing (default ``0.9``). Set
-``-v`` to create visualization plots. Use ``-vm`` to set the
-visualization method (default ``tsne``).
+Cells are demulitplexed based on the feature count matrix (CMO
+abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by
+the method described on `10x Genomics' website`_. A cell identity matrix
+is generated in the output directory: 0 means negative, 1 means
+positive. To set normalization method, use ``-nm`` (default ``clr``). To
+set the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). To generate visualization plots, set ``-v``. To choose
+visualization method, use ``-vm`` (default ``tsne``).
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -472,12 +475,13 @@ Knee point
 Method 1
 --------
 
-Cells are demultiplexed based on the abundance of features (CMOs).
-Demultiplexing method ``5-2019`` is our previous implementation, which
-tries to demultiplex cells through the detection of inflection point on
-the feature UMI saturation curve (`Xie, S., et al. (2019)`_).
+Cells are demultiplexed based on the abundance of features, specifically
+CMOs. Demultiplexing method ``5-2019`` is our previous implementation,
+which aims to identify perturbations in the cells by detecting an
+inflection point on the feature UMI saturation curve (`Xie, S., et al.
+2019`_).
 
-.. _xie, s., et al. (2019): https://doi.org/10.1016/j.celrep.2019.10.073
+.. _xie, s., et al. 2019: https://doi.org/10.1016/j.celrep.2019.10.073
 
 .. code:: console
 

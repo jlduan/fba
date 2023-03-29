@@ -57,23 +57,24 @@ Inspect cell barcodes.
 
 Prepare feature sequences.
 
-``map`` subcommand is designed to deal with secondary libraries built on
-top of the whole transcriptome assays. The transcripts of interest in
-the whole transcriptome libraries are enriched through hybridization or
-PCR amplification, which enables possibly more sensitive detection. The
-transcripts can be from endogenous genes or ectopic constructs, for
-example eGFP, as long as they are captured in the parent libraries.
+The ``map`` subcommand is designed to process secondary libraries
+created on top of the whole transcriptome assays. These libraries enrich
+transcripts of interest through hybridization or PCR amplification,
+allowing for potentially more sensitive detection. The transcripts may
+be from endogenous genes or ectopic constructs, such as eGFP, as long as
+they were captured in the parent libraries.
 
-In this tutorial, this 10x Genomics 'Targeted Gene Expression' library
-is used as an example. The `bait sequences`_ are used as references for
-read 2 mapping. Ideally, sequences of all possible captured transcribed
-regions should be included.
+In this tutorial, we use the 10x Genomics "Targeted Gene Expression"
+library as an example. The `bait sequences`_ serve as references for
+read 2 mapping. Ideally, the reference sequences should include all
+possible captured transcribed regions.
 
 .. _bait sequences: https://kb.10xgenomics.com/hc/en-us/articles/360045688071-What-are-the-bait-design-criteria-for-10x-pre-designed-and-custom-panels-
 
-Read 1 contains cell barcodes and UMIs. Read 2 is expected captured
-transcribed regions. For feature references, they should only contain
-transcribed parts (non-overlapping and no introns for endogenous genes).
+Read 1 contains cell barcodes and UMIs, while read 2 should contain the
+captured transcribed regions. The feature references should only include
+transcribed parts that are non-overlapping and have no introns for
+endogenous genes.
 
 .. code:: console
 
@@ -125,21 +126,24 @@ Re-format.
  Matrix generation
 *******************
 
-First, all read 1 are searched against reference cell-associated
-barcodes. Use ``-r1_c`` to set the search range (default ``0,16``),
-``-cb_m`` to set the mismatching threshold (default ``1``). Read 2 with
-correct cell barcodes (on reads 1) is mapped to the provided sequences
-(bwa, `Li, H. (2013). arXiv:1303.3997.`_ or bowtie2, `Langmead, B., and
-Salzberg, S.L. (2012). Nat. Methods 9, 357–359.`_). The default aligner
-is ``bwa`` (set by ``-al``). Only alignments passed mapping quality
-threshold (set by ``--mapq``, default ``10``) are kept for downstream
-feature counting. UMI deduplication is powered by UMI-tools (`Smith, T.,
-Heger, A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). Use
-``-us`` to set the UMI starting position on read 1 (default ``16``). Use
-``-ul`` to set the UMI length (default ``12``). Fragments with UMI
-length less than this value are discarded. UMI deduplication method is
-set by ``-ud`` (default ``directional``). Use ``-um`` to set UMI
-deduplication mismatch threshold (default ``1``).
+To begin with, we search all read 1 sequences against a set of reference
+cell-associated barcodes. You can adjust the search range with ``-r1_c``
+(default ``0,16``), and the mismatching threshold with ``-cb_m``
+(default ``1``). Next, we map read 2 sequences with correct cell
+barcodes (found in read 1) to provided reference sequences using an
+aligner such as ``bwa`` (default, `Li, H. (2013). arXiv:1303.3997.`_ ,
+set with ``-al``) or ``bowtie2`` (`Langmead, B., and Salzberg, S.L.
+(2012). Nat. Methods 9, 357–359.`_). We keep only alignments with a
+mapping quality above a threshold, which you can set with ``--mapq``
+(default ``10``), for downstream feature counting.
+
+For UMI deduplication, we use the UMI-tools package (`Smith, T., Heger,
+A., and Sudbery, I. (2017). Genome Res. 27, 491–499.`_). You can specify
+the UMI starting position on read 1 with ``-us`` (default ``16``), and
+the UMI length with ``-ul`` (default ``12``). Fragments with a UMI
+length less than this value are discarded. The UMI deduplication method
+is set with ``-ud`` (default ``directional``), and the UMI deduplication
+mismatch threshold is set with ``-um`` (default ``1``).
 
 .. _langmead, b., and salzberg, s.l. (2012). nat. methods 9, 357–359.: http://dx.doi.org/10.1038/nmeth.1923
 
@@ -147,12 +151,13 @@ deduplication mismatch threshold (default ``1``).
 
 .. _smith, t., heger, a., and sudbery, i. (2017). genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
-The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+Finally, the resulting feature count matrix can be easily imported into
+well-established single cell analysis packages such as Seurat_ and
+Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 

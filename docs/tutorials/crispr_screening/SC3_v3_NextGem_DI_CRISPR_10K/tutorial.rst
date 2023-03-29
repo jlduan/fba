@@ -92,16 +92,16 @@ Clean up.
  QC
 ****
 
-Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs
-for quality control. Use ``-t`` to set the number of threads. By
-default, the diagnostic results and plots are generated in the ``qc``
-directory (set by ``--output_directory``), and full length of read 1 and
-read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 20,000 read pairs are sampled (set by ``-n``, default
+``100,000``) for quality control. The ``-t`` option can be used to set
+the number of threads. By default, diagnostic results and plots are
+generated in the ``qc`` directory (set by ``--output_directory``), and
+the full length of read 1 and read 2 are searched against reference cell
+and feature barcodes, respectively. The per base content of both read
+pairs and the distribution of matched barcode positions are summarized.
+Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
 .. code:: console
 
@@ -113,12 +113,13 @@ matching (default ``3``).
        -r1_c 0,16 \
        -n 20000
 
-This library is built using the Chromium Next GEM Single Cell 3ʹ Reagent
-Kits v3.1 (Dual Index) with Feature Barcode technology for CRISPR
-Screening and sequenced on Illumina NovaSeq 6000. The first 16 bases are
-cell barcodes and the following 12 bases are UMIs. Based on the base
-content plot, the GC content of cell barcodes are quite even. The UMIs
-are slightly T enriched.
+This library was constructed using the Chromium Next GEM Single Cell 3ʹ
+Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for
+CRISPR Screening and sequenced on an Illumina NovaSeq 6000. The first 16
+bases of each read represent cell barcodes, and the following 12 bases
+represent UMIs. The base content plot indicates that the GC content of
+cell barcodes is evenly distributed. However, there is a slight
+T-enrichment in the UMIs.
 
 .. image:: Pyplot_read1_barcodes_starting_ending.webp
    :width: 350px
@@ -128,12 +129,13 @@ are slightly T enriched.
    :width: 350px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases
-0-31 are constant and we can almost read the bases. They are actually
-`Template Switch Oligo (TSO) sequence`_. Starting from base 32, it seems
-there are two genotypes for the reads we have sampled.
+Regarding read 2, the per base content analysis indicates that the first
+31 bases are consistent and easily readable. These bases correspond to
+the `Template Switch Oligo (TSO)`_ sequence used in library
+construction. From base 32 onward, we have observed two distinct
+genotypes in the sampled reads.
 
-.. _template switch oligo (tso) sequence: https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf
+.. _template switch oligo (tso): https://assets.ctfassets.net/an68im79xiti/4HEC1M6tFbBJXXTv7jVVo1/a271ac8d5fa73180e603df21030f9e9a/CG000316_ChromiumNextGEMSingleCell3__v3.1_CRISPR_Screening_Dual_Index_RevA.pdf
 
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
@@ -170,10 +172,11 @@ format.
  Barcode extraction
 ********************
 
-Although the lengths of the two feature barcodes are one base different,
-they all start at the same position on read 2. For the purpose of
-feature barcode identification, let's include one extra downstream base
-(G) for the RAB1A-2 feature barcode to make their lengths equal.
+Although the length of the RAB1A-1 and RAB1A-2 feature barcodes differ
+by one base, they both start at the same position on read 2. To enable
+accurate feature barcode identification, we will include an extra
+downstream base (G) for the RAB1A-2 feature barcode to make their
+lengths equal.
 
 .. code:: console
 
@@ -261,23 +264,23 @@ correct structure.
  Matrix generation
 *******************
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. UMI removal is powered by UMI-tools (`Smith, T.,
-et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI
-starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI
-length (default ``12``). Fragments with UMI length less than this value
-are discarded. UMI deduplication method is set by ``-ud`` (default
-``directional``). Use ``-um`` to set UMI deduplication mismatch
-threshold (default ``1``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages: Seurat_ and Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -324,13 +327,14 @@ matrix.
 Negative binomial distribution
 ==============================
 
-Cells are classified based on the feature count matrix. Demultiplexing
-method ``1`` (set by ``-dm``) is implemented based on the method
-described by `Stoeckius, M., et al. (2018)`_ with some modifications. A
-cell identity matrix is generated in the output directory (set by
-``--output_directory``, default ``demultiplexed``): 0 means negative, 1
-means positive. Use ``-q`` to set the quantile threshold for
-demulitplexing. Set ``-v`` to create visualization plots.
+Cells are demultiplexed based on the feature count matrix using
+demultiplexing method ``1`` (set by ``-dm``), which is implemented based
+on the method described by `Stoeckius, M., et al. (2018)`_ with some
+modifications. The output directory for demultiplexing is set by
+``--output_directory`` (default ``demultiplexed``). A cell identity
+matrix is generated, where 0 indicates negative and 1 indicates
+positive. To adjust the quantile threshold for demultiplexing, use
+``-q``. To generate visualization plots, set ``-v``.
 
 .. _stoeckius, m., et al. (2018): https://doi.org/10.1186/s13059-018-1603-1
 
@@ -366,10 +370,11 @@ Gaussian mixture model
 ======================
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics’ website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
+inspired by the method described on the `10x Genomics' website`_. To set
+the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``).
 
-.. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+.. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
 .. code:: console
 
@@ -437,8 +442,8 @@ Poisson-Gaussian mixture model
 ==============================
 
 The implementation of demultiplexing method ``3`` (set by ``-dm``) is
-inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the
-probability threshold for demulitplexing (default ``0.5``).
+inspired by `Replogle, M., et al. (2021)`_. The probability threshold
+for demultiplexing can be set using ``-p`` (default ``0.5``).
 
 .. _replogle, m., et al. (2021): https://www.biorxiv.org/content/10.1101/2021.12.16.473013
 
@@ -507,9 +512,9 @@ UMI distribution and model fitting threshold:
 Kernel density estimation
 =========================
 
-CRISPR perturbatons are demultiplexed based on the abundance of
-features. Demultiplexing method ``4`` is implemented based on the method
-described in `McGinnis, C., et al. (2019)`_ with some modifications.
+CRISPR perturbations are demultiplexed based on feature abundance using
+demultiplexing method ``4``, which is implemented with modifications to
+the method described in `McGinnis, C., et al. (2019)`_.
 
 .. _mcginnis, c., et al. (2019): https://doi.org/10.1038/s41592-019-0433-8
 
@@ -582,13 +587,13 @@ Knee point
 Method 1
 --------
 
-Cells are demultiplexed based on the abundance of features (sgRNAs).
-Demultiplexing method ``5-2019`` is our previous implementation, which
-tries to determine perturbations in the cells through the detection of
+Cells are demultiplexed based on the abundance of features, specifically
+sgRNAs. Demultiplexing method ``5-2019`` is our previous implementation,
+which aims to identify perturbations in the cells by detecting an
 inflection point on the feature UMI saturation curve (`Xie, S., et al.
-(2019)`_).
+2019`_).
 
-.. _xie, s., et al. (2019): https://doi.org/10.1016/j.celrep.2019.10.073
+.. _xie, s., et al. 2019: https://doi.org/10.1016/j.celrep.2019.10.073
 
 .. code:: console
 

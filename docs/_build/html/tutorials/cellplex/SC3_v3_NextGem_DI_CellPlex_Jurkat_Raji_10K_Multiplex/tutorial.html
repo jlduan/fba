@@ -19,10 +19,10 @@
 <meta name="twitter:image" content="https://github.com/jlduan.png" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed" href="../SC3_v3_NextGem_DI_CellPlex_Nuclei_30K_Multiplex/tutorial.html" /><link rel="prev" title="CellPlex" href="../index.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -355,15 +355,16 @@ transcriptomic UMIs captured per barcode).</p>
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 100,000 (default, set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) read pairs for quality
-control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. Use
-<code class="docutils literal notranslate"><span class="pre">--output_directory</span></code> to set the output directory (default <code class="docutils literal notranslate"><span class="pre">qc</span></code>). By
-default, full length of read 1 and read 2 are searched against reference
-cell and feature barcodes, respectively. The per base content of both
-read pairs and the distribution of matched barcode positions are
-summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_coords</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_coords</span></code> to limit the search
-range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for
-cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>The first <code class="docutils literal notranslate"><span class="pre">100,000</span></code> read pairs are sampled (default, set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>)
+for quality control. The <code class="docutils literal notranslate"><span class="pre">-t</span></code> option can be used to set the number of
+threads. By default, diagnostic results and plots are generated in the
+<code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and the full length of
+read 1 and read 2 are searched against reference cell and feature
+barcodes, respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -373,25 +374,27 @@ cell and feature barcode matching (default <code class="docutils literal notrans
     -r1_c <span class="m">0</span>,16
 </pre></div>
 </div>
-<p>This library was constructed using Chromium Next GEM Single Cell 3ʹ
+<p>This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
-Multiplexing and sequenced on Illumina NovaSeq 6000. The first 16 bases
-are cell barcodes and the following 12 bases are UMIs. Based on the base
-content plot, the GC content of cell barcodes are quite even. The UMIs
-are slightly T enriched.</p>
+Multiplexing and sequenced on an Illumina NovaSeq 6000. The first 16
+bases of each read represent cell barcodes, and the following 12 bases
+represent UMIs. The base content plot indicates that the GC content of
+cell barcodes is evenly distributed. However, there is a slight
+T-enrichment in the UMIs.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content3.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content3.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content3.webp" style="width: 350px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that bases
-0-14 are feature barcodes (CMOs, 15 bp). Bases 15-36 are constant and we
-can almost read the bases (<code class="docutils literal notranslate"><span class="pre">GCTCACCTATTAGCGGCTAAGG</span></code>). They are
-actually <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf">Capture Sequence 2</a>. The next 12 bases are UMIs, and followed
-by 16-base cell barcodes. Bases 37-54 are reverse complement to the read
-1. The size of the CellPlex library is relatively small, read 2 has also
-sequenced through part of the Nextera Read 1 sequencing primer
-(constant, bases 55-79). Actually, read 1 is not needed, read 2 has cell
-barcodes, UMIs and CMOs, all the info we need for demultiplexing.
-Theoretically, we could utilize the cell barcodes and UMIs on both reads
-to account for PCR, sequencing errors to further improve demultiplexing
-accuracy.</p>
+<p>In reference to read 2, the per base content indicates that bases 0-14
+represent feature barcodes (CMOs, at 15 bp). Bases 15-36 are constant
+and comprise <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6G2iPa3N9L3ZtsSCJlR3yO/dd9e4749ebb7f7894f193db1ddd148bb/CG000388_ChromiumNextGEMSingleCell3-v3.1_CellMultiplexing_RevB.pdf">Capture Sequence 2</a>, which can be read with high accuracy
+(<code class="docutils literal notranslate"><span class="pre">GCTCACCTATTAGCGGCTAAGG</span></code>). The succeeding 12 bases represent UMIs,
+followed by 16-base cell barcodes. Bases 37-54 correspond to the reverse
+complement of read 1. While the CellPlex library is relatively small,
+read 2 has also sequenced through a portion of the Nextera Read 1
+sequencing primer, which is constant and encompasses bases 55-79. In
+actuality, read 1 is unnecessary since read 2 contains all the necessary
+information for demultiplexing, including cell barcodes, UMIs, and CMOs.
+Theoretically, we can further enhance the accuracy of demultiplexing by
+utilizing the cell barcodes and UMIs on both reads to account for PCR
+and sequencing errors.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content3.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content3.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content3.webp" style="width: 800px;" /></a>
 <div class="line-block">
 <div class="line"><br /></div>
@@ -423,14 +426,14 @@ format.</p>
 </section>
 <section id="barcode-extraction">
 <h2>Barcode extraction<a class="headerlink" href="#barcode-extraction" title="Permalink to this heading">#</a></h2>
-<p>The lengths of cell and feature barcodes (CMOs) are all identical (16
-and 15, respectively). And based on the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results, the
-distributions of starting and ending positions of cell and feature
-barcodes are very uniform. Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 1
-and <code class="docutils literal notranslate"><span class="pre">0,15</span></code> on read 2. Two mismatches for cell and one mismatch for
-feature barcodes (set by <code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. By default,
-three ambiguous nucleotides (Ns) for read 1 and read2 (set by <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>,
-<code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed.</p>
+<p>Both cell and feature barcodes (CMOs) have the same length of 16 and 15,
+respectively. The starting and ending positions of these barcodes are
+uniformly distributed according to the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results. The read 1 search
+range is set from 0 to 16, while the read 2 search range is set from 0
+to 15. There is a tolerance of two mismatches allowed for the cell
+barcode and one for the feature barcode (set by <code class="docutils literal notranslate"><span class="pre">-cb_m</span></code> and
+<code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>). The default setting allows for three ambiguous nucleotides
+(Ns) in both read 1 and read 2 (set by <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
     -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -509,14 +512,14 @@ have the correct structure.</p>
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with valid (passed the criteria) cell and feature
-barcodes are included. UMI deduplication is powered by UMI-tools
-(<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to
-set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to
-set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than
-this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold (default
-<code class="docutils literal notranslate"><span class="pre">1</span></code>). UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default
-<code class="docutils literal notranslate"><span class="pre">directional</span></code>).</p>
+<p>Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et
+al. 2017. Genome Res. 27, 491–499.</a>), with the starting position on
+read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</span></code> (default <code class="docutils literal notranslate"><span class="pre">16</span></code>) and the length set by <code class="docutils literal notranslate"><span class="pre">-ul</span></code>
+(default <code class="docutils literal notranslate"><span class="pre">12</span></code>). The UMI deduplication method can be set using <code class="docutils literal notranslate"><span class="pre">-ud</span></code>
+(default <code class="docutils literal notranslate"><span class="pre">directional</span></code>), and the UMI deduplication mismatch threshold
+can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
 well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
@@ -587,14 +590,14 @@ matrix.</p>
 abundant UMIs. They are the CMOs acutally used in this experiment.</p>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>Cells are classified based on the feature count matrix (CMO abundance).
-Demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by the method
-described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex">10x Genomics’ website</a>. A cell identity matrix is
-generated in the output directory: 0 means negative, 1 means positive.
-Use <code class="docutils literal notranslate"><span class="pre">-nm</span></code> to set normalization method (default <code class="docutils literal notranslate"><span class="pre">clr</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to
-set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>). Set
-<code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots. Use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> to set the
-visualization method (default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
+<p>Cells are demulitplexed based on the feature count matrix (CMO
+abundance). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by
+the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex">10x Genomics’ website</a>. A cell identity matrix
+is generated in the output directory: 0 means negative, 1 means
+positive. To set normalization method, use <code class="docutils literal notranslate"><span class="pre">-nm</span></code> (default <code class="docutils literal notranslate"><span class="pre">clr</span></code>). To
+set the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>. To choose
+visualization method, use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> (default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount_filtered.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -676,10 +679,11 @@ cell, as called by FBA.</p>
 <h3>Knee point<a class="headerlink" href="#knee-point" title="Permalink to this heading">#</a></h3>
 <section id="method-1">
 <h4>Method 1<a class="headerlink" href="#method-1" title="Permalink to this heading">#</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (CMOs).
-Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation, which
-tries to demultiplex cells through the detection of inflection point on
-the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al. (2019)</a>).</p>
+<p>Cells are demultiplexed based on the abundance of features, specifically
+CMOs. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5-2019</span></code> is our previous implementation,
+which aims to identify perturbations in the cells by detecting an
+inflection point on the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al.
+2019</a>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">5</span>-2019 <span class="se">\</span>

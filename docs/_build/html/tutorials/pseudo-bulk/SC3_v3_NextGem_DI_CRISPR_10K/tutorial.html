@@ -7,10 +7,10 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://jlduan.github.io/fba/_build/html/tutorials/pseudo-bulk/SC3_v3_NextGem_DI_CRISPR_10K/tutorial.html" />
 <meta property="og:site_name" content="fba" />
-<meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes are prepared as described here., QC: Threshold: one mismatch: In the qc subcommand, if-1(read 1) is ..." />
+<meta property="og:description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes are prepared as described here., QC: Threshold: one mismatch: When running the qc subcommand, omitti..." />
 <meta property="og:image" content="https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg" />
 <meta property="og:image:alt" content="fba" />
-<meta name="description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes are prepared as described here., QC: Threshold: one mismatch: In the qc subcommand, if-1(read 1) is ..." />
+<meta name="description" content="Dataset: 10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA, Dual Indexed The detailed description of this dataset can be found here., Preparation: Fastq files and feature barcodes are prepared as described here., QC: Threshold: one mismatch: When running the qc subcommand, omitti..." />
 <meta property="og:ignore_canonical" content="true" />
 <meta property="article:author" content="Jialei Duan" />
 <meta property="og:site_name" content="FBA" />
@@ -19,10 +19,10 @@
 <meta name="twitter:image" content="https://github.com/jlduan.png" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" /><link rel="prev" title="Pseudo-bulk" href="../index.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>10k A375 Cells Transduced with (1) Non-Target and (1) Target sgRNA - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -300,21 +300,21 @@ Target sgRNA, Dual Indexed</p>
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
 <section id="threshold-one-mismatch">
 <h3>Threshold: one mismatch<a class="headerlink" href="#threshold-one-mismatch" title="Permalink to this heading">#</a></h3>
-<p>In the <code class="docutils literal notranslate"><span class="pre">qc</span></code> subcommand, if <code class="docutils literal notranslate"><span class="pre">-1</span></code> (read 1) is omitted, bulk mode is
-enabled. The purpose of bulk mode is to help design and qc feature
-barcoding assays before the actual single cell experiments. For
-instance, you may want to estimate 1) how many reads have valid feature
-barcodes. This may reflect the specificity of the primers used for
-library construction and could suggest the number of reads needed for
-sequencing; 2) the distribution of feature barcodes. This reflects the
-biological aspect of the design.</p>
-<p>Use <code class="docutils literal notranslate"><span class="pre">-2</span></code> to specify read 2, and <code class="docutils literal notranslate"><span class="pre">-f</span></code> to specify feature barcodes.
-Search range on read 2 can be controlled by <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>. In this example,
-only one mismatch is allowed for feature barcode matching (set by
-<code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of reads to analyze
-(<code class="docutils literal notranslate"><span class="pre">None</span></code> is to analyze all reads provided in the fastq file). By
-default, the distribution of feature barcodes detected is summarized in
-<code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
+<p>When running the <code class="docutils literal notranslate"><span class="pre">qc</span></code> subcommand, omitting the <code class="docutils literal notranslate"><span class="pre">-1</span></code> (read 1) option
+activates bulk mode, which is useful for designing and testing feature
+barcoding assays prior to conducting single cell experiments. For
+example, bulk mode can be used to estimate: 1) the number of reads with
+valid feature barcodes, which can indicate primer specificity and
+suggest the number of reads required for sequencing; and 2) the
+distribution of feature barcodes, which reflects the biological aspect
+of the assay design.</p>
+<p>To specify read 2 and feature barcodes, use <code class="docutils literal notranslate"><span class="pre">-2</span></code> and <code class="docutils literal notranslate"><span class="pre">-f</span></code> options,
+respectively. The search range for read 2 can be controlled with
+<code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>. In this example, a single mismatch is allowed for feature
+barcode matching, set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>. Use <code class="docutils literal notranslate"><span class="pre">-n</span></code> to specify the number of
+reads to analyze, with <code class="docutils literal notranslate"><span class="pre">None</span></code> indicating that all reads in the fastq
+file should be analyzed. By default, the distribution of detected
+feature barcodes is summarized in <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
     -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv <span class="se">\</span>

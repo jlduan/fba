@@ -19,10 +19,10 @@
 <meta name="twitter:image" content="https://github.com/jlduan.png" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="Cell hashing" href="../../cell_hashing/index.html" /><link rel="prev" title="10k 1:1 Mixture of Raji and Jurkat Cells Multiplexed" href="../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/tutorial.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>30k Mouse E18 Combined Cortex, Hippocampus and Subventricular Zone Nuclei Multiplexed - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -343,15 +343,14 @@ structure (<code class="docutils literal notranslate"><span class="pre">-cb_m</s
 </div>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
-<p>Cells are demultiplexed based on the feature count matrix (CMO
+<p>Cells are demulitplexed based on the feature count matrix (CMO
 abundance). Demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is inspired by
 the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex">10x Genomics’ website</a>. A cell identity matrix
-is generated in the output directory: 0 means negative, 1 means positive
-(set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nm</span></code>
-to set normalization method (default <code class="docutils literal notranslate"><span class="pre">clr</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-p</span></code> to set the
-probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code>
-to create visualization plots. Use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> to set visualization method
-(default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
+is generated in the output directory: 0 means negative, 1 means
+positive. To set normalization method, use <code class="docutils literal notranslate"><span class="pre">-nm</span></code> (default <code class="docutils literal notranslate"><span class="pre">clr</span></code>). To
+set the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>. To choose
+visualization method, use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> (default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     --output_directory demultiplexed <span class="se">\</span>
@@ -424,11 +423,11 @@ multiplet clusters are clearly present.</p>
 </section>
 <section id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h3>
-<p>Cells are demultiplexed based on the abundance of features.
-Demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code> is implemented based on the method described
-in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a> with some modifications. A cell
-identity matrix is generated in the output directory: 0 means negative,
-1 means positive. Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create visualization plots.</p>
+<p>Cells are demulitplexed based on the feature count matrix (CMO
+abundance) using demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code>, which is implemented with
+modifications to the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.
+A cell identity matrix is generated in the output directory: 0 means
+negative, 1 means positive. To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">4</span> <span class="se">\</span>

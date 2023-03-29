@@ -19,10 +19,10 @@
 <meta name="twitter:image" content="https://github.com/jlduan.png" />
 <link rel="index" title="Index" href="../../../genindex.html" /><link rel="search" title="Search" href="../../../search.html" /><link rel="next" title="ECCITE-seq" href="../../eccite-seq/index.html" /><link rel="prev" title="ASAP-seq; Multiplexed CRISPR Perturbations in Primary T Cells" href="../PRJNA658075/tutorial.html" />
 
-    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2022.12.07 -->
+    <link rel="shortcut icon" href="../../../_static/logo.ico"/><!-- Generated with Sphinx 5.3.0 and Furo 2023.03.27 -->
         <title>1k Human PBMCs Stained with a Panel of TotalSeq B Antibodies - FBA</title>
       <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=91d0f0d1c444bdcb17a68e833c7a53903343c195" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?digest=fad236701ea90a88636c2a8c73b44ae642ed2a53" />
     <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?digest=30d1aed668e5c3a91c3e3bf6a60b675221979f0e" />
     
@@ -372,16 +372,16 @@ this single cell RNA-Seq library.</p>
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>Sample the first 20,000 (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>) read pairs
-for quality control. Use <code class="docutils literal notranslate"><span class="pre">-t</span></code> to set the number of threads. By
-default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
-directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), full length of read 1 and
-read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
-<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
-matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+<p>The first 20,000 read pairs are sampled (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default
+<code class="docutils literal notranslate"><span class="pre">100,000</span></code>) for quality control. The <code class="docutils literal notranslate"><span class="pre">-t</span></code> option can be used to set
+the number of threads. By default, diagnostic results and plots are
+generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and
+the full length of read 1 and read 2 are searched against reference cell
+and feature barcodes, respectively. The per base content of both read
+pairs and the distribution of matched barcode positions are summarized.
+Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
     -1 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz <span class="se">\</span>
     -2 SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R2_001.fastq.gz <span class="se">\</span>
@@ -497,16 +497,17 @@ and feature barcodes.</p>
 </section>
 <section id="matrix-generation">
 <h2>Matrix generation<a class="headerlink" href="#matrix-generation" title="Permalink to this heading">#</a></h2>
-<p>Only fragments with valid (passed the criteria) cell and feature
-barcodes are included. UMI deduplication is powered by UMI-tools
-(<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et al. 2017. Genome Res. 27, 491–499.</a>). Use <code class="docutils literal notranslate"><span class="pre">-us</span></code> to
-set the UMI starting position on read 1 (default <code class="docutils literal notranslate"><span class="pre">16</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-ul</span></code> to
-set the UMI length (default <code class="docutils literal notranslate"><span class="pre">12</span></code>). Fragments with UMI length less than
-this value are discarded. Use <code class="docutils literal notranslate"><span class="pre">-um</span></code> to set mismatch threshold (default
-<code class="docutils literal notranslate"><span class="pre">1</span></code>). UMI deduplication method is set by <code class="docutils literal notranslate"><span class="pre">-ud</span></code> (default
-<code class="docutils literal notranslate"><span class="pre">directional</span></code>).</p>
+<p>Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (<a class="reference external" href="http://www.genome.org/cgi/doi/10.1101/gr.209601.116">Smith, T., et
+al. 2017. Genome Res. 27, 491–499.</a>), with the starting position on
+read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</span></code> (default <code class="docutils literal notranslate"><span class="pre">16</span></code>) and the length set by <code class="docutils literal notranslate"><span class="pre">-ul</span></code>
+(default <code class="docutils literal notranslate"><span class="pre">12</span></code>). The UMI deduplication method can be set using <code class="docutils literal notranslate"><span class="pre">-ud</span></code>
+(default <code class="docutils literal notranslate"><span class="pre">directional</span></code>), and the UMI deduplication mismatch threshold
+can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
+well-established single cell analysis packages such as <a class="reference external" href="https://satijalab.org/seurat/">Seurat</a> and
+<a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>

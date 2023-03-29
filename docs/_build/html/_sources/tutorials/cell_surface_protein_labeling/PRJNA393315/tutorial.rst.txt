@@ -84,16 +84,15 @@ methods section of the paper).
  QC
 ****
 
-Sample the first 100,000 (set by ``-n``) read pairs for quality control.
-Use ``-t`` to set the number of threads. The diagnostic results and
-plots are generated in the ``qc`` directory (set by
-``--output_directory``, default ``qc``). By default, full length of read
-1 and read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 100,000 read pairs are sampled (default, set by ``-n``) for
+quality control. By default, diagnostic results and plots are generated
+in the ``qc`` directory (set by ``--output_directory``), and the full
+length of read 1 and read 2 are searched against reference cell and
+feature barcodes, respectively. The per base content of both read pairs
+and the distribution of matched barcode positions are summarized. Use
+``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
 .. code:: console
 
@@ -247,23 +246,24 @@ cell and feature barcodes.
  Matrix generation
 *******************
 
-Only fragments with valid (passed the criteria) cell and feature
-barcodes are included. UMI deduplication is powered by UMI-tools
-(`Smith, T., et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to
-set the UMI starting position on read 1 (default ``16``). Use ``-ul`` to
-set the UMI length (default ``12``). Fragments with UMI length less than
-this value are discarded. Use ``-um`` to set mismatch threshold (default
-``1``). UMI deduplication method is set by ``-ud`` (default
-``directional``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages such as Seurat_ and
+Scanpy_.
 
-.. _scanpy: https://scanpy.readthedocs.io/en/stable
+.. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 

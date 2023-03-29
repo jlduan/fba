@@ -1,6 +1,6 @@
 # Acknowledgements
 
-`fba` is inspired by some excellent projects:
+`fba` is inspired by several outstanding projects:
 
 -   [CITE-seq-Count](https://github.com/Hoohm/CITE-seq-Count)[^stoeckius2018]
 -   [TinyFastSS](https://github.com/fujimotos/TinyFastSS)

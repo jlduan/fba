@@ -74,15 +74,14 @@ Inspect feature count matrix.
 Gaussian mixture model
 ======================
 
-Cells are demultiplexed based on the feature count matrix (CMO
+Cells are demulitplexed based on the feature count matrix (CMO
 abundance). Demultiplexing method ``2`` (set by ``-dm``) is inspired by
 the method described on `10x Genomics' website`_. A cell identity matrix
-is generated in the output directory: 0 means negative, 1 means positive
-(set by ``--output_directory``, default ``demultiplexed``). Use ``-nm``
-to set normalization method (default ``clr``). Use ``-p`` to set the
-probability threshold for demulitplexing (default ``0.9``). Set ``-v``
-to create visualization plots. Use ``-vm`` to set visualization method
-(default ``tsne``).
+is generated in the output directory: 0 means negative, 1 means
+positive. To set normalization method, use ``-nm`` (default ``clr``). To
+set the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). To generate visualization plots, set ``-v``. To choose
+visualization method, use ``-vm`` (default ``tsne``).
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/cellplex
 
@@ -172,11 +171,11 @@ Preview the demultiplexing result: the numbers of singlets.
 Kernel density estimation
 =========================
 
-Cells are demultiplexed based on the abundance of features.
-Demultiplexing method ``4`` is implemented based on the method described
-in `McGinnis, C., et al. (2019)`_ with some modifications. A cell
-identity matrix is generated in the output directory: 0 means negative,
-1 means positive. Set ``-v`` to create visualization plots.
+Cells are demulitplexed based on the feature count matrix (CMO
+abundance) using demultiplexing method ``4``, which is implemented with
+modifications to the method described in `McGinnis, C., et al. (2019)`_.
+A cell identity matrix is generated in the output directory: 0 means
+negative, 1 means positive. To generate visualization plots, set ``-v``.
 
 .. _mcginnis, c., et al. (2019): https://doi.org/10.1038/s41592-019-0433-8
 

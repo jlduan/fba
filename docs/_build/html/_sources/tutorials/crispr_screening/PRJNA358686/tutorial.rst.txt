@@ -36,22 +36,23 @@ Download fastq files from `European Nucleotide Archive`_.
  Mapping
 *********
 
-This dataset is single-cell RNA-seq on HEK293T cell lines mixed in equal
-proportions knocked out for DNMT3B, MBD1, and TET2 (`Fig. 1h`_). The
-platform of this dataset is Drop-seq. The details about the original
-data processing can be found here_. Briefly, raw data were process with
-Drop-seq Tools v1.12 software. The first 12 bases on read 1 are cell
-barcodes, followed by 8 bases UMIs. Captured single cell transcripts are
-on read 2.
+This dataset comprises single cell RNA-seq data obtained from HEK293T
+cell lines that had been knocked out for DNMT3B, MBD1, and TET2,
+separately and were mixed in equal proportions (`Fig. 1h`_). The
+platform used for this dataset is Drop-seq, and more details about the
+original data processing can be found here_. In brief, the raw data was
+initially processed with Drop-seq Tools v1.12 software. The first 12
+bases of read 1 are cell barcodes, followed by 8 bases of UMIs, while
+captured single cell transcripts are in read 2.
 
 .. _fig. 1h: https://www.nature.com/articles/nmeth.4177/figures/1
 
 .. _here: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588
 
-I re-processed these raw reads to get cell-associated barcodes for
-downstream analysis. Briefly, raw reads were trimmed using `Trim
-Galore!`_ and mapped to the human reference genome
-refdata-gex-GRCh38-2020-A_ using STAR v2.7.8a. Plasmid
+To analyze the downstream data, I reprocessed the raw reads to obtain
+cell-associated barcodes. The raw reads were trimmed using `Trim
+Galore!`_ and then mapped to the human reference genome
+refdata-gex-GRCh38-2020-A_ using STAR v2.7.8a. The plasmid
 CROPseq-Guide-Puro_ sequence was not included in the reference.
 
 .. _cropseq-guide-puro: https://www.addgene.org/86708/
@@ -112,11 +113,11 @@ Table 1.
  Approach A
 ************
 
-Since sgRNAs are captured through polyA tails together with other
-transcripts, the locations of sgRNA on read 2 vary (This is not a sgRNA
-enrichment library). To speed up processing, first we screen reads that
-have the constant sequence (``GACGAAACACCG``) upstream of sgRNAs
-(cutadapt_\, version 3.7).
+As sgRNAs are captured together with other transcripts through polyA
+tails, their locations on read 2 may vary (it should be noted that this
+is not an sgRNA enrichment library). To expedite processing, we first
+screened reads that contained the constant sequence (``GACGAAACACCG``)
+upstream of sgRNAs using cutadapt_ (version 3.7).
 
 .. _cutadapt: https://github.com/marcelm/cutadapt
 
@@ -146,16 +147,16 @@ pairs are kept for sgRNA identification.
 QC
 ==
 
-Sample the first 20,000 (set by ``-n``, default ``100,000``) read pairs
-for quality control. Use ``-t`` to set the number of threads. By
-default, the diagnostic results and plots are generated in the ``qc``
-directory (set by ``--output_directory``), and full length of read 1 and
-read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 20,000 read pairs are sampled (set by ``-n``, default
+``100,000``) for quality control. The ``-t`` option can be used to set
+the number of threads. By default, diagnostic results and plots are
+generated in the ``qc`` directory (set by ``--output_directory``), and the
+full length of read 1 and read 2 are searched against reference cell and
+feature barcodes, respectively. The per base content of both read pairs
+and the distribution of matched barcode positions are summarized. Use
+``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
 .. code:: console
 
@@ -166,10 +167,11 @@ matching (default ``3``).
        -f feature_barcodes.tsv \
        -r1_c 0,12
 
-This library is built using Drop-seq platform. The first 12 bases are
-cell barcodes and the following 8 bases are UMIs. Based on the base
-content plot, the GC content of cell barcodes are quite even. The UMIs
-are slightly T enriched.
+This library was constructed using the Drop-seq platform, where the
+first 12 bases correspond to cell barcodes, and the following 8 bases
+represent UMIs. Based on the base content plot, the GC content of the
+cell barcodes is evenly distributed. However, the UMIs show a slight
+T-enrichment.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
@@ -179,8 +181,9 @@ are slightly T enriched.
    :width: 350px
    :align: center
 
-As for read 2, the GC content of sgRNAs is quite even. The first 20
-bases are sgRNA sequences.
+Regarding read 2, the GC content of sgRNAs is uniformly distributed. It
+should be noted that the first 20 bases correspond to the sgRNA
+sequences.
 
 |pic1| |pic2|
 
@@ -278,14 +281,14 @@ Result summary.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. UMI removal is powered by UMI-tools (`Smith, T.,
-et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI
-starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI
-length (default ``12``). Fragments with UMI length less than this value
-are discarded. UMI deduplication method is set by ``-ud`` (default
-``directional``). Use ``-um`` to set UMI deduplication mismatch
-threshold (default ``1``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
@@ -335,12 +338,13 @@ Gaussian mixture model
 ----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics’ website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
-Use ``-nc`` to set the number of positive cells for a feature to be
-included for demultiplexing (default ``200``).
+inspired by the method described on the `10x Genomics' website`_. To set
+the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). Use ``-nc`` to specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, with a default value of
+``200``.
 
-.. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
+.. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
 .. code:: console
 
@@ -406,10 +410,10 @@ multiplets.
 Knee point
 ----------
 
-Cells are demultiplexed based on the abundance of features (sgRNAs).
-Demultiplexing method ``5`` is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
-curve.
+Cells are demultiplexed according to the abundance of features,
+specifically sgRNAs. Demultiplexing method ``5`` is implemented to use
+the local maxima on the difference curve to detemine the knee point on
+the UMI saturation curve.
 
 .. code:: console
 
@@ -476,30 +480,32 @@ multiplets.
  Approach B
 ************
 
-Instead of pre-filtering read 2 for the constant upstream region of
-sgRNA, we search sgRNAs across the whole read 2. This mode is relatively
-slow, it is recommended to split fastq files and run on different nodes
-simultaneously to speed up.
+Rather than pre-filtering read 2 for the constant upstream region of
+sgRNA, we conduct a search for sgRNAs throughout the entire read 2.
+Although this approach may take longer, it provides more comprehensive
+results. To optimize speed, we suggest splitting fastq files and running
+them on different nodes simultaneously.
 
 Barcode extraction
 ==================
 
-The transcripts derived from CROPseq-Guide-Puro_ and captured by
-Drop-seq beads contain sgRNA sequences. There are no secondary libraries
-built on top of this single-cell RNA-seq library for sgRNA enrichment.
-The transcripts derived from CROPseq-Guide-Puro_ are captured by the
-ployA tails. Therefore, the locations of sgRNA on read 2 vary. We need
-to extract the sgRNA sequences from read 2.
+The CROPseq-Guide-Puro_ transcripts captured by Drop-seq beads in
+single cell RNA-seq library contain sgRNA sequences. As there are no
+secondary libraries for sgRNA enrichment, we need to extract the sgRNA
+sequences from read 2. However, the locations of sgRNAs on read 2 vary
+because the transcripts are captured by polyA tails. Therefore, we use
+the ``qc`` mode for sgRNA extraction, which is capable of handling the
+variable locations of sgRNAs on read 2.
 
-``qc`` mode is used for sgRNA extraction. Use ``-n`` to specify the
-number of reads to analyze, ``None`` means all the reads. Use ``-t`` to
-set the number of threads. By default, the diagnostic results and plots
-are generated in the ``qc`` directory (set by ``--output_directory``),
-and full length of read 1 and read 2 are searched against reference cell
-and feature barcodes, respectively. The per base content of both read
-pairs and the distribution of matched barcode positions are summarized.
-Use ``-r1_c`` and/or ``-r2_c`` to limit the search range for read 1 and
-read 2 respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch
+To specify the number of reads to analyze, use ``-n``, where ``None``
+means all reads. To set the number of threads, use ``-t``. By default,
+the diagnostic results and plots are generated in the ``qc`` directory
+(set by ``--output_directory``), and the full length of read 1 and read
+2 are searched against reference cell and feature barcodes,
+respectively. The per base content of both read pairs and the
+distribution of matched barcode positions are summarized. To limit the
+search range for read 1 and/or read 2, use ``-r1_c`` and/or ``-r2_c``,
+respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch
 tolerance for cell and feature barcode matching (default ``3``).
 
 .. code:: console
@@ -543,23 +549,23 @@ format.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. UMI removal is powered by UMI-tools (`Smith, T.,
-et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI
-starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI
-length (default ``12``). Fragments with UMI length less than this value
-are discarded. UMI deduplication method is set by ``-ud`` (default
-``directional``). Use ``-um`` to set UMI deduplication mismatch
-threshold (default ``1``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages: Seurat_ and Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -602,10 +608,11 @@ Gaussian mixture model
 ----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics’ website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
-Use ``-nc`` to set the number of positive cells for a feature to be
-included for demultiplexing (default ``200``).
+inspired by the method described on the `10x Genomics' website`_. To set
+the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). Use ``-nc`` to specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, with a default value of
+``200``.
 
 .. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -673,10 +680,10 @@ multiplets.
 Knee point
 ----------
 
-Cells are demultiplexed based on the abundance of features (sgRNAs).
-Demultiplexing method ``5`` is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
-curve.
+Cells are demultiplexed according to the abundance of features,
+specifically sgRNAs. Demultiplexing method ``5`` is implemented to use
+the local maxima on the difference curve to detemine the knee point on
+the UMI saturation curve.
 
 .. code:: console
 

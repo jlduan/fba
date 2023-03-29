@@ -181,23 +181,24 @@ pairs are kept for phage-derived tag (PDT) identification.
  QC
 ****
 
-Sample the first 10,000 (set by ``-n``, default ``100,000``) read pairs
-for quality control. Use ``-t`` to set the number of threads. By
-default, the diagnostic results and plots are generated in the ``qc``
-directory (set by ``--output_directory``), and full length of read 1 and
-read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 10,000 read pairs are sampled (set by ``-n``, default
+``100,000``) for quality control. The ``-t`` option can be used to set
+the number of threads. By default, diagnostic results and plots are
+generated in the ``qc`` directory (set by ``--output_directory``), and
+the full length of read 1 and read 2 are searched against reference cell
+and feature barcodes, respectively. The per base content of both read
+pairs and the distribution of matched barcode positions are summarized.
+Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
-This library is built using 10x Genomics' `Chromium Single Cell ATAC
-Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index
-read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp
-sequences to their reverse-complement counterparts as cell barcodes in
-the outputs. In ``fba``, use ``-cb_rc`` to reverse-complement cell
-barcode sequences for processing.
+This library is constructed using 10x Genomics' `Chromium Single Cell
+ATAC Reagent Kits`_. The 10x Barcode, consisting of 16 base pairs, is
+sequenced during the i5 index read. When using 10x Genomics' `Cell
+Ranger ATAC`_, the raw 16 bp sequences may be transformed into their
+reverse-complement counterparts as cell barcodes in the outputs. In
+``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for
+processing.
 
 .. _cell ranger atac: https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview
 
@@ -216,7 +217,7 @@ R3
        -cb_rc \
        -n 10000
 
-This library is built using the `Chromium Single Cell ATAC Reagent
+This library is constructed using the `Chromium Single Cell ATAC Reagent
 Kits`_ and sequenced on Illumina NextSeq 500. The GC content of cell
 barcodes (read 2) are quite even.
 
@@ -450,17 +451,17 @@ barcodes.
  Matrix generation
 *******************
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. Use ``-ul`` to set the UMI length (default
-``12``). Setting to ``0`` means no UMIs and read counts are summarized
-instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in
-the output matrix if needed. The generated feature count matrix can be
-easily imported into well-established single cell analysis packages:
-Seruat_ and Scanpy_.
+Only fragments with correctly matched cell and feature barcodes are
+included. Use ``-ul`` to set the UMI length (default ``12``). Setting to
+``0`` means no UMIs and read counts are summarized instead. Use
+``-cb_rc`` to reverse-complement cell barcode sequences in the output
+matrix if needed. The generated feature count matrix can be easily
+imported into well-established single cell analysis packages such as
+Seurat_ and Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -502,14 +503,15 @@ phage-derived tag library is 2,261.0.
 Negative binomial distribution
 ==============================
 
-Cells are demultiplexed based on the feature count matrix.
-Demultiplexing method ``1`` (set by ``-dm``) is implemented based on the
-method described by `Stoeckius, M., et al. (2018)`_ with some
-modifications. A cell identity matrix is generated in the output
-directory (set by ``--output_directory``, default ``demultiplexed``): 0
-means negative, 1 means positive. Use ``-q`` to set the quantile
-threshold for demulitplexing (default ``0.9999``). Set ``-v`` to create
-visualization plots.
+Cells are demultiplexed based on the feature count matrix using
+demultiplexing method ``1`` (set by ``-dm``), which is implemented based
+on the method described by `Stoeckius, M., et al. (2018)`_ with some
+modifications. The output directory for demultiplexing is set by
+``--output_directory`` (default ``demultiplexed``). A cell identity
+matrix is generated, where 0 indicates negative and 1 indicates
+positive. To adjust the quantile threshold for demultiplexing, use
+``-q`` (default ``0.9999``). To generate visualization plots, set
+``-v``.
 
 .. _stoeckius, m., et al. (2018): https://doi.org/10.1186/s13059-018-1603-1
 
@@ -603,8 +605,9 @@ Gaussian mixture model
 ======================
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics' website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
+inspired by the method described on the `10x Genomics' website`_. To set
+the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). To generate visualization plots, set ``-v``.
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 

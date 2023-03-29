@@ -140,16 +140,16 @@ read pairs are kept for sgRNA identification.
  QC
 ****
 
-Sample the first 200,000 (set by ``-n``, default ``100,000``) read pairs
-for quality control. Use ``-t`` to set the number of threads. By
-default, the diagnostic results and plots are generated in the ``qc``
-directory (set by ``--output_directory``), and full length of read 1 and
-read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 20,000 read pairs are sampled (set by ``-n``, default
+``100,000``) for quality control. The ``-t`` option can be used to set
+the number of threads. By default, diagnostic results and plots are
+generated in the ``qc`` directory (set by ``--output_directory``), and
+the full length of read 1 and read 2 are searched against reference cell
+and feature barcodes, respectively. The per base content of both read
+pairs and the distribution of matched barcode positions are summarized.
+Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
 .. code:: console
 
@@ -287,23 +287,23 @@ barcodes.
  Matrix generation
 *******************
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. UMI removal is powered by UMI-tools (`Smith, T.,
-et al. 2017. Genome Res. 27, 491–499.`_). Use ``-us`` to set the UMI
-starting position on read 1 (default ``16``). Use ``-ul`` to set the UMI
-length (default ``12``). Fragments with UMI length less than this value
-are discarded. UMI deduplication method is set by ``-ud`` (default
-``directional``). Use ``-um`` to set UMI deduplication mismatch
-threshold (default ``1``).
+Only fragments with correctly matched cell and feature barcodes are
+included, while fragments with UMI lengths less than the specified value
+are discarded. UMI removal is performed using UMI-tools (`Smith, T., et
+al. 2017. Genome Res. 27, 491–499.`_), with the starting position on
+read 1 set by ``-us`` (default ``16``) and the length set by ``-ul``
+(default ``12``). The UMI deduplication method can be set using ``-ud``
+(default ``directional``), and the UMI deduplication mismatch threshold
+can be specified using ``-um`` (default ``1``).
 
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages: Seurat_ and Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -349,10 +349,11 @@ Poisson-Gaussian mixture model
 ==============================
 
 The implementation of demultiplexing method ``3`` (set by ``-dm``) is
-inspired by `Replogle, M., et al. (2021)`_. Use ``-p`` to set the
-probability threshold for demulitplexing (default ``0.5``). Use ``-nc``
-to set the number of positive cells for a feature to be included for
-demultiplexing (default ``200``).
+inspired by `Replogle, M., et al. (2021)`_. The probability threshold
+for demultiplexing can be set using ``-p`` (default ``0.5``). Use
+``-nc`` to specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, with a default value of
+``200``.
 
 .. _replogle, m., et al. (2021): https://www.biorxiv.org/content/10.1101/2021.12.16.473013
 

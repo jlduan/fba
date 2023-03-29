@@ -182,23 +182,23 @@ Prepare feature barcodes (antibody-derived tags, ADTs) from sheet
 QC
 ==
 
-Sample the first 10,000 (set by ``-n``) read pairs for quality control.
-Use ``-t`` to set the number of threads. The diagnostic results and
-plots are generated in the ``qc`` directory (set by
-``--output_directory``, default ``qc``). By default, full length of read
-1 and read 2 are searched against reference cell and feature barcodes,
-respectively. The per base content of both read pairs and the
-distribution of matched barcode positions are summarized. Use ``-r1_c``
-and/or ``-r2_c`` to limit the search range. Use ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
-matching (default ``3``).
+The first 100,000 read pairs are sampled (default, set by ``-n``) for
+quality control. By default, diagnostic results and plots are generated
+in the ``qc`` directory (set by ``--output_directory``), and the full
+length of read 1 and read 2 are searched against reference cell and
+feature barcodes, respectively. The per base content of both read pairs
+and the distribution of matched barcode positions are summarized. Use
+``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
+and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+barcode matching (default ``3``).
 
-This library is built using 10x Genomics' `Chromium Single Cell ATAC
-Reagent Kits`_. The 10x Barcode (16 bp) is sequenced in the i5 index
-read. 10x Genomics' `Cell Ranger ATAC`_ may convert the raw 16 bp
-sequences to their reverse-complement counterparts as cell barcodes in
-the outputs. In ``fba``, use ``-cb_rc`` to reverse-complement cell
-barcode sequences for processing.
+This library is constructed using 10x Genomics' `Chromium Single Cell
+ATAC Reagent Kits`_. The 10x Barcode, consisting of 16 base pairs, is
+sequenced during the i5 index read. When using 10x Genomics' `Cell
+Ranger ATAC`_, the raw 16 bp sequences may be transformed into their
+reverse-complement counterparts as cell barcodes in the outputs. In
+``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for
+processing.
 
 .. _chromium single cell atac reagent kits: https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries
 
@@ -332,18 +332,19 @@ and feature barcodes.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. Use ``-ul`` to set the UMI length (default
-``12``). Setting to ``0`` means no UMIs and read counts are summarized
-instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in
-the output matrix if needed.
+Only fragments with correctly matched cell and feature barcodes are
+included. Use ``-ul`` to set the UMI length (default ``12``). Setting to
+``0`` means no UMIs and read counts are summarized instead. Use
+``-cb_rc`` to reverse-complement cell barcode sequences in the output
+matrix if needed.
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages such as Seurat_ and
+Scanpy_.
 
-.. _scanpy: https://scanpy.readthedocs.io/en/stable
+.. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -421,8 +422,9 @@ Gaussian mixture model
 ----------------------
 
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics' website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
+inspired by the method described on the `10x Genomics' website`_. To set
+the probability threshold for demultiplexing, use ``-p`` (default
+``0.9``). To generate visualization plots, set ``-v``.
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -726,11 +728,11 @@ and feature barcodes.
 Matrix generation
 =================
 
-Only fragments with correct (passed the criteria) cell and feature
-barcodes are included. Use ``-ul`` to set the UMI length (default
-``12``). Setting to ``0`` means no UMIs and read counts are summarized
-instead. Use ``-cb_rc`` to reverse-complement cell barcode sequences in
-the output matrix if needed.
+Only fragments with correctly matched cell and feature barcodes are
+included. Use ``-ul`` to set the UMI length (default ``12``). Setting to
+``0`` means no UMIs and read counts are summarized instead. Use
+``-cb_rc`` to reverse-complement cell barcode sequences in the output
+matrix if needed.
 
 .. code:: console
 
