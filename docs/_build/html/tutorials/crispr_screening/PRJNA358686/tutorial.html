@@ -314,14 +314,14 @@ original data processing can be found <a class="reference external" href="https:
 initially processed with Drop-seq Tools v1.12 software. The first 12
 bases of read 1 are cell barcodes, followed by 8 bases of UMIs, while
 captured single cell transcripts are in read 2.</p>
-<p>To analyze the downstream data, I reprocessed the raw reads to obtain
+<p>To perform the downstream analysis, I reprocessed the raw reads to obtain
 cell-associated barcodes. The raw reads were trimmed using <a class="reference external" href="https://www.bioinformatics.babraham.ac.uk/projects/trim_galore">Trim
 Galore!</a> and then mapped to the human reference genome
-<a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A">refdata-gex-GRCh38-2020-A</a> using STAR v2.7.8a. The plasmid
+<a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/release-notes/build#GRCh38_2020A">refdata-gex-GRCh38-2020-A</a> using STAR (version 2.7.8a). The plasmid
 <a class="reference external" href="https://www.addgene.org/86708/">CROPseq-Guide-Puro</a> sequence was not included in the reference.</p>
-<div class="table-wrapper colwidths-given docutils container" id="id9">
-<table class="colwidths-given docutils align-default" id="id9">
-<caption><span class="caption-text">Mapping statistics</span><a class="headerlink" href="#id9" title="Permalink to this table">#</a></caption>
+<div class="table-wrapper colwidths-given docutils container" id="id10">
+<table class="colwidths-given docutils align-default" id="id10">
+<caption><span class="caption-text">Mapping statistics</span><a class="headerlink" href="#id10" title="Permalink to this table">#</a></caption>
 <colgroup>
 <col style="width: 78%" />
 <col style="width: 22%" />
@@ -427,11 +427,10 @@ pairs are kept for sgRNA identification.</p>
 </div>
 <section id="qc">
 <h3>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h3>
-<p>The first 20,000 read pairs are sampled (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default
-<code class="docutils literal notranslate"><span class="pre">100,000</span></code>) for quality control. The <code class="docutils literal notranslate"><span class="pre">-t</span></code> option can be used to set
-the number of threads. By default, diagnostic results and plots are
-generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and the
-full length of read 1 and read 2 are searched against reference cell and
+<p>The first 100,000 read pairs are sampled (default, set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>) for
+quality control. By default, diagnostic results and plots are generated
+in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and the full
+length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
@@ -546,7 +545,7 @@ read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</
 (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>), and the UMI deduplication mismatch threshold
 can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
+well-established single cell analysis packages such as <a class="reference external" href="https://satijalab.org/seurat/">Seurat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
     -i feature_barcoding_output.tsv.gz <span class="se">\</span>
     -o matrix_featurecount.csv.gz <span class="se">\</span>
@@ -585,9 +584,9 @@ well-established single cell analysis packages: <a class="reference external" hr
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on the <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. To set
 the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
-<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> to specify the minimum number of positive cells for a given
-feature to be considered during demultiplexing, with a default value of
-<code class="docutils literal notranslate"><span class="pre">200</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">200</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">2</span> <span class="se">\</span>
@@ -720,11 +719,11 @@ sequences from read 2. However, the locations of sgRNAs on read 2 vary
 because the transcripts are captured by polyA tails. Therefore, we use
 the <code class="docutils literal notranslate"><span class="pre">qc</span></code> mode for sgRNA extraction, which is capable of handling the
 variable locations of sgRNAs on read 2.</p>
-<p>To specify the number of reads to analyze, use <code class="docutils literal notranslate"><span class="pre">-n</span></code>, where <code class="docutils literal notranslate"><span class="pre">None</span></code>
-means all reads. To set the number of threads, use <code class="docutils literal notranslate"><span class="pre">-t</span></code>. By default,
-the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory
-(set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and the full length of read 1 and read
-2 are searched against reference cell and feature barcodes,
+<p>To specify the number of reads to analyze, use <code class="docutils literal notranslate"><span class="pre">--num_reads</span></code>, where
+<code class="docutils literal notranslate"><span class="pre">None</span></code> means all reads. To set the number of threads, use <code class="docutils literal notranslate"><span class="pre">-t</span></code>. By
+default, the diagnostic results and plots are generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code>
+directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and the full length of read 1
+and read 2 are searched against reference cell and feature barcodes,
 respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. To limit the
 search range for read 1 and/or read 2, use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>,
@@ -811,16 +810,16 @@ barcodes are unique fragments.</p>
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="id5">
-<h3>Demultiplexing<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
 <section id="id6">
-<h4>Gaussian mixture model<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h4>
+<h3>Demultiplexing<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
+<section id="id7">
+<h4>Gaussian mixture model<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h4>
 <p>The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on the <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. To set
 the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
-<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). Use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> to specify the minimum number of positive cells for a given
-feature to be considered during demultiplexing, with a default value of
-<code class="docutils literal notranslate"><span class="pre">200</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-nc</span></code> (default
+<code class="docutils literal notranslate"><span class="pre">200</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
     -i matrix_featurecount.csv.gz <span class="se">\</span>
     -dm <span class="m">2</span> <span class="se">\</span>
@@ -875,8 +874,8 @@ multiplets.</p>
 <div class="line"><br /></div>
 </div>
 </section>
-<section id="id8">
-<h4>Knee point<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h4>
+<section id="id9">
+<h4>Knee point<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h4>
 <p>Cells are demultiplexed according to the abundance of features,
 specifically sgRNAs. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use
 the local maxima on the difference curve to detemine the knee point on
@@ -1021,9 +1020,9 @@ multiplets.</p>
 <li><a class="reference internal" href="#approach-b">Approach B</a><ul>
 <li><a class="reference internal" href="#id1">Barcode extraction</a></li>
 <li><a class="reference internal" href="#id2">Matrix generation</a></li>
-<li><a class="reference internal" href="#id5">Demultiplexing</a><ul>
-<li><a class="reference internal" href="#id6">Gaussian mixture model</a></li>
-<li><a class="reference internal" href="#id8">Knee point</a></li>
+<li><a class="reference internal" href="#id6">Demultiplexing</a><ul>
+<li><a class="reference internal" href="#id7">Gaussian mixture model</a></li>
+<li><a class="reference internal" href="#id9">Knee point</a></li>
 </ul>
 </li>
 </ul>

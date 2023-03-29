@@ -49,10 +49,10 @@ captured single cell transcripts are in read 2.
 
 .. _here: https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588
 
-To analyze the downstream data, I reprocessed the raw reads to obtain
+To perform the downstream analysis, I reprocessed the raw reads to obtain
 cell-associated barcodes. The raw reads were trimmed using `Trim
 Galore!`_ and then mapped to the human reference genome
-refdata-gex-GRCh38-2020-A_ using STAR v2.7.8a. The plasmid
+refdata-gex-GRCh38-2020-A_ using STAR (version 2.7.8a). The plasmid
 CROPseq-Guide-Puro_ sequence was not included in the reference.
 
 .. _cropseq-guide-puro: https://www.addgene.org/86708/
@@ -147,11 +147,10 @@ pairs are kept for sgRNA identification.
 QC
 ==
 
-The first 20,000 read pairs are sampled (set by ``-n``, default
-``100,000``) for quality control. The ``-t`` option can be used to set
-the number of threads. By default, diagnostic results and plots are
-generated in the ``qc`` directory (set by ``--output_directory``), and the
-full length of read 1 and read 2 are searched against reference cell and
+The first 100,000 read pairs are sampled (default, set by ``-n``) for
+quality control. By default, diagnostic results and plots are generated
+in the ``qc`` directory (set by ``--output_directory``), and the full
+length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
@@ -293,11 +292,11 @@ can be specified using ``-um`` (default ``1``).
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages such as Seurat_ and Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable/
 
-.. _seruat: https://satijalab.org/seurat/
+.. _seurat: https://satijalab.org/seurat/
 
 .. code:: console
 
@@ -340,9 +339,9 @@ Gaussian mixture model
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
 inspired by the method described on the `10x Genomics' website`_. To set
 the probability threshold for demultiplexing, use ``-p`` (default
-``0.9``). Use ``-nc`` to specify the minimum number of positive cells for a given
-feature to be considered during demultiplexing, with a default value of
-``200``.
+``0.9``). To specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, use ``-nc`` (default
+``200``).
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 
@@ -497,11 +496,11 @@ because the transcripts are captured by polyA tails. Therefore, we use
 the ``qc`` mode for sgRNA extraction, which is capable of handling the
 variable locations of sgRNAs on read 2.
 
-To specify the number of reads to analyze, use ``-n``, where ``None``
-means all reads. To set the number of threads, use ``-t``. By default,
-the diagnostic results and plots are generated in the ``qc`` directory
-(set by ``--output_directory``), and the full length of read 1 and read
-2 are searched against reference cell and feature barcodes,
+To specify the number of reads to analyze, use ``--num_reads``, where
+``None`` means all reads. To set the number of threads, use ``-t``. By
+default, the diagnostic results and plots are generated in the ``qc``
+directory (set by ``--output_directory``), and the full length of read 1
+and read 2 are searched against reference cell and feature barcodes,
 respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. To limit the
 search range for read 1 and/or read 2, use ``-r1_c`` and/or ``-r2_c``,
@@ -610,9 +609,9 @@ Gaussian mixture model
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
 inspired by the method described on the `10x Genomics' website`_. To set
 the probability threshold for demultiplexing, use ``-p`` (default
-``0.9``). Use ``-nc`` to specify the minimum number of positive cells for a given
-feature to be considered during demultiplexing, with a default value of
-``200``.
+``0.9``). To specify the minimum number of positive cells for a given
+feature to be considered during demultiplexing, use ``-nc`` (default
+``200``).
 
 .. _10x genomics’ website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 

@@ -140,7 +140,7 @@ read pairs are kept for sgRNA identification.
  QC
 ****
 
-The first 20,000 read pairs are sampled (set by ``-n``, default
+The first 200,000 read pairs are sampled (set by ``-n``, default
 ``100,000``) for quality control. The ``-t`` option can be used to set
 the number of threads. By default, diagnostic results and plots are
 generated in the ``qc`` directory (set by ``--output_directory``), and
@@ -349,11 +349,10 @@ Poisson-Gaussian mixture model
 ==============================
 
 The implementation of demultiplexing method ``3`` (set by ``-dm``) is
-inspired by `Replogle, M., et al. (2021)`_. The probability threshold
-for demultiplexing can be set using ``-p`` (default ``0.5``). Use
-``-nc`` to specify the minimum number of positive cells for a given
-feature to be considered during demultiplexing, with a default value of
-``200``.
+inspired by `Replogle, M., et al. (2021)`_. To set the probability
+threshold for demultiplexing, use ``-p`` (default ``0.9``). To specify
+the minimum number of positive cells for a given feature to be
+considered during demultiplexing, use ``-nc`` (default ``200``).
 
 .. _replogle, m., et al. (2021): https://www.biorxiv.org/content/10.1101/2021.12.16.473013
 
