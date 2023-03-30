@@ -251,7 +251,7 @@ Demultiplexing method ``4`` is implemented based on the method described
 in `McGinnis, C., et al. (2019)
 <https://doi.org/10.1038/s41592-019-0433-8>`_ with some modifications. A
 cell identity matrix is generated in the output directory: 0 means
-negative, 1 means positive. Set ``-v`` to create visualization plots.
+negative, 1 means positive. To generate visualization plots, set ``-v``.
 
 .. code:: console
 

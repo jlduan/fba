@@ -386,7 +386,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>read_1_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>
@@ -408,11 +408,11 @@ enriched.</p>
 slightly A enriched.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content5.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content5.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content5.webp" style="width: 425px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending5.webp" style="width: 425px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>no_<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>

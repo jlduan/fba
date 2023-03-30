@@ -91,7 +91,7 @@ length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -103,11 +103,11 @@ barcode matching (default ``3``).
        -f feature_barcodes.tsv \
        --output_directory qc
 
-This library is constructed using Chromium Single Cell 3' Reagent Kits
-(v2 Chemistry). The first 16 bases are cell barcodes and the following 9
-bases are UMIs (Read 1 length is 25). Based on the base content plot,
-the GC content of cell barcodes are quite even. The UMIs are slightly G
-enriched.
+This library was constructed using the Chromium Single Cell 3' Reagent
+Kits (v2 Chemistry). The first 16 bases represent cell barcodes and the
+next 9 bases are UMIs (Read 1 has a length of 25). The base content plot
+shows that the GC content of cell barcodes is evenly distributed.
+Additionally, the UMIs are slightly enriched in G.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 360px
@@ -117,9 +117,9 @@ enriched.
    :width: 360px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases 0-5
-are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).
+Based on the per base content analysis of read 2, it appears that bases
+0-5 correspond to the feature barcodes, as evidenced by the distribution
+of matched barcode positions.
 
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 375px
@@ -129,11 +129,11 @@ barcode positions on read 2).
    :width: 375px
    :align: center
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 

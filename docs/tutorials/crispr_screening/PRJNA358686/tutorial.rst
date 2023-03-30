@@ -41,7 +41,7 @@ cell lines that had been knocked out for DNMT3B, MBD1, and TET2,
 separately and were mixed in equal proportions (`Fig. 1h`_). The
 platform used for this dataset is Drop-seq, and more details about the
 original data processing can be found here_. In brief, the raw data was
-initially processed with Drop-seq Tools v1.12 software. The first 12
+initially processed with Drop-seq Tools v1.12 pipeline. The first 12
 bases of read 1 are cell barcodes, followed by 8 bases of UMIs, while
 captured single cell transcripts are in read 2.
 
@@ -154,7 +154,7 @@ length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -192,11 +192,11 @@ sequences.
 .. |pic2| image:: Pyplot_read2_barcodes_starting_ending.webp
    :width: 48%
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -505,7 +505,7 @@ respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. To limit the
 search range for read 1 and/or read 2, use ``-r1_c`` and/or ``-r2_c``,
 respectively. Use ``-cb_n`` and/or ``-fb_n`` to set the mismatch
-tolerance for cell and feature barcode matching (default ``3``).
+tolerance for cell and/or feature barcode matching (default ``3``).
 
 .. code:: console
 
@@ -522,11 +522,11 @@ tolerance for cell and feature barcode matching (default ``3``).
        -t $SLURM_CPUS_ON_NODE \
        --num_reads None
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 

@@ -148,7 +148,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -186,11 +186,11 @@ slightly A enriched.
    :width: 425px
    :align: center
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 

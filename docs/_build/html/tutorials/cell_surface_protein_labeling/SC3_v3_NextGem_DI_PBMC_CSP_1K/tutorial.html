@@ -367,7 +367,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SC3_v3_NextGem_DI_CSP-Labeled_PBMCs_1K_antibody_S1_combined_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -378,31 +378,33 @@ barcode matching (default <code class="docutils literal notranslate"><span class
 <span class="w">    </span>-n<span class="w"> </span><span class="m">20000</span>
 </pre></div>
 </div>
-<p>This library is constructed using Chromium Next GEM Single Cell 3ʹ
+<p>This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
-Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16
-bases are cell barcodes and the following 12 bases are UMIs. Based on
-the base content plot, the GC content of cell barcodes are quite even.
-The UMIs are slightly T enriched.</p>
+Surface Protein, and was sequenced on the Illumina NovaSeq 6000
+platform. The first 16 bases of read 1 correspond to the cell barcodes,
+followed by 12 bases for UMIs. The base content plot reveals that the GC
+content of the cell barcodes is evenly distributed, while the UMIs show
+a slight enrichment for the nucleotide T.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content2.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content2.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content2.webp" style="width: 350px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that bases
-0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled,
-which could mean that their sequences are random at library-level. While
-bases 34-55 and 84-89 are constant sequences and we can almost read the
-bases. Bases 10-24 are less random but also not constant. They are
-actually our feature barcodes (See the distribution of matched barcode
-positions on read 2).</p>
+<p>Regarding read 2, the per base content analysis suggests that for the
+sampled reads, bases 0-9, 25-33, and 56-83 exhibit a balanced GC
+content, which indicates that their sequences are likely random at the
+library level. However, bases 34-55 and 84-89 appear to be constant
+sequences, and we can almost read the bases in these regions. The bases
+10-24 are less random but also not constant, as they correspond to our
+feature barcodes, which is evident from the distribution of matched
+barcode positions on read 2.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content2.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content2.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content2.webp" style="width: 800px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending2.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending2.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending2.webp" style="width: 800px;" /></a>
-<p>The fragment structure in this feature barcoding library inferred from
-<code class="docutils literal notranslate"><span class="pre">qc</span></code> results matches the design (Page 3, <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>. Of course, this
-is an example dataset from 10x Genomics). Bases 34-56 are actually
-called ‘Capture Sequence 1’ on beads.</p>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The fragment structure inferred from the <code class="docutils literal notranslate"><span class="pre">qc</span></code> results of this feature
+barcoding library matches the design as specified on Page 3, <a class="reference external" href="https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf">Table 1</a>
+(Note that this is an example dataset from 10x Genomics). The sequence
+of bases 34-56 is referred to as “Capture Sequence 1” on the beads.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>

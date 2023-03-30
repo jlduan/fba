@@ -189,16 +189,15 @@ length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
-This library is constructed using 10x Genomics' `Chromium Single Cell
-ATAC Reagent Kits`_. The 10x Barcode, consisting of 16 base pairs, is
-sequenced during the i5 index read. When using 10x Genomics' `Cell
-Ranger ATAC`_, the raw 16 bp sequences may be transformed into their
-reverse-complement counterparts as cell barcodes in the outputs. In
-``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for
-processing.
+This library was constructed using 10x Genomics' `Chromium Single Cell
+ATAC Reagent Kits`_, where the 16-base pair cell barcode is sequenced
+during the i5 index read. In `Cell Ranger ATAC`_, the raw 16 bp
+sequences may be transformed into their reverse-complement counterparts
+as cell barcodes in the outputs. To achieve the same result in ``fba``,
+use ``-cb_rc`` to reverse-complement the cell barcode sequences.
 
 .. _chromium single cell atac reagent kits: https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries
 
@@ -212,17 +211,18 @@ processing.
        --output_directory qc \
        -cb_rc
 
-This library is built using the `Chromium Single Cell ATAC Reagent
-Kits`_ and sequenced on Illumina NextSeq 550. The GC content of cell
-barcodes (read 2) are A-rich.
+This library was constructed using the `Chromium Single Cell ATAC
+Reagent Kits`_ and sequenced on the Illumina NextSeq 550 platform. The
+base composition analysis reveals that the cell barcodes in read 2 are
+enriched for A bases.
 
 .. image:: Pyplot_read1_per_base_seq_content_HTO.webp
    :width: 375px
    :align: center
 
-As for read 3, based on the per base content, it suggests that bases
-0-14 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 3).
+The per base content of read 3 suggests that the feature barcodes are
+located in bases 0-14, as indicated by the distribution of matched
+barcode positions (See the fba ``qc`` results for more details).
 
 .. image:: Pyplot_read2_per_base_seq_content_HTO.webp
    :width: 625px
@@ -232,11 +232,11 @@ barcode positions on read 3).
    :width: 625px
    :align: center
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -265,7 +265,7 @@ uniform. Search ranges are set to ``0,16`` on read 2 and ``0,15`` on
 read 3. One mismatch for cell and feature barcodes (``-cb_m``,
 ``-cf_m``) are allowed. And by default, three ambiguous nucleotides (Ns)
 for read 1 and read 2 (``-cb_n``, ``-cf_n``) are allowed. Use ``-cb_rc``
-to reverse-complement cell barcode sequences for processing.
+to reverse-complement cell barcode sequences.
 
 .. code:: console
 

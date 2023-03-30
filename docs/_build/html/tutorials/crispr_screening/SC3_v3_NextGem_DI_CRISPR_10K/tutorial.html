@@ -347,7 +347,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -539,7 +539,8 @@ modifications. The output directory for demultiplexing is set by
 <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code> (default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>). A cell identity
 matrix is generated, where 0 indicates negative and 1 indicates
 positive. To adjust the quantile threshold for demultiplexing, use
-<code class="docutils literal notranslate"><span class="pre">-q</span></code>. To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
+<code class="docutils literal notranslate"><span class="pre">-q</span></code> (default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). To generate visualization plots, set
+<code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
@@ -658,9 +659,9 @@ each cell, as called by FBA.</p>
 </section>
 <section id="kernel-density-estimation">
 <h3>Kernel density estimation<a class="headerlink" href="#kernel-density-estimation" title="Permalink to this heading">#</a></h3>
-<p>CRISPR perturbations are demultiplexed based on feature abundance using
-demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code>, which is implemented with modifications to
-the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
+<p>CRISPR perturbations are demultiplexed based on the abundance of
+features using demultiplexing method <code class="docutils literal notranslate"><span class="pre">4</span></code>, which is implemented with
+modifications to the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-dm<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
@@ -759,10 +760,10 @@ each cell, as called by FBA.</p>
 </section>
 <section id="method-2">
 <h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading">#</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (sgRNAs).
-Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
-curve.</p>
+<p>Cells are demultiplexed based on the abundance of features, specifically
+sgRNAs. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local
+maxima on the difference curve to detemine the knee point on the UMI
+saturation curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-dm<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>

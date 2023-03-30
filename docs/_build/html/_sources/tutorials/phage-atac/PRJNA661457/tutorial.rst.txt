@@ -127,9 +127,9 @@ keep the variable parts.
 
 |
 
-First, we screen reads that have the constant sequence
+First, we screened reads for the constant sequence
 (``GATACCGCGGTGTATTATTGCG``) at the beginning of the CDR3 barcode
-sequences on read 3 (cutadapt_\, version 3.7).
+sequences on read 3 using cutadapt_ (version 3.7).
 
 .. _cutadapt: https://github.com/marcelm/cutadapt
 
@@ -189,16 +189,17 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
-This library is constructed using 10x Genomics' `Chromium Single Cell
-ATAC Reagent Kits`_. The 10x Barcode, consisting of 16 base pairs, is
-sequenced during the i5 index read. When using 10x Genomics' `Cell
-Ranger ATAC`_, the raw 16 bp sequences may be transformed into their
-reverse-complement counterparts as cell barcodes in the outputs. In
-``fba``, use ``-cb_rc`` to reverse-complement cell barcode sequences for
-processing.
+This library was constructed using 10x Genomics' `Chromium Single Cell
+ATAC Reagent Kits`_, where the 16-base pair cell barcode is sequenced
+during the i5 index read. In `Cell Ranger ATAC`_, the raw 16 bp
+sequences may be transformed into their reverse-complement counterparts
+as cell barcodes in the outputs. To achieve the same result in ``fba``,
+use ``-cb_rc`` to reverse-complement the cell barcode sequences.
+
+To achieve the same result in fba,
 
 .. _cell ranger atac: https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview
 
@@ -240,11 +241,11 @@ complexity.
 .. |pic2| image:: Pyplot_read2_per_base_seq_content_trimmed_r3.webp
    :width: 49%
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -274,8 +275,8 @@ R1
        -cb_rc \
        -n 10000
 
-For read 1, based on the per base content, it suggests low complexity.
-There are almost constant bases at the beginning of the reads.
+For read 1, the per base content plot suggests low complexity, with a
+high proportion of constant bases at the beginning of the reads.
 
 |pic3| |pic4|
 
@@ -285,11 +286,11 @@ There are almost constant bases at the beginning of the reads.
 .. |pic4| image:: Pyplot_read2_per_base_seq_content_trimmed_r1.webp
    :width: 49%
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -317,8 +318,8 @@ R3
 
 Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 3. One
 mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are
-allowed. Use ``-cb_rc`` to reverse-complement the cell barcode sequences
-for processing.
+allowed. Use ``-cb_rc`` to reverse-complement cell barcode sequences in
+the output if needed.
 
 .. code:: console
 
@@ -385,8 +386,8 @@ R1
 
 Search ranges are set to ``0,16`` on read 2 and ``0,12`` on read 1. One
 mismatch for cell and feature barcodes (``-cb_m``, ``-cf_m``) are
-allowed. Use ``-cb_rc`` to reverse-complement the cell barcode sequences
-for processing.
+allowed. Use ``-cb_rc`` to reverse-complement cell barcode sequences in
+the output if needed.
 
 .. code:: console
 

@@ -85,15 +85,15 @@ Inspect feature barcodes.
  QC
 ****
 
-The first 20,000 read pairs are sampled (set by ``-n``, default
-``100,000``) for quality control. The ``-t`` option can be used to set
-the number of threads. By default, diagnostic results and plots are
+The first 20,000 read pairs are sampled (default ``100,000``, set by
+``-n``, ) for quality control. The ``-t`` option can be used to set the
+number of threads. By default, diagnostic results and plots are
 generated in the ``qc`` directory (set by ``--output_directory``), and
 the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -106,10 +106,11 @@ barcode matching (default ``3``).
        --output_directory qc \
        -n 20000
 
-This library is constructed using Chromium Single Cell 3' Reagent Kits
-(v2 Chemistry). The first 16 bases are cell barcodes and the following
-10 bases are UMIs. Based on the base content plot, the GC content of
-cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
+This library was constructed using Chromium Single Cell 3’ Reagent Kits
+(v2 Chemistry). The first 16 bases correspond to cell barcodes and the
+following 10 bases correspond to UMIs on read 1. Based on the base
+content plot, both the cell barcode and UMI sequences exhibit even GC
+content. A poly-A tail starts at base 26.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
@@ -120,9 +121,10 @@ cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.
    :align: center
 
 As for read 2, based on the per base content, it suggests that bases
-0-11 are relatively GC balanced for the reads we have sampled. Starting
-from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences.
-Most of the reads have the correct structure.
+0-11 exhibit relatively balanced GC content for the reads that we have
+sampled. Starting from base 12, there is a poly-A tail. Bases 0-11 are
+hashtag oligo sequences, and the majority of the reads appear to have
+the expected structure.
 
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
@@ -390,8 +392,9 @@ Gaussian mixture model
 
 Alternatively, cells can be demultiplexed using gaussian mixture model.
 The implementation of demultiplexing method ``2`` (set by ``-dm``) is
-inspired by the method described on `10x Genomics' website`_. Use ``-p``
-to set the probability threshold for demulitplexing (default ``0.9``).
+inspired by the method described on `10x Genomics' website`. To set the
+probability threshold for demultiplexing, use ``-p`` (default ``0.9``).
+To generate visualization plots, set -v.
 
 .. _10x genomics' website: https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr
 

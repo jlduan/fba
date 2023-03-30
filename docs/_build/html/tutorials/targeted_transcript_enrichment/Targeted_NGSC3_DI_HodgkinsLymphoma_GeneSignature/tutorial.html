@@ -310,12 +310,12 @@ dataset.</p>
 </div>
 <p>Prepare feature sequences.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">map</span></code> subcommand is designed to process secondary libraries
-created on top of the whole transcriptome assays. These libraries enrich
-transcripts of interest through hybridization or PCR amplification,
-allowing for potentially more sensitive detection. The transcripts may
-be from endogenous genes or ectopic constructs, such as eGFP, as long as
-they were captured in the parent libraries.</p>
-<p>In this tutorial, we use the 10x Genomics “Targeted Gene Expression”
+created on top of the (whole) transcriptome assays. These libraries
+enrich transcripts of interest through hybridization or PCR
+amplification, allowing for potentially more sensitive detection. The
+transcripts may be from endogenous genes or ectopic constructs, such as
+eGFP, as long as they were captured in the parent libraries.</p>
+<p>In this tutorial, we use the 10x Genomics’ “Targeted Gene Expression”
 library as an example. The <a class="reference external" href="https://kb.10xgenomics.com/hc/en-us/articles/360045688071-What-are-the-bait-design-criteria-for-10x-pre-designed-and-custom-panels-">bait sequences</a> serve as references for
 read 2 mapping. Ideally, the reference sequences should include all
 possible captured transcribed regions.</p>
@@ -373,8 +373,8 @@ cell-associated barcodes. You can adjust the search range with <code class="docu
 (default <code class="docutils literal notranslate"><span class="pre">0,16</span></code>), and the mismatching threshold with <code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>
 (default <code class="docutils literal notranslate"><span class="pre">1</span></code>). Next, we map read 2 sequences with correct cell
 barcodes (found in read 1) to provided reference sequences using an
-aligner such as <code class="docutils literal notranslate"><span class="pre">bwa</span></code> (default, <a class="reference external" href="https://arxiv.org/abs/1303.3997">Li, H. (2013). arXiv:1303.3997.</a> ,
-set with <code class="docutils literal notranslate"><span class="pre">-al</span></code>) or <code class="docutils literal notranslate"><span class="pre">bowtie2</span></code> (<a class="reference external" href="http://dx.doi.org/10.1038/nmeth.1923">Langmead, B., and Salzberg, S.L.
+aligner such as <code class="docutils literal notranslate"><span class="pre">bwa</span></code> (default, set with <code class="docutils literal notranslate"><span class="pre">-al</span></code>, <a class="reference external" href="https://arxiv.org/abs/1303.3997">Li, H. (2013).
+arXiv:1303.3997.</a>) or <code class="docutils literal notranslate"><span class="pre">bowtie2</span></code> (<a class="reference external" href="http://dx.doi.org/10.1038/nmeth.1923">Langmead, B., and Salzberg, S.L.
 (2012). Nat. Methods 9, 357–359.</a>). We keep only alignments with a
 mapping quality above a threshold, which you can set with <code class="docutils literal notranslate"><span class="pre">--mapq</span></code>
 (default <code class="docutils literal notranslate"><span class="pre">10</span></code>), for downstream feature counting.</p>

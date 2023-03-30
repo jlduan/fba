@@ -100,7 +100,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -334,7 +334,8 @@ modifications. The output directory for demultiplexing is set by
 ``--output_directory`` (default ``demultiplexed``). A cell identity
 matrix is generated, where 0 indicates negative and 1 indicates
 positive. To adjust the quantile threshold for demultiplexing, use
-``-q``. To generate visualization plots, set ``-v``.
+``-q`` (default ``0.9999``). To generate visualization plots, set
+``-v``.
 
 .. _stoeckius, m., et al. (2018): https://doi.org/10.1186/s13059-018-1603-1
 
@@ -512,9 +513,9 @@ UMI distribution and model fitting threshold:
 Kernel density estimation
 =========================
 
-CRISPR perturbations are demultiplexed based on feature abundance using
-demultiplexing method ``4``, which is implemented with modifications to
-the method described in `McGinnis, C., et al. (2019)`_.
+CRISPR perturbations are demultiplexed based on the abundance of
+features using demultiplexing method ``4``, which is implemented with
+modifications to the method described in `McGinnis, C., et al. (2019)`_.
 
 .. _mcginnis, c., et al. (2019): https://doi.org/10.1038/s41592-019-0433-8
 
@@ -660,10 +661,10 @@ UMI distribution and model fitting threshold:
 Method 2
 --------
 
-Cells are demultiplexed based on the abundance of features (sgRNAs).
-Demultiplexing method ``5`` is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
-curve.
+Cells are demultiplexed based on the abundance of features, specifically
+sgRNAs. Demultiplexing method ``5`` is implemented to use the local
+maxima on the difference curve to detemine the knee point on the UMI
+saturation curve.
 
 .. code:: console
 

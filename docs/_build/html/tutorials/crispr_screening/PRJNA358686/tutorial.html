@@ -298,7 +298,7 @@ cell lines that had been knocked out for DNMT3B, MBD1, and TET2,
 separately and were mixed in equal proportions (<a class="reference external" href="https://www.nature.com/articles/nmeth.4177/figures/1">Fig. 1h</a>). The
 platform used for this dataset is Drop-seq, and more details about the
 original data processing can be found <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM2450588">here</a>. In brief, the raw data was
-initially processed with Drop-seq Tools v1.12 software. The first 12
+initially processed with Drop-seq Tools v1.12 pipeline. The first 12
 bases of read 1 are cell barcodes, followed by 8 bases of UMIs, while
 captured single cell transcripts are in read 2.</p>
 <p>To perform the downstream analysis, I reprocessed the raw reads to obtain
@@ -421,7 +421,7 @@ length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>read_1_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>
@@ -442,11 +442,11 @@ T-enrichment.</p>
 should be noted that the first 20 bases correspond to the sgRNA
 sequences.</p>
 <p><a class="reference internal" href="../../../_images/Pyplot_read2_per_base_seq_content4.webp"><img alt="pic1" src="../../../_images/Pyplot_read2_per_base_seq_content4.webp" style="width: 48%;" /></a> <a class="reference internal" href="../../../_images/Pyplot_read2_barcodes_starting_ending4.webp"><img alt="pic2" src="../../../_images/Pyplot_read2_barcodes_starting_ending4.webp" style="width: 48%;" /></a></p>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>zcat<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>no_match<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -715,7 +715,7 @@ respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. To limit the
 search range for read 1 and/or read 2, use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code>,
 respectively. Use <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch
-tolerance for cell and feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
+tolerance for cell and/or feature barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SRR5163029_1.fastq.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-2<span class="w"> </span>SRR5163029_2.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -730,11 +730,11 @@ tolerance for cell and feature barcode matching (default <code class="docutils l
 <span class="w">    </span>--num_reads<span class="w"> </span>None
 </pre></div>
 </div>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>

@@ -121,7 +121,7 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use ``-r1_c`` and/or ``-r2_c`` to limit the search range, and ``-cb_n``
-and/or ``-fb_n`` to set the mismatch tolerance for cell and feature
+and/or ``-fb_n`` to set the mismatch tolerance for cell and/or feature
 barcode matching (default ``3``).
 
 .. code:: console
@@ -134,24 +134,26 @@ barcode matching (default ``3``).
        --output_directory qc \
        -n 20000
 
-This library is constructed using Chromium Next GEM Single Cell 3ʹ
+This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
-Surface Protein and sequenced on Illumina NovaSeq 6000. The first 16
-bases are cell barcodes and the following 12 bases are UMIs. Based on
-the base content plot, the GC content of cell barcodes are quite even.
-The UMIs are slightly T enriched.
+Surface Protein, and was sequenced on the Illumina NovaSeq 6000
+platform. The first 16 bases of read 1 correspond to the cell barcodes,
+followed by 12 bases for UMIs. The base content plot reveals that the GC
+content of the cell barcodes is evenly distributed, while the UMIs show
+a slight enrichment for the nucleotide T.
 
 .. image:: Pyplot_read1_per_base_seq_content.webp
    :width: 350px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases
-0-9, 25-33, and 56-83 are GC balanced for the reads we have sampled,
-which could mean that their sequences are random at library-level. While
-bases 34-55 and 84-89 are constant sequences and we can almost read the
-bases. Bases 10-24 are less random but also not constant. They are
-actually our feature barcodes (See the distribution of matched barcode
-positions on read 2).
+Regarding read 2, the per base content analysis suggests that for the
+sampled reads, bases 0-9, 25-33, and 56-83 exhibit a balanced GC
+content, which indicates that their sequences are likely random at the
+library level. However, bases 34-55 and 84-89 appear to be constant
+sequences, and we can almost read the bases in these regions. The bases
+10-24 are less random but also not constant, as they correspond to our
+feature barcodes, which is evident from the distribution of matched
+barcode positions on read 2.
 
 .. image:: Pyplot_read2_per_base_seq_content.webp
    :width: 800px
@@ -161,18 +163,18 @@ positions on read 2).
    :width: 800px
    :align: center
 
-The fragment structure in this feature barcoding library inferred from
-``qc`` results matches the design (Page 3, `Table 1`_. Of course, this
-is an example dataset from 10x Genomics). Bases 34-56 are actually
-called 'Capture Sequence 1' on beads.
+The fragment structure inferred from the ``qc`` results of this feature
+barcoding library matches the design as specified on Page 3, `Table 1`_
+(Note that this is an example dataset from 10x Genomics). The sequence
+of bases 34-56 is referred to as "Capture Sequence 1" on the beads.
 
 .. _table 1: https://assets.ctfassets.net/an68im79xiti/6p0emIeLO8bsxinEbKgcfF/275a5752f4e4347f75a1f649bd824463/CG000149_DemonstratedProtocol_CellSurfaceProteinLabeling_RevB.pdf
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 

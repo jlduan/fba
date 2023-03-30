@@ -350,7 +350,7 @@ read 1 and read 2 are searched against reference cell and feature
 barcodes, respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
 and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
-<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature barcode
 matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -364,7 +364,7 @@ matching (default <code class="docutils literal notranslate"><span class="pre">3
 <p>This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
 Multiplexing and sequenced on an Illumina NovaSeq 6000. The first 16
-bases of each read represent cell barcodes, and the following 12 bases
+bases of read 1 represent cell barcodes, and the following 12 bases
 represent UMIs. The base content plot indicates that the GC content of
 cell barcodes is evenly distributed. However, there is a slight
 T-enrichment in the UMIs.</p>
@@ -508,7 +508,8 @@ read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</
 (default <code class="docutils literal notranslate"><span class="pre">directional</span></code>), and the UMI deduplication mismatch threshold
 can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
+well-established single cell analysis packages such as <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and
+<a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
@@ -573,8 +574,8 @@ matrix.</p>
 <span class="n">In</span> <span class="p">[</span><span class="mi">5</span><span class="p">]:</span> <span class="n">m</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_or_buf</span><span class="o">=</span><span class="s2">&quot;matrix_featurecount_filtered.csv.gz&quot;</span><span class="p">,</span> <span class="n">compression</span><span class="o">=</span><span class="s2">&quot;infer&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">CMO301_ATGAGGAATTCCTGC</span></code> and <code class="docutils literal notranslate"><span class="pre">CMO302_CATGCCAATAGAGCG</span></code> have the most
-abundant UMIs. They are the CMOs acutally used in this experiment.</p>
+<p><code class="docutils literal notranslate"><span class="pre">CMO301_ATGAGGAATTCCTGC</span></code> and <code class="docutils literal notranslate"><span class="pre">CMO302_CATGCCAATAGAGCG</span></code> have the
+highest UMI counts and were the CMOs used in this experiment.”</p>
 <section id="gaussian-mixture-model">
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>Cells are demulitplexed based on the feature count matrix (CMO
@@ -732,9 +733,9 @@ and negative cells.</p>
 </section>
 <section id="method-2">
 <h4>Method 2<a class="headerlink" href="#method-2" title="Permalink to this heading">#</a></h4>
-<p>Cells are demultiplexed based on the abundance of features (CMOs).
-Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
+<p>Cells are demultiplexed based on the abundance of features, specifically
+CMOs. Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima
+on the difference curve to detemine the knee point on the UMI saturation
 curve.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>

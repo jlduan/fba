@@ -381,7 +381,7 @@ read 1 and read 2 are searched against reference cell and feature
 barcodes, respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code>
 and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
-<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
+<code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature barcode
 matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SRR8550947_1.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -417,21 +417,21 @@ matching (default <code class="docutils literal notranslate"><span class="pre">3
 <span class="go">2022-01-08 16:35:05,431 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>For read 1, the first 16 bases are cell barcodes and the following 10
-bases are UMIs (Read 1 length is 26). Based on the base content plot,
-the GC content of cell barcodes are quite even. The UMIs are slightly T
-enriched.</p>
+<p>For read 1, the first 16 bases represent cell barcodes, and the
+following 10 bases are UMIs (the read 1 length is 26). According to the
+base content plot, the GC content of cell barcodes is relatively
+uniform. However, UMIs are slightly enriched with T bases.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_hashtag.webp" style="width: 390px;" /></a>
-<p>As for read 2, based on the per base content, it suggests that bases
-0-12 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).</p>
+<p>As for read 2, the per base content suggests that bases 0-12 correspond
+to our feature barcodes (refer to the distribution of matched barcode
+positions on read 2).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_hashtag.webp" style="width: 400px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_hashtag.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_hashtag.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_hashtag.webp" style="width: 400px;" /></a>
-<p>The detailed qc results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -564,10 +564,10 @@ transcriptome information used). Demultiplexing method <code class="docutils lit
 <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is implemented based on the method described in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1">Stoeckius, M.,
 et al. (2018)</a> with some
 modifications. A cell identity matrix is generated in the output
-directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>, default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0
-means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile
-threshold for demulitplexing (Default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create
-visualization plots.</p>
+directory (default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>, set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>): 0
+means negative, 1 means positive. To adjust the quantile threshold for
+demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-q</span></code> (default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). To generate
+visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
@@ -691,16 +691,16 @@ CD29 antibodies.</p>
 <span class="go">2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>As for read 2, based on the per base content, it suggests that bases
-0-12 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).</p>
+<p>The per base content analysis of read 2 suggests that bases 0-12
+correspond to our feature barcodes, as indicated by the distribution of
+matched barcode positions (see fba <code class="docutils literal notranslate"><span class="pre">qc</span></code> results).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_protein-tag.webp" style="width: 400px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_protein-tag.webp" style="width: 400px;" /></a>
-<p>The detailed qc results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -878,16 +878,16 @@ embedding is based on hashtags, not the transcriptomes).</p>
 <span class="go">2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.</span>
 </pre></div>
 </div>
-<p>As for read 2, based on the per base content, it suggests that bases
-15-34 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).</p>
+<p>As for read 2, the per base content suggests that bases 15-34 correspond
+to our feature barcodes (see the distribution of matched barcode
+positions on read 2).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_guide-tag.webp" style="width: 400px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_guide-tag.webp" style="width: 400px;" /></a>
-<p>The detailed qc results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>

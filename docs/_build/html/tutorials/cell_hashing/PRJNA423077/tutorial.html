@@ -333,15 +333,15 @@ barcode).</p>
 </section>
 <section id="qc">
 <h2>QC<a class="headerlink" href="#qc" title="Permalink to this heading">#</a></h2>
-<p>The first 20,000 read pairs are sampled (set by <code class="docutils literal notranslate"><span class="pre">-n</span></code>, default
-<code class="docutils literal notranslate"><span class="pre">100,000</span></code>) for quality control. The <code class="docutils literal notranslate"><span class="pre">-t</span></code> option can be used to set
-the number of threads. By default, diagnostic results and plots are
+<p>The first 20,000 read pairs are sampled (default <code class="docutils literal notranslate"><span class="pre">100,000</span></code>, set by
+<code class="docutils literal notranslate"><span class="pre">-n</span></code>, ) for quality control. The <code class="docutils literal notranslate"><span class="pre">-t</span></code> option can be used to set the
+number of threads. By default, diagnostic results and plots are
 generated in the <code class="docutils literal notranslate"><span class="pre">qc</span></code> directory (set by <code class="docutils literal notranslate"><span class="pre">--output_directory</span></code>), and
 the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SRR8281307_1.fastq.gz<span class="w"> </span><span class="se">\</span>
@@ -352,16 +352,18 @@ barcode matching (default <code class="docutils literal notranslate"><span class
 <span class="w">    </span>-n<span class="w"> </span><span class="m">20000</span>
 </pre></div>
 </div>
-<p>This library is constructed using Chromium Single Cell 3’ Reagent Kits
-(v2 Chemistry). The first 16 bases are cell barcodes and the following
-10 bases are UMIs. Based on the base content plot, the GC content of
-cell barcodes and UMIs are quite even. Ploy-A/T tail starts at base 26.</p>
+<p>This library was constructed using Chromium Single Cell 3’ Reagent Kits
+(v2 Chemistry). The first 16 bases correspond to cell barcodes and the
+following 10 bases correspond to UMIs on read 1. Based on the base
+content plot, both the cell barcode and UMI sequences exhibit even GC
+content. A poly-A tail starts at base 26.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content.webp" style="width: 350px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_barcodes_starting_ending.webp"><img alt="../../../_images/Pyplot_read1_barcodes_starting_ending.webp" class="align-center" src="../../../_images/Pyplot_read1_barcodes_starting_ending.webp" style="width: 350px;" /></a>
 <p>As for read 2, based on the per base content, it suggests that bases
-0-11 are relatively GC balanced for the reads we have sampled. Starting
-from base 12, it is poly-A tail. Bases 0-11 are hashtag oligo sequences.
-Most of the reads have the correct structure.</p>
+0-11 exhibit relatively balanced GC content for the reads that we have
+sampled. Starting from base 12, there is a poly-A tail. Bases 0-11 are
+hashtag oligo sequences, and the majority of the reads appear to have
+the expected structure.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content.webp" style="width: 800px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending.webp" style="width: 800px;" /></a>
 <p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
@@ -578,8 +580,9 @@ in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1
 <h3>Gaussian mixture model<a class="headerlink" href="#gaussian-mixture-model" title="Permalink to this heading">#</a></h3>
 <p>Alternatively, cells can be demultiplexed using gaussian mixture model.
 The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
-inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
-to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
+inspired by the method described on <cite>10x Genomics’ website</cite>. To set the
+probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).
+To generate visualization plots, set -v.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-dm<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>

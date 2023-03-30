@@ -58,13 +58,13 @@ Inspect cell barcodes.
 Prepare feature sequences.
 
 The ``map`` subcommand is designed to process secondary libraries
-created on top of the whole transcriptome assays. These libraries enrich
-transcripts of interest through hybridization or PCR amplification,
-allowing for potentially more sensitive detection. The transcripts may
-be from endogenous genes or ectopic constructs, such as eGFP, as long as
-they were captured in the parent libraries.
+created on top of the (whole) transcriptome assays. These libraries
+enrich transcripts of interest through hybridization or PCR
+amplification, allowing for potentially more sensitive detection. The
+transcripts may be from endogenous genes or ectopic constructs, such as
+eGFP, as long as they were captured in the parent libraries.
 
-In this tutorial, we use the 10x Genomics "Targeted Gene Expression"
+In this tutorial, we use the 10x Genomics' "Targeted Gene Expression"
 library as an example. The `bait sequences`_ serve as references for
 read 2 mapping. Ideally, the reference sequences should include all
 possible captured transcribed regions.
@@ -131,8 +131,8 @@ cell-associated barcodes. You can adjust the search range with ``-r1_c``
 (default ``0,16``), and the mismatching threshold with ``-cb_m``
 (default ``1``). Next, we map read 2 sequences with correct cell
 barcodes (found in read 1) to provided reference sequences using an
-aligner such as ``bwa`` (default, `Li, H. (2013). arXiv:1303.3997.`_ ,
-set with ``-al``) or ``bowtie2`` (`Langmead, B., and Salzberg, S.L.
+aligner such as ``bwa`` (default, set with ``-al``, `Li, H. (2013).
+arXiv:1303.3997.`_) or ``bowtie2`` (`Langmead, B., and Salzberg, S.L.
 (2012). Nat. Methods 9, 357–359.`_). We keep only alignments with a
 mapping quality above a threshold, which you can set with ``--mapq``
 (default ``10``), for downstream feature counting.

@@ -139,7 +139,7 @@ read 1 and read 2 are searched against reference cell and feature
 barcodes, respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. Use ``-r1_c``
 and/or ``-r2_c`` to limit the search range, and ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
+``-fb_n`` to set the mismatch tolerance for cell and/or feature barcode
 matching (default ``3``).
 
 .. code:: console
@@ -178,18 +178,18 @@ matching (default ``3``).
    2022-01-08 16:35:04,179 - fba.qc - INFO - Output directory: qc
    2022-01-08 16:35:05,431 - fba.__main__ - INFO - Done.
 
-For read 1, the first 16 bases are cell barcodes and the following 10
-bases are UMIs (Read 1 length is 26). Based on the base content plot,
-the GC content of cell barcodes are quite even. The UMIs are slightly T
-enriched.
+For read 1, the first 16 bases represent cell barcodes, and the
+following 10 bases are UMIs (the read 1 length is 26). According to the
+base content plot, the GC content of cell barcodes is relatively
+uniform. However, UMIs are slightly enriched with T bases.
 
 .. image:: Pyplot_read1_per_base_seq_content_hashtag.webp
    :width: 390px
    :align: center
 
-As for read 2, based on the per base content, it suggests that bases
-0-12 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).
+As for read 2, the per base content suggests that bases 0-12 correspond
+to our feature barcodes (refer to the distribution of matched barcode
+positions on read 2).
 
 .. image:: Pyplot_read2_per_base_seq_content_hashtag.webp
    :width: 400px
@@ -199,11 +199,11 @@ barcode positions on read 2).
    :width: 400px
    :align: center
 
-The detailed qc results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in ``substitutions:insertions:deletions``
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -357,10 +357,10 @@ transcriptome information used). Demultiplexing method ``1`` (set by
 ``-dm``) is implemented based on the method described in `Stoeckius, M.,
 et al. (2018) <https://doi.org/10.1186/s13059-018-1603-1>`_ with some
 modifications. A cell identity matrix is generated in the output
-directory (set by ``--output_directory``, default ``demultiplexed``): 0
-means negative, 1 means positive. Use ``-q`` to set the quantile
-threshold for demulitplexing (Default ``0.9999``). Set ``-v`` to create
-visualization plots.
+directory (default ``demultiplexed``, set by ``--output_directory``): 0
+means negative, 1 means positive. To adjust the quantile threshold for
+demultiplexing, use ``-q`` (default ``0.9999``). To generate
+visualization plots, set ``-v``.
 
 .. code:: console
 
@@ -504,9 +504,9 @@ QC
    2022-01-08 12:33:13,341 - fba.qc - INFO - Output directory: qc
    2022-01-08 12:33:14,203 - fba.__main__ - INFO - Done.
 
-As for read 2, based on the per base content, it suggests that bases
-0-12 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).
+The per base content analysis of read 2 suggests that bases 0-12
+correspond to our feature barcodes, as indicated by the distribution of
+matched barcode positions (see fba ``qc`` results).
 
 .. image:: Pyplot_read2_per_base_seq_content_protein-tag.webp
    :width: 400px
@@ -516,11 +516,11 @@ barcode positions on read 2).
    :width: 400px
    :align: center
 
-The detailed qc results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in ``substitutions:insertions:deletions``
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -725,9 +725,9 @@ QC
    2022-01-08 14:41:51,366 - fba.qc - INFO - Output directory: qc
    2022-01-08 14:41:52,542 - fba.__main__ - INFO - Done.
 
-As for read 2, based on the per base content, it suggests that bases
-15-34 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 2).
+As for read 2, the per base content suggests that bases 15-34 correspond
+to our feature barcodes (see the distribution of matched barcode
+positions on read 2).
 
 .. image:: Pyplot_read2_per_base_seq_content_guide-tag.webp
    :width: 400px
@@ -737,11 +737,11 @@ barcode positions on read 2).
    :width: 400px
    :align: center
 
-The detailed qc results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in ``substitutions:insertions:deletions``
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 

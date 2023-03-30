@@ -390,9 +390,9 @@ keep the variable parts.</p>
 <div class="line-block">
 <div class="line"><br /></div>
 </div>
-<p>First, we screen reads that have the constant sequence
+<p>First, we screened reads for the constant sequence
 (<code class="docutils literal notranslate"><span class="pre">GATACCGCGGTGTATTATTGCG</span></code>) at the beginning of the CDR3 barcode
-sequences on read 3 (<a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a>, version 3.7).</p>
+sequences on read 3 using <a class="reference external" href="https://github.com/marcelm/cutadapt">cutadapt</a> (version 3.7).</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cutadapt<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--cores<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>--front<span class="w"> </span>GATACCGCGGTGTATTATTGCG<span class="w"> </span><span class="se">\</span>
@@ -442,15 +442,15 @@ the full length of read 1 and read 2 are searched against reference cell
 and feature barcodes, respectively. The per base content of both read
 pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<p>This library is constructed using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell
-ATAC Reagent Kits</a>. The 10x Barcode, consisting of 16 base pairs, is
-sequenced during the i5 index read. When using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell
-Ranger ATAC</a>, the raw 16 bp sequences may be transformed into their
-reverse-complement counterparts as cell barcodes in the outputs. In
-<code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences for
-processing.</p>
+<p>This library was constructed using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell
+ATAC Reagent Kits</a>, where the 16-base pair cell barcode is sequenced
+during the i5 index read. In <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell Ranger ATAC</a>, the raw 16 bp
+sequences may be transformed into their reverse-complement counterparts
+as cell barcodes in the outputs. To achieve the same result in <code class="docutils literal notranslate"><span class="pre">fba</span></code>,
+use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences.</p>
+<p>To achieve the same result in fba,</p>
 <section id="r3">
 <h3>R3<a class="headerlink" href="#r3" title="Permalink to this heading">#</a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
@@ -470,11 +470,11 @@ barcodes (read 2) are quite even.</p>
 <p>As for read 3, based on the per base content, it suggests low
 complexity.</p>
 <p><a class="reference internal" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.webp"><img alt="pic1" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r3.webp" style="width: 49%;" /></a> <a class="reference internal" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.webp"><img alt="pic2" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r3.webp" style="width: 49%;" /></a></p>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
@@ -501,14 +501,14 @@ format.</p>
 <span class="w">    </span>-n<span class="w"> </span><span class="m">10000</span>
 </pre></div>
 </div>
-<p>For read 1, based on the per base content, it suggests low complexity.
-There are almost constant bases at the beginning of the reads.</p>
+<p>For read 1, the per base content plot suggests low complexity, with a
+high proportion of constant bases at the beginning of the reads.</p>
 <p><a class="reference internal" href="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.webp"><img alt="pic3" src="../../../_images/Pyplot_read2_barcodes_starting_ending_trimmed_r1.webp" style="width: 49%;" /></a> <a class="reference internal" href="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.webp"><img alt="pic4" src="../../../_images/Pyplot_read2_per_base_seq_content_trimmed_r1.webp" style="width: 49%;" /></a></p>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
@@ -534,8 +534,8 @@ format.</p>
 <h3>R3<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 3. One
 mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
-allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences
-for processing.</p>
+allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in
+the output if needed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SRR12588752_2_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-2<span class="w"> </span>SRR12588752_3_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>
@@ -595,8 +595,8 @@ barcodes.</p>
 <h3>R1<a class="headerlink" href="#id2" title="Permalink to this heading">#</a></h3>
 <p>Search ranges are set to <code class="docutils literal notranslate"><span class="pre">0,16</span></code> on read 2 and <code class="docutils literal notranslate"><span class="pre">0,12</span></code> on read 1. One
 mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are
-allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences
-for processing.</p>
+allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences in
+the output if needed.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>SRR12588752_2_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-2<span class="w"> </span>SRR12588752_1_trimmed.fq.gz<span class="w"> </span><span class="se">\</span>

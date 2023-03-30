@@ -101,7 +101,7 @@ read 1 and read 2 are searched against reference cell and feature
 barcodes, respectively. The per base content of both read pairs and the
 distribution of matched barcode positions are summarized. Use ``-r1_c``
 and/or ``-r2_c`` to limit the search range, and ``-cb_n`` and/or
-``-fb_n`` to set the mismatch tolerance for cell and feature barcode
+``-fb_n`` to set the mismatch tolerance for cell and/or feature barcode
 matching (default ``3``).
 
 .. code:: console
@@ -117,7 +117,7 @@ matching (default ``3``).
 This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for Cell
 Multiplexing and sequenced on an Illumina NovaSeq 6000. The first 16
-bases of each read represent cell barcodes, and the following 12 bases
+bases of read 1 represent cell barcodes, and the following 12 bases
 represent UMIs. The base content plot indicates that the GC content of
 cell barcodes is evenly distributed. However, there is a slight
 T-enrichment in the UMIs.
@@ -286,7 +286,8 @@ can be specified using ``-um`` (default ``1``).
 .. _smith, t., et al. 2017. genome res. 27, 491–499.: http://www.genome.org/cgi/doi/10.1101/gr.209601.116
 
 The generated feature count matrix can be easily imported into
-well-established single cell analysis packages: Seruat_ and Scanpy_.
+well-established single cell analysis packages such as Seruat_ and
+Scanpy_.
 
 .. _scanpy: https://scanpy.readthedocs.io/en/stable
 
@@ -362,8 +363,8 @@ Inspect feature count matrix.
 
    In [5]: m.to_csv(path_or_buf="matrix_featurecount_filtered.csv.gz", compression="infer")
 
-``CMO301_ATGAGGAATTCCTGC`` and ``CMO302_CATGCCAATAGAGCG`` have the most
-abundant UMIs. They are the CMOs acutally used in this experiment.
+``CMO301_ATGAGGAATTCCTGC`` and ``CMO302_CATGCCAATAGAGCG`` have the
+highest UMI counts and were the CMOs used in this experiment."
 
 Gaussian mixture model
 ======================
@@ -566,9 +567,9 @@ and negative cells.
 Method 2
 --------
 
-Cells are demultiplexed based on the abundance of features (CMOs).
-Demultiplexing method ``5`` is implemented to use the local maxima on
-the difference curve to detemine the knee point on the UMI saturation
+Cells are demultiplexed based on the abundance of features, specifically
+CMOs. Demultiplexing method ``5`` is implemented to use the local maxima
+on the difference curve to detemine the knee point on the UMI saturation
 curve.
 
 .. code:: console

@@ -427,15 +427,14 @@ length of read 1 and read 2 are searched against reference cell and
 feature barcodes, respectively. The per base content of both read pairs
 and the distribution of matched barcode positions are summarized. Use
 <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
-and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
+and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and/or feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<p>This library is constructed using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell
-ATAC Reagent Kits</a>. The 10x Barcode, consisting of 16 base pairs, is
-sequenced during the i5 index read. When using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell
-Ranger ATAC</a>, the raw 16 bp sequences may be transformed into their
-reverse-complement counterparts as cell barcodes in the outputs. In
-<code class="docutils literal notranslate"><span class="pre">fba</span></code>, use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement cell barcode sequences for
-processing.</p>
+<p>This library was constructed using 10x Genomics’ <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell
+ATAC Reagent Kits</a>, where the 16-base pair cell barcode is sequenced
+during the i5 index read. In <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/software/pipelines/latest/algorithms/overview">Cell Ranger ATAC</a>, the raw 16 bp
+sequences may be transformed into their reverse-complement counterparts
+as cell barcodes in the outputs. To achieve the same result in <code class="docutils literal notranslate"><span class="pre">fba</span></code>,
+use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code> to reverse-complement the cell barcode sequences.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>hto_read_2.fq.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-2<span class="w"> </span>hto_read_3.fq.gz<span class="w"> </span><span class="se">\</span>
@@ -445,20 +444,21 @@ processing.</p>
 <span class="w">    </span>-cb_rc
 </pre></div>
 </div>
-<p>This library is built using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC Reagent
-Kits</a> and sequenced on Illumina NextSeq 550. The GC content of cell
-barcodes (read 2) are A-rich.</p>
+<p>This library was constructed using the <a class="reference external" href="https://support.10xgenomics.com/single-cell-atac/sequencing/doc/technical-note-sequencing-metrics-and-base-composition-of-chromium-single-cell-atac-libraries">Chromium Single Cell ATAC
+Reagent Kits</a> and sequenced on the Illumina NextSeq 550 platform. The
+base composition analysis reveals that the cell barcodes in read 2 are
+enriched for A bases.</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read1_per_base_seq_content_HTO.webp"><img alt="../../../_images/Pyplot_read1_per_base_seq_content_HTO.webp" class="align-center" src="../../../_images/Pyplot_read1_per_base_seq_content_HTO.webp" style="width: 375px;" /></a>
-<p>As for read 3, based on the per base content, it suggests that bases
-0-14 are actually our feature barcodes (See the distribution of matched
-barcode positions on read 3).</p>
+<p>The per base content of read 3 suggests that the feature barcodes are
+located in bases 0-14, as indicated by the distribution of matched
+barcode positions (See the fba <code class="docutils literal notranslate"><span class="pre">qc</span></code> results for more details).</p>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_per_base_seq_content_HTO.webp"><img alt="../../../_images/Pyplot_read2_per_base_seq_content_HTO.webp" class="align-center" src="../../../_images/Pyplot_read2_per_base_seq_content_HTO.webp" style="width: 625px;" /></a>
 <a class="reference internal image-reference" href="../../../_images/Pyplot_read2_barcodes_starting_ending_HTO.webp"><img alt="../../../_images/Pyplot_read2_barcodes_starting_ending_HTO.webp" class="align-center" src="../../../_images/Pyplot_read2_barcodes_starting_ending_HTO.webp" style="width: 625px;" /></a>
-<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in
-<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
-indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
-columns indicate mismatches in substitutions:insertions:deletions
-format.</p>
+<p>The detailed <code class="docutils literal notranslate"><span class="pre">qc</span></code> results are stored in the
+<code class="docutils literal notranslate"><span class="pre">feature_barcoding_output.tsv.gz</span></code> file. The <code class="docutils literal notranslate"><span class="pre">matching_pos</span></code> columns
+indicate the matched positions on reads, while the
+<code class="docutils literal notranslate"><span class="pre">matching_description</span></code> columns indicate mismatches in the format of
+substitutions:insertions:deletions.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span>no<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
@@ -486,7 +486,7 @@ uniform. Search ranges are set to <code class="docutils literal notranslate"><sp
 read 3. One mismatch for cell and feature barcodes (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>,
 <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. And by default, three ambiguous nucleotides (Ns)
 for read 1 and read 2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are allowed. Use <code class="docutils literal notranslate"><span class="pre">-cb_rc</span></code>
-to reverse-complement cell barcode sequences for processing.</p>
+to reverse-complement cell barcode sequences.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-1<span class="w"> </span>hto_read_2.fq.gz<span class="w"> </span><span class="se">\</span>
 <span class="w">    </span>-2<span class="w"> </span>hto_read_3.fq.gz<span class="w"> </span><span class="se">\</span>
