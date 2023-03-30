@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -351,11 +338,11 @@ positive. To set normalization method, use <code class="docutils literal notrans
 set the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
 <code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>. To choose
 visualization method, use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> (default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    --output_directory demultiplexed <span class="se">\</span>
-    -dm <span class="m">2</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-10-05 20:45:58,069 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -428,10 +415,10 @@ abundance) using demultiplexing method <code class="docutils literal notranslate
 modifications to the method described in <a class="reference external" href="https://doi.org/10.1038/s41592-019-0433-8">McGinnis, C., et al. (2019)</a>.
 A cell identity matrix is generated in the output directory: 0 means
 negative, 1 means positive. To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    -dm <span class="m">4</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-12-27 12:03:15,693 - fba.__main__ - INFO - fba version: 0.0.x</span>

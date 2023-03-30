@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -292,27 +279,27 @@ CMOs</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://s3-us-west-2.amazonaws.com/10x.files/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
 
-<span class="gp">$ </span>tar xvf SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
+<span class="gp">$ </span>tar<span class="w"> </span>xvf<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_fastqs.tar
 </pre></div>
 </div>
 <p>Combine reads of different lanes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R1_001.fastq.gz &gt; SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R1_001.fastq.gz<span class="w"> </span>&gt;<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz
 
-<span class="gp">$ </span>cat SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R2_001.fastq.gz &gt; SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz
+<span class="gp">$ </span>cat<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_?_multiplexing_capture_S1_L00?_R2_001.fastq.gz<span class="w"> </span>&gt;<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz
 </pre></div>
 </div>
 <p>Download cell barcode info. These are the cell-associated barcodes in
 this single cell RNA-Seq library (determined by the number of
 transcriptomic UMIs captured per barcode).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv
 
-<span class="gp">$ </span>cut -d <span class="s1">&#39;,&#39;</span> -f4 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv <span class="p">|</span> sed <span class="s1">&#39;s/-1//g&#39;</span> &gt; cell_barcodes.txt
+<span class="gp">$ </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span>-f4<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_multiplexing_analysis_assignment_confidence_table.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/-1//g&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>cell_barcodes.txt
 </pre></div>
 </div>
 <p>Inspect cell barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head cell_barcodes.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head<span class="w"> </span>cell_barcodes.txt
 
 <span class="go">AAACCCAAGAGTGTGC</span>
 <span class="go">AAACCCAAGATGCTTC</span>
@@ -327,13 +314,13 @@ transcriptomic UMIs captured per barcode).</p>
 </pre></div>
 </div>
 <p>Prepare feature barcodes (cell multiplexing oligos, CMOs).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://cf.10xgenomics.com/samples/cell-exp/6.0.0/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex/SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv
 
-<span class="gp">$ </span>cut -d<span class="s1">&#39;,&#39;</span> -f1,5 SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv <span class="p">|</span> sed <span class="s1">&#39;s/,/\t/g&#39;</span> <span class="p">|</span> grep ^C &gt; feature_barcodes.txt
+<span class="gp">$ </span>cut<span class="w"> </span>-d<span class="s1">&#39;,&#39;</span><span class="w"> </span>-f1,5<span class="w"> </span>SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_Multiplex_count_feature_reference.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/,/\t/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>^C<span class="w"> </span>&gt;<span class="w"> </span>feature_barcodes.txt
 </pre></div>
 </div>
 <p>Inspect feature barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>feature_barcodes.tsv
 
 <span class="go">CMO301  ATGAGGAATTCCTGC</span>
 <span class="go">CMO302  CATGCCAATAGAGCG</span>
@@ -365,13 +352,13 @@ distribution of matched barcode positions are summarized. Use <code class="docut
 and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
 <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
 matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
-    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes.tsv <span class="se">\</span>
-    --output_directory qc <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16
 </pre></div>
 </div>
 <p>This library was constructed using the Chromium Next GEM Single Cell 3ʹ
@@ -406,7 +393,7 @@ and sequencing errors.</p>
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
 columns indicate mismatches in substitutions:insertions:deletions
 format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
 <span class="go">AAGCGTTAGAGTCTTTggtatttttatt    AAGCGTTAGAAGCCTG        0:15    2:0:1   ATGAGGAATTCCTGCGCTCACCTATTAGCGGCTAAGGAATAAAACTACCAAAGACTCTAACGCTTCTGTCTCTTATACACATCTGACGCT      CMO301_ATGAGGAATTCCTGC     0:15    0:0:0</span>
@@ -434,22 +421,22 @@ to 15. There is a tolerance of two mismatches allowed for the cell
 barcode and one for the feature barcode (set by <code class="docutils literal notranslate"><span class="pre">-cb_m</span></code> and
 <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>). The default setting allows for three ambiguous nucleotides
 (Ns) in both read 1 and read 2 (set by <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
-    -1 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz <span class="se">\</span>
-    -2 ../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes.tsv <span class="se">\</span>
-    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
-    -r2_c <span class="m">0</span>,15 <span class="se">\</span>
-    -cb_m <span class="m">2</span> <span class="se">\</span>
-    -fb_m <span class="m">1</span> <span class="se">\</span>
-    -cb_n <span class="m">3</span> <span class="se">\</span>
-    -fb_n <span class="m">3</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>../SC3_v3_NextGem_DI_CellPlex_Jurkat_Raji_10K_1_multiplexing_capture_S1_combined_R2_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">0</span>,15<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_n<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_n<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">AAGCGTTAGAGTCTTTggtatttttatt    AAGCGTTTCAGTCTTT        2       ATGAGGAATTCCTGCgctcacctattagcggctaaggaataaaactaccaaagactctaacgcttctgtctcttatacacatctgacgct      CMO301_ATGAGGAATTCCTGC  0</span>
@@ -522,13 +509,13 @@ read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</
 can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
 well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seruat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
-    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">12</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional
 </pre></div>
 </div>
 <p>Result summary.</p>
@@ -598,12 +585,12 @@ positive. To set normalization method, use <code class="docutils literal notrans
 set the probability threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-p</span></code> (default
 <code class="docutils literal notranslate"><span class="pre">0.9</span></code>). To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>. To choose
 visualization method, use <code class="docutils literal notranslate"><span class="pre">-vm</span></code> (default <code class="docutils literal notranslate"><span class="pre">tsne</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount_filtered.csv.gz <span class="se">\</span>
-    --output_directory demultiplexed <span class="se">\</span>
-    -dm <span class="m">2</span> <span class="se">\</span>
-    -v <span class="se">\</span>
-    -vm umap
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount_filtered.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-vm<span class="w"> </span>umap
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-10-01 23:07:30,925 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -684,10 +671,10 @@ CMOs. Demultiplexing method <code class="docutils literal notranslate"><span cla
 which aims to identify perturbations in the cells by detecting an
 inflection point on the feature UMI saturation curve (<a class="reference external" href="https://doi.org/10.1016/j.celrep.2019.10.073">Xie, S., et al.
 2019</a>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    -dm <span class="m">5</span>-2019 <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">5</span>-2019<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-02 13:52:10,698 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -749,10 +736,10 @@ and negative cells.</p>
 Demultiplexing method <code class="docutils literal notranslate"><span class="pre">5</span></code> is implemented to use the local maxima on
 the difference curve to detemine the knee point on the UMI saturation
 curve.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    -dm <span class="m">5</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-02 13:53:33,250 - fba.__main__ - INFO - fba version: 0.0.x</span>

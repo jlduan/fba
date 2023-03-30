@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -294,22 +281,22 @@ single cell genomics</a>. <em>Genome Biol.</em> <strong>19</strong>, 224.</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA423077">European Nucleotide Archive</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_1.fastq.gz
 
-<span class="gp">$ </span>wget ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
+<span class="gp">$ </span>wget<span class="w"> </span>ftp.sra.ebi.ac.uk/vol1/fastq/SRR828/007/SRR8281307/SRR8281307_2.fastq.gz
 </pre></div>
 </div>
 <p>Download cell barcode info.</p>
 <p>These are the cell-associated barcodes in this single cell RNA-Seq
 library (determined by the number of transcriptomic UMIs captured per
 barcode).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2895nnn/GSM2895283/suppl/GSM2895283_Hashtag-HTO-count.csv.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM2895nnn/GSM2895283/suppl/GSM2895283_Hashtag-HTO-count.csv.gz
 
-<span class="gp">$ </span>gzip -dc GSM2895283_Hashtag-HTO-count.csv.gz <span class="p">|</span> head -1 <span class="p">|</span> sed <span class="s1">&#39;s/,/\n/g&#39;</span> <span class="p">|</span> grep -v <span class="s1">&#39;^$&#39;</span> &gt; cell_barcodes.txt
+<span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>GSM2895283_Hashtag-HTO-count.csv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/,/\n/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;^$&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>cell_barcodes.txt
 </pre></div>
 </div>
 <p>Inspect cell barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head cell_barcodes.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head<span class="w"> </span>cell_barcodes.txt
 
 <span class="go">GGCGACTAGAGGACGG</span>
 <span class="go">CATCAAGGTCTTGTCC</span>
@@ -324,11 +311,11 @@ barcode).</p>
 </pre></div>
 </div>
 <p>Prepare feature barcodes (hashtag-oligos, HTO).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc GSM2895283_Hashtag-HTO-count.csv.gz <span class="p">|</span> cut -d <span class="s1">&#39;,&#39;</span> -f1 <span class="p">|</span> grep Batch <span class="p">|</span> gsed <span class="s1">&#39;s/-/\t/g&#39;</span> &gt; feature_barcodes.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>GSM2895283_Hashtag-HTO-count.csv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>cut<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;,&#39;</span><span class="w"> </span>-f1<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Batch<span class="w"> </span><span class="p">|</span><span class="w"> </span>gsed<span class="w"> </span><span class="s1">&#39;s/-/\t/g&#39;</span><span class="w"> </span>&gt;<span class="w"> </span>feature_barcodes.tsv
 </pre></div>
 </div>
 <p>Inspect feature barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>feature_barcodes.tsv
 
 <span class="go">BatchA  AGGACCATCCAA</span>
 <span class="go">BatchB  ACATGTTACCGT</span>
@@ -356,13 +343,13 @@ pairs and the distribution of matched barcode positions are summarized.
 Use <code class="docutils literal notranslate"><span class="pre">-r1_c</span></code> and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>
 and/or <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature
 barcode matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -1 SRR8281307_1.fastq.gz <span class="se">\</span>
-    -2 SRR8281307_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes.tsv <span class="se">\</span>
-    --output_directory qc <span class="se">\</span>
-    -n <span class="m">20000</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8281307_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8281307_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span><span class="m">20000</span>
 </pre></div>
 </div>
 <p>This library is constructed using Chromium Single Cell 3’ Reagent Kits
@@ -382,7 +369,7 @@ Most of the reads have the correct structure.</p>
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
 columns indicate mismatches in substitutions:insertions:deletions
 format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
 <span class="go">NTCCGAACATATGAGAGCAATAGTCGTTT   CGAACATGTAAGAGAG        3:17    1:0:2   NCATGTTACCGTGAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAGCAATTGTCACTTATAGGAGGAGAAGAAGGGAAGGGGGGGGGGGGGGGAAA     BatchB_ACATGTTACCGT     0:12    1:0:0</span>
@@ -410,22 +397,22 @@ and <code class="docutils literal notranslate"><span class="pre">0,12</span></co
 (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) are allowed. By default, three ambiguous
 nucleotides (Ns) for read 1 and read2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>) are
 allowed.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
-    -1 SRR8281307_1.fastq.gz <span class="se">\</span>
-    -2 SRR8281307_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes.tsv <span class="se">\</span>
-    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -r1_coords <span class="m">0</span>,16 <span class="se">\</span>
-    -r2_coords <span class="m">0</span>,12 <span class="se">\</span>
-    -cb_m <span class="m">1</span> <span class="se">\</span>
-    -fb_m <span class="m">1</span> <span class="se">\</span>
-    -cb_n <span class="m">3</span> <span class="se">\</span>
-    -fb_n <span class="m">3</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8281307_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8281307_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_coords<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_coords<span class="w"> </span><span class="m">0</span>,12<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_n<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_n<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">NTCCGAACATATGAGAgcaatagtcgttt   ATCCGAACATATGAGA        1       NCATGTTACCGTgaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaacagcaattgtcacttataggaggagaagaagggaagggggggggggggggaaa    BatchB_ACATGTTACCGT     1</span>
@@ -484,13 +471,13 @@ read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</
 can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
 well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seurat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
-    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">10</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional
 </pre></div>
 </div>
 <p>Result summary.</p>
@@ -532,11 +519,11 @@ generated in the output directory (set by <code class="docutils literal notransl
 default <code class="docutils literal notranslate"><span class="pre">demultiplexed</span></code>): 0 means negative, 1 means positive. To
 adjust the quantile threshold for demultiplexing, use <code class="docutils literal notranslate"><span class="pre">-q</span></code> (Default
 <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). To generate visualization plots, set <code class="docutils literal notranslate"><span class="pre">-v</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    --output_directory demultiplexed <span class="se">\</span>
-    -dm <span class="m">1</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-02-18 01:27:19,172 - fba.__main__ - INFO - fba version: 0.0.7</span>
@@ -593,10 +580,10 @@ in <a class="reference external" href="https://doi.org/10.1186/s13059-018-1603-1
 The implementation of demultiplexing method <code class="docutils literal notranslate"><span class="pre">2</span></code> (set by <code class="docutils literal notranslate"><span class="pre">-dm</span></code>) is
 inspired by the method described on <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/software/pipelines/latest/algorithms/crispr">10x Genomics’ website</a>. Use <code class="docutils literal notranslate"><span class="pre">-p</span></code>
 to set the probability threshold for demulitplexing (default <code class="docutils literal notranslate"><span class="pre">0.9</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    -dm <span class="m">2</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2021-12-27 11:37:31,026 - fba.__main__ - INFO - fba version: 0.0.x</span>

@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -296,21 +283,21 @@ CRISPR perturbations in single cells</a>. <em>Nat. Methods</em> <strong>16</stro
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files from <a class="reference external" href="https://www.ebi.ac.uk/ena/browser/view/PRJNA521522?show=reads">European Nucleotide Archive</a>.</p>
 <p>Hashtag (Cell hashing):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_1.fastq.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_1.fastq.gz
 
-<span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_2.fastq.gz
+<span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/007/SRR8550947/SRR8550947_2.fastq.gz
 </pre></div>
 </div>
 <p>Protein-tag (CITE-seq):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_1.fastq.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_1.fastq.gz
 
-<span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_2.fastq.gz
+<span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/006/SRR8550946/SRR8550946_2.fastq.gz
 </pre></div>
 </div>
 <p>Guide-tag (sgRNAs):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_1.fastq.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_1.fastq.gz
 
-<span class="gp">$ </span>curl -O ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_2.fastq.gz
+<span class="gp">$ </span>curl<span class="w"> </span>-O<span class="w"> </span>ftp://ftp.sra.ebi.ac.uk/vol1/fastq/SRR855/008/SRR8550948/SRR8550948_2.fastq.gz
 </pre></div>
 </div>
 <div class="line-block">
@@ -319,11 +306,11 @@ CRISPR perturbations in single cells</a>. <em>Nat. Methods</em> <strong>16</stro
 <p>Download pre-processed transcriptome matrix from <a class="reference external" href="https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSM3596084">Gene Expression
 Omnibus</a>. We will need the cell-associated barcodes, which are
 determined by the transcriptomes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3596nnn/GSM3596084/suppl/GSM3596084_mx-cDNA.txt.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://ftp.ncbi.nlm.nih.gov/geo/samples/GSM3596nnn/GSM3596084/suppl/GSM3596084_mx-cDNA.txt.gz
 </pre></div>
 </div>
 <p>Inspect cell barcodes:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc GSM3596084_mx-cDNA.txt.gz <span class="p">|</span> head -1 <span class="p">|</span> sed <span class="s1">&#39;s/&quot;//g&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/ /\n/g&#39;</span> <span class="p">|</span> sort <span class="p">|</span> grep -B1 <span class="m">1</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>GSM3596084_mx-cDNA.txt.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/&quot;//g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/ /\n/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-B1<span class="w"> </span><span class="m">1</span>
 
 <span class="go">CAGATCACACGTAAGG</span>
 <span class="go">CAGATCACACGTAAGG.1</span>
@@ -336,9 +323,9 @@ determined by the transcriptomes.</p>
 </pre></div>
 </div>
 <p>It seems there are 3 colliding barcodes. We will use the first ones.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc GSM3596084_mx-cDNA.txt.gz <span class="p">|</span> head -1 <span class="p">|</span> sed <span class="s1">&#39;s/&quot;//g&#39;</span> <span class="p">|</span> sed <span class="s1">&#39;s/ /\n/g&#39;</span> <span class="p">|</span> sort <span class="p">|</span> grep -v <span class="m">1</span> &gt; cell_barcodes.txt
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>GSM3596084_mx-cDNA.txt.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-1<span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/&quot;//g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sed<span class="w"> </span><span class="s1">&#39;s/ /\n/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>cell_barcodes.txt
 
-<span class="gp">$ </span>head cell_barcodes.txt
+<span class="gp">$ </span>head<span class="w"> </span>cell_barcodes.txt
 
 <span class="go">AAACCTGAGTGGTAGC</span>
 <span class="go">AAACCTGAGTGTTTGC</span>
@@ -369,7 +356,7 @@ hashing antibodies (Hashtag-A to Hashtag-G), followed by washing and
 pooling. MyLa, Sez4 and PBMCs were stained with Hashtag_1, Hashtag_2
 and Hashtag_3 respectively.</p>
 </div></blockquote>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_hashtag.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>feature_barcodes_hashtag.tsv
 
 <span class="go">Hashtag_1       ACATGTTACCGT</span>
 <span class="go">Hashtag_2       AGCTTACTATCC</span>
@@ -396,12 +383,12 @@ distribution of matched barcode positions are summarized. Use <code class="docut
 and/or <code class="docutils literal notranslate"><span class="pre">-r2_c</span></code> to limit the search range, and <code class="docutils literal notranslate"><span class="pre">-cb_n</span></code> and/or
 <code class="docutils literal notranslate"><span class="pre">-fb_n</span></code> to set the mismatch tolerance for cell and feature barcode
 matching (default <code class="docutils literal notranslate"><span class="pre">3</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -1 SRR8550947_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550947_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_hashtag.tsv <span class="se">\</span>
-    --output_directory qc
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550947_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550947_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_hashtag.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>qc
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 16:32:43,465 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -445,7 +432,7 @@ barcode positions on read 2).</p>
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
 columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
 format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc qc/feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>qc/feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
 <span class="go">NGACGGCGTGTGACGAACGCGCGCCT      GACGCGTGTGCGAAAC        1:18    0:2:1   ACATGTTACCGTCCCATATAAGAAAAGGCGCGCGTTCGT Hashtag_1_ACATGTTACCGT  0:12    0:0:0</span>
@@ -469,22 +456,22 @@ starting and ending positions of the barcodes. The search range for read
 mismatch (<code class="docutils literal notranslate"><span class="pre">-cb_m</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_m</span></code>) is permitted for the cell and feature
 barcodes. Additionally, three ambiguous nucleotides (Ns) are allowed by
 default for both read 1 and read 2 (<code class="docutils literal notranslate"><span class="pre">-cb_n</span></code>, <code class="docutils literal notranslate"><span class="pre">-cf_n</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
-    -1 SRR8550947_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550947_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_hashtag.tsv <span class="se">\</span>
-    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
-    -r2_c <span class="m">0</span>,12 <span class="se">\</span>
-    -cb_m <span class="m">1</span> <span class="se">\</span>
-    -fb_m <span class="m">1</span> <span class="se">\</span>
-    -cb_n <span class="m">3</span> <span class="se">\</span>
-    -fb_n <span class="m">3</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550947_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550947_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_hashtag.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">0</span>,12<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_n<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_n<span class="w"> </span><span class="m">3</span>
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">NGACGGCGTGTGACGAacgcgcgcct      TGACGGCGTGTGACGA        1       ACATGTTACCGTcccatataagaaaaggcgcgcgttcgt Hashtag_1_ACATGTTACCGT  0</span>
@@ -532,13 +519,13 @@ read 1 set by <code class="docutils literal notranslate"><span class="pre">-us</
 can be specified using <code class="docutils literal notranslate"><span class="pre">-um</span></code> (default <code class="docutils literal notranslate"><span class="pre">1</span></code>).</p>
 <p>The generated feature count matrix can be easily imported into
 well-established single cell analysis packages: <a class="reference external" href="https://satijalab.org/seurat/">Seurat</a> and <a class="reference external" href="https://scanpy.readthedocs.io/en/stable">Scanpy</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
-    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">10</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional
 </pre></div>
 </div>
 <p>Result summary.</p>
@@ -581,11 +568,11 @@ directory (set by <code class="docutils literal notranslate"><span class="pre">-
 means negative, 1 means positive. Use <code class="docutils literal notranslate"><span class="pre">-q</span></code> to set the quantile
 threshold for demulitplexing (Default <code class="docutils literal notranslate"><span class="pre">0.9999</span></code>). Set <code class="docutils literal notranslate"><span class="pre">-v</span></code> to create
 visualization plots.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba demultiplex <span class="se">\</span>
-    -i matrix_featurecount.csv.gz <span class="se">\</span>
-    --output_directory demultiplexed <span class="se">\</span>
-    -dm <span class="m">1</span> <span class="se">\</span>
-    -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>demultiplex<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>demultiplexed<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-dm<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-v
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 16:41:49,871 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -661,7 +648,7 @@ Table 3</a>, legend of <a class="reference external" href="https://www.nature.co
 <div><p>All cells were stained with a mix of anti-human CD29 and anti-mouse
 CD29 antibodies.</p>
 </div></blockquote>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_CD29.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>feature_barcodes_CD29.tsv
 
 <span class="go">hCD29   AATAGCGGAGCC</span>
 <span class="go">mCD29   CGAAGACCAAGA</span>
@@ -670,12 +657,12 @@ CD29 antibodies.</p>
 </section>
 <section id="id3">
 <h3>QC<a class="headerlink" href="#id3" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -1 SRR8550946_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550946_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_CD29.tsv <span class="se">\</span>
-    --output_directory qc
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550946_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550946_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_CD29.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>qc
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 12:29:00,323 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -714,7 +701,7 @@ barcode positions on read 2).</p>
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
 columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
 format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head -20
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-20
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
 <span class="go">NAGCCGATCACGCGGTCTGGTGGGCA      CAGCCGATCACGCGGT        0:16    1:0:0   AATTCCGTCAGATGACCCATATAAGAAATGCCCACCAGA no_match        NA      NA</span>
@@ -741,19 +728,19 @@ format.</p>
 </section>
 <section id="id4">
 <h3>Barcode extraction<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
-    -1 SRR8550946_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550946_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_CD29.tsv <span class="se">\</span>
-    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
-    -r2_c <span class="m">0</span>,12 <span class="se">\</span>
-    -cb_m <span class="m">2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550946_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550946_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_CD29.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">0</span>,12<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Preview of result.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_num_mismatches       read2_seq       feature_barcode fb_num_mismatches</span>
 <span class="go">NCGTCAAGTGCCTGGTgctcctgtat      ACGTCAAGTGCCTGGT        1       CGAAGACCAAGAcccatataagaaaatacaggagcacca mCD29_CGAAGACCAAGA      0</span>
@@ -791,13 +778,13 @@ feature barcodes.</p>
 </section>
 <section id="id5">
 <h3>Matrix generation<a class="headerlink" href="#id5" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
-    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">10</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional
 </pre></div>
 </div>
 <p>Result summary.</p>
@@ -840,7 +827,7 @@ embedding is based on hashtags, not the transcriptomes).</p>
 <h3>Preparation<a class="headerlink" href="#id6" title="Permalink to this heading">#</a></h3>
 <p>Prepare feature barcodes (guide-tag sequences, from <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary Table
 2</a>, <a class="reference external" href="https://www.nature.com/articles/s41592-019-0392-0#MOESM1">Supplementary Figure 1</a>c).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat feature_barcodes_guide-tag.tsv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat<span class="w"> </span>feature_barcodes_guide-tag.tsv
 
 <span class="go">mNT1    CGCGGAGCCGAATACCTCG</span>
 <span class="go">mNT2    CGTCGAACCTCCGTGAAAG</span>
@@ -857,12 +844,12 @@ embedding is based on hashtags, not the transcriptomes).</p>
 </section>
 <section id="id7">
 <h3>QC<a class="headerlink" href="#id7" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -1 SRR8550948_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550948_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_guide-tag.tsv <span class="se">\</span>
-    --output_directory qc
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550948_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550948_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_guide-tag.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>qc
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">2022-01-08 14:39:46,616 - fba.__main__ - INFO - fba version: 0.0.x</span>
@@ -901,7 +888,7 @@ barcode positions on read 2).</p>
 indicate the matched positions on reads. <code class="docutils literal notranslate"><span class="pre">matching_description</span></code>
 columns indicate mismatches in <code class="docutils literal notranslate"><span class="pre">substitutions:insertions:deletions</span></code>
 format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc feature_barcoding_output.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">read1_seq       cell_barcode    cb_matching_pos cb_matching_description read2_seq       feature_barcode fb_matching_pos fb_matching_description</span>
 <span class="go">NTAAGAGGTCTGCAATCTATATGCAA      AGCGGTCCATGCAATC        3:17    1:0:2   TTCTAGCTCTAAAACCCCGTAGACGGTCGAACAATCCCC mNT7_CCCGTAGACGGTCGAACAA        15:34   0:0:0</span>
@@ -918,15 +905,15 @@ format.</p>
 </section>
 <section id="id8">
 <h3>Barcode extraction<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba extract <span class="se">\</span>
-    -1 SRR8550948_1.fastq.gz <span class="se">\</span>
-    -2 SRR8550948_2.fastq.gz <span class="se">\</span>
-    -w cell_barcodes.txt <span class="se">\</span>
-    -f feature_barcodes_guide-tag.tsv <span class="se">\</span>
-    -o feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
-    -r2_c <span class="m">15</span>,34 <span class="se">\</span>
-    -cb_m <span class="m">2</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>extract<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>SRR8550948_1.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SRR8550948_2.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>cell_barcodes.txt<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>feature_barcodes_guide-tag.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">15</span>,34<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">2</span>
 </pre></div>
 </div>
 <p>Result summary.</p>
@@ -956,13 +943,13 @@ and feature barcodes.</p>
 </section>
 <section id="id9">
 <h3>Matrix generation<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba count <span class="se">\</span>
-    -i feature_barcoding_output.tsv.gz <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">10</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>count<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-i<span class="w"> </span>feature_barcoding_output.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional
 </pre></div>
 </div>
 <p>Result summary.</p>

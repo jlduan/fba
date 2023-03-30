@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -315,12 +302,12 @@ barcode matching, set by <code class="docutils literal notranslate"><span class=
 reads to analyze, with <code class="docutils literal notranslate"><span class="pre">None</span></code> indicating that all reads in the fastq
 file should be analyzed. By default, the distribution of detected
 feature barcodes is summarized in <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
-    -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv <span class="se">\</span>
-    -r2_c <span class="m">31</span>,51 <span class="se">\</span>
-    -fb_m <span class="m">1</span> <span class="se">\</span>
-    -n None
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">31</span>,51<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>None
 </pre></div>
 </div>
 <p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>
@@ -394,12 +381,12 @@ details.</p>
 <h3>Threshold: two mismatches<a class="headerlink" href="#threshold-two-mismatches" title="Permalink to this heading">#</a></h3>
 <p>Let’s relax the threshold to allow 2 mismatches for feature barcode
 matching (set by <code class="docutils literal notranslate"><span class="pre">-fb_m</span></code>).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba qc <span class="se">\</span>
-    -2 SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz <span class="se">\</span>
-    -f SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv <span class="se">\</span>
-    -r2_c <span class="m">31</span>,51 <span class="se">\</span>
-    -fb_m <span class="m">2</span> <span class="se">\</span>
-    -n None
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>qc<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>SC3_v3_NextGem_DI_CRISPR_10K_crispr_S1_combined_R2_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>SC3_v3_NextGem_DI_CRISPR_10K_feature_ref_edited.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r2_c<span class="w"> </span><span class="m">31</span>,51<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-fb_m<span class="w"> </span><span class="m">2</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-n<span class="w"> </span>None
 </pre></div>
 </div>
 <p>The content of <code class="docutils literal notranslate"><span class="pre">qc/feature_barcode_frequency.csv</span></code>.</p>

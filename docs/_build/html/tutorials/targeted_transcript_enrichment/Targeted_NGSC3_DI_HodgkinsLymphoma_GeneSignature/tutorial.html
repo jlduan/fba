@@ -49,20 +49,7 @@
       }
     }
   }
-</style>
-
-
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-X0MEL2T23M"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-X0MEL2T23M');
-</script>
-
-</head>
+</style></head>
   <body>
     
     <script>
@@ -292,22 +279,22 @@ Signature Panel</p>
 <section id="preparation">
 <h2>Preparation<a class="headerlink" href="#preparation" title="Permalink to this heading">#</a></h2>
 <p>Download fastq files.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
 
-<span class="gp">$ </span>tar xvf Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
+<span class="gp">$ </span>tar<span class="w"> </span>xvf<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs.tar
 </pre></div>
 </div>
 <p>Download cell barcode info.</p>
 <p>These are the cell-associated barcodes determined in the parent
 <a class="reference external" href="https://support.10xgenomics.com/single-cell-gene-expression/datasets/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma">Hodgkin’s Lymphoma, Dissociated Tumor: Whole Transcriptome Analysis</a>
 dataset.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma/Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Parent_NGSC3_DI_HodgkinsLymphoma/Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
 
-<span class="gp">$ </span>tar zxvf Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
+<span class="gp">$ </span>tar<span class="w"> </span>zxvf<span class="w"> </span>Parent_NGSC3_DI_HodgkinsLymphoma_filtered_feature_bc_matrix.tar.gz
 </pre></div>
 </div>
 <p>Inspect cell barcodes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip -dc filtered_feature_bc_matrix/barcodes.tsv.gz <span class="p">|</span> head
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>gzip<span class="w"> </span>-dc<span class="w"> </span>filtered_feature_bc_matrix/barcodes.tsv.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>head
 
 <span class="go">AAACCCACAGGTTCGC-1</span>
 <span class="go">AAACCCACATCGATCA-1</span>
@@ -336,13 +323,13 @@ possible captured transcribed regions.</p>
 captured transcribed regions. The feature references should only include
 transcribed parts that are non-overlapping and have no introns for
 endogenous genes.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>wget<span class="w"> </span>https://cf.10xgenomics.com/samples/cell-exp/4.0.0/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
 </pre></div>
 </div>
 <p>Inspect feature reference info.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>head<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv
 
-<span class="gp">#</span><span class="nv">panel_name</span><span class="o">=</span>Human Gene Signature Panel
+<span class="gp">#</span><span class="nv">panel_name</span><span class="o">=</span>Human<span class="w"> </span>Gene<span class="w"> </span>Signature<span class="w"> </span>Panel
 <span class="gp">#</span><span class="nv">panel_type</span><span class="o">=</span>predesigned
 <span class="gp">#</span><span class="nv">reference_genome</span><span class="o">=</span>GRCh38
 <span class="gp">#</span><span class="nv">reference_version</span><span class="o">=</span><span class="m">2020</span>-A
@@ -355,13 +342,13 @@ endogenous genes.</p>
 </pre></div>
 </div>
 <p>Re-format.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>grep -v <span class="s1">&#39;#&#39;</span> Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv <span class="p">|</span> wc -l
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;#&#39;</span><span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>wc<span class="w"> </span>-l
 
 <span class="go">53720</span>
 
-<span class="gp">$ </span>cut -d<span class="s1">&#39;,&#39;</span> -f1,2 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv <span class="p">|</span> gsed <span class="s1">&#39;s/,/\t/g&#39;</span> <span class="p">|</span> grep -v <span class="s1">&#39;#&#39;</span> <span class="p">|</span> head -53719 &gt; Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
+<span class="gp">$ </span>cut<span class="w"> </span>-d<span class="s1">&#39;,&#39;</span><span class="w"> </span>-f1,2<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.csv<span class="w"> </span><span class="p">|</span><span class="w"> </span>gsed<span class="w"> </span><span class="s1">&#39;s/,/\t/g&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-v<span class="w"> </span><span class="s1">&#39;#&#39;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>head<span class="w"> </span>-53719<span class="w"> </span>&gt;<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
 
-<span class="gp">$ </span>head Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
+<span class="gp">$ </span>head<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv
 
 <span class="go">ENSG00000000003 AGTTGTGGACGCTCGTAAGTTTTCGGCAGTTTCCGGGGAGACTCGGGGACTCCGCGTCTCGCTCTCTGTGTTCCAATCGCCCGGTGCGGTGGTGCAGGGTCTCGGGCTAGTCATGGCGTC</span>
 <span class="go">ENSG00000000003 CCCGTCTCGGAGACTGCAGACTAAACCAGTCATTACTTGTTTCAAGAGCGTTCTGCTAATCTACACTTTTATTTTCTGGATCACTGGCGTTATCCTTCTTGCAGTTGGCATTTGGGGCAA</span>
@@ -401,21 +388,21 @@ mismatch threshold is set with <code class="docutils literal notranslate"><span 
 <p>Finally, the resulting feature count matrix can be easily imported into
 well-established single cell analysis packages such as <a class="reference external" href="https://satijalab.org/seurat/">Seurat</a> and
 <a class="reference external" href="https://scanpy.readthedocs.io/en/stable/">Scanpy</a>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba map <span class="se">\</span>
-    -1 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R1_001.fastq.gz <span class="se">\</span>
-    -2 Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R2_001.fastq.gz <span class="se">\</span>
-    -w filtered_feature_bc_matrix/barcodes.tsv.gz <span class="se">\</span>
-    -f Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv <span class="se">\</span>
-    -o matrix_featurecount.csv.gz <span class="se">\</span>
-    -r1_c <span class="m">0</span>,16 <span class="se">\</span>
-    -cb_m <span class="m">1</span> <span class="se">\</span>
-    -al bwa <span class="se">\</span>
-    --mapq <span class="m">10</span> <span class="se">\</span>
-    -us <span class="m">16</span> <span class="se">\</span>
-    -ul <span class="m">12</span> <span class="se">\</span>
-    -um <span class="m">1</span> <span class="se">\</span>
-    -ud directional <span class="se">\</span>
-    --output_directory barcode_mapping
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>fba<span class="w"> </span>map<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-1<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R1_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-2<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_fastqs/Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_S1_L003_R2_001.fastq.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-w<span class="w"> </span>filtered_feature_bc_matrix/barcodes.tsv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-f<span class="w"> </span>Targeted_NGSC3_DI_HodgkinsLymphoma_GeneSignature_target_panel.tsv<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-o<span class="w"> </span>matrix_featurecount.csv.gz<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-r1_c<span class="w"> </span><span class="m">0</span>,16<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-cb_m<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-al<span class="w"> </span>bwa<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--mapq<span class="w"> </span><span class="m">10</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-us<span class="w"> </span><span class="m">16</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ul<span class="w"> </span><span class="m">12</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-um<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>-ud<span class="w"> </span>directional<span class="w"> </span><span class="se">\</span>
+<span class="w">    </span>--output_directory<span class="w"> </span>barcode_mapping
 </pre></div>
 </div>
 <p>Result summary.</p>

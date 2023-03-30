@@ -116,7 +116,7 @@ barcode matching (default ``3``).
 This library was constructed using the Chromium Next GEM Single Cell 3ʹ
 Reagent Kits v3.1 (Dual Index) with Feature Barcode technology for
 CRISPR Screening and sequenced on an Illumina NovaSeq 6000. The first 16
-bases of each read represent cell barcodes, and the following 12 bases
+bases of read 1 represent cell barcodes, and the following 12 bases
 represent UMIs. The base content plot indicates that the GC content of
 cell barcodes is evenly distributed. However, there is a slight
 T-enrichment in the UMIs.
@@ -145,11 +145,11 @@ genotypes in the sampled reads.
    :width: 800px
    :align: center
 
-The detailed ``qc`` results are stored in
-``feature_barcoding_output.tsv.gz`` file. ``matching_pos`` columns
-indicate the matched positions on reads. ``matching_description``
-columns indicate mismatches in substitutions:insertions:deletions
-format.
+The detailed ``qc`` results are stored in the
+``feature_barcoding_output.tsv.gz`` file. The ``matching_pos`` columns
+indicate the matched positions on reads, while the
+``matching_description`` columns indicate mismatches in the format of
+substitutions:insertions:deletions.
 
 .. code:: console
 
@@ -185,9 +185,9 @@ lengths equal.
    RAB1A-2 GCCGGCGAACCAGGAAATAG
    NON_TARGET-1    AACGTGCTGACGATGCGGGC
 
-Search ranges are set to ``0,16`` on read 1 and ``31,51`` on read 2. Two
-mismatches for cell and feature barcodes (``-cb_m``, ``-cf_m``) are
-allowed.
+The search ranges for barcode matching are set to ``0,16`` on read 1 and
+``31,51`` on read 2. We allow for two mismatches for both cell and
+feature barcodes using the parameters ``-cb_m`` and ``-cf_m``.
 
 .. code:: console
 
