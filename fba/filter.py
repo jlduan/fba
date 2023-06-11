@@ -90,7 +90,9 @@ def is_matched(
 
     if barcode not in {"no_match", "n_skipping"}:
         matching_pos = [int(i) for i in matching_pos.split(":")]
-        matching_description = [int(i) for i in matching_description.split(":")]
+        matching_description = [
+            int(i) for i in matching_description.split(":")
+        ]
 
         num_mismatches = (
             len(barcode.split("_")[-1])
@@ -99,13 +101,11 @@ def is_matched(
         )
 
         if num_mismatches <= mismatching_threshold:
-
             if (
                 (barcode_pos_start - left_shift)
                 <= matching_pos[0]
                 <= (barcode_pos_start + left_shift)
             ):
-
                 barcode_pos_end = barcode_pos_start + len(
                     barcode.split("_")[-1]
                 )
@@ -115,7 +115,6 @@ def is_matched(
                     <= matching_pos[1]
                     <= (barcode_pos_end + right_shift)
                 ):
-
                     if sequence_regex:
                         if sequence_regex.search(read_seq):
                             return True
@@ -201,7 +200,6 @@ def filter_matching(
                         cell_barcode_passed = False
 
                 if cell_barcode_passed:
-
                     if fb_extra_seq and fb_extra_seq_num_mismatches:
                         feature_barcode_sequence_regex = (
                             compile_regex_ref_barcodes_single(

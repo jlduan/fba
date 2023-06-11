@@ -80,7 +80,6 @@ def create_index(barcodes, num_mismatches=1):
 
     d = dict()
     for bc in barcodes:
-
         for key in indexkeys(bc, num_mismatches):
             bkey = key.encode()
             barcode_set = {bc}
@@ -341,7 +340,8 @@ def extract_feature_barcoding_fastss(
 
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_") for i in f
+            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_")
+            for i in f
         }
 
     logger.info(f"Number of reference cell barcodes: {len(cell_barcodes):,}")
@@ -382,7 +382,6 @@ def extract_feature_barcoding_fastss(
     with dnaio.open(
         file1=read1_file, file2=read2_file, fileformat="fastq", mode="r"
     ) as f:
-
         read_counter = [int(), int()]
         for rec in f:
             read1, read2 = rec

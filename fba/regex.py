@@ -328,7 +328,6 @@ def extract_feature_barcoding_regex(
         with dnaio.open(
             file1=read1_file, file2=read2_file, fileformat="fastq", mode="r"
         ) as f:
-
             for rec in f:
                 read1, read2 = rec
 
@@ -398,7 +397,6 @@ def extract_feature_barcoding_regex(
     read_counter = int()
     if num_threads == 1:
         for r1, r2, read1_seq, read2_seq in _reads:
-
             read_counter += 1
             if read_counter % chunk_size == 0:
                 logger.info(f"Read pairs processed: {read_counter:,}")

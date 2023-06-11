@@ -205,7 +205,12 @@ def generate_unaligned_bam(
         "SM": "null",
     }
 
-    pg = {"ID": "fba", "PN": "fba", "VN": __version__, "CL": " ".join(sys.argv)}
+    pg = {
+        "ID": "fba",
+        "PN": "fba",
+        "VN": __version__,
+        "CL": " ".join(sys.argv),
+    }
 
     fb_bam_header = {
         "HD": {"VN": "1.6"},
@@ -220,7 +225,6 @@ def generate_unaligned_bam(
         with dnaio.open(
             read1_file, read2_file, fileformat="fastq", mode="r"
         ) as f:
-
             for rec in f:
                 read1, read2 = rec
 
@@ -230,7 +234,6 @@ def generate_unaligned_bam(
     with pysam.AlignmentFile(
         unaligned_bam_file, "wb", header=fb_bam_header
     ) as outf:
-
         for i in _get_sequence(read1_file, read2_file):
             read_counter[1] += 1
 
@@ -273,7 +276,6 @@ def generate_modified_fastq(
     ) as f, dnaio.open(
         modified_read_file, fileformat="fastq", mode="w"
     ) as f_out:
-
         for rec in f:
             read_counter[1] += 1
 
@@ -473,16 +475,13 @@ def generate_matrix_from_alignment(
 
     matrix_featurecount = defaultdict(dict)
     with pysam.AlignmentFile(alignment_file, mode="rb") as f:
-
         references = f.references
 
         for i in references:
             matrix_featurecount[i] = defaultdict(dict)
 
             for aln in f.fetch(i):
-
                 if aln.mapping_quality >= mapq:
-
                     if aln.has_tag("RI"):
                         read1_seq, cell_barcode, _ = aln.get_tag("RI").split(
                             "#"
