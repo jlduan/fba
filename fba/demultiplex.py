@@ -61,7 +61,7 @@ def cluster_kmedoids(m, normalization_method='clr', seed=42):
             low=0,
             high=m.shape[1],
             size=m.shape[0] + 1,
-            dtype=np.int),
+            dtype=np.int64),
         tolerance=0.001,
         ccore=True)
 
@@ -134,7 +134,7 @@ def demultiplex_nb(m,
     m_feature_avg = pd.DataFrame(
         data=np.zeros(
             shape=[m.shape[0], len(c)],
-            dtype=np.float, order='C'),
+            dtype=np.float64, order='C'),
         index=m.index
     )
 

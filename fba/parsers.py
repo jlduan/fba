@@ -18,7 +18,6 @@ def coords(s):
 
 
 def parse_args(args=sys.argv[1:]):
-
     # create top-level parser
     parser = argparse.ArgumentParser(
         formatter_class=argparse.RawDescriptionHelpFormatter,
@@ -30,9 +29,7 @@ def parse_args(args=sys.argv[1:]):
     )
 
     # create sub-level parser
-    subparsers = parser.add_subparsers(
-        title="functions", dest="command", metavar=""
-    )
+    subparsers = parser.add_subparsers(title="functions", dest="command", metavar="")
 
     add_extract_subparser(subparsers)
     add_map_subparser(subparsers)
@@ -450,8 +447,7 @@ def add_filter_subparser(subparsers):
         type=int,
         default=0,
         help=(
-            "specify expected cell barcode starting postion on read 1. "
-            "Default (0)"
+            "specify expected cell barcode starting postion on read 1. " "Default (0)"
         ),
     )
 
@@ -473,8 +469,7 @@ def add_filter_subparser(subparsers):
         type=int,
         default=1,
         help=(
-            "specify the maximum left shift allowed for cell barcode. "
-            "Default (1)"
+            "specify the maximum left shift allowed for cell barcode. " "Default (1)"
         ),
     )
 
@@ -486,8 +481,7 @@ def add_filter_subparser(subparsers):
         type=int,
         default=1,
         help=(
-            "specify the maximum right shift allowed for cell barcode. "
-            "Default (1)"
+            "specify the maximum right shift allowed for cell barcode. " "Default (1)"
         ),
     )
 
@@ -499,8 +493,7 @@ def add_filter_subparser(subparsers):
         type=str,
         default=None,
         help=(
-            "specify an extra constant sequence to filter on read 1. "
-            "Default (None)"
+            "specify an extra constant sequence to filter on read 1. " "Default (None)"
         ),
     )
 
@@ -549,8 +542,7 @@ def add_filter_subparser(subparsers):
         type=int,
         default=1,
         help=(
-            "specify the maximum left shift allowed for feature barcode. "
-            "Default (1)"
+            "specify the maximum left shift allowed for feature barcode. " "Default (1)"
         ),
     )
 
@@ -575,8 +567,7 @@ def add_filter_subparser(subparsers):
         type=str,
         default=None,
         help=(
-            "specify an extra constant sequence to filter on read 2. "
-            "Default (None)"
+            "specify an extra constant sequence to filter on read 2. " "Default (None)"
         ),
     )
 
@@ -719,10 +710,7 @@ def add_demultiplex_subparser(subparsers):
         dest="input",
         required=True,
         type=str,
-        help=(
-            "specify an input file (feature count matrix). "
-            "The output of `count`"
-        ),
+        help=("specify an input file (feature count matrix). " "The output of `count`"),
     )
 
     parser.add_argument(
@@ -742,8 +730,7 @@ def add_demultiplex_subparser(subparsers):
         default=1,
         choices=[1],
         help=(
-            "specify demultiplexing method. '1': Stoeckius et al. 2018. "
-            "Default (1)"
+            "specify demultiplexing method. '1': Stoeckius et al. 2018. " "Default (1)"
         ),
     )
 
@@ -1088,10 +1075,7 @@ def add_kallisto_subparser(subparsers):
         required=False,
         type=int,
         default=1,
-        help=(
-            "specify number of kallisto/bustools threads to launch. "
-            "Default (1)"
-        ),
+        help=("specify number of kallisto/bustools threads to launch. " "Default (1)"),
     )
 
     parser.add_argument(

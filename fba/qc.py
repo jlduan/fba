@@ -181,25 +181,17 @@ def summarize_sequence_content(
 
     # read1
     Path(output_directory).mkdir(exist_ok=True)
-    R1_ACGT_PLOT = (
-        Path(output_directory) / "Pyplot_read1_per_base_seq_content.pdf"
-    )
+    R1_ACGT_PLOT = Path(output_directory) / "Pyplot_read1_per_base_seq_content.pdf"
     R1_ACGT_PLOT_GREY = (
         Path(output_directory) / "Pyplot_read1_per_base_seq_content_grey.pdf"
     )
-    R1_N_PLOT = (
-        Path(output_directory) / "Pyplot_read1_per_base_seq_content_n.pdf"
-    )
+    R1_N_PLOT = Path(output_directory) / "Pyplot_read1_per_base_seq_content_n.pdf"
     # read2
-    R2_ACGT_PLOT = (
-        Path(output_directory) / "Pyplot_read2_per_base_seq_content.pdf"
-    )
+    R2_ACGT_PLOT = Path(output_directory) / "Pyplot_read2_per_base_seq_content.pdf"
     R2_ACGT_PLOT_GREY = (
         Path(output_directory) / "Pyplot_read2_per_base_seq_content_grey.pdf"
     )
-    R2_N_PLOT = (
-        Path(output_directory) / "Pyplot_read2_per_base_seq_content_n.pdf"
-    )
+    R2_N_PLOT = Path(output_directory) / "Pyplot_read2_per_base_seq_content_n.pdf"
 
     read1_matrix = []
     read2_matrix = []
@@ -241,12 +233,8 @@ def summarize_sequence_content(
     read1_matrix = np.array([list(i) for i in read1_matrix])
     read2_matrix = np.array([list(i) for i in read2_matrix])
 
-    read1_count_per_base = read1_matrix.shape[0] - (read1_matrix == "Z").sum(
-        axis=0
-    )
-    read2_count_per_base = read2_matrix.shape[0] - (read2_matrix == "Z").sum(
-        axis=0
-    )
+    read1_count_per_base = read1_matrix.shape[0] - (read1_matrix == "Z").sum(axis=0)
+    read2_count_per_base = read2_matrix.shape[0] - (read2_matrix == "Z").sum(axis=0)
 
     read1_composition = pd.DataFrame(
         data={
@@ -329,31 +317,21 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
 
     # read1
     Path(output_directory).mkdir(exist_ok=True)
-    R1_BC_STARTING_FILE = (
-        Path(output_directory) / "Read1_barcodes_starting.csv"
-    )
+    R1_BC_STARTING_FILE = Path(output_directory) / "Read1_barcodes_starting.csv"
     R1_BC_ENDING_FILE = Path(output_directory) / "Read1_barcodes_ending.csv"
     R1_BC_STARTING_ENDING_PLOT = (
         Path(output_directory) / "Pyplot_read1_barcodes_starting_ending.pdf"
     )
     # read2
-    R2_BC_STARTING_FILE = (
-        Path(output_directory) / "Read2_barcodes_starting.csv"
-    )
+    R2_BC_STARTING_FILE = Path(output_directory) / "Read2_barcodes_starting.csv"
     R2_BC_ENDING_FILE = Path(output_directory) / "Read2_barcodes_ending.csv"
     R2_BC_STARTING_ENDING_PLOT = (
         Path(output_directory) / "Pyplot_read2_barcodes_starting_ending.pdf"
     )
     # summary
-    CB_MISMATCHES_FILE = (
-        Path(output_directory) / "Read1_barcodes_mismatches.csv"
-    )
-    FB_MISMATCHES_FILE = (
-        Path(output_directory) / "Read2_barcodes_mismatches.csv"
-    )
-    MATCHED_BC_RATIO_FILE = (
-        Path(output_directory) / "matched_barcode_ratio.csv"
-    )
+    CB_MISMATCHES_FILE = Path(output_directory) / "Read1_barcodes_mismatches.csv"
+    FB_MISMATCHES_FILE = Path(output_directory) / "Read2_barcodes_mismatches.csv"
+    MATCHED_BC_RATIO_FILE = Path(output_directory) / "matched_barcode_ratio.csv"
 
     #
     with open_by_suffix(file_name=matching_file) as f:
@@ -386,9 +364,7 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
                 cb_matching_pos.append(i[2])
                 _ = [int(ii) for ii in i[2].split(":")]
                 cb_mismatches.append(
-                    len(i[1])
-                    - (_[1] - _[0])
-                    + sum([int(ii) for ii in i[3].split(":")])
+                    len(i[1]) - (_[1] - _[0]) + sum([int(ii) for ii in i[3].split(":")])
                 )
                 fb_matching_pos.append(i[6])
                 _ = [int(ii) for ii in i[6].split(":")]
@@ -446,9 +422,7 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
     cb_end_dist.index.name = "base"
     cb_end_dist.to_csv(R1_BC_ENDING_FILE)
 
-    fig, ax = plt.subplots(
-        nrows=1, ncols=1, figsize=(max(2.8, read1_length / 15), 2.5)
-    )
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(max(2.8, read1_length / 15), 2.5))
     plot_barcode_startend(
         s=cb_start_dist["count"] / sum(cb_start_dist["count"]),
         e=cb_end_dist["count"] / sum(cb_end_dist["count"]),
@@ -457,9 +431,7 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
         ax=ax,
     )
     plt.tight_layout()
-    fig.savefig(
-        fname=R1_BC_STARTING_ENDING_PLOT, transparent=None, bbox_inches="tight"
-    )
+    fig.savefig(fname=R1_BC_STARTING_ENDING_PLOT, transparent=None, bbox_inches="tight")
 
     # feature barcode
     _summarize_num_mismatches(fb_mismatches, FB_MISMATCHES_FILE)
@@ -488,9 +460,7 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
     fb_end_dist.index.name = "base"
     fb_end_dist.to_csv(R2_BC_ENDING_FILE)
 
-    fig, ax = plt.subplots(
-        nrows=1, ncols=1, figsize=(max(2.8, read2_length / 15), 2.5)
-    )
+    fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(max(2.8, read2_length / 15), 2.5))
     plot_barcode_startend(
         s=fb_start_dist["count"] / sum(fb_start_dist["count"]),
         e=fb_end_dist["count"] / sum(fb_end_dist["count"]),
@@ -499,9 +469,7 @@ def summarize_barcode_positions(matching_file, output_directory="qc"):
         ax=ax,
     )
     plt.tight_layout()
-    fig.savefig(
-        fname=R2_BC_STARTING_ENDING_PLOT, transparent=None, bbox_inches="tight"
-    )
+    fig.savefig(fname=R2_BC_STARTING_ENDING_PLOT, transparent=None, bbox_inches="tight")
 
     return output_directory
 
@@ -539,8 +507,7 @@ def analyze_bulk(
 
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_")
-            for i in f
+            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_") for i in f
         }
     fb_index = create_index(
         barcodes=feature_barcodes.keys(), num_mismatches=num_mismatches
@@ -548,8 +515,7 @@ def analyze_bulk(
     feature_barcode_count = {i: int() for i in feature_barcodes}
 
     logger.info(
-        "Number of reference feature barcodes: "
-        f"{len(feature_barcode_count):,}"
+        "Number of reference feature barcodes: " f"{len(feature_barcode_count):,}"
     )
 
     logger.info(
@@ -558,9 +524,7 @@ def analyze_bulk(
         + ")"
     )
 
-    logger.info(
-        f"Feature barcode maximum number of mismatches: {num_mismatches}"
-    )
+    logger.info(f"Feature barcode maximum number of mismatches: {num_mismatches}")
     logger.info(f"Read 2 maximum number of N allowed: {num_n_threshold}")
 
     if num_reads:
@@ -571,9 +535,7 @@ def analyze_bulk(
     def _get_sequence(read_file):
         """Gets sequences."""
 
-        with dnaio.open(
-            file1=read_file, file2=None, fileformat="fastq", mode="r"
-        ) as f:
+        with dnaio.open(file1=read_file, file2=None, fileformat="fastq", mode="r") as f:
             for read in f:
                 yield read.sequence, read.qualities
 
@@ -597,15 +559,12 @@ def analyze_bulk(
                 num_mismatches=num_mismatches,
             )
 
-            fb_matched = select_query(
-                fb_queries, read_seq[x2:y2], read_qual[x2:y2]
-            )
+            fb_matched = select_query(fb_queries, read_seq[x2:y2], read_qual[x2:y2])
             if fb_matched:
                 feature_barcode_count[fb_matched[0]] += 1
 
     feature_barcode_count = {
-        feature_barcodes[i]: feature_barcode_count[i]
-        for i in feature_barcode_count
+        feature_barcodes[i]: feature_barcode_count[i] for i in feature_barcode_count
     }
 
     logger.info(f"Number of reads processed: {read_count:,}")

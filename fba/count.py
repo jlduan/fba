@@ -77,9 +77,7 @@ def generate_matrix(
     if umi_length:
         if len(header) == 6:
             if umi_pos_start:
-                logger.info(
-                    f"UMI starting position on read 1: {umi_pos_start}"
-                )
+                logger.info(f"UMI starting position on read 1: {umi_pos_start}")
             else:
                 logger.critical(
                     "Need to specify UMI starting position on read 1: "
@@ -95,12 +93,9 @@ def generate_matrix(
         logger.info(f"UMI length: {umi_length}")
 
         logger.info(
-            "UMI-tools deduplication threshold: "
-            f"{umi_deduplication_threshold}"
+            "UMI-tools deduplication threshold: " f"{umi_deduplication_threshold}"
         )
-        logger.info(
-            "UMI-tools deduplication method: " f"{umi_deduplication_method}"
-        )
+        logger.info("UMI-tools deduplication method: " f"{umi_deduplication_method}")
 
     else:
         logger.info(
@@ -130,31 +125,17 @@ def generate_matrix(
                 if umi_length:
                     umi_pos_end = umi_pos_start + umi_length
                     if len(read_seq) >= umi_pos_end:
-                        umi_seq = (
-                            read_seq[umi_pos_start:umi_pos_end]
-                            .upper()
-                            .encode()
+                        umi_seq = read_seq[umi_pos_start:umi_pos_end].upper().encode()
+
+                        if feature_barcode not in matrix_featurecount[cell_barcode]:
+                            matrix_featurecount[cell_barcode][feature_barcode] = list()
+
+                        matrix_featurecount[cell_barcode][feature_barcode].append(
+                            umi_seq
                         )
-
-                        if (
-                            feature_barcode
-                            not in matrix_featurecount[cell_barcode]
-                        ):
-                            matrix_featurecount[cell_barcode][
-                                feature_barcode
-                            ] = list()
-
-                        matrix_featurecount[cell_barcode][
-                            feature_barcode
-                        ].append(umi_seq)
                 else:
-                    if (
-                        feature_barcode
-                        not in matrix_featurecount[cell_barcode]
-                    ):
-                        matrix_featurecount[cell_barcode][
-                            feature_barcode
-                        ] = int()
+                    if feature_barcode not in matrix_featurecount[cell_barcode]:
+                        matrix_featurecount[cell_barcode][feature_barcode] = int()
                     matrix_featurecount[cell_barcode][feature_barcode] += 1
 
     logger.info(f"Number of read pairs processed: {line_count:,}")
@@ -194,9 +175,7 @@ def generate_matrix(
         i: [matrix_featurecount[i][ii] for ii in feature_barcodes]
         for i in cell_barcodes
     }
-    matrix_featurecount = pd.DataFrame.from_dict(
-        matrix_featurecount, orient="columns"
-    )
+    matrix_featurecount = pd.DataFrame.from_dict(matrix_featurecount, orient="columns")
     matrix_featurecount.index = feature_barcodes
 
     if barcode_reverse_complement:
@@ -206,8 +185,7 @@ def generate_matrix(
 
     if umi_length:
         logger.info(
-            "Total UMIs after deduplication: "
-            f"{matrix_featurecount.values.sum():,}"
+            "Total UMIs after deduplication: " f"{matrix_featurecount.values.sum():,}"
         )
         logger.info(
             "Median number of UMIs per cell: "
