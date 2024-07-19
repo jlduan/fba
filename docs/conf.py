@@ -138,7 +138,9 @@ copybutton_line_continuation_character = "\\"
 # Generate OpenGraph metadata
 # https://github.com/wpilibsuite/sphinxext-opengraph
 ogp_site_url = "https://jlduan.github.io/fba/_build/html/index.html"
-ogp_image = "https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg"
+ogp_image = (
+    "https://raw.githubusercontent.com/jlduan/fba/gh-pages/docs/_static/logo.svg"
+)
 ogp_description_length = 300
 ogp_type = "website"
 ogp_custom_meta_tags = [
