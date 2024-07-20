@@ -90,9 +90,7 @@ def is_matched(
 
     if barcode not in {"no_match", "n_skipping"}:
         matching_pos = [int(i) for i in matching_pos.split(":")]
-        matching_description = [
-            int(i) for i in matching_description.split(":")
-        ]
+        matching_description = [int(i) for i in matching_description.split(":")]
 
         num_mismatches = (
             len(barcode.split("_")[-1])
@@ -106,9 +104,7 @@ def is_matched(
                 <= matching_pos[0]
                 <= (barcode_pos_start + left_shift)
             ):
-                barcode_pos_end = barcode_pos_start + len(
-                    barcode.split("_")[-1]
-                )
+                barcode_pos_end = barcode_pos_start + len(barcode.split("_")[-1])
 
                 if (
                     (barcode_pos_end - right_shift)
@@ -143,14 +139,9 @@ def filter_matching(
     with open_by_suffix(file_name=matching_file) as f:
         header_line = next(f).rstrip().split("\t")
         logger.info("Header line: {}".format(" ".join(header_line)))
+        logger.info(f"Cell barcode maximum number of mismatches: {cb_num_mismatches}")
         logger.info(
-            f"Cell barcode maximum number of mismatches: {cb_num_mismatches}"
-        )
-        logger.info(
-            (
-                "Feature barcode maximum number of mismatches: "
-                + f"{fb_num_mismatches}"
-            )
+            ("Feature barcode maximum number of mismatches: " + f"{fb_num_mismatches}")
         )
 
         with open_by_suffix(file_name=filtered_matching_file, mode="w") as fo:
@@ -174,11 +165,9 @@ def filter_matching(
 
                 i = line.rstrip().split("\t")
                 if cb_extra_seq and cb_extra_seq_num_mismatches:
-                    cell_barcode_sequence_regex = (
-                        compile_regex_ref_barcodes_single(
-                            cb_extra_seq,
-                            num_mismatches=cb_extra_seq_num_mismatches,
-                        )
+                    cell_barcode_sequence_regex = compile_regex_ref_barcodes_single(
+                        cb_extra_seq,
+                        num_mismatches=cb_extra_seq_num_mismatches,
                     )
                 else:
                     cell_barcode_sequence_regex = None

@@ -79,9 +79,7 @@ def match_cell_barcodes(
             num_mismatches=num_mismatches,
         )
 
-        cb_matched = select_query(
-            cb_queries, read1_seq[x1:y1], read1_qual[x1:y1]
-        )
+        cb_matched = select_query(cb_queries, read1_seq[x1:y1], read1_qual[x1:y1])
         if cb_matched:
             bc, dist = cb_matched
 
@@ -178,9 +176,7 @@ def generate_unaligned_bam(
         i.rstrip().split("-")[0] for i in open_by_suffix(cb_file, mode="r")
     ]
 
-    cb_index = create_index(
-        barcodes=cell_barcodes, num_mismatches=num_mismatches
-    )
+    cb_index = create_index(barcodes=cell_barcodes, num_mismatches=num_mismatches)
 
     # create bam header
     feature_barcodes = dict()
@@ -222,18 +218,14 @@ def generate_unaligned_bam(
     def _get_sequence(read1_file, read2_file):
         """Gets sequences and qualities."""
 
-        with dnaio.open(
-            read1_file, read2_file, fileformat="fastq", mode="r"
-        ) as f:
+        with dnaio.open(read1_file, read2_file, fileformat="fastq", mode="r") as f:
             for rec in f:
                 read1, read2 = rec
 
                 yield read1.name, read1.sequence, read1.qualities, read2.sequence, read2.qualities
 
     read_counter = [int(), int()]
-    with pysam.AlignmentFile(
-        unaligned_bam_file, "wb", header=fb_bam_header
-    ) as outf:
+    with pysam.AlignmentFile(unaligned_bam_file, "wb", header=fb_bam_header) as outf:
         for i in _get_sequence(read1_file, read2_file):
             read_counter[1] += 1
 
@@ -266,16 +258,12 @@ def generate_modified_fastq(
         i.rstrip().split("-")[0] for i in open_by_suffix(cb_file, mode="r")
     ]
 
-    cb_index = create_index(
-        barcodes=cell_barcodes, num_mismatches=num_mismatches
-    )
+    cb_index = create_index(barcodes=cell_barcodes, num_mismatches=num_mismatches)
 
     read_counter = [int(), int()]
     with dnaio.open(
         read1_file, read2_file, fileformat="fastq", mode="r"
-    ) as f, dnaio.open(
-        modified_read_file, fileformat="fastq", mode="w"
-    ) as f_out:
+    ) as f, dnaio.open(modified_read_file, fileformat="fastq", mode="w") as f_out:
         for rec in f:
             read_counter[1] += 1
 
@@ -300,9 +288,7 @@ def generate_modified_fastq(
                 read_name, read1_seq, _, read2_seq, read2_qual, bc, dist = out
                 read_info = "#".join([read1_seq, bc, str(dist)])
 
-                read_name = " ".join(
-                    [read_name.split(" ")[0], "RI:Z:" + read_info]
-                )
+                read_name = " ".join([read_name.split(" ")[0], "RI:Z:" + read_info])
 
                 s2 = dnaio.Sequence(read_name, read2_seq, read2_qual)
                 f_out.write(s2)
@@ -374,9 +360,7 @@ def align_reads_bowtie2(
 ):
     """Aligns unaligned bam file."""
 
-    bowtie2_align_parameter = (
-        "--preserve-tags -D 20 -R 3 -N 1 -L 15 -i S,1,0.50"
-    )
+    bowtie2_align_parameter = "--preserve-tags -D 20 -R 3 -N 1 -L 15 -i S,1,0.50"
 
     bowtie2_align_parameter = " ".join(
         ["-p", str(num_threads), bowtie2_align_parameter]
@@ -483,9 +467,7 @@ def generate_matrix_from_alignment(
             for aln in f.fetch(i):
                 if aln.mapping_quality >= mapq:
                     if aln.has_tag("RI"):
-                        read1_seq, cell_barcode, _ = aln.get_tag("RI").split(
-                            "#"
-                        )
+                        read1_seq, cell_barcode, _ = aln.get_tag("RI").split("#")
                     else:
                         cell_barcode = aln.get_tag("CB")
                         read1_seq = aln.get_tag("R1")
@@ -505,9 +487,7 @@ def generate_matrix_from_alignment(
             for ii in matrix_featurecount[i]:
                 umis = matrix_featurecount[i][ii]
                 matrix_featurecount[i][ii] = len(
-                    clusterer(
-                        Counter(umis), threshold=umi_deduplication_threshold
-                    )
+                    clusterer(Counter(umis), threshold=umi_deduplication_threshold)
                 )
     # cell_barcodes = sorted(set([j for i in matrix_featurecount
     #                             for j in matrix_featurecount[i].keys()]))
@@ -621,9 +601,7 @@ def map_feature_barcoding(
         )
 
     logger.info(f"number of read pairs processed: {read_counter[1]:,}")
-    logger.info(
-        "Number of read pairs w/ valid cell barcodes: " f"{read_counter[0]:,}"
-    )
+    logger.info("Number of read pairs w/ valid cell barcodes: " f"{read_counter[0]:,}")
 
     num_fb = len(set([i.split("\t")[0] for i in open_by_suffix(fb_file)]))
     logger.info(f"Number of reference features: {num_fb:,}")
@@ -663,12 +641,8 @@ def map_feature_barcoding(
 
     logger.info(f"UMI starting position on read 1: {umi_pos_start}")
     logger.info(f"UMI length: {umi_length}")
-    logger.info(
-        "UMI-tools deduplication threshold: " f"{umi_deduplication_threshold}"
-    )
-    logger.info(
-        "UMI-tools deduplication method: " f"{umi_deduplication_method}"
-    )
+    logger.info("UMI-tools deduplication threshold: " f"{umi_deduplication_threshold}")
+    logger.info("UMI-tools deduplication method: " f"{umi_deduplication_method}")
 
     matrix_featurecount = generate_matrix_from_alignment(
         alignment_file=alignment_file,
@@ -678,16 +652,11 @@ def map_feature_barcoding(
         umi_deduplication_threshold=umi_deduplication_threshold,
     )
 
-    logger.info(
-        f"Number of cell barcodes detected: {matrix_featurecount.shape[1]:,}"
-    )
-    logger.info(
-        f"Number of features detected: {matrix_featurecount.shape[0]:,}"
-    )
+    logger.info(f"Number of cell barcodes detected: {matrix_featurecount.shape[1]:,}")
+    logger.info(f"Number of features detected: {matrix_featurecount.shape[0]:,}")
 
     logger.info(
-        "Total UMIs after deduplication: "
-        f"{matrix_featurecount.values.sum():,}"
+        "Total UMIs after deduplication: " f"{matrix_featurecount.values.sum():,}"
     )
     logger.info(
         "Median number of UMIs per cell: "

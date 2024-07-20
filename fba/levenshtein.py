@@ -291,9 +291,7 @@ def match_barcodes_paired_fastss(
             num_mismatches=cb_num_mismatches,
         )
 
-        cb_matched = select_query(
-            cb_queries, read1_seq[x1:y1], read1_qual[x1:y1]
-        )
+        cb_matched = select_query(cb_queries, read1_seq[x1:y1], read1_qual[x1:y1])
 
         if cb_matched and read2_seq.count("N") <= fb_num_n_threshold:
             x2, y2 = read2_coords
@@ -304,9 +302,7 @@ def match_barcodes_paired_fastss(
                 num_mismatches=fb_num_mismatches,
             )
 
-            fb_matched = select_query(
-                fb_queries, read2_seq[x2:y2], read2_qual[x2:y2]
-            )
+            fb_matched = select_query(fb_queries, read2_seq[x2:y2], read2_qual[x2:y2])
             if fb_matched:
                 out = format_one_query(
                     cb_matched, read1_seq, read1_coords
@@ -340,14 +336,11 @@ def extract_feature_barcoding_fastss(
 
     with open_by_suffix(file_name=fb_file) as f:
         feature_barcodes = {
-            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_")
-            for i in f
+            i.rstrip().split("\t")[-1]: i.rstrip().replace("\t", "_") for i in f
         }
 
     logger.info(f"Number of reference cell barcodes: {len(cell_barcodes):,}")
-    logger.info(
-        f"Number of reference feature barcodes: {len(feature_barcodes):,}"
-    )
+    logger.info(f"Number of reference feature barcodes: {len(feature_barcodes):,}")
 
     logger.info(
         "Read 1 coordinates to search: ["
@@ -360,18 +353,12 @@ def extract_feature_barcoding_fastss(
         + ")"
     )
 
-    logger.info(
-        f"Cell barcode maximum number of mismatches: {cb_num_mismatches}"
-    )
-    logger.info(
-        f"Feature barcode maximum number of mismatches: {fb_num_mismatches}"
-    )
+    logger.info(f"Cell barcode maximum number of mismatches: {cb_num_mismatches}")
+    logger.info(f"Feature barcode maximum number of mismatches: {fb_num_mismatches}")
     logger.info(f"Read 1 maximum number of N allowed: {cb_num_n_threshold}")
     logger.info(f"Read 2 maximum number of N allowed: {fb_num_n_threshold}")
 
-    cb_index = create_index(
-        barcodes=cell_barcodes, num_mismatches=cb_num_mismatches
-    )
+    cb_index = create_index(barcodes=cell_barcodes, num_mismatches=cb_num_mismatches)
 
     fb_index = create_index(
         barcodes=feature_barcodes.keys(), num_mismatches=fb_num_mismatches
